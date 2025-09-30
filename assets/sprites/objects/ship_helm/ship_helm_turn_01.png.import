@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://su1n1v38j582"
-path="res://.godot/imported/ship_helm_turn_01.png-2dd50a0b8717eef30792df25c96159c8.ctex"
+path="res://.godot/imported/ship_helm_turn_01.png-0525863e5c9a4cf4d921a28ab0b71665.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/island/objects/ship_helm/ship_helm_turn_01.png"
-dest_files=["res://.godot/imported/ship_helm_turn_01.png-2dd50a0b8717eef30792df25c96159c8.ctex"]
+source_file="res://assets/sprites/objects/ship_helm/ship_helm_turn_01.png"
+dest_files=["res://.godot/imported/ship_helm_turn_01.png-0525863e5c9a4cf4d921a28ab0b71665.ctex"]
 
 [params]
 
