@@ -1,22 +1,93 @@
-[gd_scene load_steps=17 format=3 uid="uid://chcs4qer8dybe"]
+[gd_scene load_steps=41 format=3 uid="uid://chcs4qer8dybe"]
 
 [ext_resource type="Script" uid="uid://d00o3jgu015v4" path="res://scripts/player/player.gd" id="1_ugbui"]
 [ext_resource type="Texture2D" uid="uid://cwgjo8l0lmemi" path="res://assets/sprites/characters/foxy/fox/fox_idle_1.png" id="2_5gtgg"]
+[ext_resource type="Texture2D" uid="uid://cs1jhjrfppan1" path="res://assets/sprites/characters/foxy/fox_blade/fox_jump_2.png" id="2_iqsei"]
 [ext_resource type="Texture2D" uid="uid://cdiupfoo5xr6u" path="res://assets/sprites/characters/foxy/fox/fox_idle_2.png" id="3_h17s1"]
+[ext_resource type="Texture2D" uid="uid://c3k7842sg3rwa" path="res://assets/sprites/characters/foxy/fox_blade/fox_idle_1.png" id="3_tffgl"]
+[ext_resource type="Texture2D" uid="uid://6gko14qsmmw4" path="res://assets/sprites/characters/foxy/fox_hat/fox_jump_2.png" id="3_yj68g"]
+[ext_resource type="Texture2D" uid="uid://b2iyrbygs0b7c" path="res://assets/sprites/characters/foxy/fox_hat/fox_idle_1.png" id="4_ioxgp"]
 [ext_resource type="Texture2D" uid="uid://bunb4hruykt3x" path="res://assets/sprites/characters/foxy/fox/fox_jump_1.png" id="4_je7p5"]
+[ext_resource type="Texture2D" uid="uid://dw4fq8i3e2cwx" path="res://assets/sprites/characters/foxy/fox_blade/fox_idle_2.png" id="4_pk8ii"]
+[ext_resource type="Texture2D" uid="uid://4dsxiqa0hyk2" path="res://assets/sprites/characters/foxy/fox_blade/fox_jump_1.png" id="5_5mf0n"]
+[ext_resource type="Texture2D" uid="uid://c8uke6n7xj17g" path="res://assets/sprites/characters/foxy/fox_hat/fox_idle_2.png" id="5_cnsyf"]
 [ext_resource type="Texture2D" uid="uid://dowo3wvh7rdu1" path="res://assets/sprites/characters/foxy/fox/fox_jump_2.png" id="5_fm80t"]
+[ext_resource type="Texture2D" uid="uid://kon6uno2dy0g" path="res://assets/sprites/characters/foxy/fox_blade/fox_walk_1.png" id="6_4hvnv"]
+[ext_resource type="Texture2D" uid="uid://b7ko4rnci3koo" path="res://assets/sprites/characters/foxy/fox_hat/fox_jump_1.png" id="6_007i1"]
 [ext_resource type="Texture2D" uid="uid://ddf11anrulx6e" path="res://assets/sprites/characters/foxy/fox/fox_walk_1.png" id="6_gx1jg"]
+[ext_resource type="Texture2D" uid="uid://cseha0dkj5lfj" path="res://assets/sprites/characters/foxy/fox_hat/fox_walk_1.png" id="7_6cv16"]
+[ext_resource type="Texture2D" uid="uid://c5ckubn4w2kw6" path="res://assets/sprites/characters/foxy/fox_blade/fox_walk_2.png" id="7_bbmj2"]
 [ext_resource type="Texture2D" uid="uid://bsfb723jv8ohi" path="res://assets/sprites/characters/foxy/fox/fox_walk_2.png" id="7_ugbui"]
 [ext_resource type="Texture2D" uid="uid://bj3ls24dmb1u0" path="res://assets/sprites/characters/foxy/fox/fox_walk_3.png" id="8_fcs02"]
+[ext_resource type="Texture2D" uid="uid://3g5hdrfwcd2c" path="res://assets/sprites/characters/foxy/fox_hat/fox_walk_2.png" id="8_j4nxn"]
+[ext_resource type="Texture2D" uid="uid://dujfdo1hbu7mn" path="res://assets/sprites/characters/foxy/fox_blade/fox_walk_3.png" id="8_kxw46"]
+[ext_resource type="Texture2D" uid="uid://demu2xt523bpp" path="res://assets/sprites/characters/foxy/fox_blade/fox_walk_4.png" id="9_8qxvo"]
+[ext_resource type="Texture2D" uid="uid://cg0s41812vukj" path="res://assets/sprites/characters/foxy/fox_hat/fox_walk_3.png" id="9_28m0y"]
 [ext_resource type="Texture2D" uid="uid://c7b68c2t2m054" path="res://assets/sprites/characters/foxy/fox/fox_walk_4.png" id="9_myrg7"]
 [ext_resource type="Script" uid="uid://35lrjguu78yc" path="res://scripts/player/player_state.gd" id="10_ugbui"]
+[ext_resource type="Texture2D" uid="uid://8u26ji11yaua" path="res://assets/sprites/characters/foxy/fox_hat/fox_walk_4.png" id="10_uniwh"]
+[ext_resource type="Texture2D" uid="uid://bv5er34emc8g1" path="res://assets/sprites/characters/foxy/fox_hat_blade/fox_jump_2.png" id="11_5q8fn"]
 [ext_resource type="Script" uid="uid://dx4bmrvxx8iur" path="res://scripts/player/idle.gd" id="11_fcs02"]
 [ext_resource type="Script" uid="uid://dsmmgos5wx4pq" path="res://scripts/player/walk.gd" id="12_myrg7"]
+[ext_resource type="Texture2D" uid="uid://cv1omqfyyi3aj" path="res://assets/sprites/characters/foxy/fox_hat_blade/fox_idle_1.png" id="12_wva7c"]
+[ext_resource type="Texture2D" uid="uid://d1wqqv8lwu0w0" path="res://assets/sprites/characters/foxy/fox_hat_blade/fox_idle_2.png" id="13_7obkq"]
 [ext_resource type="Script" uid="uid://bcqb4ceuq3lao" path="res://scripts/player/jump.gd" id="13_kvlxm"]
 [ext_resource type="Script" uid="uid://eqb0ahpxa4k" path="res://scripts/player/fall.gd" id="14_uf5tr"]
+[ext_resource type="Texture2D" uid="uid://cjob2r8khe2fs" path="res://assets/sprites/characters/foxy/fox_hat_blade/fox_jump_1.png" id="14_vo27k"]
+[ext_resource type="Texture2D" uid="uid://dgis3lall2gw3" path="res://assets/sprites/characters/foxy/fox_hat_blade/fox_walk_1.png" id="15_genst"]
+[ext_resource type="Texture2D" uid="uid://cr8a68nw3dww1" path="res://assets/sprites/characters/foxy/fox_hat_blade/fox_walk_2.png" id="16_niom3"]
+[ext_resource type="Texture2D" uid="uid://d0jfmp24jrfcy" path="res://assets/sprites/characters/foxy/fox_hat_blade/fox_walk_3.png" id="17_ttakn"]
+[ext_resource type="Texture2D" uid="uid://ce35c6mn7dcok" path="res://assets/sprites/characters/foxy/fox_hat_blade/fox_walk_4.png" id="18_rw8a5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kvlxm"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_iqsei")
+}],
+"loop": false,
+"name": &"blade_fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tffgl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_pk8ii")
+}],
+"loop": true,
+"name": &"blade_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_5mf0n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_iqsei")
+}],
+"loop": false,
+"name": &"blade_jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_4hvnv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_bbmj2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_kxw46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_8qxvo")
+}],
+"loop": true,
+"name": &"blade_walk",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("5_fm80t")
@@ -24,6 +95,100 @@ animations = [{
 "loop": false,
 "name": &"fall",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_5q8fn")
+}],
+"loop": false,
+"name": &"hat_blade_fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_wva7c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_7obkq")
+}],
+"loop": true,
+"name": &"hat_blade_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_vo27k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_5q8fn")
+}],
+"loop": false,
+"name": &"hat_blade_jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_genst")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_niom3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_ttakn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_rw8a5")
+}],
+"loop": true,
+"name": &"hat_blade_walk",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_yj68g")
+}],
+"loop": false,
+"name": &"hat_fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ioxgp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cnsyf")
+}],
+"loop": true,
+"name": &"hat_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_007i1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_yj68g")
+}],
+"loop": false,
+"name": &"hat_jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_6cv16")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_j4nxn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_28m0y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_uniwh")
+}],
+"loop": true,
+"name": &"hat_walk",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -70,13 +235,14 @@ height = 28.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_ugbui")
+character_type = 3
 metadata/_custom_type_script = "uid://dlxdtwr6rpwbr"
 
 [node name="Direction" type="Node2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction"]
 sprite_frames = SubResource("SpriteFrames_kvlxm")
-animation = &"fall"
+animation = &"hat_blade_walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_uf5tr")

@@ -7,6 +7,8 @@ extends CharacterBody2D
 @export var gravity: float = 700.0
 @export var direction: int = 1
 
+@export var character_type = 0
+
 var jump_speed: float = 320.0
 var fsm: FSM = null
 var current_animation = null
@@ -65,7 +67,14 @@ func stop_move() -> void:
 
 # Change the animation of the character on the next frame
 func change_animation(new_animation: String) -> void:
-	_next_animation = new_animation
+	var char_type: String
+	
+	if character_type == 0: char_type = ""
+	elif character_type == 1: char_type = "hat_"
+	elif character_type == 2: char_type = "blade_"
+	elif character_type == 3: char_type = "hat_blade_"
+	
+	_next_animation = char_type + new_animation
 
 # Change the direction of the character on the last frame
 func change_direction(new_direction: int) -> void:
