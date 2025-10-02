@@ -1,0 +1,47 @@
+class_name PlayerState
+extends FSMState
+
+func _enter() -> void:
+	pass
+
+func _exit() -> void:
+	pass
+
+#Control moving and changing state to run
+#Return true if moving
+func control_moving() -> bool:
+	var dir: float = Input.get_action_strength("right") - Input.get_action_strength("left")
+	var is_moving: bool = abs(dir) > 0.1
+	if is_moving:
+		dir = sign(dir)
+		obj.change_direction(dir)
+		obj.velocity.x = obj.movement_speed * dir
+		if obj.is_on_floor():
+			change_state(fsm.states.walk)
+		return true
+	else:
+		obj.velocity.x = 0
+	return false
+
+#Control jumping
+#Return true if jumping
+func control_jump() -> bool:
+	#If jump is pressed change to jump state and return true
+	var is_jump: bool = Input.is_action_just_pressed("jump")
+	var is_released: bool = Input.is_action_just_released("jump")
+	if is_jump:
+		if obj.is_on_floor():
+			change_state(fsm.states.jump)
+			return true
+		else:
+			if obj.jumpCount < obj.maxJumpCount:
+				if obj.velocity.y > 0:
+					change_state(fsm.states.jump)
+					obj.change_animation("jump")
+				obj.jump()
+				obj.jumpCount += 1
+				return true
+	if is_released:
+		if obj.velocity.y < 0:
+			obj.velocity.y /= 2
+	return false
