@@ -45,3 +45,13 @@ func control_jump() -> bool:
 		if obj.velocity.y < 0:
 			obj.velocity.y /= 2
 	return false
+
+func control_attack() -> bool:
+	for char_type in [0, 1]:
+		if obj.character_type == char_type: return false
+		
+	var is_attack = Input.is_action_just_pressed("attack")
+	if is_attack:
+		change_state(fsm.states.attack)
+		return true
+	return false

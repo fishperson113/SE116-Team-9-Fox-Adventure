@@ -1,13 +1,13 @@
 extends PlayerState
 
 func _enter() -> void:
-	#Change animation to walk
 	obj.change_animation("walk")
 	pass
 
 func _update(delta: float):
 	#Control jump
 	control_jump()
+	control_attack()
 	#Control moving and if not moving change to idle
 	if !control_moving():
 		change_state(fsm.states.idle)

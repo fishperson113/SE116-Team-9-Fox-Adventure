@@ -86,6 +86,9 @@ func change_direction(new_direction: int) -> void:
 
 # Change the animation of the character on the next frame
 func change_animation(new_animation: String) -> void:
+	if new_animation == "attack" and character_type == 0:
+		return
+	
 	var char_type = get_animation_prefix()
 	_next_animation = char_type + new_animation
 	print(_next_animation)
