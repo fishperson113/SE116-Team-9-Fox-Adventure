@@ -55,3 +55,17 @@ func control_attack() -> bool:
 		change_state(fsm.states.attack)
 		return true
 	return false
+
+func control_hit() -> bool:
+	var is_hit = Input.is_action_just_pressed("hit")
+	if is_hit:
+		change_state(fsm.states.hit)
+		return true
+	return false
+
+func control_defeat() -> bool:
+	var is_defeat = Input.is_action_just_pressed("defeat")
+	if is_defeat:
+		change_state(fsm.states.defeat)
+		return true
+	return false

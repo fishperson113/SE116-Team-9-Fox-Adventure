@@ -9,6 +9,8 @@ extends CharacterBody2D
 
 @export var character_type = 0
 
+var hit_buffer: bool = false
+
 var jump_speed: float = 320.0
 var fsm: FSM = null
 var current_animation = null
@@ -91,7 +93,6 @@ func change_animation(new_animation: String) -> void:
 	
 	var char_type = get_animation_prefix()
 	_next_animation = char_type + new_animation
-	print(_next_animation)
 
 func get_reset_animation_name(animation_name: String) -> String:
 	var next_name: String = animation_name

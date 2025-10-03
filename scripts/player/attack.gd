@@ -20,4 +20,3 @@ func _on_attack_animation_finished() -> void:
 			change_state(fsm.states.idle)
 		elif !obj.is_on_floor():
 			change_state(fsm.states.fall)
-	pass # Replace with function body.
