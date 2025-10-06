@@ -69,3 +69,12 @@ func control_defeat() -> bool:
 		change_state(fsm.states.defeat)
 		return true
 	return false
+
+func deduct_health(amount: float) -> bool:
+	obj.currentHealth -= amount
+	print(obj.currentHealth)
+	
+	if (obj.currentHealth > 0):
+		return true
+	obj.currentHealth = 0
+	return false
