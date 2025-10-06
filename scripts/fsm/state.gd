@@ -27,4 +27,3 @@ func update_timer(delta: float) -> bool:
 
 func change_state(new_state: FSMState) -> void:
 	fsm.change_state(new_state)
-	print(new_state)

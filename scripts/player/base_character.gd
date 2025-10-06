@@ -23,6 +23,9 @@ var _next_animated_sprite: AnimatedSprite2D = null
 var maxJumpCount: int = 2
 var jumpCount: int = 0
 
+var maxHealth: float = 250
+var currentHealth: float = maxHealth
+
 func _ready() -> void:
 	set_animated_sprite($Direction/AnimatedSprite2D)
 

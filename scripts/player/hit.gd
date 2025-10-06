@@ -1,6 +1,9 @@
 extends PlayerState
 
 func _enter() -> void:
+	if !deduct_health(15):
+		change_state(fsm.states.defeat)
+	
 	obj.hit_buffer = true
 	obj.change_animation("hit")
 	pass
