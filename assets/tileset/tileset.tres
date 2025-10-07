@@ -1,9 +1,12 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bmuxyu21ya31y"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://d4afhielv3ocv"]
 
-[ext_resource type="Texture2D" uid="uid://v2dtejovry7r" path="res://assets/sprites/environment/terrain/terrain_32x32.png" id="1_6gm7o"]
+[ext_resource type="Texture2D" uid="uid://v2dtejovry7r" path="res://assets/sprites/environment/terrain/terrain_32x32.png" id="1_x61fc"]
+[ext_resource type="PackedScene" uid="uid://bq46f848hot11" path="res://scenes/levels/island/objects/palm_tree_1.tscn" id="2_6gm7o"]
+[ext_resource type="PackedScene" uid="uid://cc55s0cwsdc25" path="res://scenes/levels/island/objects/palm_tree_2.tscn" id="3_ysup1"]
+[ext_resource type="PackedScene" uid="uid://q7o0k20mudhj" path="res://scenes/levels/island/objects/palm_tree_3.tscn" id="4_fgag5"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nmr65"]
-texture = ExtResource("1_6gm7o")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6gm7o"]
+texture = ExtResource("1_x61fc")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -360,6 +363,7 @@ texture_region_size = Vector2i(32, 32)
 12:4/0/terrain = 0
 12:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 12:4/0/terrains_peering_bit/right_side = 0
+12:4/0/terrains_peering_bit/bottom_side = 0
 12:4/0/terrains_peering_bit/left_side = 0
 12:4/0/terrains_peering_bit/top_side = 0
 13:4/0 = 0
@@ -382,10 +386,16 @@ texture_region_size = Vector2i(32, 32)
 16:4/0/terrains_peering_bit/left_side = 0
 16:4/0/terrains_peering_bit/top_side = 0
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_6gm7o"]
+scenes/1/scene = ExtResource("2_6gm7o")
+scenes/2/scene = ExtResource("3_ysup1")
+scenes/3/scene = ExtResource("4_fgag5")
+
 [resource]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 terrain_set_0/mode = 0
-terrain_set_0/terrain_0/name = "Terrain 0"
-terrain_set_0/terrain_0/color = Color(0.501961, 0.858824, 0.25098, 1)
-sources/0 = SubResource("TileSetAtlasSource_nmr65")
+terrain_set_0/terrain_0/name = "Land"
+terrain_set_0/terrain_0/color = Color(0.207843, 0.705882, 0.223529, 1)
+sources/0 = SubResource("TileSetAtlasSource_6gm7o")
+sources/1 = SubResource("TileSetScenesCollectionSource_6gm7o")

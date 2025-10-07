@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2ejqua4ok3wr"
-path="res://.godot/imported/boat_sail_5.png-296f3513fc367a4fa45274fe896f3131.ctex"
+uid="uid://o4iqthotrkum"
+path="res://.godot/imported/water_reflect_small_04.png-2f309e5cdd8673dd8c6f2f51bb047ebb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/characters/foxy/boat/boat_sail_5.png"
-dest_files=["res://.godot/imported/boat_sail_5.png-296f3513fc367a4fa45274fe896f3131.ctex"]
+source_file="res://assets/sprites/environment/background/water_reflect_small_04.png"
+dest_files=["res://.godot/imported/water_reflect_small_04.png-2f309e5cdd8673dd8c6f2f51bb047ebb.ctex"]
 
 [params]
 
