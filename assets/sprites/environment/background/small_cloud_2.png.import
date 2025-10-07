@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://msb536xv0keg"
-path="res://.godot/imported/boat_sail_2.png-80787736f72edfb56daaa3b0896ee0ab.ctex"
+uid="uid://1t3pkyls8wyt"
+path="res://.godot/imported/small_cloud_2.png-15de471bf4568c8b155627f8c7c4077b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/characters/foxy/boat/boat_sail_2.png"
-dest_files=["res://.godot/imported/boat_sail_2.png-80787736f72edfb56daaa3b0896ee0ab.ctex"]
+source_file="res://assets/sprites/environment/background/small_cloud_2.png"
+dest_files=["res://.godot/imported/small_cloud_2.png-15de471bf4568c8b155627f8c7c4077b.ctex"]
 
 [params]
 

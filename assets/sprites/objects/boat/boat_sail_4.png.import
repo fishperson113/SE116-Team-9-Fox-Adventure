@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1plchdw51180"
-path="res://.godot/imported/boat_sail_3.png-cdd66a4d2452130921bcd55ed13e9603.ctex"
+uid="uid://cj26ktx7yp2s2"
+path="res://.godot/imported/boat_sail_4.png-ca498e56e1424e05f7aec3b9e1298137.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/characters/foxy/boat/boat_sail_3.png"
-dest_files=["res://.godot/imported/boat_sail_3.png-cdd66a4d2452130921bcd55ed13e9603.ctex"]
+source_file="res://assets/sprites/objects/boat/boat_sail_4.png"
+dest_files=["res://.godot/imported/boat_sail_4.png-ca498e56e1424e05f7aec3b9e1298137.ctex"]
 
 [params]
 

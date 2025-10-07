@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://d226l58g63ih7"]
+
+[ext_resource type="PackedScene" uid="uid://pklnt4p62ciu" path="res://scenes/levels/island/objects/raft.tscn" id="1_85j1e"]
+[ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_68g5b"]
+
+[node name="RaftTest" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+
+[node name="Raft" parent="." instance=ExtResource("1_85j1e")]
+position = Vector2(69, 244)
+
+[node name="Player" parent="." instance=ExtResource("2_68g5b")]
+position = Vector2(63, 101)
