@@ -4,7 +4,6 @@ extends PlayerState
 
 func _enter() -> void:
 	obj.change_animation("idle")
-	obj.jumpCount = 0
 
 func _update(_delta: float) -> void:
 	#Control jump

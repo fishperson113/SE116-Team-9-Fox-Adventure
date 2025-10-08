@@ -1,11 +1,7 @@
 extends PlayerState
 
 func _enter() -> void:
-	if obj.jumpCount < obj.maxJumpCount:
-		obj.change_animation("jump")
-		obj.jump()
-		obj.jumpCount += 1
-	pass
+	obj.change_animation("jump")
 
 func _update(_delta: float):
 	control_jump()
