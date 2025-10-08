@@ -24,8 +24,4 @@ func _update(delta: float):
 	if !obj.is_on_floor():
 		if obj.velocity.y > 0:
 			change_state(fsm.states.fall)
-		else:
-			obj.change_animation("jump")
-	else:
-		obj.jumpCount = 0
 	pass

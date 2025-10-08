@@ -18,6 +18,6 @@ func _update(_delta: float) -> void:
 		obj.change_animation("fall")
 	#If on floor change to idle if not moving and not jumping
 	if obj.is_on_floor():
-		if !control_moving() and !control_jump():
 			change_state(fsm.states.idle)
+			obj.current_jump=0
 	pass

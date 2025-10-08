@@ -27,23 +27,12 @@ func control_moving() -> bool:
 #Return true if jumping
 func control_jump() -> bool:
 	#If jump is pressed change to jump state and return true
-	var is_jump: bool = Input.is_action_just_pressed("jump")
-	var is_released: bool = Input.is_action_just_released("jump")
-	if is_jump:
-		if obj.is_on_floor():
-			change_state(fsm.states.jump)
-			return true
-		else:
-			if obj.jumpCount < obj.maxJumpCount:
-				if obj.velocity.y > 0:
-					change_state(fsm.states.jump)
-					obj.change_animation("jump")
-				obj.jump()
-				obj.jumpCount += 1
-				return true
-	if is_released:
-		if obj.velocity.y < 0:
-			obj.velocity.y /= 2
+	var is_jumping= Input.is_action_just_pressed("jump")
+	if (is_jumping and obj.current_jump<obj.jump_step):
+		obj.velocity.y = -obj.jump_speed
+		change_state(fsm.states.jump)
+		obj.current_jump+=1
+		return true
 	return false
 
 func control_attack() -> bool:
