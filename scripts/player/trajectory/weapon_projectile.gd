@@ -10,8 +10,10 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	_velocity.y += gravity * delta
-	
-	var collision = move_and_collide(_velocity * delta)
-	if not collision: return
-	
+	move_and_collide(_velocity * delta)
+
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group("enemy"):
+		body.queue_free()
 	queue_free()
+	pass # Replace with function body.
