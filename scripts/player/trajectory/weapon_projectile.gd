@@ -14,4 +14,4 @@ func _physics_process(delta: float) -> void:
 	var collision = move_and_collide(_velocity * delta)
 	if not collision: return
 	
-	_velocity = _velocity.bounce(collision.get_normal()) * 0.6
+	queue_free()
