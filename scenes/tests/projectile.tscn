@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://1wtxrnnmrcax"]
+
+[ext_resource type="Texture2D" uid="uid://cxakiw7e7eaom" path="res://icon.svg" id="1_cji20"]
+[ext_resource type="Script" uid="uid://d0kaj3px3g5mx" path="res://scripts/player/trajectory/weapon_projectile.gd" id="1_fmhs7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fmhs7"]
+radius = 3.16228
+
+[node name="Projectile" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_fmhs7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_cji20")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fmhs7")

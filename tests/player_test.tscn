@@ -9,18 +9,51 @@ size = Vector2(128, 128)
 [node name="PlayerTest" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_a8v3n")]
-position = Vector2(20, 30)
+position = Vector2(-16, 314)
 
 [node name="World" type="Node2D" parent="."]
 
 [node name="Icon" type="Sprite2D" parent="World"]
-position = Vector2(100, 466)
-scale = Vector2(20, 1)
+position = Vector2(82, 432)
+scale = Vector2(20, 0.0937501)
 texture = ExtResource("2_fdpfy")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="World/Icon"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Icon/StaticBody2D"]
+shape = SubResource("RectangleShape2D_6p80c")
+
+[node name="Icon2" type="Sprite2D" parent="World"]
+position = Vector2(-53, 247)
+rotation = 1.5708
+scale = Vector2(20, 0.0937501)
+texture = ExtResource("2_fdpfy")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="World/Icon2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Icon2/StaticBody2D"]
+shape = SubResource("RectangleShape2D_6p80c")
+
+[node name="Icon3" type="Sprite2D" parent="World"]
+position = Vector2(206, 245)
+rotation = 1.5708
+scale = Vector2(20, 0.0937501)
+texture = ExtResource("2_fdpfy")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="World/Icon3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Icon3/StaticBody2D"]
+shape = SubResource("RectangleShape2D_6p80c")
+
+[node name="Icon4" type="Sprite2D" parent="World"]
+position = Vector2(134, 360)
+rotation = 0.698132
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_fdpfy")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="World/Icon4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Icon4/StaticBody2D"]
 shape = SubResource("RectangleShape2D_6p80c")
 
 [node name="Camera2D" type="Camera2D" parent="."]
