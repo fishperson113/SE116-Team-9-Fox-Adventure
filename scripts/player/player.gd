@@ -2,6 +2,7 @@ extends BaseCharacter
 
 func _ready() -> void:
 	fsm = FSM.new(self, $States, $States/Idle)
+	weapon_thrower = $WeaponThrower
 	super._ready()
 
 func _process(delta: float) -> void:

@@ -10,6 +10,7 @@ func _update(_delta: float):
 	control_attack()
 	control_hit()
 	control_defeat()
+	control_throwing(_delta)
 	if obj.hit_buffer:
 		obj.change_animation("hit")
 	else:

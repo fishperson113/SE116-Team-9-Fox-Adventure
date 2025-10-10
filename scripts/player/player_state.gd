@@ -12,7 +12,7 @@ func _exit() -> void:
 func control_moving() -> bool:
 	var dir: float = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var is_moving: bool = abs(dir) > 0.1
-	if is_moving:
+	if is_moving and obj.fsm.current_state != fsm.states.throwing:
 		dir = sign(dir)
 		obj.change_direction(dir)
 		obj.velocity.x = obj.movement_speed * dir
@@ -57,6 +57,15 @@ func control_defeat() -> bool:
 	if is_defeat:
 		change_state(fsm.states.defeat)
 		return true
+	return false
+
+func control_throwing(delta: float) -> bool:
+	if Input.is_action_pressed("throw"):
+		obj.weapon_thrower.find_throw_direction(delta)
+		change_state(fsm.states.throwing)
+		return true
+	elif Input.is_action_just_released("throw"):
+		obj.weapon_thrower.stop_find_throw_direction()
 	return false
 
 func deduct_health(amount: float) -> bool:

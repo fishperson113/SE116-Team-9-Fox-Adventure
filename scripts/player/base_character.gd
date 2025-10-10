@@ -26,6 +26,8 @@ var _next_animated_sprite: AnimatedSprite2D = null
 var maxHealth: float = 250
 var currentHealth: float = maxHealth
 
+var weapon_thrower: Node2D
+
 func _ready() -> void:
 	set_animated_sprite($Direction/AnimatedSprite2D)
 
