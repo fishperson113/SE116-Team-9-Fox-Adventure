@@ -1,5 +1,4 @@
 class_name PatrolController
-extends Node2D
 
 var _movement_range: float = 0
 var _patrol_distance: float = 0

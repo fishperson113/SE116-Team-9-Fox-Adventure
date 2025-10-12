@@ -11,7 +11,6 @@ config_version=5
 [application]
 
 config/name="SE116-Team-9-Fox-Adventure"
-run/main_scene="uid://ckg5p1ahh5nff"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -93,6 +92,12 @@ add_dir_x={
 
 2d_physics/layer_1="environment"
 2d_physics/layer_2="player"
+
+[layer_names]
+
+2d_physics/layer_2="transparent"
+2d_physics/layer_3="player_layer"
+2d_physics/layer_4="enemy"
 
 [rendering]
 
