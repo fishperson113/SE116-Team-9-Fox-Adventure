@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=4 uid="uid://2myew2spjl4b"]
+[gd_scene load_steps=4 format=4 uid="uid://2myew2spjl4b"]
 
-[ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
-[ext_resource type="PackedScene" uid="uid://djvo8cdmbwn0f" path="res://scenes/enemies/chill_mushroom.tscn" id="2_08qrd"]
+[ext_resource type="TileSet" uid="uid://bmuxyu21ya31y" path="res://assets/tileset.tres" id="1_fx7si"]
+[ext_resource type="PackedScene" uid="uid://bvx802yad1bxn" path="res://scenes/enemies/crab.tscn" id="2_08qrd"]
+[ext_resource type="PackedScene" uid="uid://duqrtowl0m5a4" path="res://scenes/enemies/starfish.tscn" id="3_52dwj"]
 
 [node name="EnemyTest" type="Node2D"]
 
@@ -9,5 +10,8 @@
 tile_map_data = PackedByteArray("AAABAAUAAAAEAAEAAAABAAYAAAAPAAQAAAACAAYAAAABAAQAAAADAAYAAAABAAQAAAAEAAYAAAABAAQAAAAFAAYAAAABAAQAAAAGAAYAAAABAAQAAAAHAAYAAAABAAQAAAAIAAYAAAABAAQAAAAJAAYAAAABAAQAAAAKAAYAAAABAAQAAAALAAYAAAABAAQAAAAMAAYAAAABAAQAAAANAAYAAAAQAAQAAAANAAUAAAAEAAEAAAANAAQAAAAEAAEAAAANAAMAAAAEAAEAAAANAAIAAAAEAAEAAAANAAEAAAAEAAAAAAABAAQAAAAEAAEAAAABAAMAAAAEAAEAAAABAAIAAAAEAAEAAAABAAEAAAAEAAAAAAA=")
 tile_set = ExtResource("1_fx7si")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("2_08qrd")]
-position = Vector2(119, 58)
+[node name="Crab" parent="." instance=ExtResource("2_08qrd")]
+position = Vector2(126, 102)
+
+[node name="Starfish" parent="." instance=ExtResource("3_52dwj")]
+position = Vector2(263, 125)

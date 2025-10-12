@@ -1,5 +1,4 @@
 class_name DirectionController
-extends Node2D
 
 signal _on_changed_direction
 
@@ -7,14 +6,14 @@ enum Direction {
 	LEFT = -1, RIGHT = 1
 }
 
-var _obj: Node = null
+var _direction_node: Node2D = null
 var _direction: int = Direction.RIGHT
 var _next_direction: int = -_direction
 
-func _init(obj: Node) -> void:
-	_obj = obj
+func _init(direction_node: Node2D) -> void:
+	_direction_node = direction_node
 	
-func _update(delta: float) -> void:
+func _update(_delta: float) -> void:
 	_check_changed_direction()
 
 func turn_around() -> void:
@@ -30,4 +29,4 @@ func _check_changed_direction() -> void:
 	if _next_direction != _direction:
 		_direction = _next_direction
 		_on_changed_direction.emit()
-		_obj.scale.x = _direction
+		_direction_node.scale.x = _direction

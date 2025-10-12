@@ -9,7 +9,7 @@ var current_state: EnemyState = null
 
 var previous_state: EnemyState = null
 var default_state: EnemyState = null
-var obj: Node = null
+var obj: Node = null #Use for debugging
 
 var _next_state: EnemyState = null
 

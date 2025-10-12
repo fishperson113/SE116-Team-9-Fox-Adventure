@@ -1,5 +1,4 @@
 class_name AnimationController
-extends Node2D
 
 var _animated_sprite_2D: AnimatedSprite2D = null
 var _current_animation_name = null
@@ -27,3 +26,10 @@ func _check_changed_animation_name() -> bool:
 		_current_animation_name = _next_animation_name
 		return true
 	return false
+
+func get_animation_time() -> float:
+	var sprite_frames := _animated_sprite_2D.sprite_frames
+	var animation := _animated_sprite_2D.animation
+	var frame_count := sprite_frames.get_frame_count(animation)
+	var animation_speed := sprite_frames.get_animation_speed(animation)
+	return frame_count / animation_speed

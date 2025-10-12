@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://djvo8cdmbwn0f"]
+[gd_scene load_steps=14 format=3 uid="uid://djvo8cdmbwn0f"]
 
 [ext_resource type="Script" uid="uid://dvwq1pjw1epyn" path="res://scripts/enemies/mushroom/chill_mushroom.gd" id="1_b8asr"]
 [ext_resource type="Texture2D" uid="uid://dpjw5jtxsvr5g" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_hit_01.png" id="1_xivi7"]
@@ -7,9 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://di7pg4ow6n6rv" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_01.png" id="4_ke5bn"]
 [ext_resource type="Texture2D" uid="uid://ro22qcieewjs" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_02.png" id="5_6yxqy"]
 [ext_resource type="Texture2D" uid="uid://cmig7rvc1vfn2" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_03.png" id="6_7a7sm"]
+[ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/enemies/controllers/hurt_area_2d.gd" id="8_7a7sm"]
 [ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/enemy_state.gd" id="8_ia0f3"]
 [ext_resource type="Script" uid="uid://vrc8fbdyw2ph" path="res://scripts/enemies/mushroom/normal.gd" id="9_ke5bn"]
-[ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/mushroom/hit.gd" id="10_6yxqy"]
+[ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/mushroom/hurt.gd" id="10_6yxqy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_prc6s"]
 animations = [{
@@ -24,7 +25,7 @@ animations = [{
 "texture": ExtResource("3_ia0f3")
 }],
 "loop": false,
-"name": &"hit",
+"name": &"hurt",
 "speed": 10.0
 }, {
 "frames": [{
@@ -46,7 +47,7 @@ animations = [{
 radius = 9.0
 height = 22.0
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Mushroom" type="CharacterBody2D"]
 script = ExtResource("1_b8asr")
 health = 50.0
 spike = 80.0
@@ -56,9 +57,13 @@ metadata/_custom_type_script = "uid://dlxdtwr6rpwbr"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction"]
 sprite_frames = SubResource("SpriteFrames_prc6s")
-animation = &"hit"
-frame = 2
-frame_progress = 1.0
+animation = &"hurt"
+
+[node name="HurtArea2D" type="Area2D" parent="Direction"]
+script = ExtResource("8_7a7sm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HurtArea2D"]
+shape = SubResource("CapsuleShape2D_xivi7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_xivi7")
@@ -69,7 +74,5 @@ script = ExtResource("8_ia0f3")
 [node name="Normal" type="Node" parent="State"]
 script = ExtResource("9_ke5bn")
 
-[node name="Hit" type="Node" parent="State"]
+[node name="Hurt" type="Node" parent="State"]
 script = ExtResource("10_6yxqy")
-
-[connection signal="animation_finished" from="Direction/AnimatedSprite2D" to="State/Hit" method="_on_animated_sprite_2d_animation_finished"]

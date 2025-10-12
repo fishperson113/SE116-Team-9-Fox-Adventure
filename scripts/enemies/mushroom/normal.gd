@@ -7,6 +7,5 @@ func _exit() -> void:
 	pass
 
 func _update( _delta ):
-	if obj.is_hit():
-		fsm.change_state(fsm.states.hit)
-	pass
+	obj.try_patrol_turn(_delta)
+	obj.on_hurt()
