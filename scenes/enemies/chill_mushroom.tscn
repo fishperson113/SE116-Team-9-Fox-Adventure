@@ -10,8 +10,8 @@
 [ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/enemies/controllers/hurt_area_2d.gd" id="8_7a7sm"]
 [ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/enemy_state.gd" id="8_ia0f3"]
 [ext_resource type="Script" uid="uid://vrc8fbdyw2ph" path="res://scripts/enemies/mushroom/normal.gd" id="9_ke5bn"]
-[ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/mushroom/hurt.gd" id="10_6yxqy"]
-[ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/dead.gd" id="12_prc6s"]
+[ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/states/hurt.gd" id="10_6yxqy"]
+[ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="12_prc6s"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_prc6s"]
 animations = [{
@@ -49,6 +49,7 @@ radius = 9.0
 height = 24.0
 
 [node name="Mushroom" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_b8asr")
 health = 50.0
 spike = 80.0

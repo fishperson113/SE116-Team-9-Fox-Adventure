@@ -1,7 +1,7 @@
-extends NormalState
+extends EnemyNormalState
 
 func _update( _delta ):
-	obj.update_normal_mode(_delta)
+	super._update(_delta)
 	try_attack()
 	on_hurt()
 	on_hit()

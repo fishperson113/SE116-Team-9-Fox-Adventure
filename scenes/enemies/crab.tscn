@@ -10,8 +10,8 @@
 [ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/enemies/controllers/hurt_area_2d.gd" id="7_8ukmd"]
 [ext_resource type="Script" uid="uid://vrc8fbdyw2ph" path="res://scripts/enemies/mushroom/normal.gd" id="8_86med"]
 [ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/enemies/controllers/hit_area_2d.gd" id="8_nrf1x"]
-[ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/mushroom/hurt.gd" id="9_8ukmd"]
-[ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/dead.gd" id="12_nrf1x"]
+[ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/states/hurt.gd" id="9_8ukmd"]
+[ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="12_nrf1x"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_86med"]
 animations = [{
@@ -46,6 +46,7 @@ radius = 7.99999
 height = 22.0037
 
 [node name="Crab" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_jgbqf")
 health = 50.0
 spike = 50.0
@@ -59,7 +60,7 @@ sprite_frames = SubResource("SpriteFrames_86med")
 animation = &"normal"
 
 [node name="HurtArea2D" type="Area2D" parent="Direction"]
-collision_layer = 12
+collision_layer = 8
 collision_mask = 0
 script = ExtResource("7_8ukmd")
 metadata/_custom_type_script = "uid://cofkmvw2auxcs"

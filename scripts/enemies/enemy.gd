@@ -20,7 +20,6 @@ extends CharacterBody2D
 @export var attack_damage: float = 50
 #Attack Speed: Tốc độ của cú đánh. Tính từ lúc ra đòn cho đến lúc kết thúc đòn đánh. Đơn vị được tính theo Pixel / giây
 @export var attack_speed: float = 50
-
 @export var hurt_time: float = 0.4
 
 #Jump Height: Tính bằng công thức (Jump Height = Jump Speed ^2 / 2x Gravity)
@@ -28,25 +27,33 @@ var jump_height: float = pow(jump_speed, 2.0) / (gravity * 2)
 #Air Time: Thời gian trên không, tính bằng công thức (Air Time = Jump Speed / Gravity)
 var air_time: float = jump_speed / gravity
 var fsm: EnemyFSM = null
-
-@onready var _direction_controller = DirectionController.new($Direction)
-@onready var _patrol_controller = PatrolController.new(movement_range)
-@onready var _animation_controller = AnimationController.new($Direction/AnimatedSprite2D)
-var _movement_sensor = MovementSensor.new()
-
 # detect player area
 var detect_player_area: Area2D = null
 var found_player: Player = null
 
 var _movement_speed: float = movement_speed
+var _direction_controller: DirectionController = null
+var _patrol_controller: PatrolController = null
+var _animation_controller: AnimationController = null
+var _movement_sensor: MovementSensor = null
 
 func _ready() -> void:
+	_init_controller()
+	_init_sensor()
 	_init_ray_cast()
 	_init_detect_player_area()
 	_init_hurt_area()
 	_init_hit_area()
 	fsm = EnemyFSM.new(self, $States, $States/Normal)
 	pass
+
+func _init_controller():
+	_direction_controller = DirectionController.new($Direction)
+	_patrol_controller = PatrolController.new(movement_range)
+	_animation_controller = AnimationController.new($Direction/AnimatedSprite2D)
+
+func _init_sensor():
+	_movement_sensor = MovementSensor.new()
 
 #init ray cast to check wall and fall
 func _init_ray_cast():

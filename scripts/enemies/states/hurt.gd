@@ -1,3 +1,4 @@
+class_name EnemyHurtState
 extends EnemyState
 
 func _enter() -> void:
@@ -12,5 +13,5 @@ func _exit() -> void:
 func _update( _delta ):
 	obj.update_hurt_mode(_delta)
 	if update_timer(_delta):
-		fsm.change_state(fsm.previous_state)
+		try_recover()
 	pass

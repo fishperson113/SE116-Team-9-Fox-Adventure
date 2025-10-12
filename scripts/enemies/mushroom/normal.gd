@@ -1,13 +1,5 @@
-class_name NormalState
-extends EnemyState
-
-func _enter() -> void:
-	obj.start_normal_mode()
-
-func _exit() -> void:
-	obj.end_normal_mode()
-	pass
+extends EnemyNormalState
 
 func _update( _delta ):
-	obj.update_normal_mode(_delta)
+	super._update(_delta)
 	on_hurt()
