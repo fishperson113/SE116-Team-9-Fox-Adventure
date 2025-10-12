@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bvx802yad1bxn"]
+[gd_scene load_steps=15 format=3 uid="uid://bvx802yad1bxn"]
 
 [ext_resource type="Script" uid="uid://mfhb57posmxm" path="res://scripts/enemies/crab/crab.gd" id="1_jgbqf"]
 [ext_resource type="Texture2D" uid="uid://rx1arfn0eqk6" path="res://assets/sprites/enemies/monsters/crab/crab_hit_01.png" id="1_jwctj"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://vrc8fbdyw2ph" path="res://scripts/enemies/mushroom/normal.gd" id="8_86med"]
 [ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/enemies/controllers/hit_area_2d.gd" id="8_nrf1x"]
 [ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/mushroom/hurt.gd" id="9_8ukmd"]
+[ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/dead.gd" id="12_nrf1x"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_86med"]
 animations = [{
@@ -22,7 +23,7 @@ animations = [{
 "texture": ExtResource("2_jgbqf")
 }],
 "loop": false,
-"name": &"hit",
+"name": &"hurt",
 "speed": 10.0
 }, {
 "frames": [{
@@ -58,7 +59,7 @@ sprite_frames = SubResource("SpriteFrames_86med")
 animation = &"normal"
 
 [node name="HurtArea2D" type="Area2D" parent="Direction"]
-collision_layer = 8
+collision_layer = 12
 collision_mask = 0
 script = ExtResource("7_8ukmd")
 metadata/_custom_type_script = "uid://cofkmvw2auxcs"
@@ -70,7 +71,7 @@ shape = SubResource("CapsuleShape2D_jwctj")
 
 [node name="HitArea2D" type="Area2D" parent="Direction"]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 0
 script = ExtResource("8_nrf1x")
 metadata/_custom_type_script = "uid://dkb25vr64v37l"
 
@@ -89,11 +90,14 @@ position = Vector2(-1, 0)
 rotation = -1.56891
 shape = SubResource("CapsuleShape2D_jwctj")
 
-[node name="State" type="Node" parent="."]
+[node name="States" type="Node" parent="."]
 script = ExtResource("7_3jqcw")
 
-[node name="Normal" type="Node" parent="State"]
+[node name="Normal" type="Node" parent="States"]
 script = ExtResource("8_86med")
 
-[node name="Hurt" type="Node" parent="State"]
+[node name="Hurt" type="Node" parent="States"]
 script = ExtResource("9_8ukmd")
+
+[node name="Dead" type="Node" parent="States"]
+script = ExtResource("12_nrf1x")

@@ -16,6 +16,9 @@ func change_animation(new_animation_name: String) -> void:
 func get_animation_name() -> String:
 	return _current_animation_name
 	
+func get_animated_sprite() -> AnimatedSprite2D:
+	return _animated_sprite_2D
+	
 func _check_changed_animation() -> void:
 	var need_play: bool = _check_changed_animation_name()
 	if need_play and _current_animation_name != null:

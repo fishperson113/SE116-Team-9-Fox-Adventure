@@ -1,17 +1,16 @@
 extends EnemyState
 
 func _enter() -> void:
-	obj.stop_moving()	
-	obj.get_animation_controller().change_animation("hurt")
-	obj.get_animation_controller().animation_finished.connect(_on_animation_finished)
+	obj.start_hurt_mode()
+	timer = obj.hurt_time
 	pass
 
 func _exit() -> void:
-	obj.get_animation_controller().animation_finished.disconnect()
+	obj.end_hurt_mode()
 	pass
 
 func _update( _delta ):
+	obj.update_hurt_mode(_delta)
+	if update_timer(_delta):
+		fsm.change_state(fsm.previous_state)
 	pass
-
-func _on_animation_finished() -> void:
-	fsm.change_state(fsm.previous_state)

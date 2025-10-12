@@ -22,3 +22,20 @@ func update_timer(delta: float) -> bool:
 	if timer <= 0:
 		return true
 	return false
+
+func on_hurt() -> void:
+	if not fsm.changing_signals.has("hurt"):
+		return
+	
+	if obj.is_alive():
+		fsm.change_state(fsm.states.hurt)
+	else:
+		fsm.change_state(fsm.states.dead)
+
+func on_hit() -> void:
+	if fsm.changing_signals.has("hit"):
+		fsm.change_state(fsm.states.stun)
+
+func try_attack() -> void:
+	if obj.can_attack():
+		fsm.change_state(fsm.states.attack)

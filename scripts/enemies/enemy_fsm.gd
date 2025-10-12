@@ -12,6 +12,7 @@ var default_state: EnemyState = null
 var obj: Node = null #Use for debugging
 
 var _next_state: EnemyState = null
+var changing_signals: Dictionary = {}
 
 func _init(target_obj: Node, states_parent_node: Node, initial_state: EnemyState, debug_mode: bool = false) -> void:
 	self.obj = target_obj
@@ -67,3 +68,4 @@ func _update(delta: float) -> void:
 		current_state._enter()
 	# Run state
 	current_state._update(delta)
+	changing_signals.clear()

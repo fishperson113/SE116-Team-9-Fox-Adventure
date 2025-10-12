@@ -21,6 +21,8 @@ extends CharacterBody2D
 #Attack Speed: Tốc độ của cú đánh. Tính từ lúc ra đòn cho đến lúc kết thúc đòn đánh. Đơn vị được tính theo Pixel / giây
 @export var attack_speed: float = 50
 
+@export var hurt_time: float = 0.4
+
 #Jump Height: Tính bằng công thức (Jump Height = Jump Speed ^2 / 2x Gravity)
 var jump_height: float = pow(jump_speed, 2.0) / (gravity * 2)
 #Air Time: Thời gian trên không, tính bằng công thức (Air Time = Jump Speed / Gravity)
@@ -36,14 +38,14 @@ var _movement_sensor = MovementSensor.new()
 var detect_player_area: Area2D = null
 var found_player: Player = null
 
-var _is_hurt = false
+var _movement_speed: float = movement_speed
 
 func _ready() -> void:
 	_init_ray_cast()
 	_init_detect_player_area()
 	_init_hurt_area()
 	_init_hit_area()
-	fsm = EnemyFSM.new(self, $State, $State/Normal)
+	fsm = EnemyFSM.new(self, $States, $States/Normal)
 	pass
 
 #init ray cast to check wall and fall
@@ -81,18 +83,18 @@ func _physics_process(delta: float) -> void:
 	_direction_controller._update(delta)
 
 func _update_movement(delta: float) -> void:
-	velocity.x = movement_speed * _direction_controller.get_direction()
+	velocity.x = _movement_speed * _direction_controller.get_direction()
 	velocity.y += gravity * delta
 	move_and_slide()
 	pass
 	
 func try_patrol_turn(delta: float):
-	var should_turn_around = _patrol_controller.track_patrol(delta, movement_speed) or _movement_sensor.should_turn_around()
+	var is_touch_wall = _movement_sensor.is_touch_wall()
+	var is_can_fall = _movement_sensor.is_can_fall() and is_on_floor()
+	var is_reach_limit = _patrol_controller.track_patrol(delta, movement_speed)
+	var should_turn_around = is_touch_wall or is_can_fall or is_reach_limit
 	if should_turn_around:
 		_direction_controller.turn_around()
-
-func get_animation_controller() -> AnimationController:
-	return _animation_controller
 
 func _on_body_entered(_body: CharacterBody2D) -> void:
 	found_player = _body
@@ -104,7 +106,7 @@ func _on_body_exited(_body: CharacterBody2D) -> void:
 
 func _on_hurt_area_2d_hurt(_direction: Vector2, _damage: float) -> void:
 	take_damage(_direction, _damage)
-	_is_hurt = true
+	fsm.changing_signals["hurt"] = true
 	
 # called when player is in sight
 func _on_player_in_sight(_player_pos: Vector2):
@@ -117,12 +119,36 @@ func _on_player_not_in_sight():
 func take_damage(_damage_dir, damage: float) -> void:
 	health -= damage
 
-func is_hurt() -> bool:
-	return _is_hurt
+func is_alive() -> bool:
+	return health > 0.0
 
-func on_hurt() -> void:
-	if is_hurt():
-		fsm.change_state(fsm.states.hurt)
+func start_normal_mode() -> void:
+	_movement_speed = movement_speed
+	
+	_animation_controller.change_animation("normal")
 
-func stop_moving() -> void:
-	velocity.x = 0
+func end_normal_mode() -> void:
+	pass
+
+func update_normal_mode(_delta: float) -> void:
+	try_patrol_turn(_delta)
+
+func start_hurt_mode() -> void:
+	_movement_speed = 0.0
+	
+	_animation_controller.change_animation("hurt")
+
+func end_hurt_mode() -> void:
+	pass
+
+func update_hurt_mode(_delta: float) -> void:
+	pass
+
+func start_dead_mode() -> void:
+	queue_free()
+
+func end_dead_mode() -> void:
+	pass
+
+func update_dead_mode(_delta: float) -> void:
+	pass
