@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://chcs4qer8dybe"]
+[gd_scene load_steps=84 format=3 uid="uid://chcs4qer8dybe"]
 
 [ext_resource type="Script" uid="uid://d00o3jgu015v4" path="res://scripts/player/player.gd" id="1_ugbui"]
 [ext_resource type="Texture2D" uid="uid://cwgjo8l0lmemi" path="res://assets/sprites/characters/foxy/fox/fox_idle_1.png" id="2_5gtgg"]
@@ -77,6 +77,7 @@
 [ext_resource type="Script" uid="uid://eb7cglr7oflu" path="res://scripts/player/weapon_aimer.gd" id="75_3p0jd"]
 [ext_resource type="Script" uid="uid://bvxcpvst3aaxd" path="res://scripts/player/throwing.gd" id="75_s050l"]
 [ext_resource type="Script" uid="uid://clda3mhukcmdf" path="res://scripts/player/trajectory/trajectory_line.gd" id="75_ymths"]
+[ext_resource type="Script" uid="uid://w3w0sbvoe5al" path="res://scenes/player/launch.gd" id="76_4sw5w"]
 [ext_resource type="PackedScene" uid="uid://1wtxrnnmrcax" path="res://scenes/tests/projectile.tscn" id="76_7nf13"]
 [ext_resource type="Texture2D" uid="uid://b2ys0lkughw88" path="res://assets/sprites/trajectory/dotted_line.png" id="77_0y4ya"]
 
@@ -477,6 +478,9 @@ script = ExtResource("74_2wy34")
 
 [node name="Throwing" type="Node" parent="States"]
 script = ExtResource("75_s050l")
+
+[node name="Launch" type="Node" parent="States"]
+script = ExtResource("76_4sw5w")
 
 [node name="WeaponThrower" type="Node2D" parent="."]
 script = ExtResource("75_3p0jd")

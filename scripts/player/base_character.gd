@@ -28,6 +28,7 @@ var currentHealth: float = maxHealth
 
 var weapon_thrower: Node2D
 
+
 func _ready() -> void:
 	set_animated_sprite($Direction/AnimatedSprite2D)
 
@@ -38,7 +39,8 @@ func _physics_process(delta: float) -> void:
 	if fsm != null:
 		fsm._update(delta)
 	# Movement
-	_update_movement(delta)
+	if fsm.current_state.name != "launched":
+		_update_movement(delta)
 	# Direction
 	_check_changed_direction()
 
