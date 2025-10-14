@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://di7pg4ow6n6rv" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_01.png" id="4_ke5bn"]
 [ext_resource type="Texture2D" uid="uid://ro22qcieewjs" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_02.png" id="5_6yxqy"]
 [ext_resource type="Texture2D" uid="uid://cmig7rvc1vfn2" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_03.png" id="6_7a7sm"]
-[ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/enemies/controllers/hurt_area_2d.gd" id="8_7a7sm"]
+[ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="8_7a7sm"]
 [ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/enemy_state.gd" id="8_ia0f3"]
 [ext_resource type="Script" uid="uid://vrc8fbdyw2ph" path="res://scripts/enemies/mushroom/normal.gd" id="9_ke5bn"]
 [ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/states/hurt.gd" id="10_6yxqy"]

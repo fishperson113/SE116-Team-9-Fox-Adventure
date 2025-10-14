@@ -13,5 +13,4 @@ func _update( _delta ):
 	obj.update_stun_mode(_delta)
 	if update_timer(_delta):
 		fsm.change_state(fsm.states.normal)
-	on_hurt()
 	pass

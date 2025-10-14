@@ -10,6 +10,4 @@ func _exit() -> void:
 
 func _update( _delta ):
 	obj.update_attack_mode(_delta)
-	on_hit()
-	on_hurt()
 	pass
