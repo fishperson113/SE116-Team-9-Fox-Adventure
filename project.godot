@@ -92,8 +92,11 @@ add_dir_x={
 
 2d_physics/layer_1="environment"
 2d_physics/layer_2="transparent"
-2d_physics/layer_3="player_layer"
+2d_physics/layer_3="player"
 2d_physics/layer_4="enemy"
+2d_physics/layer_5="enemy_hurt"
+2d_physics/layer_6="player_hurt"
+2d_physics/layer_7="item"
 
 [rendering]
 

@@ -439,7 +439,7 @@ _data = [Vector2(0, 1), 0.0, -3.16854, 0, 0, Vector2(1, 0), -0.0862188, 0.0, 0, 
 point_count = 2
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
-collision_layer = 2
+collision_layer = 4
 script = ExtResource("1_ugbui")
 metadata/_custom_type_script = "uid://dlxdtwr6rpwbr"
 
