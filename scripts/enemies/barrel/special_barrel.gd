@@ -1,4 +1,4 @@
-extends "res://scenes/enemies/barrel.gd"
+extends "res://scripts/enemies/barrel/barrel.gd"
 
 @export var shot_delay: float = 0.15 
 
