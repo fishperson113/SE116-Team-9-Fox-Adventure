@@ -17,6 +17,7 @@ var _sight_ray_cast: RayCast2D = null
 
 func _ready() -> void:
 	super._ready()
+	fsm=FSM.new(self,$States,$States/Normal)
 	_init_sight_ray_cast()
 	_init_attack_box()
 	

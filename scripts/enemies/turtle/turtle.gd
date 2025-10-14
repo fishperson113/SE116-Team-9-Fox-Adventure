@@ -11,7 +11,9 @@ extends Enemy
 @export var hiding_time: float = 1.0
 @export var hide_time: float = 3.0
 @export var emerging_time: float = 1.0
-
+func _ready() -> void:
+	fsm=FSM.new(self,$States,$States/Normal)
+	super._ready()
 func start_hide_mode():
 	_animation_controller.change_animation("hide")
 	pass

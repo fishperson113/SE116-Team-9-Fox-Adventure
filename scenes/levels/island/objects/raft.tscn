@@ -46,8 +46,8 @@ func _physics_process(delta):
 			_state_idle()
 		State.MOVING:
 			_state_moving(delta)
-		State.DISEMBARKING:
-			_state_disembarking()
+		#State.DISEMBARKING:
+			#_state_disembarking()
 
 func _state_idle():
 	if ship_helm.animation != \"idle\":
@@ -57,7 +57,8 @@ func _state_idle():
 
 func _state_moving(delta):
 	if self.position.is_equal_approx(_target_position):
-		current_state = State.DISEMBARKING
+		#_player.fsm.change_state(_player.fsm.states.launch)
+		current_state = State.IDLE
 		return
 	
 	if ship_helm.animation != \"turn\":
@@ -66,30 +67,31 @@ func _state_moving(delta):
 		boat_sail.play(\"default\")
 		
 	self.position = self.position.move_toward(_target_position, speed * delta)
-	if(Input.is_action_just_pressed(\"jump\")):
-		skip()
+	#if(Input.is_action_just_pressed(\"jump\")):
+		#skip()
 
 func _state_disembarking():
 	_player.fsm.change_state(_player.fsm.states.launch)
 	current_state = State.IDLE
 	
 func _on_detector_area_body_entered(body):
-	if body.is_in_group(\"player\"):
-		var player = body as Player
-		if player:  
-			player_on_boat = true
-			_player = player
-			if \"player_on_boat\" in player:  
-				player.player_on_boat = true
+		#var player = body as Player
+		#if player:  
+		player_on_boat = true
+		current_state=State.MOVING
+			#_player = player
+			#if \"player_on_boat\" in player:  
+				#player.player_on_boat = true
 
 func _on_detector_area_body_exited(body):
-	if body.is_in_group(\"player\"):
-		var player = body as Player
-		if player:  
-			player_on_boat = false
-			if \"player_on_boat\" in player:  
-				player.player_on_boat = false
-			_player = null
+		#var player = body as Player
+		#if player:  
+			#player_on_boat = false
+			#if \"player_on_boat\" in player:  
+				#player.player_on_boat = false
+			#_player = null
+		player_on_boat = false
+		current_state=State.IDLE
 		
 func start_moving():
 	if player_on_boat and current_state == State.IDLE:
@@ -196,7 +198,8 @@ sprite_frames = SubResource("SpriteFrames_ekqx8")
 animation = &"idle"
 
 [node name="DetectorArea" type="Area2D" parent="."]
-collision_mask = 3
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectorArea"]
 position = Vector2(0, -37)

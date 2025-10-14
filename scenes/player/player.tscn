@@ -34,15 +34,15 @@
 [ext_resource type="Texture2D" uid="uid://cg0s41812vukj" path="res://assets/sprites/characters/foxy/fox_hat/fox_walk_3.png" id="9_28m0y"]
 [ext_resource type="Texture2D" uid="uid://c7b68c2t2m054" path="res://assets/sprites/characters/foxy/fox/fox_walk_4.png" id="9_myrg7"]
 [ext_resource type="Texture2D" uid="uid://dulpexev42v5b" path="res://assets/sprites/characters/foxy/fox_blade/fox_jump_atk_2.png" id="9_ttakn"]
-[ext_resource type="Script" uid="uid://35lrjguu78yc" path="res://scripts/player/player_state.gd" id="10_ugbui"]
+[ext_resource type="Script" uid="uid://35lrjguu78yc" path="res://scripts/player/states/player_state.gd" id="10_ugbui"]
 [ext_resource type="Texture2D" uid="uid://8u26ji11yaua" path="res://assets/sprites/characters/foxy/fox_hat/fox_walk_4.png" id="10_uniwh"]
 [ext_resource type="Texture2D" uid="uid://bv5er34emc8g1" path="res://assets/sprites/characters/foxy/fox_hat_blade/fox_jump_2.png" id="11_5q8fn"]
-[ext_resource type="Script" uid="uid://dx4bmrvxx8iur" path="res://scripts/player/idle.gd" id="11_fcs02"]
-[ext_resource type="Script" uid="uid://dsmmgos5wx4pq" path="res://scripts/player/walk.gd" id="12_myrg7"]
+[ext_resource type="Script" uid="uid://dx4bmrvxx8iur" path="res://scripts/player/states/idle.gd" id="11_fcs02"]
+[ext_resource type="Script" uid="uid://dsmmgos5wx4pq" path="res://scripts/player/states/walk.gd" id="12_myrg7"]
 [ext_resource type="Texture2D" uid="uid://cv1omqfyyi3aj" path="res://assets/sprites/characters/foxy/fox_hat_blade/fox_idle_1.png" id="12_wva7c"]
 [ext_resource type="Texture2D" uid="uid://d1wqqv8lwu0w0" path="res://assets/sprites/characters/foxy/fox_hat_blade/fox_idle_2.png" id="13_7obkq"]
-[ext_resource type="Script" uid="uid://bcqb4ceuq3lao" path="res://scripts/player/jump.gd" id="13_kvlxm"]
-[ext_resource type="Script" uid="uid://eqb0ahpxa4k" path="res://scripts/player/fall.gd" id="14_uf5tr"]
+[ext_resource type="Script" uid="uid://bcqb4ceuq3lao" path="res://scripts/player/states/jump.gd" id="13_kvlxm"]
+[ext_resource type="Script" uid="uid://eqb0ahpxa4k" path="res://scripts/player/states/fall.gd" id="14_uf5tr"]
 [ext_resource type="Texture2D" uid="uid://cjob2r8khe2fs" path="res://assets/sprites/characters/foxy/fox_hat_blade/fox_jump_1.png" id="14_vo27k"]
 [ext_resource type="Texture2D" uid="uid://dnt7n2db610ps" path="res://assets/sprites/characters/foxy/fox_hat_blade/fox_atk_1.png" id="15_ds1xl"]
 [ext_resource type="Texture2D" uid="uid://dgis3lall2gw3" path="res://assets/sprites/characters/foxy/fox_hat_blade/fox_walk_1.png" id="15_genst"]
@@ -65,17 +65,17 @@
 [ext_resource type="Texture2D" uid="uid://yom7r0j05to2" path="res://assets/sprites/characters/foxy/fox_hat/fox_hit_1.png" id="35_pwfqx"]
 [ext_resource type="Texture2D" uid="uid://ck8edmupc3gra" path="res://assets/sprites/characters/foxy/fox_hat/fox_hit_2.png" id="36_kssj8"]
 [ext_resource type="Texture2D" uid="uid://bqh3qhrimo17x" path="res://assets/sprites/characters/foxy/fox_hat/fox_hit_3.png" id="37_8lfxt"]
-[ext_resource type="Script" uid="uid://exom1nf5wufp" path="res://scripts/player/attack.gd" id="41_vo27k"]
+[ext_resource type="Script" uid="uid://exom1nf5wufp" path="res://scripts/player/states/attack.gd" id="41_vo27k"]
 [ext_resource type="Texture2D" uid="uid://m4di78taixns" path="res://assets/sprites/characters/foxy/fox_hat/fox_defeat_1.png" id="43_vkc6f"]
 [ext_resource type="Texture2D" uid="uid://b6jgthsrynctr" path="res://assets/sprites/characters/foxy/fox_hat/fox_defeat_2.png" id="44_21yht"]
 [ext_resource type="Texture2D" uid="uid://bcpoenc50cm6f" path="res://assets/sprites/characters/foxy/fox/fox_hit_1.png" id="45_lclul"]
 [ext_resource type="Texture2D" uid="uid://fii540ugfj5n" path="res://assets/sprites/characters/foxy/fox_hat/fox_defeat_3.png" id="45_trum3"]
 [ext_resource type="Texture2D" uid="uid://cpnrjocfgv50m" path="res://assets/sprites/characters/foxy/fox/fox_hit_2.png" id="46_ej2d6"]
 [ext_resource type="Texture2D" uid="uid://bij01i1v7nb15" path="res://assets/sprites/characters/foxy/fox/fox_hit_3.png" id="47_fvjb1"]
-[ext_resource type="Script" uid="uid://81kwo4qtirke" path="res://scripts/player/hit.gd" id="61_bysbl"]
-[ext_resource type="Script" uid="uid://y7g7u6e47yd6" path="res://scripts/player/defeat.gd" id="74_2wy34"]
-[ext_resource type="Script" uid="uid://eb7cglr7oflu" path="res://scripts/player/weapon_aimer.gd" id="75_3p0jd"]
-[ext_resource type="Script" uid="uid://bvxcpvst3aaxd" path="res://scripts/player/throwing.gd" id="75_s050l"]
+[ext_resource type="Script" uid="uid://81kwo4qtirke" path="res://scripts/player/states/hit.gd" id="61_bysbl"]
+[ext_resource type="Script" uid="uid://y7g7u6e47yd6" path="res://scripts/player/states/defeat.gd" id="74_2wy34"]
+[ext_resource type="Script" uid="uid://eb7cglr7oflu" path="res://scripts/utils/weapon_aimer.gd" id="75_3p0jd"]
+[ext_resource type="Script" uid="uid://bvxcpvst3aaxd" path="res://scripts/player/states/throwing.gd" id="75_s050l"]
 [ext_resource type="Script" uid="uid://clda3mhukcmdf" path="res://scripts/player/trajectory/trajectory_line.gd" id="75_ymths"]
 [ext_resource type="Script" uid="uid://w3w0sbvoe5al" path="res://scenes/player/launch.gd" id="76_4sw5w"]
 [ext_resource type="PackedScene" uid="uid://1wtxrnnmrcax" path="res://scenes/tests/projectile.tscn" id="76_7nf13"]
@@ -439,7 +439,7 @@ _data = [Vector2(0, 1), 0.0, -3.16854, 0, 0, Vector2(1, 0), -0.0862188, 0.0, 0, 
 point_count = 2
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
-collision_layer = 2
+collision_layer = 4
 script = ExtResource("1_ugbui")
 metadata/_custom_type_script = "uid://dlxdtwr6rpwbr"
 
