@@ -2,7 +2,11 @@ class_name Player
 extends BaseCharacter
 
 var hit_buffer: bool = false
+
 @export var character_type = 0
+
+@export var jump_step: int = 2
+@export var current_jump: int = 0
 
 var weapon_thrower: WeaponThrower
 

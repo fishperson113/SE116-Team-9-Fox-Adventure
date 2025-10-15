@@ -16,9 +16,6 @@ var _next_animation = null
 var _next_direction: int = 1
 var _next_animated_sprite: AnimatedSprite2D = null
 
-@export var jump_step: int = 2
-@export var current_jump: int = 0
-
 var maxHealth: float = 250
 var currentHealth: float = maxHealth
 
