@@ -7,10 +7,6 @@ extends CharacterBody2D
 @export var gravity: float = 700.0
 @export var direction: int = 1
 
-@export var character_type = 0
-
-var hit_buffer: bool = false
-
 var jump_speed: float = 320.0
 var fsm: FSM = null
 var current_animation = null
@@ -25,9 +21,6 @@ var _next_animated_sprite: AnimatedSprite2D = null
 
 var maxHealth: float = 250
 var currentHealth: float = maxHealth
-
-var weapon_thrower: Node2D
-
 
 func _ready() -> void:
 	set_animated_sprite($Direction/AnimatedSprite2D)
@@ -74,39 +67,13 @@ func stop_move() -> void:
 	velocity.x = 0
 	velocity.y = 0
 
-func change_player_type(char_type: int) -> void:
-	var animation_reset = get_reset_animation_name(current_animation)
-	character_type = char_type
-	change_animation(animation_reset)
-
-func get_animation_prefix() -> String:
-	var char_type: String
-	
-	if character_type == 0: char_type = ""
-	elif character_type == 1: char_type = "hat_"
-	elif character_type == 2: char_type = "blade_"
-	elif character_type == 3: char_type = "hat_blade_"
-	
-	return char_type
-
 # Change the direction of the character on the last frame
 func change_direction(new_direction: int) -> void:
 	_next_direction = new_direction
 
 # Change the animation of the character on the next frame
 func change_animation(new_animation: String) -> void:
-	if new_animation == "attack" and character_type == 0:
-		return
-	
-	var char_type = get_animation_prefix()
-	_next_animation = char_type + new_animation
-
-func get_reset_animation_name(animation_name: String) -> String:
-	var next_name: String = animation_name
-	var char_type = get_animation_prefix()
-	
-	next_name = next_name.replace(char_type, "")
-	return next_name
+	_next_animation = new_animation
 
 # Get the name of the current animation
 func get_animation_name() -> String:
