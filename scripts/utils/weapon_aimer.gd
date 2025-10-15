@@ -1,3 +1,4 @@
+class_name WeaponThrower
 extends Node
 
 @export var projectile: PackedScene
