@@ -1,14 +1,15 @@
 class_name WeaponThrower
 extends Node
 
-@export var projectile: PackedScene
+@export var projectile_type: int = 0
+var projectile: PackedScene
 
 @export var dir_vector: Vector2
-var max_dir_vector: Vector2 = Vector2(2, 2)
+var max_dir_vector: Vector2 = Vector2(1, 1)
 var mouse_dir_vector: Vector2 = Vector2(0, 0)
 var mouse_dir_change_rate: float = 0.5
-@export var speed: float
-@export var gravity: float
+var speed: float
+var gravity: float
 
 @onready var trajectory_line: Line2D = $TrajectoryLine
 @onready var player: Player = $".."
@@ -16,17 +17,26 @@ var mouse_dir_change_rate: float = 0.5
 var max_mouse_still_time = 0.05
 var mouse_still_time = 0
 
+func _ready() -> void:
+	change_projectile(projectile_type)
+
 func _process(delta: float) -> void:
 	mouse_still_time += delta
 	if mouse_still_time > max_mouse_still_time:
 		mouse_dir_vector = Vector2.ZERO
-	print(mouse_dir_vector)
 	pass
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		mouse_dir_vector = Vector2(event.relative.x, event.relative.y)
 		mouse_still_time = 0
+
+func change_projectile(pjt_type: int) -> void:
+	if pjt_type == 0: projectile = preload("res://scenes/tests/projectile.tscn")
+	elif pjt_type == 1: projectile = preload("res://scenes/tests/projectile_blade.tscn")
+	var pjt = projectile.instantiate()
+	speed = pjt.speed
+	gravity = pjt.gravity
 
 func find_throw_direction(delta: float) -> void:
 	inspect_direction()
