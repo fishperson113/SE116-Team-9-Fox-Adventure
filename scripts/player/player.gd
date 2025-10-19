@@ -11,6 +11,7 @@ var hit_buffer: bool = false
 var weapon_thrower: WeaponThrower
 
 func _ready() -> void:
+	get_node("Direction/HitArea2D/CollisionShape2D").disabled = true
 	fsm = FSM.new(self, $States, $States/Idle)
 	weapon_thrower = $WeaponThrower
 	super._ready()
