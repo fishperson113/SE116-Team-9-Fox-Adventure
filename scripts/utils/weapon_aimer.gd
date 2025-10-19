@@ -1,6 +1,7 @@
 class_name WeaponThrower
 extends Node
 
+@onready var item_storer: ItemStorer = $"../ItemStorer"
 @export var projectile_type: int = 0
 var projectile: PackedScene
 
@@ -18,7 +19,7 @@ var max_mouse_still_time = 0.05
 var mouse_still_time = 0
 
 func _ready() -> void:
-	change_projectile(projectile_type)
+	pass
 
 func _process(delta: float) -> void:
 	mouse_still_time += delta
@@ -32,13 +33,18 @@ func _input(event: InputEvent) -> void:
 		mouse_still_time = 0
 
 func change_projectile(pjt_type: int) -> void:
-	if pjt_type == 0: projectile = preload("res://scenes/tests/projectile.tscn")
+	if pjt_type == -1: 
+		projectile = null
+		return
+	elif pjt_type == 0: projectile = preload("res://scenes/tests/projectile.tscn")
 	elif pjt_type == 1: projectile = preload("res://scenes/tests/projectile_blade.tscn")
 	var pjt = projectile.instantiate()
 	speed = pjt.speed
 	gravity = pjt.gravity
 
 func find_throw_direction(delta: float) -> void:
+	if !item_storer.is_slot_available(): return
+	if !item_storer.is_slot_weapon(): return
 	inspect_direction()
 	trajectory_line.visible = true
 	dir_vector += Vector2(delta * mouse_dir_change_rate * mouse_dir_vector.x, delta * mouse_dir_change_rate * mouse_dir_vector.y)
@@ -61,7 +67,10 @@ func find_throw_direction(delta: float) -> void:
 	trajectory_line.update_trajectory(dir_vector, speed, gravity, delta)
 
 func stop_find_throw_direction() -> void:
+	if !item_storer.is_slot_available(): return
+	if !item_storer.is_slot_weapon(): return
 	throw_projectile()
+	item_storer.reduce_item()
 	trajectory_line.visible = false
 
 func inspect_direction() -> void:
