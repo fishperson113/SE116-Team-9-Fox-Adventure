@@ -34,6 +34,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("switch_item"):
 		switch_item_slot()
+	elif Input.is_action_just_pressed("increase_item"):
+		increase_item()
 
 func add_item(slot: int, is_weapon: bool, item_type: int, number: int) -> void:
 	items_archive[slot]["is_weapon"] = is_weapon
@@ -63,9 +65,16 @@ func is_slot_weapon() -> bool:
 func get_item_type() -> int:
 	return items_archive[item_slot]["item_type"]
 
+func increase_item() -> void:
+	if items_archive[item_slot]["item_type"] == -1:
+		print("No item in the slot")
+		return
+	items_archive[item_slot]["number_of_item"] += 1
+	print("Item increased: ", item_slot, "\n", items_archive[item_slot])
+
 func reduce_item() -> void:
 	items_archive[item_slot]["number_of_item"] -= 1
-	print(items_archive[item_slot]["number_of_item"])
 	if items_archive[item_slot]["number_of_item"] == 0:
 		items_archive[item_slot]["is_weapon"] = false
 		items_archive[item_slot]["item_type"] = -1
+	print("Item reduced: ", item_slot, "\n", items_archive[item_slot])
