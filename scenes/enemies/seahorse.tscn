@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c1hyao37pnno1"]
+[gd_scene load_steps=17 format=3 uid="uid://c1hyao37pnno1"]
 
 [ext_resource type="Script" uid="uid://b1k8grxh31gq0" path="res://scripts/enemies/seahorse/seahorse.gd" id="1_t67fo"]
 [ext_resource type="Texture2D" uid="uid://iypi4fwrbn5s" path="res://assets/sprites/enemies/monsters/barrel/barrel_atk_01.png" id="2_t67fo"]
@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://cvqfjx8p5pi7e" path="res://scenes/enemies/bullet.tscn" id="12_rw8jg"]
 [ext_resource type="Script" uid="uid://t1xwug2i503q" path="res://scripts/enemies/seahorse/normal.gd" id="13_1egdl"]
 [ext_resource type="Script" uid="uid://uifmm33yctg8" path="res://scripts/enemies/seahorse/attack.gd" id="14_1egdl"]
-[ext_resource type="Script" uid="uid://dgefkddudby0b" path="res://scripts/enemies/seahorse/ready.gd" id="14_fhyme"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ybc7j"]
 animations = [{
@@ -100,9 +99,6 @@ shape = SubResource("CapsuleShape2D_y7xdu")
 
 [node name="Normal" type="Node" parent="States"]
 script = ExtResource("13_1egdl")
-
-[node name="Ready" type="Node" parent="States"]
-script = ExtResource("14_fhyme")
 
 [node name="Attack" type="Node" parent="States"]
 script = ExtResource("14_1egdl")

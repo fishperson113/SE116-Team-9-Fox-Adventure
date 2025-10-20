@@ -10,4 +10,5 @@ func _exit() -> void:
 func _update( _delta ):
 	super._update(_delta)
 	if update_timer(_delta):
-		fsm.change_state(fsm.states.ready)
+		if obj.can_attack():
+			fsm.change_state(fsm.states.attack)

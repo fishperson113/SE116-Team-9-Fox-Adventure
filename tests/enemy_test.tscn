@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://2myew2spjl4b"]
+[gd_scene load_steps=6 format=4 uid="uid://2myew2spjl4b"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
 [ext_resource type="PackedScene" uid="uid://duqrtowl0m5a4" path="res://scenes/enemies/starfish.tscn" id="3_52dwj"]
+[ext_resource type="PackedScene" uid="uid://cdfbk1ajslx5n" path="res://scenes/enemies/pelican.tscn" id="5_1bdp4"]
 [ext_resource type="PackedScene" uid="uid://mefrkk1reh1t" path="res://scenes/enemies/turtle.tscn" id="5_vb1hh"]
 [ext_resource type="PackedScene" uid="uid://c1hyao37pnno1" path="res://scenes/enemies/seahorse.tscn" id="6_1bdp4"]
 
@@ -21,3 +22,6 @@ position = Vector2(338, 172)
 
 [node name="Seahorse" parent="." instance=ExtResource("6_1bdp4")]
 position = Vector2(210, 174)
+
+[node name="Pelican" parent="." instance=ExtResource("5_1bdp4")]
+position = Vector2(97, 63)

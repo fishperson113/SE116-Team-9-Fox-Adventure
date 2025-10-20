@@ -105,10 +105,11 @@ func _update_movement(delta: float) -> void:
 func try_patrol_turn(delta: float):
 	var is_touch_wall = _movement_sensor.is_touch_wall()
 	var is_can_fall = _movement_sensor.is_can_fall() and is_on_floor()
-	var is_reach_limit = _patrol_controller.track_patrol(delta, movement_speed)
+	var is_reach_limit = _patrol_controller.track_patrol(position.x, _direction_controller.get_direction())
 	var should_turn_around = is_touch_wall or is_can_fall or is_reach_limit
 	if should_turn_around:
 		_direction_controller.turn_around()
+		_patrol_controller.set_start_position(position.x)
 
 func _on_body_entered(_body: CharacterBody2D) -> void:
 	found_player = _body

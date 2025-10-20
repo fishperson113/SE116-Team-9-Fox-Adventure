@@ -1,6 +1,12 @@
 class_name EnemyState
 extends FSMState
 
+func update_timer(delta: float) -> bool:
+	timer -= delta
+	if timer <= 0:
+		return true
+	return false
+
 func try_attack() -> void:
 	if obj.can_attack():
 		fsm.change_state(fsm.states.attack)

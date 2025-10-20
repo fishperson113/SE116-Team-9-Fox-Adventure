@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cv5m0cbxsoolx"]
+
+[ext_resource type="Script" uid="uid://cpsskti1po284" path="res://scripts/enemies/bullets/sea_urchin.gd" id="1_2j4gn"]
+[ext_resource type="Texture2D" uid="uid://dws8ejbhk0a2q" path="res://assets/sprites/enemies/monsters/pelican/pelican_bullet.png" id="1_adkad"]
+[ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="2_eaeo7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eaeo7"]
+radius = 8.0
+
+[node name="SeaUrchin" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_2j4gn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_adkad")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eaeo7")
+
+[node name="HitArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 61
+script = ExtResource("2_eaeo7")
+metadata/_custom_type_script = "uid://dkb25vr64v37l"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea2D"]
+shape = SubResource("CircleShape2D_eaeo7")
+
+[connection signal="hitted" from="HitArea2D" to="." method="_on_hit_area_2d_hitted"]
