@@ -7,11 +7,9 @@ func try_attack() -> void:
 
 func try_recover() -> void:
 	if obj.is_alive():
-		fsm.change_state(fsm.states.idle)
+		fsm.change_state(fsm.states.normal)
 	else:
 		fsm.change_state(fsm.states.dead)
 
-func take_damage(_damage_dir, damage: int) -> void:
-	obj.velocity.x = _damage_dir.x * 150
-	obj.take_damage(damage)
+func take_damage() -> void:
 	change_state(fsm.states.hurt)

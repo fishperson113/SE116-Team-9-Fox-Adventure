@@ -88,6 +88,7 @@ collision_layer = 2
 script = ExtResource("1_k6xmj")
 health = 200.0
 spike = 100.0
+movement_speed = 50.0
 metadata/_custom_type_script = "uid://da4xpmamo1d7r"
 
 [node name="Direction" type="Node2D" parent="."]

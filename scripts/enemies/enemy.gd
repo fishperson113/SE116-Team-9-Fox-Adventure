@@ -119,7 +119,9 @@ func _on_body_exited(_body: CharacterBody2D) -> void:
 	_on_player_not_in_sight()
 
 func _on_hurt_area_2d_hurt(_direction: Vector2, _damage: float) -> void:
-	fsm.changing_signals["hurt"] = true	
+	take_damage(_direction, _damage)
+	fsm.current_state.take_damage()
+	
 # called when player is in sight
 func _on_player_in_sight(_player_pos: Vector2):
 	pass
