@@ -27,4 +27,5 @@ metadata/_custom_type_script = "uid://dkb25vr64v37l"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea2D"]
 shape = SubResource("CircleShape2D_eaeo7")
 
+[connection signal="body_entered" from="HitArea2D" to="." method="_on_hit_area_2d_body_entered"]
 [connection signal="hitted" from="HitArea2D" to="." method="_on_hit_area_2d_hitted"]

@@ -11,8 +11,8 @@ extends Enemy
 @export var _shoot_interval: float = 0.5
 @export var _attack_cool_down: float = 3.0
 
-var _detect_ray_cast: RayCast2D = null
 var _cooldown: float = 0.0
+var _detect_ray_cast: RayCast2D = null
 
 @onready var _bullet_factory := $Direction/BulletFactory
 

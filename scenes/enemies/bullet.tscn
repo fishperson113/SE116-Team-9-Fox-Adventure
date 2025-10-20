@@ -31,4 +31,5 @@ shape = SubResource("CircleShape2D_p5aa7")
 position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_p5aa7")
 
+[connection signal="body_entered" from="Direction/HitArea2D" to="." method="_on_hit_area_2d_body_entered"]
 [connection signal="hitted" from="Direction/HitArea2D" to="." method="_on_hit_area_2d_hitted"]

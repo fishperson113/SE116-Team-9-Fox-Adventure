@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c1hyao37pnno1"]
+[gd_scene load_steps=20 format=3 uid="uid://c1hyao37pnno1"]
 
 [ext_resource type="Script" uid="uid://b1k8grxh31gq0" path="res://scripts/enemies/seahorse/seahorse.gd" id="1_t67fo"]
 [ext_resource type="Texture2D" uid="uid://iypi4fwrbn5s" path="res://assets/sprites/enemies/monsters/barrel/barrel_atk_01.png" id="2_t67fo"]
@@ -13,7 +13,10 @@
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="11_e1oma"]
 [ext_resource type="PackedScene" uid="uid://cvqfjx8p5pi7e" path="res://scenes/enemies/bullet.tscn" id="12_rw8jg"]
 [ext_resource type="Script" uid="uid://t1xwug2i503q" path="res://scripts/enemies/seahorse/normal.gd" id="13_1egdl"]
+[ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="13_fhyme"]
 [ext_resource type="Script" uid="uid://uifmm33yctg8" path="res://scripts/enemies/seahorse/attack.gd" id="14_1egdl"]
+[ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/states/hurt.gd" id="16_ku8xx"]
+[ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="17_7tdr4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ybc7j"]
 animations = [{
@@ -65,6 +68,7 @@ radius = 9.0
 height = 18.0
 
 [node name="Seahorse" type="CharacterBody2D"]
+collision_layer = 0
 script = ExtResource("1_t67fo")
 _shoot_time = 1.5
 movement_speed = 0.0
@@ -91,6 +95,16 @@ product_packed_scene = ExtResource("12_rw8jg")
 target_container_name = &"Bullets"
 metadata/_custom_type_script = "uid://2dtm6jeegr43"
 
+[node name="HurtArea2D" type="Area2D" parent="Direction"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("13_fhyme")
+metadata/_custom_type_script = "uid://cofkmvw2auxcs"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HurtArea2D"]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_y7xdu")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_y7xdu")
@@ -102,3 +116,9 @@ script = ExtResource("13_1egdl")
 
 [node name="Attack" type="Node" parent="States"]
 script = ExtResource("14_1egdl")
+
+[node name="Hurt" type="Node" parent="States"]
+script = ExtResource("16_ku8xx")
+
+[node name="Dead" type="Node" parent="States"]
+script = ExtResource("17_7tdr4")
