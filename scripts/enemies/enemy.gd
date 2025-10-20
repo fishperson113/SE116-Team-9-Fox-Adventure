@@ -41,6 +41,7 @@ var _direction_controller: DirectionController = null
 var _patrol_controller: PatrolController = null
 var _animation_controller: AnimationController = null
 var _movement_sensor: MovementSensor = null
+var _hit_area: HitArea2D = null
 
 func _ready() -> void:
 	_init_controller()
@@ -84,8 +85,8 @@ func _init_hurt_area():
 		
 func _init_hit_area():
 	if has_node("Direction/HitArea2D"):
-		var hit_area = $Direction/HitArea2D
-		hit_area.set_dealt_damage(spike)
+		_hit_area = $Direction/HitArea2D
+		_hit_area.set_dealt_damage(spike)
 
 func _physics_process(delta: float) -> void:
 	_animation_controller._update(delta)

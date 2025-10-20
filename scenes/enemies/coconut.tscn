@@ -20,7 +20,8 @@ position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_i7ips")
 
 [node name="HitArea2D" type="Area2D" parent="."]
-collision_mask = 61
+collision_layer = 0
+collision_mask = 53
 script = ExtResource("2_i7ips")
 metadata/_custom_type_script = "uid://dkb25vr64v37l"
 
