@@ -1,17 +1,22 @@
 extends EnemyState
 
-@export var shoot_delay: float = 0.3
-var shoot_timer: float = 0.0
+var _cooldown: float = 0
 
 func _enter() -> void:
-	obj.change_animation("shoot")
-	shoot_timer = shoot_delay
-	timer = 0.5
+	obj.change_animation("attack")
+	obj.stop_move()
+	timer = obj.get_shoot_time()
+	_cooldown = obj.get_shoot_interval()
+	pass
 
-func _update(delta: float) -> void:
-	if shoot_timer > 0:
-		shoot_timer -= delta
-		if shoot_timer <= 0:
-			obj.fire()
-	if update_timer(delta):
-		change_state(fsm.previous_state)
+func _exit() -> void:
+	pass
+
+func _update( _delta ):
+	_cooldown -= _delta
+	if _cooldown <= 0:
+		_cooldown = obj.get_shoot_interval()
+		obj.fire()
+	if update_timer(_delta):
+		change_state(fsm.previous_state)	
+	pass

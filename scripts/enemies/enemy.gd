@@ -41,6 +41,7 @@ var _direction_controller: DirectionController = null
 var _patrol_controller: PatrolController = null
 var _animation_controller: AnimationController = null
 var _movement_sensor: MovementSensor = null
+var _hit_area: HitArea2D = null
 
 func _ready() -> void:
 	_init_controller()
@@ -84,8 +85,8 @@ func _init_hurt_area():
 		
 func _init_hit_area():
 	if has_node("Direction/HitArea2D"):
-		var hit_area = $Direction/HitArea2D
-		hit_area.set_dealt_damage(spike)
+		_hit_area = $Direction/HitArea2D
+		_hit_area.set_dealt_damage(spike)
 
 func _physics_process(delta: float) -> void:
 	_animation_controller._update(delta)
@@ -105,10 +106,11 @@ func _update_movement(delta: float) -> void:
 func try_patrol_turn(delta: float):
 	var is_touch_wall = _movement_sensor.is_touch_wall()
 	var is_can_fall = _movement_sensor.is_can_fall() and is_on_floor()
-	var is_reach_limit = _patrol_controller.track_patrol(delta, movement_speed)
+	var is_reach_limit = _patrol_controller.track_patrol(position.x, _direction_controller.get_direction())
 	var should_turn_around = is_touch_wall or is_can_fall or is_reach_limit
 	if should_turn_around:
 		_direction_controller.turn_around()
+		_patrol_controller.set_start_position(position.x)
 
 func _on_body_entered(_body: CharacterBody2D) -> void:
 	found_player = _body
@@ -119,7 +121,9 @@ func _on_body_exited(_body: CharacterBody2D) -> void:
 	_on_player_not_in_sight()
 
 func _on_hurt_area_2d_hurt(_direction: Vector2, _damage: float) -> void:
-	fsm.changing_signals["hurt"] = true	
+	take_damage(_direction, _damage)
+	fsm.current_state.take_damage()
+	
 # called when player is in sight
 func _on_player_in_sight(_player_pos: Vector2):
 	pass
