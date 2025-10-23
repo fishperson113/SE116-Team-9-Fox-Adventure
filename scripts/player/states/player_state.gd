@@ -74,7 +74,7 @@ func control_throwing(delta: float) -> bool:
 func deduct_health(amount: float) -> bool:
 	obj.currentHealth -= amount
 	print(obj.currentHealth)
-	
+	obj.healthChanged.emit()
 	if (obj.currentHealth > 0):
 		return true
 	obj.currentHealth = 0

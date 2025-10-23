@@ -9,6 +9,8 @@ extends CharacterBody2D
 
 @export var character_type = 0
 
+signal healthChanged
+
 var hit_buffer: bool = false
 
 var jump_speed: float = 320.0
@@ -144,3 +146,10 @@ func _check_changed_direction() -> void:
 # On changed direction
 func _on_changed_direction() -> void:
 	pass
+func take_damage(amount: int):
+	currentHealth -= amount
+	healthChanged.emit()  
+	
+func heal(amount: int):
+	currentHealth += amount
+	healthChanged.emit()

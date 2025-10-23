@@ -2,6 +2,7 @@ class_name Player
 extends BaseCharacter
 
 func _ready() -> void:
+	add_to_group("player")
 	fsm = FSM.new(self, $States, $States/Idle)
 	weapon_thrower = $WeaponThrower
 	super._ready()
