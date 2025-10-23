@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://chcs4qer8dybe"]
+[gd_scene load_steps=86 format=3 uid="uid://chcs4qer8dybe"]
 
 [ext_resource type="Script" uid="uid://d00o3jgu015v4" path="res://scripts/player/player.gd" id="1_ugbui"]
 [ext_resource type="Texture2D" uid="uid://cwgjo8l0lmemi" path="res://assets/sprites/characters/foxy/fox/fox_idle_1.png" id="2_5gtgg"]
@@ -73,13 +73,14 @@
 [ext_resource type="Texture2D" uid="uid://cpnrjocfgv50m" path="res://assets/sprites/characters/foxy/fox/fox_hit_2.png" id="46_ej2d6"]
 [ext_resource type="Texture2D" uid="uid://bij01i1v7nb15" path="res://assets/sprites/characters/foxy/fox/fox_hit_3.png" id="47_fvjb1"]
 [ext_resource type="Script" uid="uid://81kwo4qtirke" path="res://scripts/player/states/hit.gd" id="61_bysbl"]
+[ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="67_s4k4a"]
 [ext_resource type="Script" uid="uid://y7g7u6e47yd6" path="res://scripts/player/states/defeat.gd" id="74_2wy34"]
 [ext_resource type="Script" uid="uid://eb7cglr7oflu" path="res://scripts/utils/weapon_aimer.gd" id="75_3p0jd"]
 [ext_resource type="Script" uid="uid://bvxcpvst3aaxd" path="res://scripts/player/states/throwing.gd" id="75_s050l"]
 [ext_resource type="Script" uid="uid://clda3mhukcmdf" path="res://scripts/player/trajectory/trajectory_line.gd" id="75_ymths"]
 [ext_resource type="Script" uid="uid://w3w0sbvoe5al" path="res://scenes/player/launch.gd" id="76_4sw5w"]
-[ext_resource type="PackedScene" uid="uid://1wtxrnnmrcax" path="res://scenes/tests/projectile.tscn" id="76_7nf13"]
 [ext_resource type="Texture2D" uid="uid://b2ys0lkughw88" path="res://assets/sprites/trajectory/dotted_line.png" id="77_0y4ya"]
+[ext_resource type="Script" uid="uid://dn5leb78h1w57" path="res://scripts/player/item_storer.gd" id="80_4sw5w"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kvlxm"]
 animations = [{
@@ -431,6 +432,9 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vkc6f"]
+size = Vector2(15, 28)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uf5tr"]
 height = 28.0
 
@@ -447,7 +451,17 @@ metadata/_custom_type_script = "uid://dlxdtwr6rpwbr"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction"]
 sprite_frames = SubResource("SpriteFrames_kvlxm")
-animation = &"blade_defeat"
+animation = &"hat_blade_attack"
+frame = 1
+
+[node name="HitArea2D" type="Area2D" parent="Direction"]
+collision_mask = 8
+script = ExtResource("67_s4k4a")
+metadata/_custom_type_script = "uid://dkb25vr64v37l"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D"]
+position = Vector2(16.5, 1)
+shape = SubResource("RectangleShape2D_vkc6f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_uf5tr")
@@ -484,10 +498,6 @@ script = ExtResource("76_4sw5w")
 
 [node name="WeaponThrower" type="Node2D" parent="."]
 script = ExtResource("75_3p0jd")
-projectile = ExtResource("76_7nf13")
-dir_change_speed = 1.5
-speed = 400.0
-gravity = 300.0
 
 [node name="TrajectoryLine" type="Line2D" parent="WeaponThrower"]
 z_index = -1
@@ -497,6 +507,9 @@ width_curve = SubResource("Curve_3p0jd")
 texture = ExtResource("77_0y4ya")
 texture_mode = 1
 script = ExtResource("75_ymths")
+
+[node name="ItemStorer" type="Node" parent="."]
+script = ExtResource("80_4sw5w")
 
 [connection signal="animation_finished" from="Direction/AnimatedSprite2D" to="States/Attack" method="_on_attack_animation_finished"]
 [connection signal="animation_finished" from="Direction/AnimatedSprite2D" to="States/Hit" method="_on_hit_animation_finished"]

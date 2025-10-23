@@ -92,10 +92,11 @@ radius = 9.0
 radius = 15.0333
 
 [node name="Starfish" type="CharacterBody2D"]
-collision_layer = 2
+collision_layer = 0
 script = ExtResource("1_2d346")
 health = 100.0
 spike = 70.0
+movement_speed = 50.0
 metadata/_custom_type_script = "uid://da4xpmamo1d7r"
 
 [node name="Direction" type="Node2D" parent="."]
@@ -107,7 +108,7 @@ frame_progress = 0.97483
 
 [node name="HurtArea2D" type="Area2D" parent="Direction"]
 visible = false
-collision_layer = 8
+collision_layer = 24
 collision_mask = 0
 script = ExtResource("13_8vh65")
 metadata/_custom_type_script = "uid://cofkmvw2auxcs"
