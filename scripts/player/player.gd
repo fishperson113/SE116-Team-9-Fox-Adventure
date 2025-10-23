@@ -1,9 +1,6 @@
 class_name Player
 extends BaseCharacter
 
-var hit_buffer: bool = false
-
-@export var character_type = 0
 
 @export var jump_step: int = 2
 @export var current_jump: int = 0
@@ -11,11 +8,8 @@ var hit_buffer: bool = false
 var weapon_thrower: WeaponThrower
 
 func _ready() -> void:
-<<<<<<< HEAD
 	add_to_group("player")
-=======
 	get_node("Direction/HitArea2D/CollisionShape2D").disabled = true
->>>>>>> 738b285a1be92b0f63153c2762d8047e1f808477
 	fsm = FSM.new(self, $States, $States/Idle)
 	weapon_thrower = $WeaponThrower
 	super._ready()

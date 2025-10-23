@@ -7,15 +7,12 @@ extends CharacterBody2D
 @export var gravity: float = 700.0
 @export var direction: int = 1
 
-<<<<<<< HEAD
 @export var character_type = 0
 
 signal healthChanged
 
 var hit_buffer: bool = false
 
-=======
->>>>>>> 738b285a1be92b0f63153c2762d8047e1f808477
 var jump_speed: float = 320.0
 var fsm: FSM = null
 var current_animation = null

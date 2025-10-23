@@ -32,20 +32,19 @@ func _state_moving(delta):
 		skip()
 		
 func _on_detector_area_body_entered(body):
-		var player = body as Player
-		if player:  
-			player_on_boat = true
-			#current_state=State.MOVING
-			_player = player
-			if "player_on_boat" in player:  
-				player.player_on_boat = true
+	var player = body as Player
+	if player:  
+		player_on_boat = true
+		#current_state=State.MOVING
+		_player = player
+		if "player_on_boat" in player:  
+			player.player_on_boat = true
 				
 func _on_detector_area_body_exited(body):
-		var player = body as Player
-		if player:  
-			player_on_boat = false
-			if "player_on_boat" in player:  
-				player.player_on_boat = false
-			_player = null
+	var player = body as Player
+	if player:
 		player_on_boat = false
-		current_state=State.IDLE
+		if "player_on_boat" in player:
+			player.player_on_boat = false
+		_player = null
+		current_state = State.IDLE
