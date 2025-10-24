@@ -1,0 +1,90 @@
+[gd_scene load_steps=10 format=3 uid="uid://dg6dbkcr6ou56"]
+
+[ext_resource type="PackedScene" uid="uid://umk4alkghyk0" path="res://scenes/ui/Setting.tscn" id="1_rayf8"]
+[ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="2_7a1lr"]
+[ext_resource type="Texture2D" uid="uid://btnwd6wmuxmda" path="res://assets/sprites/objects/chest/chest_open_01.png" id="3_k5jkg"]
+[ext_resource type="Texture2D" uid="uid://dkn0i1fahffwr" path="res://assets/sprites/objects/chest/chest_open_02.png" id="4_ge5pn"]
+[ext_resource type="Texture2D" uid="uid://b67b2vn864ieo" path="res://assets/sprites/objects/chest/chest_open_04.png" id="5_182mq"]
+[ext_resource type="Texture2D" uid="uid://br8hwwry0gxvd" path="res://assets/sprites/objects/chest/chest_open_03.png" id="6_efh5j"]
+[ext_resource type="Texture2D" uid="uid://bwcclik4ny1ry" path="res://assets/sprites/objects/chest/chest_open_05.png" id="7_lkans"]
+[ext_resource type="Script" uid="uid://csutw3iiqyr10" path="res://scenes/ui/chest.gd" id="8_lldy3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5bcr0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_k5jkg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ge5pn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_182mq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_efh5j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_lkans")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Lose" instance=ExtResource("1_rayf8")]
+
+[node name="NinePatchRect" parent="ColorRect" index="0"]
+offset_bottom = 195.0
+
+[node name="Sound" parent="ColorRect/NinePatchRect" index="0"]
+visible = false
+
+[node name="Sfx" parent="ColorRect/NinePatchRect" index="1"]
+visible = false
+
+[node name="SoundCheckButton" parent="ColorRect/NinePatchRect" index="2"]
+visible = false
+
+[node name="SFXCheckButton" parent="ColorRect/NinePatchRect" index="3"]
+visible = false
+
+[node name="Setting" parent="ColorRect/NinePatchRect" index="4"]
+offset_left = 22.0
+offset_right = 129.0
+text = "YOU LOSE
+
+"
+
+[node name="Quit" parent="ColorRect/NinePatchRect" index="5"]
+offset_left = 76.0
+offset_top = 72.0
+offset_right = 100.0
+offset_bottom = 96.0
+
+[node name="Resume" parent="ColorRect/NinePatchRect" index="6"]
+visible = false
+offset_left = 29.0
+offset_top = 73.0
+offset_right = 53.0
+offset_bottom = 97.0
+
+[node name="Retry" parent="ColorRect/NinePatchRect" index="7"]
+offset_left = 41.0
+offset_top = 72.0
+offset_right = 65.0
+offset_bottom = 96.0
+
+[node name="Score" type="Label" parent="ColorRect/NinePatchRect" index="8"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 60.0
+offset_right = 91.0
+offset_bottom = 83.0
+theme_override_fonts/font = ExtResource("2_7a1lr")
+text = "100"
+
+[node name="Chest" type="AnimatedSprite2D" parent="ColorRect/NinePatchRect" index="9"]
+position = Vector2(70, 33)
+sprite_frames = SubResource("SpriteFrames_5bcr0")
+script = ExtResource("8_lldy3")
