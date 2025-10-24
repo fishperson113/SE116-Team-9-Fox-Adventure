@@ -1,7 +1,6 @@
 [gd_scene load_steps=14 format=4 uid="uid://du7eckmitfil0"]
 
 [ext_resource type="Script" uid="uid://qk7nu3v07uns" path="res://scenes/ui/starting.gd" id="1_7fqe3"]
-[ext_resource type="PackedScene" uid="uid://pklnt4p62ciu" path="res://scenes/levels/island/objects/raft.tscn" id="1_ci5mi"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_0e4c3"]
 [ext_resource type="PackedScene" uid="uid://de4saaedddcpl" path="res://scenes/levels/island/objects/smoke.tscn" id="2_rcbyu"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="3_rr8yx"]
@@ -9,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bqde0l4at7gv8" path="res://assets/sprites/environment/background/bg_image.png" id="5_4hmeu"]
 [ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="6_4hmeu"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="7_jrwmw"]
+[ext_resource type="PackedScene" uid="uid://bh6uxsj1od1j6" path="res://scenes/levels/island/objects/raft2.tscn" id="9_rcbyu"]
 
 [sub_resource type="GDScript" id="GDScript_jrwmw"]
 script/source = "extends Label
@@ -68,17 +68,15 @@ _data = {
 script = ExtResource("1_7fqe3")
 smoke_effect = ExtResource("2_rcbyu")
 
-[node name="Raft" parent="." instance=ExtResource("1_ci5mi")]
-position = Vector2(245, 235)
-
 [node name="Player" parent="." instance=ExtResource("2_0e4c3")]
-position = Vector2(240, 1)
+z_index = 1
+position = Vector2(244, 41)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-2, 0)
 
 [node name="Node2D" parent="Player" instance=ExtResource("7_jrwmw")]
-position = Vector2(-1, 9.53674e-07)
-scale = Vector2(0.4, 0.4)
+position = Vector2(-242, -135)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAgAAcAAAAAAAQAAAAhAAcAAAABAAAAAAAiAAcAAAABAAQAAAAjAAcAAAABAAQAAAAkAAcAAAABAAAAAAAWAAcAAAAAAAQAAAAXAAcAAAABAAQAAAAYAAcAAAABAAQAAAAaAAcAAAABAAQAAAAZAAcAAAABAAAAAAAbAAcAAAABAAQAAAAcAAcAAAABAAQAAAAeAAcAAAABAAAAAAAdAAcAAAABAAAAAAA=")
@@ -117,8 +115,11 @@ libraries = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="AnimationPlayer"]
-offset_left = -2.0
-offset_top = -142.0
-offset_right = 520.0
-offset_bottom = 342.0
+offset_left = -1.0
+offset_top = -135.0
+offset_right = 521.0
+offset_bottom = 349.0
 color = Color(0, 0, 0, 1)
+
+[node name="Raft" parent="." instance=ExtResource("9_rcbyu")]
+position = Vector2(245, 234)
