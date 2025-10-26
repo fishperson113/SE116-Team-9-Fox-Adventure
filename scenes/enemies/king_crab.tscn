@@ -32,7 +32,7 @@
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="31_ih4yw"]
 [ext_resource type="PackedScene" uid="uid://cg4dofch48b6t" path="res://scenes/enemies/claw.tscn" id="32_5tar6"]
 [ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="32_xn2er"]
-[ext_resource type="Script" uid="uid://dliarx6jpwlho" path="res://scenes/enemies/normal.gd" id="32_ybdky"]
+[ext_resource type="Script" uid="uid://dliarx6jpwlho" path="res://scripts/enemies/king_crab/normal.gd" id="32_ybdky"]
 [ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="33_0kveh"]
 [ext_resource type="Script" uid="uid://bf7u0p2m2xilm" path="res://scripts/enemies/king_crab/roll.gd" id="33_ybdky"]
 [ext_resource type="Script" uid="uid://b7vuy4jnk7w3b" path="res://scripts/enemies/king_crab/stop_roll.gd" id="35_1gcnt"]
