@@ -14,6 +14,8 @@ extends Enemy
 var _cooldown: float = 0.0
 var _detect_ray_cast: RayCast2D = null
 
+var _is_timeout = false
+
 @onready var _bullet_factory := $Direction/BulletFactory
 
 func _ready() -> void:
@@ -58,7 +60,10 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
 
 func _on_flying_timer_timeout() -> void:
-	fsm.change_state(fsm.states.leave)
+	_is_timeout = true
 
 func start_leave_mode() -> void:
 	$CollisionShape2D.disabled = true
+
+func can_leave() -> bool:
+	return _is_timeout

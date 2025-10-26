@@ -180,8 +180,8 @@ target_container_name = &"Bullets"
 metadata/_custom_type_script = "uid://2dtm6jeegr43"
 
 [node name="HurtArea2D" type="Area2D" parent="Direction"]
-collision_layer = 0
-collision_mask = 32
+collision_layer = 32
+collision_mask = 0
 script = ExtResource("25_eey5d")
 metadata/_custom_type_script = "uid://cofkmvw2auxcs"
 
