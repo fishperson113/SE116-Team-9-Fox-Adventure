@@ -11,3 +11,6 @@ func track_patrol(current_position: float, current_direction: int) -> bool:
 
 func set_start_position(position: float) -> void:
 	_start_position = position
+
+func set_movement_range(movement_range) -> void:
+	_movement_range = movement_range
