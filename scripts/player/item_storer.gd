@@ -16,7 +16,7 @@ func _ready() -> void:
 	for i in range(number_of_slots):
 		items_archive[i] = {
 			"is_weapon": false,
-			"item_type": -1,
+			"item_type": "none",
 			"number_of_item": 0
 		}
 	change_item()
@@ -26,8 +26,8 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("switch_item"):
 		switch_item_slot()
 
-func add_item(is_weapon: bool, item_type: int) -> bool:
-	if items_archive[item_slot]["item_type"] != -1:
+func add_item(is_weapon: bool, item_type: String) -> bool:
+	if items_archive[item_slot]["item_type"] != "none":
 		if items_archive[item_slot]["is_weapon"] != is_weapon or items_archive[item_slot]["item_type"] != item_type:
 			print("Not the same item or weapon type")
 			return false
@@ -45,7 +45,7 @@ func change_item() -> void:
 	if is_slot_weapon() and is_slot_available():
 		weapon_thrower.change_projectile(items_archive[item_slot]["item_type"])
 	else:
-		weapon_thrower.change_projectile(-1)
+		weapon_thrower.change_projectile("none")
 
 func switch_item_slot() -> void:
 	if item_slot + 1 >= number_of_slots:
@@ -61,18 +61,18 @@ func is_slot_available() -> bool:
 func is_slot_weapon() -> bool:
 	return items_archive[item_slot]["is_weapon"]
 
-func get_item_type() -> int:
+func get_item_type() -> String:
 	return items_archive[item_slot]["item_type"]
 
 func reduce_item() -> void:
 	items_archive[item_slot]["number_of_item"] -= 1
 	if items_archive[item_slot]["number_of_item"] == 0:
 		items_archive[item_slot]["is_weapon"] = false
-		items_archive[item_slot]["item_type"] = -1
+		items_archive[item_slot]["item_type"] = "none"
 	print("Item reduced: ", item_slot, "\n", items_archive[item_slot])
 
 func return_item() -> void:
-	if items_archive[item_slot]["item_type"] == -1:
+	if items_archive[item_slot]["item_type"] == "none":
 		print("Slot is empty. Can't return item to inventory")
 		return
 	inventory.insert_item(

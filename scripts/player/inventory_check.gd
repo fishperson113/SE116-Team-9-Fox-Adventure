@@ -16,19 +16,19 @@ func _on_previous_item_in_inventory_pressed() -> void:
 	pass # Replace with function body.
 
 func _on_add_weapon_0_pressed() -> void:
-	player.inventory.insert_item(true, 0)
+	player.inventory.insert_item(true, "weapon_sample")
 	pass # Replace with function body.
 
 func _on_add_weapon_1_pressed() -> void:
-	player.inventory.insert_item(true, 1)
+	player.inventory.insert_item(true, "weapon_blade")
 	pass # Replace with function body.
 
 func _on_add_item_0_pressed() -> void:
-	player.inventory.insert_item(false, 0)
+	player.inventory.insert_item(false, "item_0")
 	pass # Replace with function body.
 
 func _on_add_item_1_pressed() -> void:
-	player.inventory.insert_item(false, 1)
+	player.inventory.insert_item(false, "chest_key")
 	pass # Replace with function body.
 
 func _on_add_to_slot_pressed() -> void:

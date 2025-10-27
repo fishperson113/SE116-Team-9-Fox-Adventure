@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://7stiemq6pi15"]
+[gd_scene load_steps=7 format=3 uid="uid://7stiemq6pi15"]
 
 [ext_resource type="Texture2D" uid="uid://cxakiw7e7eaom" path="res://icon.svg" id="1_58tcd"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_iiew0"]
 [ext_resource type="Script" uid="uid://ddm6bjtgp8rv3" path="res://scripts/player/inventory_check.gd" id="3_iiew0"]
+[ext_resource type="PackedScene" uid="uid://2th8rtech0pg" path="res://scenes/collectibles/chest_key.tscn" id="4_e0ygy"]
+[ext_resource type="PackedScene" uid="uid://bhohtlj321per" path="res://scenes/chests/chest.tscn" id="5_737fq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_03kx2"]
 size = Vector2(128, 128)
@@ -87,6 +89,13 @@ offset_top = 44.0
 offset_right = 429.0
 offset_bottom = 75.0
 text = "Return Item"
+
+[node name="ChestKey" parent="." instance=ExtResource("4_e0ygy")]
+position = Vector2(280, 208)
+
+[node name="Chest" parent="." instance=ExtResource("5_737fq")]
+position = Vector2(426, 205)
+movement_speed = 0.0
 
 [connection signal="pressed" from="Inventory Buttons/ShowInventory" to="Inventory Buttons" method="_on_show_inventory_pressed"]
 [connection signal="pressed" from="Inventory Buttons/NextIteminInventory" to="Inventory Buttons" method="_on_next_item_in_inventory_pressed"]
