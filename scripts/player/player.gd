@@ -1,11 +1,13 @@
 class_name Player
 extends BaseCharacter
 
-
 @export var jump_step: int = 2
 @export var current_jump: int = 0
 
 var weapon_thrower: WeaponThrower
+
+@onready var inventory: Inventory = $Inventory
+@onready var item_storer: ItemStorer = $ItemStorer
 
 func _ready() -> void:
 	add_to_group("player")
