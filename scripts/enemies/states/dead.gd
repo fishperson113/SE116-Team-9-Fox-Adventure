@@ -10,3 +10,6 @@ func _exit() -> void:
 func _update( _delta ):
 	obj.update_dead_mode(_delta)
 	pass
+
+func take_damage() -> void:
+	pass
