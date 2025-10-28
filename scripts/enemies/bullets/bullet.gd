@@ -9,6 +9,8 @@ func _ready() -> void:
 func _init_hit_area():
 	if has_node("Direction/HitArea2D"):
 		_hit_area = $Direction/HitArea2D
+	elif has_node("HitArea2D"):
+		_hit_area = $HitArea2D
 
 func _process(delta: float) -> void:
 	move_and_slide()

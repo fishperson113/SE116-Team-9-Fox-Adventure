@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=4 uid="uid://2myew2spjl4b"]
+[gd_scene load_steps=5 format=4 uid="uid://2myew2spjl4b"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
-[ext_resource type="PackedScene" uid="uid://c1hyao37pnno1" path="res://scenes/enemies/seahorse.tscn" id="3_52dwj"]
-[ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/king_crab.tscn" id="3_e1c60"]
+[ext_resource type="PackedScene" uid="uid://ddc86ootpum2i" path="res://scenes/enemies/warlord_turtle.tscn" id="3_e1c60"]
+[ext_resource type="PackedScene" uid="uid://cpc1vj8n1ssym" path="res://scenes/enemies/spawner.tscn" id="3_vb1hh"]
+[ext_resource type="PackedScene" uid="uid://cdfbk1ajslx5n" path="res://scenes/enemies/pelican.tscn" id="4_e1c60"]
 
 [node name="Stage" type="Node2D"]
 
@@ -12,8 +13,24 @@ tile_set = ExtResource("1_fx7si")
 
 [node name="Bullets" type="Node" parent="."]
 
-[node name="KingCrab" parent="." instance=ExtResource("3_e1c60")]
-position = Vector2(121, 155)
+[node name="WarlordTurtle" parent="." instance=ExtResource("3_e1c60")]
+position = Vector2(156, 135)
 
-[node name="Seahorse" parent="." instance=ExtResource("3_52dwj")]
-position = Vector2(261, 173)
+[node name="RocketFactory1" parent="WarlordTurtle/RocketPositions" index="0"]
+position = Vector2(228, 51)
+
+[node name="RocketFactory2" parent="WarlordTurtle/RocketPositions" index="1"]
+position = Vector2(150, 53)
+
+[node name="RocketFactory3" parent="WarlordTurtle/RocketPositions" index="2"]
+position = Vector2(104, 55)
+
+[node name="RocketFactory4" parent="WarlordTurtle/RocketPositions" index="3"]
+position = Vector2(-27, 53)
+
+[node name="Spawner" parent="." instance=ExtResource("3_vb1hh")]
+position = Vector2(153, 40)
+product_packed_scene = ExtResource("4_e1c60")
+target_container_name = &"Bullets"
+
+[editable path="WarlordTurtle"]

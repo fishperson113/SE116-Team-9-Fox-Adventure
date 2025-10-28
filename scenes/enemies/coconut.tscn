@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b86cej7t00v27"]
 
 [ext_resource type="Texture2D" uid="uid://cscwxxtwha7qk" path="res://assets/sprites/enemies/monsters/barrel/barrel_bullet.png" id="1_i1qkx"]
-[ext_resource type="Script" uid="uid://cpsskti1po284" path="res://scripts/enemies/bullets/sea_urchin.gd" id="1_ibr5u"]
+[ext_resource type="Script" uid="uid://cpsskti1po284" path="res://scripts/enemies/bullets/bomb.gd" id="1_ibr5u"]
 [ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="2_i7ips"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i7ips"]
