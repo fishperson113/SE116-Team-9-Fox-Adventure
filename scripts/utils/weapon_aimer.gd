@@ -32,12 +32,12 @@ func _input(event: InputEvent) -> void:
 		mouse_dir_vector = Vector2(event.relative.x, event.relative.y)
 		mouse_still_time = 0
 
-func change_projectile(pjt_type: int) -> void:
-	if pjt_type == -1: 
+func change_projectile(pjt_type: String) -> void:
+	if pjt_type == "none": 
 		projectile = null
 		return
-	elif pjt_type == 0: projectile = preload("res://scenes/tests/projectile.tscn")
-	elif pjt_type == 1: projectile = preload("res://scenes/tests/projectile_blade.tscn")
+	elif pjt_type == "weapon_sample": projectile = preload("res://scenes/tests/projectile.tscn")
+	elif pjt_type == "weapon_blade": projectile = preload("res://scenes/tests/projectile_blade.tscn")
 	var pjt = projectile.instantiate()
 	speed = pjt.speed
 	gravity = pjt.gravity

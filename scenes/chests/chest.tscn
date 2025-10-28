@@ -1,0 +1,91 @@
+[gd_scene load_steps=15 format=3 uid="uid://bhohtlj321per"]
+
+[ext_resource type="Script" uid="uid://c7x67gfa3mird" path="res://scenes/chests/chest.gd" id="1_xxwql"]
+[ext_resource type="Texture2D" uid="uid://bidl5brkimhxo" path="res://assets/sprites/objects/chest/chest_close_01.png" id="2_jslgy"]
+[ext_resource type="Texture2D" uid="uid://bjcqjfm23puad" path="res://assets/sprites/objects/chest/chest_close_02.png" id="3_13qt1"]
+[ext_resource type="Texture2D" uid="uid://dqrogefu4p788" path="res://assets/sprites/objects/chest/chest_close_03.png" id="4_70u57"]
+[ext_resource type="Texture2D" uid="uid://btnwd6wmuxmda" path="res://assets/sprites/objects/chest/chest_open_01.png" id="5_bt5ng"]
+[ext_resource type="Texture2D" uid="uid://dkn0i1fahffwr" path="res://assets/sprites/objects/chest/chest_open_02.png" id="6_0hoo5"]
+[ext_resource type="Texture2D" uid="uid://br8hwwry0gxvd" path="res://assets/sprites/objects/chest/chest_open_03.png" id="7_ud3fc"]
+[ext_resource type="Texture2D" uid="uid://b67b2vn864ieo" path="res://assets/sprites/objects/chest/chest_open_04.png" id="8_eo3wh"]
+[ext_resource type="Texture2D" uid="uid://bwcclik4ny1ry" path="res://assets/sprites/objects/chest/chest_open_05.png" id="9_oprcr"]
+[ext_resource type="Script" uid="uid://b2kvd8gekjjpm" path="res://scenes/chests/states/closed.gd" id="10_13qt1"]
+[ext_resource type="Script" uid="uid://cnf7unwj5fral" path="res://scenes/chests/states/open.gd" id="11_70u57"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_utdpp"]
+size = Vector2(32, 27)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fa4yk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jslgy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_13qt1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_70u57")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_bt5ng")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0hoo5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ud3fc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_eo3wh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_oprcr")
+}],
+"loop": false,
+"name": &"open",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_13qt1"]
+height = 56.0
+
+[node name="Chest" type="CharacterBody2D"]
+script = ExtResource("1_xxwql")
+movement_speed = 0.0
+direction = 0
+metadata/_custom_type_script = "uid://dlxdtwr6rpwbr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9.5)
+shape = SubResource("RectangleShape2D_utdpp")
+
+[node name="Direction" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction"]
+sprite_frames = SubResource("SpriteFrames_fa4yk")
+animation = &"closed"
+
+[node name="Area2D" type="Area2D" parent="Direction"]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/Area2D"]
+position = Vector2(0, 10)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_13qt1")
+
+[node name="States" type="Node" parent="."]
+
+[node name="Closed" type="Node" parent="States"]
+script = ExtResource("10_13qt1")
+
+[node name="Open" type="Node" parent="States"]
+script = ExtResource("11_70u57")
+
+[connection signal="body_entered" from="Direction/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Direction/Area2D" to="." method="_on_area_2d_body_exited"]

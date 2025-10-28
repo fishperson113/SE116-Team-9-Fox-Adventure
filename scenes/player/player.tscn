@@ -1,4 +1,4 @@
-[gd_scene load_steps=86 format=3 uid="uid://chcs4qer8dybe"]
+[gd_scene load_steps=87 format=3 uid="uid://chcs4qer8dybe"]
 
 [ext_resource type="Script" uid="uid://d00o3jgu015v4" path="res://scripts/player/player.gd" id="1_ugbui"]
 [ext_resource type="Texture2D" uid="uid://cwgjo8l0lmemi" path="res://assets/sprites/characters/foxy/fox/fox_idle_1.png" id="2_5gtgg"]
@@ -81,6 +81,7 @@
 [ext_resource type="Script" uid="uid://w3w0sbvoe5al" path="res://scenes/player/launch.gd" id="76_4sw5w"]
 [ext_resource type="Texture2D" uid="uid://b2ys0lkughw88" path="res://assets/sprites/trajectory/dotted_line.png" id="77_0y4ya"]
 [ext_resource type="Script" uid="uid://dn5leb78h1w57" path="res://scripts/player/item_storer.gd" id="80_4sw5w"]
+[ext_resource type="Script" uid="uid://ync4l7s6o8pl" path="res://scripts/player/inventory.gd" id="82_vkc6f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kvlxm"]
 animations = [{
@@ -508,8 +509,13 @@ texture = ExtResource("77_0y4ya")
 texture_mode = 1
 script = ExtResource("75_ymths")
 
-[node name="ItemStorer" type="Node" parent="."]
+[node name="ItemStorer" type="Node" parent="." node_paths=PackedStringArray("inventory")]
 script = ExtResource("80_4sw5w")
+inventory = NodePath("../Inventory")
+
+[node name="Inventory" type="Node" parent="." node_paths=PackedStringArray("item_storer")]
+script = ExtResource("82_vkc6f")
+item_storer = NodePath("../ItemStorer")
 
 [connection signal="animation_finished" from="Direction/AnimatedSprite2D" to="States/Attack" method="_on_attack_animation_finished"]
 [connection signal="animation_finished" from="Direction/AnimatedSprite2D" to="States/Hit" method="_on_hit_animation_finished"]
