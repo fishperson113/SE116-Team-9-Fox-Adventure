@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://de4saaedddcpl"]
+
+[ext_resource type="Script" uid="uid://b3cytn40lnj7b" path="res://scenes/levels/island/objects/smoke.gd" id="1_7e3yv"]
+[ext_resource type="Texture2D" uid="uid://8usoreyem8l6" path="res://assets/sprites/characters/foxy/smoke/jump_smoke_1.png" id="2_kj23f"]
+[ext_resource type="Texture2D" uid="uid://jtpy308mqnwi" path="res://assets/sprites/characters/foxy/smoke/jump_smoke_2.png" id="3_t486b"]
+[ext_resource type="Texture2D" uid="uid://cbk136ktae42o" path="res://assets/sprites/characters/foxy/smoke/jump_smoke_3.png" id="4_fjxfw"]
+[ext_resource type="Texture2D" uid="uid://c8cs1hwh7venp" path="res://assets/sprites/characters/foxy/smoke/jump_smoke_4.png" id="5_pgjqc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_us75b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kj23f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_t486b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fjxfw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_pgjqc")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yvoq5"]
+size = Vector2(15, 18)
+
+[node name="Smoke" type="Area2D"]
+script = ExtResource("1_7e3yv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-15, -15)
+scale = Vector2(1.20833, 1.20833)
+sprite_frames = SubResource("SpriteFrames_us75b")
+animation = &"idle"
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_yvoq5")
