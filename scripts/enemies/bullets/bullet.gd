@@ -12,7 +12,7 @@ func _init_hit_area():
 	elif has_node("HitArea2D"):
 		_hit_area = $HitArea2D
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	move_and_slide()
 
 func set_damage(damage: float) -> void:

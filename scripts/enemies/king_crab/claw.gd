@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 	
 	_direction_controller._update(delta)
 
-func _on_hit_area_2d_hitted(area: Variant) -> void:	
+func _on_hit_area_2d_hitted(_area: Variant) -> void:	
 	_direction_controller.turn_around()
 
 func update_velocity() -> void:
@@ -31,8 +31,8 @@ func set_direction(direction: int) -> void:
 func attach() -> void:
 	queue_free()
 
-func _on_hit_area_2d_body_entered(body: Node2D) -> void:
+func _on_hit_area_2d_body_entered(_body: Node2D) -> void:
 	_direction_controller.turn_around()
 
-func set_range(range: float) -> void:
-	_patrol_controller.set_movement_range(range)
+func set_range(_range: float) -> void:
+	_patrol_controller.set_movement_range(_range)

@@ -103,7 +103,7 @@ func _update_movement(delta: float) -> void:
 	move_and_slide()
 	pass
 	
-func try_patrol_turn(delta: float):
+func try_patrol_turn(_delta: float):
 	var is_reach_limit = _patrol_controller.track_patrol(position.x, _direction_controller.get_direction())
 	var should_turn_around = is_environment_detected() or is_reach_limit
 	if should_turn_around:
