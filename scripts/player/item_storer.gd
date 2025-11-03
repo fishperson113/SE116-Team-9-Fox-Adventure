@@ -1,7 +1,7 @@
 extends Node
 class_name ItemStorer
 
-var number_of_slots: int = 6
+var number_of_slots: int
 var items_archive: Array[Dictionary]
 
 var item_slot: int = 0
@@ -10,6 +10,7 @@ var item_slot: int = 0
 @export var inventory: Inventory
 
 func _init() -> void:
+	number_of_slots = GameManager.slots_size
 	items_archive.resize(number_of_slots)
 
 func _ready() -> void:
@@ -19,6 +20,7 @@ func _ready() -> void:
 			"item_type": "none",
 			"number_of_item": 0
 		}
+	items_archive = GameManager.slots_data
 	change_item()
 	pass
 
@@ -82,3 +84,7 @@ func return_item() -> void:
 	reduce_item()
 	change_item()
 	pass
+
+func save_slots() -> void:
+	GameManager.slots_data = items_archive
+	GameManager.save_slots_data()

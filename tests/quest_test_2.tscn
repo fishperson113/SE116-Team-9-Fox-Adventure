@@ -1,31 +1,33 @@
-[gd_scene load_steps=7 format=3 uid="uid://7stiemq6pi15"]
+[gd_scene load_steps=8 format=3 uid="uid://b4vxqbtljeims"]
 
-[ext_resource type="Texture2D" uid="uid://cxakiw7e7eaom" path="res://icon.svg" id="1_58tcd"]
-[ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_iiew0"]
-[ext_resource type="Script" uid="uid://ddm6bjtgp8rv3" path="res://scripts/player/inventory_check.gd" id="3_iiew0"]
-[ext_resource type="PackedScene" uid="uid://2th8rtech0pg" path="res://scenes/collectibles/chest_key.tscn" id="4_e0ygy"]
-[ext_resource type="PackedScene" uid="uid://bhohtlj321per" path="res://scenes/chests/chest.tscn" id="5_737fq"]
+[ext_resource type="Texture2D" uid="uid://cxakiw7e7eaom" path="res://icon.svg" id="1_mtwqw"]
+[ext_resource type="Script" uid="uid://dbnywb46siqhm" path="res://scenes/levels/stage.gd" id="1_uu5jo"]
+[ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_uu5jo"]
+[ext_resource type="Script" uid="uid://ddm6bjtgp8rv3" path="res://scripts/player/inventory_check.gd" id="3_7yoop"]
+[ext_resource type="PackedScene" uid="uid://2th8rtech0pg" path="res://scenes/collectibles/chest_key.tscn" id="4_245h2"]
+[ext_resource type="PackedScene" uid="uid://bhohtlj321per" path="res://scenes/chests/chest.tscn" id="5_m5lxa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_03kx2"]
 size = Vector2(128, 128)
 
 [node name="QuestTest" type="Node2D"]
+script = ExtResource("1_uu5jo")
 
 [node name="Floor" type="Sprite2D" parent="."]
 position = Vector2(240, 235)
 scale = Vector2(5, 0.06)
-texture = ExtResource("1_58tcd")
+texture = ExtResource("1_mtwqw")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Floor"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/StaticBody2D"]
 shape = SubResource("RectangleShape2D_03kx2")
 
-[node name="Player" parent="." instance=ExtResource("2_iiew0")]
+[node name="Player" parent="." instance=ExtResource("2_uu5jo")]
 position = Vector2(87, 165)
 
 [node name="Inventory Buttons" type="Node" parent="."]
-script = ExtResource("3_iiew0")
+script = ExtResource("3_7yoop")
 
 [node name="ShowInventory" type="Button" parent="Inventory Buttons"]
 offset_left = 8.0
@@ -90,10 +92,17 @@ offset_right = 429.0
 offset_bottom = 75.0
 text = "Return Item"
 
-[node name="ChestKey" parent="." instance=ExtResource("4_e0ygy")]
+[node name="SaveButton" type="Button" parent="Inventory Buttons"]
+offset_left = 411.0
+offset_top = 7.0
+offset_right = 455.0
+offset_bottom = 38.0
+text = "Save"
+
+[node name="ChestKey" parent="." instance=ExtResource("4_245h2")]
 position = Vector2(280, 208)
 
-[node name="Chest" parent="." instance=ExtResource("5_737fq")]
+[node name="Chest" parent="." instance=ExtResource("5_m5lxa")]
 position = Vector2(426, 205)
 
 [connection signal="pressed" from="Inventory Buttons/ShowInventory" to="Inventory Buttons" method="_on_show_inventory_pressed"]
@@ -105,3 +114,4 @@ position = Vector2(426, 205)
 [connection signal="pressed" from="Inventory Buttons/AddItem1" to="Inventory Buttons" method="_on_add_item_1_pressed"]
 [connection signal="pressed" from="Inventory Buttons/AddToSlot" to="Inventory Buttons" method="_on_add_to_slot_pressed"]
 [connection signal="pressed" from="Inventory Buttons/ReturnItem" to="Inventory Buttons" method="_on_return_item_pressed"]
+[connection signal="pressed" from="Inventory Buttons/SaveButton" to="Player" method="_on_save_inventory_button_pressed"]
