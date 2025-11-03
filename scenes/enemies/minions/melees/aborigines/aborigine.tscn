@@ -1,0 +1,185 @@
+[gd_scene load_steps=27 format=3 uid="uid://psxbpmcbicmg"]
+
+[ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_wpoo8"]
+[ext_resource type="Texture2D" uid="uid://4j8nk7vkp4dl" path="res://assets/sprites/enemies/monsters/spear/spear_17.png" id="2_88lkr"]
+[ext_resource type="Script" uid="uid://c8104lykhb2g5" path="res://scripts/enemies/minions/melees/aborigine/aborigine.gd" id="2_dowjx"]
+[ext_resource type="Texture2D" uid="uid://1u7kimbp81gh" path="res://assets/sprites/enemies/monsters/spear/spear_18.png" id="3_5r1ng"]
+[ext_resource type="Texture2D" uid="uid://b7r8ok4c2joj0" path="res://assets/sprites/enemies/monsters/spear/spear_5.png" id="4_kqvr2"]
+[ext_resource type="Texture2D" uid="uid://dsmq4ksgxty26" path="res://assets/sprites/enemies/monsters/spear/spear_6.png" id="5_dowjx"]
+[ext_resource type="Texture2D" uid="uid://4oedp5c3nihy" path="res://assets/sprites/enemies/monsters/spear/spear_7.png" id="6_du6fd"]
+[ext_resource type="Texture2D" uid="uid://c7bcen2ofnedx" path="res://assets/sprites/enemies/monsters/spear/spear_8.png" id="7_m66qe"]
+[ext_resource type="Texture2D" uid="uid://c6ieee4png12f" path="res://assets/sprites/enemies/monsters/spear/spear_1.png" id="8_0p3na"]
+[ext_resource type="Texture2D" uid="uid://cuq738phbncvi" path="res://assets/sprites/enemies/monsters/spear/spear_2.png" id="9_3j0wb"]
+[ext_resource type="Texture2D" uid="uid://dje7itgwmabi5" path="res://assets/sprites/enemies/monsters/spear/spear_3.png" id="10_p0u6o"]
+[ext_resource type="Texture2D" uid="uid://cs18v4ikcyit5" path="res://assets/sprites/enemies/monsters/spear/spear_4.png" id="11_nx6cy"]
+[ext_resource type="Texture2D" uid="uid://8j3j06x85uqn" path="res://assets/sprites/enemies/monsters/spear/spear_9.png" id="12_hjqpo"]
+[ext_resource type="Texture2D" uid="uid://bbmw2dbfm3ut0" path="res://assets/sprites/enemies/monsters/spear/spear_10.png" id="13_oq55u"]
+[ext_resource type="Texture2D" uid="uid://f4s0y4n1icha" path="res://assets/sprites/enemies/monsters/spear/spear_11.png" id="14_vb0mr"]
+[ext_resource type="Texture2D" uid="uid://dey6wk7b3euj5" path="res://assets/sprites/enemies/monsters/spear/spear_12.png" id="15_l4iw7"]
+[ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="16_edqlu"]
+[ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="17_1osgv"]
+[ext_resource type="PackedScene" uid="uid://b86cej7t00v27" path="res://scenes/enemies/minions/melees/aborigines/coconut.tscn" id="18_nwpgw"]
+[ext_resource type="Script" uid="uid://djfsh4o1swvg5" path="res://scripts/enemies/minions/melees/aborigine/attack.gd" id="19_5r1ng"]
+[ext_resource type="Script" uid="uid://baja7r46hs05f" path="res://scripts/enemies/minions/melees/aborigine/normal.gd" id="19_kqvr2"]
+[ext_resource type="Script" uid="uid://uifmm33yctg8" path="res://scripts/enemies/minions/shootable/seahorse/attack.gd" id="20_kqvr2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4vqwu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_88lkr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5r1ng")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_kqvr2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dowjx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_du6fd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_m66qe")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_0p3na")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_3j0wb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_p0u6o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_nx6cy")
+}],
+"loop": true,
+"name": &"normal",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_hjqpo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_oq55u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_vb0mr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_l4iw7")
+}],
+"loop": false,
+"name": &"stab",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_5r1ng")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dowjx")
+}],
+"loop": false,
+"name": &"throw",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5r1ng"]
+size = Vector2(20, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nfg7i"]
+size = Vector2(31, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kqvr2"]
+size = Vector2(20, 29)
+
+[node name="Aborigine" instance=ExtResource("1_wpoo8")]
+script = ExtResource("2_dowjx")
+shoot_time = 0.4
+shoot_cooldown = 1.0
+stab_time = 0.8
+stab_period = 0.6
+bullet_up_impulse = -400.0
+health = 200.0
+spike = 100.0
+movement_speed = 50.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]
+sprite_frames = SubResource("SpriteFrames_4vqwu")
+animation = &"normal"
+
+[node name="HurtArea2D" parent="Direction" index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="Direction/HurtArea2D" index="0"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_5r1ng")
+
+[node name="FrontRayCast2D" parent="Direction" index="2"]
+visible = false
+target_position = Vector2(21, 0)
+
+[node name="DownRayCast2D" parent="Direction" index="3"]
+visible = false
+position = Vector2(15, 0)
+target_position = Vector2(0, 24)
+
+[node name="DetectRayCast2D" type="RayCast2D" parent="Direction" index="4"]
+visible = false
+position = Vector2(0, 9)
+target_position = Vector2(31, 0)
+collision_mask = 48
+collide_with_areas = true
+
+[node name="HitArea2D" type="Area2D" parent="Direction" index="5"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("16_edqlu")
+metadata/_custom_type_script = "uid://dkb25vr64v37l"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D" index="0"]
+position = Vector2(15.5, 9.5)
+shape = SubResource("RectangleShape2D_nfg7i")
+disabled = true
+
+[node name="LeftFactory" type="Marker2D" parent="Direction" index="6"]
+position = Vector2(-13, 4)
+script = ExtResource("17_1osgv")
+product_packed_scene = ExtResource("18_nwpgw")
+target_container_name = &"Bullets"
+metadata/_custom_type_script = "uid://2dtm6jeegr43"
+
+[node name="RightFactory" type="Marker2D" parent="Direction" index="7"]
+position = Vector2(14, 4)
+script = ExtResource("17_1osgv")
+product_packed_scene = ExtResource("18_nwpgw")
+target_container_name = &"Bullets"
+metadata/_custom_type_script = "uid://2dtm6jeegr43"
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_kqvr2")
+
+[node name="Normal" parent="States" index="0"]
+script = ExtResource("19_kqvr2")
+
+[node name="Stab" type="Node" parent="States" index="3"]
+script = ExtResource("19_5r1ng")
+
+[node name="Throw" type="Node" parent="States" index="4"]
+script = ExtResource("20_kqvr2")

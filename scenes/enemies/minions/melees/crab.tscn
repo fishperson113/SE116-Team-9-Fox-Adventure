@@ -1,0 +1,86 @@
+[gd_scene load_steps=12 format=3 uid="uid://c6k6kx0i213q4"]
+
+[ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_pccfa"]
+[ext_resource type="Texture2D" uid="uid://rx1arfn0eqk6" path="res://assets/sprites/enemies/monsters/crab/crab_hit_01.png" id="2_ud1vq"]
+[ext_resource type="Texture2D" uid="uid://cbiuor627j23s" path="res://assets/sprites/enemies/monsters/crab/crab_hit_02.png" id="3_ce5mm"]
+[ext_resource type="Texture2D" uid="uid://j0as0g1spbxj" path="res://assets/sprites/enemies/monsters/crab/crab_01.png" id="4_v317b"]
+[ext_resource type="Texture2D" uid="uid://bqeqftjughwfv" path="res://assets/sprites/enemies/monsters/crab/crab_02.png" id="5_f7eix"]
+[ext_resource type="Texture2D" uid="uid://cdmgxy782yuqb" path="res://assets/sprites/enemies/monsters/crab/crab_03.png" id="6_vsxk6"]
+[ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="7_ud1vq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8ad5u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ud1vq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ce5mm")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_v317b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f7eix")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_vsxk6")
+}],
+"loop": true,
+"name": &"normal",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0hpo1"]
+size = Vector2(23, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ce5mm"]
+size = Vector2(40, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fecqf"]
+size = Vector2(20, 16)
+
+[node name="Crab" instance=ExtResource("1_pccfa")]
+health = 50.0
+spike = 50.0
+movement_speed = 50.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]
+position = Vector2(0, -3)
+sprite_frames = SubResource("SpriteFrames_8ad5u")
+animation = &"normal"
+
+[node name="HurtArea2D" parent="Direction" index="1"]
+visible = false
+collision_layer = 48
+
+[node name="CollisionShape2D" parent="Direction/HurtArea2D" index="0"]
+position = Vector2(-1.5, 0.5)
+shape = SubResource("RectangleShape2D_0hpo1")
+
+[node name="HitArea2D" type="Area2D" parent="Direction" index="2"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("7_ud1vq")
+metadata/_custom_type_script = "uid://dkb25vr64v37l"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D" index="0"]
+position = Vector2(-1, -2.5)
+shape = SubResource("RectangleShape2D_ce5mm")
+
+[node name="FrontRayCast2D" parent="Direction" index="3"]
+target_position = Vector2(20, 0)
+
+[node name="DownRayCast2D" parent="Direction" index="4"]
+position = Vector2(20, 0)
+target_position = Vector2(0, 16)
+
+[node name="CollisionShape2D" parent="." index="1"]
+visible = false
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_fecqf")

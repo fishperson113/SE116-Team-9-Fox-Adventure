@@ -1,0 +1,137 @@
+class_name Enemy
+extends BaseCharacter
+
+## Base character class that provides common functionality for all characters
+#Health: Lượng máu mà nhân vật đó có. Tính theo đơn vị HP.
+@export var health: float = 0
+#Spike: Khi người chơi chạm vào có bị mất máu hay không. Tính theo đơn vị HP.
+@export var spike: float = 0
+#Sight: Tầm nhìn của quái vật để phát hiện nhân vật của người chơi. Tính theo đơn vị bán kinh Pixel.
+@export var sight: float = 100
+#Movement Range: Phạm vi di chuyển tối đa của quái. Tính theo đơn vị bán kính Pixel.
+@export var movement_range: float = 50
+#Attack Damage: Sát thương của cú đánh. Tính theo đơn vị HP.
+@export var attack_damage: float = 50
+#Attack Speed: Tốc độ của cú đánh. Tính từ lúc ra đòn cho đến lúc kết thúc đòn đánh. Đơn vị được tính theo Pixel / giây
+@export var attack_speed: float = 50
+@export var hurt_time: float = 0.4
+
+#+ Thêm biến để chọn kiểu phát hiện người chơi
+@export var use_raycast_detection: bool = false
+
+#Jump Height: Tính bằng công thức (Jump Height = Jump Speed ^2 / 2x Gravity)
+var jump_height: float = pow(jump_speed, 2.0) / (gravity * 2)
+#Air Time: Thời gian trên không, tính bằng công thức (Air Time = Jump Speed / Gravity)
+var air_time: float = jump_speed / gravity
+# detect player area
+var detect_player_area: Area2D = null
+var found_player: Player = null
+#+ Thêm tham chiếu đến RayCast phát hiện người chơi
+var player_detection_raycast: RayCast2D = null
+
+var _movement_speed: float = movement_speed
+var _patrol_controller: PatrolController = PatrolController.new(movement_range)
+var _front_ray_cast: RayCast2D = null
+var _down_ray_cast: RayCast2D = null
+
+func _ready() -> void:
+	super._ready()
+	_init_ray_cast()
+	_init_detect_player_area()
+	_init_hurt_area()
+	pass
+
+#init ray cast to check wall and fall
+func _init_ray_cast():
+	if has_node("Direction/FrontRayCast2D"):
+		_front_ray_cast = $Direction/FrontRayCast2D
+	if has_node("Direction/DownRayCast2D"):
+		_down_ray_cast = $Direction/DownRayCast2D
+	#+ Khởi tạo raycast phát hiện người chơi
+	if has_node("Direction/PlayerDetectionRayCast"):
+		player_detection_raycast = $Direction/PlayerDetectionRayCast
+
+#init detect player area
+func _init_detect_player_area():
+	if has_node("Direction/DetectPlayerArea2D"):
+		detect_player_area = $Direction/DetectPlayerArea2D
+		detect_player_area.body_entered.connect(_on_body_entered)
+		detect_player_area.body_exited.connect(_on_body_exited)
+
+# init hurt area
+func _init_hurt_area():
+	if has_node("Direction/HurtArea2D"):
+		var hurt_area = $Direction/HurtArea2D
+		hurt_area.hurt.connect(_on_hurt_area_2d_hurt)
+
+func _update_movement(delta: float) -> void:
+	velocity.x = _movement_speed * direction
+	velocity.y += gravity * delta
+	move_and_slide()
+	pass
+	
+func try_patrol_turn(_delta: float):
+	var is_reach_limit = _patrol_controller.track_patrol(position.x, direction)
+	var should_turn_around = is_touch_wall() or is_can_fall() or is_reach_limit
+	if should_turn_around:
+		_patrol_controller.set_start_position(position.x)
+		turn_around()
+
+func is_touch_wall() -> bool:
+	if _front_ray_cast and _front_ray_cast.enabled:
+		return _front_ray_cast.is_colliding()
+	return false
+
+func is_can_fall() -> bool:
+	if _down_ray_cast and _down_ray_cast.enabled:
+		return not _down_ray_cast.is_colliding() and is_on_floor()
+	return false
+
+func _on_body_entered(_body: CharacterBody2D) -> void:
+	found_player = _body
+	_on_player_in_sight(_body.global_position)
+
+func _on_body_exited(_body: CharacterBody2D) -> void:
+	found_player = null
+	_on_player_not_in_sight()
+
+func _on_hurt_area_2d_hurt(_direction: Vector2, _damage: float) -> void:
+	take_damage(_damage)
+	fsm.current_state.take_damage()
+	
+# called when player is in sight
+func _on_player_in_sight(_player_pos: Vector2):
+	pass
+
+# called when player is not in sight
+func _on_player_not_in_sight():
+	pass
+
+#+ Thêm hàm kiểm tra người chơi bằng RayCast từ Code 2
+func is_player_in_sight_by_raycast() -> bool:
+	if player_detection_raycast == null:
+		return false
+		
+	player_detection_raycast.force_raycast_update()
+	
+	if player_detection_raycast.is_colliding() and player_detection_raycast.get_collider() is Player:
+		found_player = player_detection_raycast.get_collider()
+		return true
+	else:
+		found_player = null
+		return false
+
+#+ Thêm các hàm bật/tắt vùng dò tìm từ Code 2
+func enable_check_player_in_sight() -> void:
+	if(detect_player_area != null):
+		detect_player_area.get_node("CollisionShape2D").disabled = false
+
+func disable_check_player_in_sight() -> void:
+	if(detect_player_area != null):
+		detect_player_area.get_node("CollisionShape2D").disabled = true
+
+func take_damage(amount: int) -> void:
+	health -= amount
+
+func is_alive() -> bool:
+	return health > 0.0
