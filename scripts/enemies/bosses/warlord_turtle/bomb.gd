@@ -21,15 +21,18 @@ func explosion() -> void:
 	queue_free()
 
 func create_particles() -> void:
+	call_deferred("_create_particles_safe")
+
+func _create_particles_safe() -> void:
 	var top_left = _particles_factory.create() as RigidBody2D
 	var top_right = _particles_factory.create() as RigidBody2D
 	var bot_left = _particles_factory.create() as RigidBody2D
 	var bot_right = _particles_factory.create() as RigidBody2D
-	
-	#top_left.apply_impulse(Vector2(-impulse.x, -impulse.y))
-	#top_right.apply_impulse(Vector2(impulse.x, -impulse.y))
-	#bot_left.apply_impulse(Vector2(-impulse.x, -impulse.y / 2))
-	#bot_right.apply_impulse(Vector2(impulse.x, -impulse.y / 2))
+
+	top_left.apply_impulse(Vector2(-impulse.x, -impulse.y))
+	top_right.apply_impulse(Vector2(impulse.x, -impulse.y))
+	bot_left.apply_impulse(Vector2(-impulse.x, -impulse.y / 2))
+	bot_right.apply_impulse(Vector2(impulse.x, -impulse.y / 2))
 
 func _on_hurt_area_2d_hurt(direction: Vector2, _damage: float) -> void:
 	velocity = direction * abs(velocity)
