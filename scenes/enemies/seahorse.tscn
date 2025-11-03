@@ -12,9 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://cbx80uvt5dnh1" path="res://assets/sprites/enemies/monsters/barrel/barrel_02.png" id="10_3p0ng"]
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="11_e1oma"]
 [ext_resource type="PackedScene" uid="uid://cvqfjx8p5pi7e" path="res://scenes/enemies/bullet.tscn" id="12_rw8jg"]
-[ext_resource type="Script" uid="uid://t1xwug2i503q" path="res://scripts/enemies/seahorse/normal.gd" id="13_1egdl"]
 [ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="13_fhyme"]
 [ext_resource type="Script" uid="uid://uifmm33yctg8" path="res://scripts/enemies/seahorse/attack.gd" id="14_1egdl"]
+[ext_resource type="Script" uid="uid://t1xwug2i503q" path="res://scripts/enemies/seahorse/normal.gd" id="14_7tdr4"]
 [ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/states/hurt.gd" id="16_ku8xx"]
 [ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="17_7tdr4"]
 
@@ -113,7 +113,7 @@ shape = SubResource("CapsuleShape2D_y7xdu")
 [node name="States" type="Node" parent="."]
 
 [node name="Normal" type="Node" parent="States"]
-script = ExtResource("13_1egdl")
+script = ExtResource("14_7tdr4")
 
 [node name="Attack" type="Node" parent="States"]
 script = ExtResource("14_1egdl")
