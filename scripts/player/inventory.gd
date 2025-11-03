@@ -5,6 +5,9 @@ var item_archive: Array[Dictionary]
 @export var item_storer: ItemStorer
 var item_select: int = 0
 
+func _ready() -> void:
+	item_archive = GameManager.inventory_data
+
 func show_item_archive() -> void:
 	if len(item_archive) == 0:
 		print("No item in inventory")
@@ -93,3 +96,7 @@ func remove_key() -> void:
 		if item_archive[i]["item_type"] == "chest_key":
 			remove_item(i)
 			return
+
+func save_inventory() -> void:
+	GameManager.inventory_data = item_archive
+	GameManager.save_inventory_data()

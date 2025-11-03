@@ -15,6 +15,7 @@ func _ready() -> void:
 	fsm = FSM.new(self, $States, $States/Idle)
 	weapon_thrower = $WeaponThrower
 	super._ready()
+	GameManager.player = self
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("change_form"):
@@ -53,3 +54,8 @@ func get_reset_animation_name(animation_name: String) -> String:
 	
 	next_name = next_name.replace(char_type, "")
 	return next_name
+
+func _on_save_inventory_button_pressed() -> void:
+	inventory.save_inventory()
+	item_storer.save_slots()
+	pass # Replace with function body.

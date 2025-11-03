@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SE116-Team-9-Fox-Adventure"
-run/main_scene="uid://7stiemq6pi15"
+run/main_scene="uid://b4vxqbtljeims"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 

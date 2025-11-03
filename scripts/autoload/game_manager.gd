@@ -9,10 +9,17 @@ var checkpoint_data: Dictionary = {}
 var current_stage = ""
 var player: Player = null
 var player_has_blade: bool = false
+
+#Slots that store items and weapons on use
+var slots_size = 6
+var slots_data: Array[Dictionary] = converted_empty_slots()
+#Inventory that stores items and weapons overall
+var inventory_data: Array[Dictionary] = []
 func _ready() -> void:
 	# Load checkpoint data when game starts
 	load_checkpoint_data()
-	
+	load_inventory_data()
+	load_slots_data()
 	pass
 func collect_blade():
 	if player_has_blade:
@@ -120,3 +127,42 @@ func clear_checkpoint_data() -> void:
 	checkpoint_data.clear()
 	SaveSystem.delete_save_file()
 	print("All checkpoint data cleared")
+
+func save_slots_data() -> void:
+	SaveSystem.save_slots_data(slots_data)
+
+func load_slots_data() -> void:
+	var slots = SaveSystem.load_slots_data()
+	if not slots.is_empty():
+		slots_data = slots;
+		print("Slots data loaded from inventory file")
+
+func clear_slots_data() -> void:
+	slots_data.clear()
+	SaveSystem.delete_slots_file()
+	print("All inventory data cleared")
+
+func save_inventory_data() -> void:
+	SaveSystem.save_inventory_data(inventory_data)
+
+func load_inventory_data() -> void:
+	var inventory = SaveSystem.load_inventory_data()
+	if not inventory.is_empty():
+		inventory_data = inventory;
+		print("Inventory data loaded from inventory file")
+
+func clear_inventory_data() -> void:
+	inventory_data.clear()
+	SaveSystem.delete_inventory_file()
+	print("All inventory data cleared")
+
+func converted_empty_slots() -> Array[Dictionary]:
+	var empty_slots: Array[Dictionary]
+	empty_slots.resize(slots_size)
+	for i in range(slots_size):
+		empty_slots[i] = {
+			"is_weapon": false,
+			"item_type": "none",
+			"number_of_item": 0
+		}
+	return empty_slots

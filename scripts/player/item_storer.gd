@@ -19,6 +19,7 @@ func _ready() -> void:
 			"item_type": "none",
 			"number_of_item": 0
 		}
+	items_archive = GameManager.slots_data
 	change_item()
 	pass
 
@@ -82,3 +83,7 @@ func return_item() -> void:
 	reduce_item()
 	change_item()
 	pass
+
+func save_slots() -> void:
+	GameManager.slots_data = items_archive
+	GameManager.save_slots_data()
