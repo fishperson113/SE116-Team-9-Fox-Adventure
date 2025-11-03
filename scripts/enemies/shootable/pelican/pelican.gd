@@ -17,8 +17,8 @@ func fire():
 	var bullet = _bullet_factory.create() as RigidBody2D
 	bullet.set_damage(spike)
 
-func start_attack_mode() -> void:
-	super.start_attack_mode()
+func start_shoot() -> void:
+	super.start_shoot()
 	_movement_speed = 0
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:

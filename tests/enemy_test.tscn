@@ -2,8 +2,8 @@
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
 [ext_resource type="PackedScene" uid="uid://cpc1vj8n1ssym" path="res://scenes/enemies/spawner.tscn" id="3_vb1hh"]
-[ext_resource type="PackedScene" uid="uid://cdfbk1ajslx5n" path="res://scenes/enemies/pelican.tscn" id="4_e1c60"]
-[ext_resource type="PackedScene" uid="uid://c1hyao37pnno1" path="res://scenes/enemies/seahorse.tscn" id="4_vb1hh"]
+[ext_resource type="PackedScene" uid="uid://cdfbk1ajslx5n" path="res://scenes/enemies/shootable/pelican/pelican.tscn" id="4_e1c60"]
+[ext_resource type="PackedScene" uid="uid://c1hyao37pnno1" path="res://scenes/enemies/shootable/seahorse/seahorse.tscn" id="4_vb1hh"]
 
 [node name="Stage" type="Node2D"]
 

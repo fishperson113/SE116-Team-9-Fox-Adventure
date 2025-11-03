@@ -1,4 +1,5 @@
-extends EnemyAttackState
+class_name EnemyShootState
+extends EnemyState
 
 func _enter() -> void:
 	super._enter()

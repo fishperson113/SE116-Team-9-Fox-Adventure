@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://c1hyao37pnno1"]
 
-[ext_resource type="Script" uid="uid://b1k8grxh31gq0" path="res://scripts/enemies/seahorse/seahorse.gd" id="1_t67fo"]
+[ext_resource type="Script" uid="uid://b1k8grxh31gq0" path="res://scripts/enemies/shootable/seahorse/seahorse.gd" id="1_t67fo"]
 [ext_resource type="Texture2D" uid="uid://iypi4fwrbn5s" path="res://assets/sprites/enemies/monsters/barrel/barrel_atk_01.png" id="2_t67fo"]
 [ext_resource type="Texture2D" uid="uid://cfm8pspx3lq6s" path="res://assets/sprites/enemies/monsters/barrel/barrel_atk_02.png" id="3_e1oma"]
 [ext_resource type="Texture2D" uid="uid://cnmnkldmhmbor" path="res://assets/sprites/enemies/monsters/barrel/barrel_atk_03.png" id="4_rw8jg"]
@@ -11,10 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://cfiquobp2wx60" path="res://assets/sprites/enemies/monsters/barrel/barrel_01.png" id="9_nl3he"]
 [ext_resource type="Texture2D" uid="uid://cbx80uvt5dnh1" path="res://assets/sprites/enemies/monsters/barrel/barrel_02.png" id="10_3p0ng"]
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="11_e1oma"]
-[ext_resource type="PackedScene" uid="uid://cvqfjx8p5pi7e" path="res://scenes/enemies/bullet.tscn" id="12_rw8jg"]
+[ext_resource type="PackedScene" uid="uid://cvqfjx8p5pi7e" path="res://scenes/enemies/shootable/seahorse/bullet.tscn" id="12_rw8jg"]
 [ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="13_fhyme"]
-[ext_resource type="Script" uid="uid://uifmm33yctg8" path="res://scripts/enemies/seahorse/attack.gd" id="14_1egdl"]
-[ext_resource type="Script" uid="uid://t1xwug2i503q" path="res://scripts/enemies/seahorse/normal.gd" id="14_7tdr4"]
+[ext_resource type="Script" uid="uid://uifmm33yctg8" path="res://scripts/enemies/shootable/seahorse/attack.gd" id="14_1egdl"]
+[ext_resource type="Script" uid="uid://t1xwug2i503q" path="res://scripts/enemies/shootable/seahorse/normal.gd" id="14_7tdr4"]
 [ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/states/hurt.gd" id="16_ku8xx"]
 [ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="17_7tdr4"]
 
@@ -114,7 +114,7 @@ shape = SubResource("CapsuleShape2D_y7xdu")
 [node name="Normal" type="Node" parent="States"]
 script = ExtResource("14_7tdr4")
 
-[node name="Attack" type="Node" parent="States"]
+[node name="Shoot" type="Node" parent="States"]
 script = ExtResource("14_1egdl")
 
 [node name="Hurt" type="Node" parent="States"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://cdfbk1ajslx5n"]
 
-[ext_resource type="Script" uid="uid://bldgecpaijadh" path="res://scripts/enemies/pelican/pelican.gd" id="1_vtc3j"]
+[ext_resource type="Script" uid="uid://bldgecpaijadh" path="res://scripts/enemies/shootable/pelican/pelican.gd" id="1_vtc3j"]
 [ext_resource type="Texture2D" uid="uid://ye7skqeiyx2" path="res://assets/sprites/enemies/monsters/pelican/pelican_atk_01.png" id="2_vtc3j"]
 [ext_resource type="Texture2D" uid="uid://cu6vjclyiwkma" path="res://assets/sprites/enemies/monsters/pelican/pelican_atk_02.png" id="3_lgxwl"]
 [ext_resource type="Texture2D" uid="uid://cqxn1fqbhcmnd" path="res://assets/sprites/enemies/monsters/pelican/pelican_atk_03.png" id="4_k5alk"]
@@ -9,10 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://c7gw2ohvqs17c" path="res://assets/sprites/enemies/monsters/pelican/pelican_03.png" id="7_dipdu"]
 [ext_resource type="Texture2D" uid="uid://yquxekuysg1" path="res://assets/sprites/enemies/monsters/pelican/pelican_04.png" id="8_2u7p3"]
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="9_k5alk"]
-[ext_resource type="Script" uid="uid://uifmm33yctg8" path="res://scripts/enemies/seahorse/attack.gd" id="10_k5alk"]
-[ext_resource type="PackedScene" uid="uid://cv5m0cbxsoolx" path="res://scenes/enemies/sea_urchin.tscn" id="10_wjw3j"]
-[ext_resource type="Script" uid="uid://b0g4s81y5cpcx" path="res://scripts/enemies/pelican/normal.gd" id="11_2vqsf"]
-[ext_resource type="Script" uid="uid://cfggllq5af067" path="res://scripts/enemies/pelican/leave.gd" id="13_2vqsf"]
+[ext_resource type="Script" uid="uid://uifmm33yctg8" path="res://scripts/enemies/shootable/seahorse/attack.gd" id="10_k5alk"]
+[ext_resource type="PackedScene" uid="uid://cv5m0cbxsoolx" path="res://scenes/enemies/shootable/pelican/sea_urchin.tscn" id="10_wjw3j"]
+[ext_resource type="Script" uid="uid://b0g4s81y5cpcx" path="res://scripts/enemies/shootable/pelican/normal.gd" id="11_2vqsf"]
+[ext_resource type="Script" uid="uid://cfggllq5af067" path="res://scripts/enemies/shootable/pelican/leave.gd" id="13_2vqsf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_t3x06"]
 animations = [{
@@ -97,7 +97,7 @@ shape = SubResource("CapsuleShape2D_emo3g")
 script = ExtResource("11_2vqsf")
 metadata/_custom_type_script = "uid://scb0qkcj5epd"
 
-[node name="Attack" type="Node" parent="States"]
+[node name="Shoot" type="Node" parent="States"]
 script = ExtResource("10_k5alk")
 
 [node name="Leave" type="Node" parent="States"]

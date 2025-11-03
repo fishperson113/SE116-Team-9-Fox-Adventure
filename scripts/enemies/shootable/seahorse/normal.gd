@@ -9,8 +9,6 @@ func _exit() -> void:
 
 func _update( _delta ):
 	super._update(_delta)
-	if obj.can_leave():
-		fsm.change_state(fsm.states.leave)
-	elif update_timer(_delta):
+	if update_timer(_delta):
 		if obj.can_attack():
-			fsm.change_state(fsm.states.attack)
+			fsm.change_state(fsm.states.shoot)
