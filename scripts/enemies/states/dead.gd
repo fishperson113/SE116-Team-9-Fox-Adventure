@@ -2,6 +2,7 @@ extends EnemyState
 
 func _enter() -> void:
 	obj.start_dead_mode()
+	pass
 
 func _exit() -> void:
 	obj.end_dead_mode()

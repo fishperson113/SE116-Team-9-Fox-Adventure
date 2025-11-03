@@ -2,7 +2,7 @@ extends EnemyNormalState
 
 func _enter() -> void:
 	super._enter()
-	timer = obj.get_attack_cooldown()
+	timer = obj.attack_cooldown
 
 func _exit() -> void:
 	super._exit()

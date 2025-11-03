@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bvx802yad1bxn"]
+[gd_scene load_steps=14 format=3 uid="uid://bvx802yad1bxn"]
 
 [ext_resource type="Script" uid="uid://mfhb57posmxm" path="res://scripts/enemies/crab/crab.gd" id="1_jgbqf"]
 [ext_resource type="Texture2D" uid="uid://rx1arfn0eqk6" path="res://assets/sprites/enemies/monsters/crab/crab_hit_01.png" id="1_jwctj"]
@@ -6,11 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://j0as0g1spbxj" path="res://assets/sprites/enemies/monsters/crab/crab_01.png" id="3_0mleb"]
 [ext_resource type="Texture2D" uid="uid://bqeqftjughwfv" path="res://assets/sprites/enemies/monsters/crab/crab_02.png" id="4_qokaa"]
 [ext_resource type="Texture2D" uid="uid://cdmgxy782yuqb" path="res://assets/sprites/enemies/monsters/crab/crab_03.png" id="5_3jqcw"]
-[ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/enemy_state.gd" id="7_3jqcw"]
 [ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="7_8ukmd"]
-[ext_resource type="Script" uid="uid://vrc8fbdyw2ph" path="res://scripts/enemies/mushroom/normal.gd" id="8_86med"]
 [ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="8_nrf1x"]
 [ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/states/hurt.gd" id="9_8ukmd"]
+[ext_resource type="Script" uid="uid://scb0qkcj5epd" path="res://scripts/enemies/states/normal.gd" id="9_nrf1x"]
 [ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="12_nrf1x"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_86med"]
@@ -92,10 +91,9 @@ rotation = -1.56891
 shape = SubResource("CapsuleShape2D_jwctj")
 
 [node name="States" type="Node" parent="."]
-script = ExtResource("7_3jqcw")
 
 [node name="Normal" type="Node" parent="States"]
-script = ExtResource("8_86med")
+script = ExtResource("9_nrf1x")
 
 [node name="Hurt" type="Node" parent="States"]
 script = ExtResource("9_8ukmd")

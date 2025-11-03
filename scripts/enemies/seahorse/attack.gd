@@ -2,7 +2,7 @@ extends EnemyAttackState
 
 func _enter() -> void:
 	super._enter()
-	timer = obj.get_shoot_time()
+	timer = obj.shoot_time
 	pass
 	
 func _exit() -> void:

@@ -9,10 +9,10 @@ extends Enemy
 #Quả dừa sẽ tự biến mất khi tiếp xúc với mặt đất
 #Nếu người chơi chạm vào quả dừa thì sẽ bị mất máu theo Attack Damage
 
+@export var shoot_time: float = 0.4
+@export var shoot_cooldown: float = 1.0
 @export var attack_time: float = 0.8
 @export var stab_period: float = 0.6
-@export var shoot_cooldown: float = 1.0
-@export var shoot_time: float = 0.4
 @export var bullet_up_impulse: float = -20
 
 var _detect_ray_cast: RayCast2D = null
