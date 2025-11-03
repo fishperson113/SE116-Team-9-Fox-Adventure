@@ -1,9 +1,9 @@
 class_name ShootableEnemy
-extends Enemy
+extends StatefulEnemy
 
 @export var shoot_time: float = 0.5
 @export var shoot_interval: float = 0.5
-@export var attack_cooldown: float = 3.0
+@export var shoot_cooldown: float = 3.0
 
 var _cooldown: float = 0.0
 

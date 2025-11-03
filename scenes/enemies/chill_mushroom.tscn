@@ -8,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://ro22qcieewjs" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_02.png" id="5_6yxqy"]
 [ext_resource type="Texture2D" uid="uid://cmig7rvc1vfn2" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_03.png" id="6_7a7sm"]
 [ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="8_7a7sm"]
+[ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/enemy_state.gd" id="9_7a7sm"]
 [ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/states/hurt.gd" id="10_6yxqy"]
-[ext_resource type="Script" uid="uid://scb0qkcj5epd" path="res://scripts/enemies/states/normal.gd" id="10_prc6s"]
 [ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="12_prc6s"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_prc6s"]
@@ -84,7 +84,7 @@ shape = SubResource("CapsuleShape2D_xivi7")
 [node name="States" type="Node" parent="."]
 
 [node name="Normal" type="Node" parent="States"]
-script = ExtResource("10_prc6s")
+script = ExtResource("9_7a7sm")
 
 [node name="Hurt" type="Node" parent="States"]
 script = ExtResource("10_6yxqy")

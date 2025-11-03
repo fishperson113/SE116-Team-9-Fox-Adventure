@@ -1,8 +1,8 @@
-extends EnemyNormalState
+extends EnemyState
 
 func _enter() -> void:
 	super._enter()
-	timer = obj.attack_cooldown
+	timer = obj.shoot_cooldown
 
 func _exit() -> void:
 	super._exit()

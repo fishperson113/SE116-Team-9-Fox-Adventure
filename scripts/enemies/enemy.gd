@@ -163,34 +163,3 @@ func take_damage(amount: int) -> void:
 
 func is_alive() -> bool:
 	return health > 0.0
-
-func start_normal_mode() -> void:
-	_movement_speed = movement_speed
-	
-	_animation_controller.change_animation("normal")
-
-func end_normal_mode() -> void:
-	pass
-
-func update_normal_mode(_delta: float) -> void:
-	try_patrol_turn(_delta)
-
-func start_hurt_mode() -> void:
-	_movement_speed = 0.0
-	
-	_animation_controller.change_animation("hurt")
-
-func end_hurt_mode() -> void:
-	pass
-
-func update_hurt_mode(_delta: float) -> void:
-	pass
-
-func start_dead_mode() -> void:
-	queue_free()
-
-func end_dead_mode() -> void:
-	pass
-
-func update_dead_mode(_delta: float) -> void:
-	pass
