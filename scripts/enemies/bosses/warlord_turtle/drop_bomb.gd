@@ -1,17 +1,13 @@
-class_name EnemyHurtState
 extends EnemyState
 
 func _enter() -> void:
 	super._enter()
-	timer = obj.hurt_time
-	pass
-
-func _exit() -> void:
-	super._exit()
-	pass
+	timer = obj.drop_bomb_time
 
 func _update( _delta ):
 	super._update(_delta)
 	if update_timer(_delta):
-		try_recover()
+		fsm.change_state(fsm.states.normal)
+
+func take_damage() -> void:
 	pass

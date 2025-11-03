@@ -1,11 +1,11 @@
-class_name EnemyHurtState
+class_name EnemyShootState
 extends EnemyState
 
 func _enter() -> void:
 	super._enter()
-	timer = obj.hurt_time
+	timer = obj.shoot_time
 	pass
-
+	
 func _exit() -> void:
 	super._exit()
 	pass
@@ -13,5 +13,4 @@ func _exit() -> void:
 func _update( _delta ):
 	super._update(_delta)
 	if update_timer(_delta):
-		try_recover()
-	pass
+		fsm.change_state(fsm.states.normal)

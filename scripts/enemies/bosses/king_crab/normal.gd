@@ -1,17 +1,13 @@
-class_name EnemyHurtState
 extends EnemyState
 
 func _enter() -> void:
 	super._enter()
-	timer = obj.hurt_time
-	pass
+	timer = obj.idle_time
 
 func _exit() -> void:
 	super._exit()
-	pass
 
 func _update( _delta ):
 	super._update(_delta)
 	if update_timer(_delta):
-		try_recover()
-	pass
+		fsm.change_state(obj.get_current_skill());

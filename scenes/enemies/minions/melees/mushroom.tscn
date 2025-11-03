@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://c1ojnmhr1sm5l"]
+
+[ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_cq6ry"]
+[ext_resource type="Texture2D" uid="uid://dpjw5jtxsvr5g" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_hit_01.png" id="2_i4ej6"]
+[ext_resource type="Texture2D" uid="uid://ctcs8ewl0dmuf" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_hit_02.png" id="3_dkmdw"]
+[ext_resource type="Texture2D" uid="uid://dyvocg73qr6qa" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_hit_03.png" id="4_e2346"]
+[ext_resource type="Texture2D" uid="uid://di7pg4ow6n6rv" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_01.png" id="5_n0mlq"]
+[ext_resource type="Texture2D" uid="uid://ro22qcieewjs" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_02.png" id="6_f4ybn"]
+[ext_resource type="Texture2D" uid="uid://cmig7rvc1vfn2" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_03.png" id="7_545sw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qdbxi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_i4ej6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dkmdw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_e2346")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_n0mlq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_f4ybn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_545sw")
+}],
+"loop": true,
+"name": &"normal",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rl72c"]
+size = Vector2(20, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhuc4"]
+size = Vector2(12, 23)
+
+[node name="Mushroom" instance=ExtResource("1_cq6ry")]
+health = 50.0
+spike = 80.0
+movement_speed = 50.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]
+sprite_frames = SubResource("SpriteFrames_qdbxi")
+animation = &"normal"
+
+[node name="HurtArea2D" parent="Direction" index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="Direction/HurtArea2D" index="0"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_rl72c")
+
+[node name="CollisionShape2D" parent="." index="1"]
+visible = false
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_bhuc4")
