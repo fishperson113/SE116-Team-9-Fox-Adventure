@@ -1,6 +1,6 @@
 class_name PlayerState
 extends FSMState
-
+var smoke = preload("res://scenes/levels/island/objects/smoke.tscn")
 func _enter() -> void:
 	pass
 
@@ -31,9 +31,11 @@ func control_jump() -> bool:
 	if (is_jumping and obj.current_jump<obj.jump_step):
 		obj.velocity.y = -obj.jump_speed
 		change_state(fsm.states.jump)
-		var starting = obj.get_parent()
-		if starting.has_method("add_smoke_effect"):
-			starting.add_smoke_effect(obj.global_position)
+		#var starting = obj.get_parent()
+		#if starting.has_method("add_smoke_effect"):
+			#starting.add_smoke_effect(obj.global_position)
+		if obj.is_on_floor():
+			add_jump_effect(Vector2(obj.position.x, obj.position.y + 8))
 		obj.current_jump+=1
 		return true
 	return false
@@ -79,3 +81,9 @@ func deduct_health(amount: float) -> bool:
 		return true
 	obj.currentHealth = 0
 	return false
+	
+func add_jump_effect(pos: Vector2):
+	var jump_fx = smoke.instantiate()
+	jump_fx.position = pos
+	add_child(jump_fx)
+	

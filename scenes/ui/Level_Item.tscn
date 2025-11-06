@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://db58hsldb2k8s"]
+
+[ext_resource type="Script" uid="uid://12h0ll0s4fq8" path="res://scenes/ui/level_item.gd" id="1_hxvqa"]
+[ext_resource type="Texture2D" uid="uid://bm66ag0j7y3qi" path="res://assets/ui/panels/popup.png" id="2_3gpd1"]
+[ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="3_rwkvf"]
+[ext_resource type="Texture2D" uid="uid://ded81i60cp5x7" path="res://assets/ui/panels/Lock.png" id="4_awj77"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7c0wj"]
+size = Vector2(94, 112)
+
+[node name="LevelItem" type="Area2D"]
+script = ExtResource("1_hxvqa")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(-10, 1)
+texture = ExtResource("2_3gpd1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-10, 11)
+shape = SubResource("RectangleShape2D_7c0wj")
+
+[node name="Level" type="Label" parent="."]
+offset_left = -52.0
+offset_top = 49.0
+offset_right = 32.0
+offset_bottom = 72.0
+theme_override_fonts/font = ExtResource("3_rwkvf")
+text = "LEVEL 0"
+
+[node name="Lock" type="Sprite2D" parent="."]
+position = Vector2(-8, -3)
+texture = ExtResource("4_awj77")

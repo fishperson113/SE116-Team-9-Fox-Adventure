@@ -35,7 +35,7 @@ func _on_detector_area_body_entered(body):
 	var player = body as Player
 	if player:  
 		player_on_boat = true
-		#current_state=State.MOVING
+		current_state=State.MOVING
 		_player = player
 		if "player_on_boat" in player:  
 			player.player_on_boat = true

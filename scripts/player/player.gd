@@ -1,6 +1,9 @@
 class_name Player
 extends BaseCharacter
 
+signal gemsChanged
+signal keysChanged
+signal coinsChanged
 
 @export var jump_step: int = 2
 @export var current_jump: int = 0

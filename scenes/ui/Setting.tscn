@@ -9,17 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://brougscrg6lf5" path="res://assets/ui/buttons/Resume.png" id="7_k5hx8"]
 [ext_resource type="Texture2D" uid="uid://ds6trjvfrgte" path="res://assets/ui/buttons/Retry.png" id="8_kf6ce"]
 
-[node name="Setting2" type="CanvasLayer"]
+[node name="Setting" type="CanvasLayer"]
 layer = 100
 script = ExtResource("1_gcxgo")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 553.0
-offset_bottom = 313.0
-color = Color(0, 0.435294, 1, 1)
-
-[node name="NinePatchRect" type="NinePatchRect" parent="ColorRect"]
-layout_mode = 0
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
 offset_left = 214.0
 offset_top = 90.0
 offset_right = 355.0
@@ -30,7 +24,7 @@ patch_margin_top = 32
 patch_margin_right = 32
 patch_margin_bottom = 32
 
-[node name="Sound" type="Label" parent="ColorRect/NinePatchRect"]
+[node name="Sound" type="Label" parent="NinePatchRect"]
 layout_mode = 0
 offset_left = -13.0
 offset_top = 30.0
@@ -41,7 +35,7 @@ theme_override_font_sizes/font_size = 16
 text = "SOUND"
 horizontal_alignment = 1
 
-[node name="Sfx" type="Label" parent="ColorRect/NinePatchRect"]
+[node name="Sfx" type="Label" parent="NinePatchRect"]
 layout_mode = 0
 offset_left = 17.0
 offset_top = 49.0
@@ -52,7 +46,7 @@ theme_override_font_sizes/font_size = 16
 text = "SFX"
 horizontal_alignment = 1
 
-[node name="SoundCheckButton" type="CheckButton" parent="ColorRect/NinePatchRect"]
+[node name="SoundCheckButton" type="CheckButton" parent="NinePatchRect"]
 layout_mode = 0
 offset_left = 101.0
 offset_top = 27.0
@@ -62,7 +56,7 @@ theme_override_icons/checked = ExtResource("4_aw1yb")
 theme_override_icons/unchecked = ExtResource("5_cnla0")
 action_mode = 0
 
-[node name="SFXCheckButton" type="CheckButton" parent="ColorRect/NinePatchRect"]
+[node name="SFXCheckButton" type="CheckButton" parent="NinePatchRect"]
 layout_mode = 0
 offset_left = 101.0
 offset_top = 45.0
@@ -72,7 +66,7 @@ theme_override_icons/checked = ExtResource("4_aw1yb")
 theme_override_icons/unchecked = ExtResource("5_cnla0")
 action_mode = 0
 
-[node name="Setting" type="Label" parent="ColorRect/NinePatchRect"]
+[node name="Setting" type="Label" parent="NinePatchRect"]
 layout_mode = 0
 offset_left = 17.0
 offset_top = 9.0
@@ -84,7 +78,7 @@ text = "SETTINGS
 
 "
 
-[node name="Quit" type="Button" parent="ColorRect/NinePatchRect"]
+[node name="Quit" type="Button" parent="NinePatchRect"]
 layout_mode = 0
 offset_left = 90.0
 offset_top = 67.0
@@ -93,7 +87,7 @@ offset_bottom = 91.0
 icon = ExtResource("6_f0m44")
 flat = true
 
-[node name="Resume" type="Button" parent="ColorRect/NinePatchRect"]
+[node name="Resume" type="Button" parent="NinePatchRect"]
 layout_mode = 0
 offset_left = 31.0
 offset_top = 67.0
@@ -102,7 +96,7 @@ offset_bottom = 91.0
 icon = ExtResource("7_k5hx8")
 flat = true
 
-[node name="Retry" type="Button" parent="ColorRect/NinePatchRect"]
+[node name="Retry" type="Button" parent="NinePatchRect"]
 layout_mode = 0
 offset_left = 61.0
 offset_top = 67.0
@@ -111,6 +105,6 @@ offset_bottom = 91.0
 icon = ExtResource("8_kf6ce")
 flat = true
 
-[connection signal="button_down" from="ColorRect/NinePatchRect/Quit" to="." method="_on_quit_pressed"]
-[connection signal="button_down" from="ColorRect/NinePatchRect/Resume" to="." method="_on_resume_pressed"]
-[connection signal="button_down" from="ColorRect/NinePatchRect/Retry" to="." method="_on_retry_pressed"]
+[connection signal="button_down" from="NinePatchRect/Quit" to="." method="_on_quit_pressed"]
+[connection signal="button_down" from="NinePatchRect/Resume" to="." method="_on_resume_pressed"]
+[connection signal="button_down" from="NinePatchRect/Retry" to="." method="_on_retry_pressed"]
