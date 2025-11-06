@@ -1,0 +1,433 @@
+[gd_scene load_steps=70 format=3 uid="uid://cbcm0t4a4tv44"]
+
+[ext_resource type="Texture2D" uid="uid://busv6anromm7y" path="res://assets/sprites/caldron/pull_chain/6022.png" id="1_d8ggs"]
+[ext_resource type="Texture2D" uid="uid://y1gq2xbnqiw0" path="res://assets/sprites/caldron/caldron_body/3911.png" id="1_hdmar"]
+[ext_resource type="Texture2D" uid="uid://c4xwgv0tf8bxf" path="res://assets/ui/buttons/scrap.png" id="1_ptgyn"]
+[ext_resource type="Texture2D" uid="uid://dbq6qwfb16l4a" path="res://assets/sprites/caldron/pull_chain/6023.png" id="1_s8h4u"]
+[ext_resource type="Texture2D" uid="uid://cp6t8mjtay7em" path="res://assets/sprites/caldron/caldron_body/3910.png" id="2_rcpmq"]
+[ext_resource type="Texture2D" uid="uid://cx1m1wxkbipxh" path="res://assets/ui/buttons/close_button.png" id="2_s8h4u"]
+[ext_resource type="Texture2D" uid="uid://cnc7uf01gvro5" path="res://assets/sprites/caldron/caldron_body/3969.png" id="3_rcpmq"]
+[ext_resource type="Texture2D" uid="uid://bsf7w55n8x84x" path="res://assets/sprites/caldron/caldron_body/3913.png" id="4_rtbvo"]
+[ext_resource type="Texture2D" uid="uid://syw8egcheaj" path="res://assets/sprites/caldron/caldron_body/3915.png" id="5_fef20"]
+[ext_resource type="Texture2D" uid="uid://bc40udlvj1qq6" path="res://assets/sprites/caldron/caldron_body/3917.png" id="6_84k0a"]
+[ext_resource type="Texture2D" uid="uid://c2jseblgptbex" path="res://assets/sprites/caldron/caldron_body/3919.png" id="7_ihkld"]
+[ext_resource type="Texture2D" uid="uid://dsmsb6lwgbxpj" path="res://assets/sprites/caldron/caldron_body/3921.png" id="8_w3o07"]
+[ext_resource type="Texture2D" uid="uid://cxrg760sunt3i" path="res://assets/sprites/caldron/caldron_body/3923.png" id="9_n1jg6"]
+[ext_resource type="Texture2D" uid="uid://ceyys4fbsv7j3" path="res://assets/sprites/caldron/caldron_body/3925.png" id="10_c7yq8"]
+[ext_resource type="Texture2D" uid="uid://cik0ld1psfecp" path="res://assets/sprites/caldron/caldron_body/3927.png" id="11_3t0ok"]
+[ext_resource type="Texture2D" uid="uid://duw5xx7psqv37" path="res://assets/sprites/caldron/caldron_body/3929.png" id="12_kh6bf"]
+[ext_resource type="Texture2D" uid="uid://cputfi7yrm4fk" path="res://assets/sprites/caldron/caldron_body/3931.png" id="13_uv7hn"]
+[ext_resource type="Texture2D" uid="uid://bxjk16jvj5xkk" path="res://assets/sprites/caldron/caldron_body/3933.png" id="14_qtubg"]
+[ext_resource type="Texture2D" uid="uid://dhoui1lcf67o6" path="res://assets/sprites/caldron/caldron_body/3935.png" id="15_1v0v8"]
+[ext_resource type="Texture2D" uid="uid://ck7slredas2qp" path="res://assets/sprites/caldron/caldron_body/3937.png" id="16_w0tt0"]
+[ext_resource type="Texture2D" uid="uid://co2xrk1025u6y" path="res://assets/sprites/caldron/caldron_body/3939.png" id="17_kep2r"]
+[ext_resource type="Texture2D" uid="uid://5o0j22nbfkke" path="res://assets/sprites/caldron/caldron_body/3941.png" id="18_bk51a"]
+[ext_resource type="Texture2D" uid="uid://d2hk6d5ymheir" path="res://assets/sprites/caldron/caldron_body/3943.png" id="19_aykpi"]
+[ext_resource type="Texture2D" uid="uid://b0occa572s37w" path="res://assets/sprites/caldron/caldron_body/3945.png" id="20_xqb66"]
+[ext_resource type="Texture2D" uid="uid://dytgtkkqycih1" path="res://assets/sprites/caldron/caldron_body/3947.png" id="21_tbeeb"]
+[ext_resource type="Texture2D" uid="uid://dq5adthet25ie" path="res://assets/sprites/caldron/caldron_body/3949.png" id="22_sa0vy"]
+[ext_resource type="Texture2D" uid="uid://d4niaupg1cwbr" path="res://assets/sprites/caldron/caldron_body/3951.png" id="23_70tbp"]
+[ext_resource type="Texture2D" uid="uid://8w17s4yd4efr" path="res://assets/sprites/caldron/caldron_body/3953.png" id="24_ykgpi"]
+[ext_resource type="Texture2D" uid="uid://dyqwgs5fsqdrq" path="res://assets/sprites/caldron/caldron_body/3955.png" id="25_u80kv"]
+[ext_resource type="Texture2D" uid="uid://cwgecgv5e3ice" path="res://assets/sprites/caldron/caldron_body/3957.png" id="26_ikn17"]
+[ext_resource type="Texture2D" uid="uid://dmiuvu4c8ok4g" path="res://assets/sprites/caldron/caldron_body/3959.png" id="27_00s5h"]
+[ext_resource type="Texture2D" uid="uid://b5trmvm2v3fkq" path="res://assets/sprites/caldron/caldron_body/3961.png" id="28_bc3q8"]
+[ext_resource type="Texture2D" uid="uid://btlcfc5jcyp0k" path="res://assets/sprites/caldron/caldron_body/3963.png" id="29_gj2ff"]
+[ext_resource type="Texture2D" uid="uid://c2upkuu2tfd4i" path="res://assets/sprites/caldron/caldron_body/3965.png" id="30_st5af"]
+[ext_resource type="Texture2D" uid="uid://cb0rwm2dvkurl" path="res://assets/sprites/caldron/caldron_body/3967.png" id="31_42gci"]
+[ext_resource type="Texture2D" uid="uid://bsnbry31g5lst" path="res://assets/sprites/caldron/caldron_body/3912.png" id="32_8gxwh"]
+[ext_resource type="Texture2D" uid="uid://m0kekth57rnp" path="res://assets/sprites/caldron/caldron_body/3914.png" id="33_42gci"]
+[ext_resource type="Texture2D" uid="uid://dg5y3j0ql3jqc" path="res://assets/sprites/caldron/caldron_body/3916.png" id="34_8gxwh"]
+[ext_resource type="Texture2D" uid="uid://crn1ctbtaxds3" path="res://assets/sprites/caldron/caldron_body/3918.png" id="35_16ol6"]
+[ext_resource type="Texture2D" uid="uid://3h2k248b653v" path="res://assets/sprites/caldron/caldron_body/3920.png" id="36_ttluv"]
+[ext_resource type="Texture2D" uid="uid://bk5pddl756h40" path="res://assets/sprites/caldron/caldron_body/3922.png" id="37_rgjq5"]
+[ext_resource type="Texture2D" uid="uid://bmar7s381la17" path="res://assets/sprites/caldron/caldron_body/3924.png" id="38_jss64"]
+[ext_resource type="Texture2D" uid="uid://cbg8c71snikwy" path="res://assets/sprites/caldron/caldron_body/3926.png" id="39_nxrxk"]
+[ext_resource type="Texture2D" uid="uid://cgonjltd2e5my" path="res://assets/sprites/caldron/caldron_body/3928.png" id="40_mfmiu"]
+[ext_resource type="Texture2D" uid="uid://b5tr7r1vxqmgr" path="res://assets/sprites/caldron/caldron_body/3930.png" id="41_55mnj"]
+[ext_resource type="Texture2D" uid="uid://cwmtgsqcf3ox4" path="res://assets/sprites/caldron/caldron_body/3932.png" id="42_3leg3"]
+[ext_resource type="Texture2D" uid="uid://dr2dgjr3yssec" path="res://assets/sprites/caldron/caldron_body/3934.png" id="43_lp8tj"]
+[ext_resource type="Texture2D" uid="uid://sseujdit8jq3" path="res://assets/sprites/caldron/caldron_body/3936.png" id="44_m0e7o"]
+[ext_resource type="Texture2D" uid="uid://6fqbx5cvt341" path="res://assets/sprites/caldron/caldron_body/3938.png" id="45_nef7q"]
+[ext_resource type="Texture2D" uid="uid://5dmxyrxmyj0n" path="res://assets/sprites/caldron/caldron_body/3940.png" id="46_0evts"]
+[ext_resource type="Texture2D" uid="uid://fwmadqlyidk2" path="res://assets/sprites/caldron/caldron_body/3942.png" id="47_4h2eq"]
+[ext_resource type="Texture2D" uid="uid://v2sb5qq6simw" path="res://assets/sprites/caldron/caldron_body/3944.png" id="48_asyei"]
+[ext_resource type="Texture2D" uid="uid://bxwo84lbcef0u" path="res://assets/sprites/caldron/caldron_body/3946.png" id="49_iynft"]
+[ext_resource type="Texture2D" uid="uid://b436vv36moelf" path="res://assets/sprites/caldron/caldron_body/3948.png" id="50_yiwhl"]
+[ext_resource type="Texture2D" uid="uid://822cm6ef3ouy" path="res://assets/sprites/caldron/caldron_body/3950.png" id="51_jxbpp"]
+[ext_resource type="Texture2D" uid="uid://dpbt6lt858b2l" path="res://assets/sprites/caldron/caldron_body/3952.png" id="52_3k2r5"]
+[ext_resource type="Texture2D" uid="uid://tnleaof7h6hu" path="res://assets/sprites/caldron/caldron_body/3954.png" id="53_m1k1f"]
+[ext_resource type="Texture2D" uid="uid://dxcfbj86l0lrd" path="res://assets/sprites/caldron/caldron_body/3956.png" id="54_1dlb5"]
+[ext_resource type="Texture2D" uid="uid://dw5ug3p5de68y" path="res://assets/sprites/caldron/caldron_body/3958.png" id="55_jtovc"]
+[ext_resource type="Texture2D" uid="uid://d0is4whxvcdy5" path="res://assets/sprites/caldron/caldron_body/3960.png" id="56_cc121"]
+[ext_resource type="Texture2D" uid="uid://kk0g7m3nj27w" path="res://assets/sprites/caldron/caldron_body/3962.png" id="57_jbq5g"]
+[ext_resource type="Texture2D" uid="uid://mdqed3vv0g03" path="res://assets/sprites/caldron/caldron_body/3964.png" id="58_e6nyi"]
+[ext_resource type="Texture2D" uid="uid://de7t3rmwws2df" path="res://assets/sprites/caldron/caldron_body/3966.png" id="59_13jmk"]
+[ext_resource type="Texture2D" uid="uid://3kkb441gn0rc" path="res://assets/sprites/caldron/caldron_head/2495.png" id="60_8gxwh"]
+
+[sub_resource type="GDScript" id="GDScript_42gci"]
+script/source = "extends Panel
+
+# --- Kéo các node vào đây trong Inspector ---
+# 1. Kéo node AnimationPlayer của cái nồi
+@export var cauldron_anim_player: AnimationPlayer
+
+# 2. Kéo node PullLever (TextureButton)
+@export var pull_lever: Control
+@export var caldron_head_node: Node2D
+
+# --- Các biến để tính toán ---
+var anim_duration: float = 0.0
+var original_lever_y: float = 0.0
+var max_pull_distance: float = 0.0
+var is_head_popped: bool = false
+func _ready():
+	# --- A. Lấy thông tin Animation ---
+	if cauldron_anim_player == null or pull_lever == null:
+		push_error(\"Lỗi: Vui lòng kéo 'cauldron_anim_player' và 'pull_lever' vào Inspector.\")
+		return
+		
+	if cauldron_anim_player.has_animation(\"tilt\"):
+		# Lấy tổng thời lượng của animation (ví dụ: 1.943 giây)
+		anim_duration = cauldron_anim_player.get_animation(\"tilt\").length
+		
+		cauldron_anim_player.play(\"tilt\")
+		cauldron_anim_player.seek(0.0, true) 
+		cauldron_anim_player.pause()
+	else:
+		push_error(\"Lỗi: Không tìm thấy animation 'tilt' trong AnimationPlayer.\")
+	
+	if caldron_head_node == null:
+		push_error(\"Lỗi: Vui lòng kéo 'caldron_head_node' vào Inspector.\")
+	original_lever_y=pull_lever.position.y
+	max_pull_distance=pull_lever.max_pull_distance
+
+
+func _process(delta: float):
+	# Nếu chưa sẵn sàng, không làm gì cả
+	if anim_duration == 0.0:
+		return
+
+	# --- LOGIC LIÊN KẾT THỜI GIAN THỰC ---
+	
+	# 1. Lấy vị trí Y hiện tại của cần kéo
+	var current_lever_y = pull_lever.position.y
+	
+	# 2. Tính toán \"strength\" (sức mạnh 0.0 -> 1.0)
+	# inverse_lerp: Tính xem \"current_lever_y\" đang ở % bao nhiêu
+	# trên quãng đường từ \"original_lever_y\" đến \"vị trí kéo tối đa\"?
+	var strength = inverse_lerp(original_lever_y, original_lever_y + max_pull_distance, current_lever_y)
+	
+	# Kẹp giá trị (clamp) để đảm bảo nó luôn từ 0.0 đến 1.0
+	strength = clampf(strength, 0.0, 1.0)
+	# 3. Tính toán thời gian (time) trong animation
+	var target_time = strength * anim_duration
+	
+	# 4. Tua (seek) animation đến đúng thời điểm
+	cauldron_anim_player.seek(target_time,true)
+	if strength > 0.05 and not is_head_popped:
+		_pop_head()
+
+func _pop_head():
+	is_head_popped = true
+	print(\"Bật nắp CaldronHead!\")
+	
+	if caldron_head_node == null:
+		return
+		
+	var tween = create_tween()
+	
+	#Tính toán vị trí đích (bay lên 150px)
+	var target_y = caldron_head_node.position.y - 150.0 # (Âm là bay lên)
+	
+	#Ra lệnh cho Tween:
+	tween.tween_property(
+		caldron_head_node,      # Node cần di chuyển
+		\"position:y\",           # Thuộc tính cần thay đổi
+		target_y,               # Vị trí đích
+		0.5                     # Thời gian bay (0.5 giây)
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT) # Thêm hiệu ứng
+"
+
+[sub_resource type="Animation" id="Animation_16ol6"]
+resource_name = "tilt"
+length = 7.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/CaldronBody:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5, 5.25, 5.5, 5.75, 6, 6.25, 6.5, 6.75, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_hdmar"), ExtResource("4_rtbvo"), ExtResource("5_fef20"), ExtResource("6_84k0a"), ExtResource("7_ihkld"), ExtResource("8_w3o07"), ExtResource("9_n1jg6"), ExtResource("10_c7yq8"), ExtResource("11_3t0ok"), ExtResource("12_kh6bf"), ExtResource("13_uv7hn"), ExtResource("14_qtubg"), ExtResource("15_1v0v8"), ExtResource("16_w0tt0"), ExtResource("17_kep2r"), ExtResource("18_bk51a"), ExtResource("19_aykpi"), ExtResource("20_xqb66"), ExtResource("21_tbeeb"), ExtResource("22_sa0vy"), ExtResource("23_70tbp"), ExtResource("24_ykgpi"), ExtResource("25_u80kv"), ExtResource("26_ikn17"), ExtResource("27_00s5h"), ExtResource("28_bc3q8"), ExtResource("29_gj2ff"), ExtResource("30_st5af"), ExtResource("31_42gci")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/CaldronInner:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5, 5.25, 5.5, 5.75, 6, 6.25, 6.5, 6.75, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_rcpmq"), ExtResource("32_8gxwh"), ExtResource("33_42gci"), ExtResource("34_8gxwh"), ExtResource("35_16ol6"), ExtResource("36_ttluv"), ExtResource("37_rgjq5"), ExtResource("38_jss64"), ExtResource("39_nxrxk"), ExtResource("40_mfmiu"), ExtResource("41_55mnj"), ExtResource("42_3leg3"), ExtResource("43_lp8tj"), ExtResource("44_m0e7o"), ExtResource("45_nef7q"), ExtResource("46_0evts"), ExtResource("47_4h2eq"), ExtResource("48_asyei"), ExtResource("49_iynft"), ExtResource("50_yiwhl"), ExtResource("51_jxbpp"), ExtResource("52_3k2r5"), ExtResource("53_m1k1f"), ExtResource("54_1dlb5"), ExtResource("55_jtovc"), ExtResource("56_cc121"), ExtResource("57_jbq5g"), ExtResource("58_e6nyi"), ExtResource("59_13jmk")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body/CaldronInner:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5, 5.25, 5.5, 5.75, 6, 6.25, 6.5, 6.75, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -108), Vector2(0, -109.55), Vector2(0, -109.85), Vector2(0, -107.2), Vector2(0, -103.065), Vector2(0, -97.38), Vector2(0, -99.905), Vector2(0, -96.655), Vector2(0, -94.985), Vector2(0, -94.28), Vector2(0, -93.52), Vector2(0, -93.27), Vector2(0, -86.92), Vector2(0, -88.155), Vector2(0, -89.46), Vector2(0, -89.36), Vector2(0, -87.395), Vector2(0, -81.71), Vector2(0, -85.97), Vector2(0, -85.83), Vector2(0, -83.04), Vector2(0, -85), Vector2(0, -83.93), Vector2(0, -78.87), Vector2(0, -79.32), Vector2(0, -80.425), Vector2(0, -78.98), Vector2(0, -73.195)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body/CaldronBody:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5, 5.25, 5.5, 5.75, 6, 6.25, 6.5, 6.75, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -3.49), Vector2(0, -7.17), Vector2(0, -8.875), Vector2(0, -7.92), Vector2(0, -9.255), Vector2(0, -13.83), Vector2(0, -14.335), Vector2(0, -16.76), Vector2(0, -18.825), Vector2(0, -20.815), Vector2(0, -25.07), Vector2(0, -21.295), Vector2(0, -26.205), Vector2(0, -31.575), Vector2(0, -29.855), Vector2(0, -32.065), Vector2(0, -34.14), Vector2(0, -41.05), Vector2(0, -38.845), Vector2(0, -45.19), Vector2(0, -46.625), Vector2(0, -49), Vector2(0, -48.355), Vector2(0, -51.245), Vector2(0, -56.475), Vector2(0, -58.44), Vector2(0, -56.85)]
+}
+
+[sub_resource type="Animation" id="Animation_ttluv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/CaldronBody:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_hdmar")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/CaldronInner:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_rcpmq")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body/CaldronInner:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -110)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body/CaldronBody:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r41sa"]
+_data = {
+&"RESET": SubResource("Animation_ttluv"),
+&"tilt": SubResource("Animation_16ol6")
+}
+
+[sub_resource type="GDScript" id="GDScript_d8ggs"]
+script/source = "extends TextureButton
+signal pull_completed(strength: float)
+
+@export var max_pull_distance: float = 300.0
+
+@export var chain_node: TextureRect
+
+var is_dragging: bool = false
+var original_button_pos: Vector2
+var original_chain_pos: Vector2
+var drag_start_y: float
+
+func _ready():
+	original_button_pos = position
+	
+	if chain_node:
+		original_chain_pos = chain_node.position
+	else:
+		push_error(\"Lỗi: Node 'Chain' chưa được gán vào PullLever script!\")
+
+func _gui_input(event: InputEvent):
+
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.is_pressed():
+			is_dragging = true
+			drag_start_y = get_global_mouse_position().y
+			get_viewport().set_input_as_handled()
+		else:
+			if is_dragging:
+				is_dragging = false
+				
+				var drag_delta = get_global_mouse_position().y - drag_start_y
+				var strength = clampf(drag_delta / max_pull_distance, 0.0, 1.0)
+				
+				pull_completed.emit(strength)
+				
+				var tween = create_tween()
+				tween.set_parallel(true) 
+				
+				tween.tween_property(self, \"position\", original_button_pos, 0.2).set_trans(Tween.TRANS_SPRING)
+				
+				if chain_node:
+					tween.tween_property(chain_node, \"position\", original_chain_pos, 0.2).set_trans(Tween.TRANS_SPRING)
+				
+				get_viewport().set_input_as_handled()
+
+	if event is InputEventMouseMotion:
+		if is_dragging:
+			var drag_delta = get_global_mouse_position().y - drag_start_y
+			
+			var clamped_delta = clampf(drag_delta, 0.0, max_pull_distance)
+			
+			position.y = original_button_pos.y + clamped_delta
+			
+			if chain_node:
+				chain_node.position.y = original_chain_pos.y + clamped_delta
+			
+			get_viewport().set_input_as_handled()
+"
+
+[node name="SmeltOreMinigame" type="Panel" node_paths=PackedStringArray("cauldron_anim_player", "pull_lever", "caldron_head_node")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_42gci")
+cauldron_anim_player = NodePath("MainLayout/CaldronArea/Caldron/AnimationPlayer")
+pull_lever = NodePath("MainLayout/RightCollum/PullLever")
+caldron_head_node = NodePath("MainLayout/CaldronArea/Caldron/Head")
+
+[node name="MainLayout" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CaldronArea" type="Control" parent="MainLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Caldron" type="Node2D" parent="MainLayout/CaldronArea"]
+position = Vector2(814, 608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainLayout/CaldronArea/Caldron"]
+libraries = {
+&"": SubResource("AnimationLibrary_r41sa")
+}
+
+[node name="Body" type="Node2D" parent="MainLayout/CaldronArea/Caldron"]
+
+[node name="CaldronBody" type="Sprite2D" parent="MainLayout/CaldronArea/Caldron/Body"]
+texture = ExtResource("1_hdmar")
+
+[node name="CaldronInner" type="Sprite2D" parent="MainLayout/CaldronArea/Caldron/Body"]
+position = Vector2(0, -110)
+texture = ExtResource("2_rcpmq")
+
+[node name="CaldronHandle" type="Sprite2D" parent="MainLayout/CaldronArea/Caldron/Body"]
+position = Vector2(0, -46)
+texture = ExtResource("3_rcpmq")
+
+[node name="Chain" type="TextureRect" parent="MainLayout/CaldronArea/Caldron/Body"]
+offset_left = 172.0
+offset_top = -482.0
+offset_right = 212.0
+offset_bottom = -34.0
+texture = ExtResource("1_d8ggs")
+
+[node name="Chain2" type="TextureRect" parent="MainLayout/CaldronArea/Caldron/Body"]
+offset_left = -211.0
+offset_top = -483.0
+offset_right = -171.0
+offset_bottom = -35.0
+texture = ExtResource("1_d8ggs")
+
+[node name="Head" type="Node2D" parent="MainLayout/CaldronArea/Caldron"]
+
+[node name="CaldronHead" type="Sprite2D" parent="MainLayout/CaldronArea/Caldron/Head"]
+position = Vector2(4, -124)
+texture = ExtResource("60_8gxwh")
+
+[node name="RightCollum" type="Control" parent="MainLayout"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Chain" type="TextureRect" parent="MainLayout/RightCollum"]
+layout_mode = 2
+offset_left = 195.0
+offset_top = -429.0
+offset_right = 294.0
+offset_bottom = 19.0
+grow_horizontal = 2
+texture = ExtResource("1_d8ggs")
+stretch_mode = 5
+
+[node name="PullLever" type="TextureButton" parent="MainLayout/RightCollum" node_paths=PackedStringArray("chain_node")]
+layout_mode = 2
+offset_left = 158.0
+offset_top = 21.0
+offset_right = 332.0
+offset_bottom = 171.0
+texture_normal = ExtResource("1_s8h4u")
+stretch_mode = 5
+script = SubResource("GDScript_d8ggs")
+chain_node = NodePath("../Chain")
+
+[node name="ScrapButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -227.0
+offset_top = -94.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("1_ptgyn")
+stretch_mode = 5
+
+[node name="BackButton" type="TextureButton" parent="."]
+layout_mode = 1
+offset_right = 121.0
+offset_bottom = 120.0
+texture_normal = ExtResource("2_s8h4u")
+stretch_mode = 5
