@@ -20,8 +20,7 @@ func _state_moving(delta):
 	if self.position.is_equal_approx(_target_position):
 		_player.fsm.change_state(_player.fsm.states.launch)
 		current_state = State.IDLE
-		return
-	
+		
 	if ship_helm.animation != "turn":
 		ship_helm.play("turn")
 	if not boat_sail.is_playing():

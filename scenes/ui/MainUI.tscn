@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://djoolf474qo2p"]
+[gd_scene load_steps=15 format=3 uid="uid://djoolf474qo2p"]
 
 [ext_resource type="Script" uid="uid://bj1vha74m6rd2" path="res://scenes/ui/main_ui.gd" id="1_7s5y6"]
 [ext_resource type="Texture2D" uid="uid://vj2xvbhnt45o" path="res://assets/ui/panels/health_bar.png" id="1_kdubu"]
 [ext_resource type="Texture2D" uid="uid://bm66ag0j7y3qi" path="res://assets/ui/panels/popup.png" id="2_d21ai"]
+[ext_resource type="Script" uid="uid://csc4qnp65a8rl" path="res://scenes/ui/items.gd" id="3_jv1lx"]
 [ext_resource type="Texture2D" uid="uid://cj8i62eqo1cv0" path="res://assets/sprites/items/gems/GemIcon.png" id="3_rj586"]
 [ext_resource type="Texture2D" uid="uid://bldlesja38ka7" path="res://assets/sprites/items/key/key_1.png" id="4_4d7sh"]
 [ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="4_qg6rx"]
@@ -14,13 +15,14 @@
 [ext_resource type="Texture2D" uid="uid://dos6hwpl7kq7l" path="res://assets/ui/panels/progress.png" id="12_mjmcw"]
 [ext_resource type="Script" uid="uid://c2xtf1ss4k7gw" path="res://scenes/ui/texture_progress_bar.gd" id="14_rpv8g"]
 
-[node name="Node2D" type="Node2D"]
+[node name="MainUI" type="Node2D"]
 script = ExtResource("1_7s5y6")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(240, 136)
 
 [node name="Slots" type="HBoxContainer" parent="."]
+visible = false
 offset_left = 141.0
 offset_top = 216.0
 offset_right = 462.0
@@ -53,50 +55,53 @@ texture = ExtResource("2_d21ai")
 position = Vector2(567, 56)
 texture = ExtResource("2_d21ai")
 
-[node name="GridContainer2" type="GridContainer" parent="."]
+[node name="Items" type="GridContainer" parent="."]
+visible = false
 offset_left = 19.0
 offset_top = 28.0
 offset_right = 111.0
 offset_bottom = 132.0
 scale = Vector2(0.5, 0.5)
 columns = 2
+script = ExtResource("3_jv1lx")
 
-[node name="GemIcon" type="TextureRect" parent="GridContainer2"]
+[node name="GemIcon" type="TextureRect" parent="Items"]
 layout_mode = 2
 texture = ExtResource("3_rj586")
 expand_mode = 4
 
-[node name="Gems" type="Label" parent="GridContainer2"]
+[node name="NumGems" type="Label" parent="Items"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_qg6rx")
-text = "100"
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Key" type="TextureRect" parent="GridContainer2"]
+[node name="Key" type="TextureRect" parent="Items"]
 layout_mode = 2
 texture = ExtResource("4_4d7sh")
 
-[node name="NumKey" type="Label" parent="GridContainer2"]
+[node name="NumKey" type="Label" parent="Items"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_qg6rx")
-text = "100"
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Coin" type="TextureRect" parent="GridContainer2"]
+[node name="Coin" type="TextureRect" parent="Items"]
 layout_mode = 2
 texture = ExtResource("5_ir8iy")
 expand_mode = 4
 
-[node name="NumCoin" type="Label" parent="GridContainer2"]
+[node name="NumCoin" type="Label" parent="Items"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_qg6rx")
-text = "100"
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ASD" type="HBoxContainer" parent="."]
+visible = false
 offset_left = 29.0
 offset_top = 222.0
 offset_right = 350.0

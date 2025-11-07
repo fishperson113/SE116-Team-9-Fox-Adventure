@@ -1,25 +1,16 @@
 extends PlayerState
 
 func _enter() -> void:
-	if obj.hit_buffer:
-		obj.change_animation("hit")
-	else:
-		obj.change_animation("walk")
+	obj.change_animation("walk")
 	pass
 
 func _update(delta: float):
 	#Control jump
 	control_jump()
 	control_attack()
-	control_hit()
-	control_defeat()
 	#Control moving and if not moving change to idle
 	if !control_moving():
 		change_state(fsm.states.idle)
-	if obj.hit_buffer:
-		obj.change_animation("hit")
-	else:
-		obj.change_animation("walk")
 	#If not on floor change to fall
 	if !obj.is_on_floor():
 		if obj.velocity.y > 0:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://de4saaedddcpl"]
 
-[ext_resource type="Script" uid="uid://b3cytn40lnj7b" path="res://scenes/levels/island/objects/smoke.gd" id="1_7e3yv"]
+[ext_resource type="Script" uid="uid://b3cytn40lnj7b" path="res://scenes/levels/island/objects/smoke/smoke.gd" id="1_7e3yv"]
 [ext_resource type="Texture2D" uid="uid://8usoreyem8l6" path="res://assets/sprites/characters/foxy/smoke/jump_smoke_1.png" id="2_kj23f"]
 [ext_resource type="Texture2D" uid="uid://jtpy308mqnwi" path="res://assets/sprites/characters/foxy/smoke/jump_smoke_2.png" id="3_t486b"]
 [ext_resource type="Texture2D" uid="uid://cbk136ktae42o" path="res://assets/sprites/characters/foxy/smoke/jump_smoke_3.png" id="4_fjxfw"]

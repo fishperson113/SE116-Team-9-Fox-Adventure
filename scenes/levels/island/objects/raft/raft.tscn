@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://pklnt4p62ciu"]
 
-[ext_resource type="Script" uid="uid://bndh6vn7vcbl0" path="res://scenes/levels/island/objects/raft.gd" id="1_8e07t"]
+[ext_resource type="Script" uid="uid://bndh6vn7vcbl0" path="res://scenes/levels/island/objects/raft/raft.gd" id="1_8e07t"]
 [ext_resource type="Texture2D" uid="uid://xwsf48pje60i" path="res://assets/sprites/objects/boat/boat_body.png" id="1_offyf"]
 [ext_resource type="Texture2D" uid="uid://bk3bnf4n4vcl0" path="res://assets/sprites/objects/boat/boat_sail_1.png" id="2_8e07t"]
 [ext_resource type="Texture2D" uid="uid://msb536xv0keg" path="res://assets/sprites/objects/boat/boat_sail_2.png" id="3_uaiv7"]

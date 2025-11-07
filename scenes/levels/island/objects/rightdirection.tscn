@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5vi0curh4daf"]
+
+[ext_resource type="Texture2D" uid="uid://d0ftvanytd0r2" path="res://assets/ui/panels/right.png" id="1_ck031"]
+
+[node name="Rightdirection" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(5, 2)
+scale = Vector2(0.180412, 0.256303)
+texture = ExtResource("1_ck031")

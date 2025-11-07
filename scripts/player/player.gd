@@ -1,6 +1,10 @@
 class_name Player
 extends BaseCharacter
 
+signal gemsChanged
+signal keysChanged
+signal coinsChanged
+
 @export var jump_step: int = 2
 @export var current_jump: int = 0
 
@@ -8,9 +12,10 @@ var weapon_thrower: WeaponThrower
 
 @onready var inventory: Inventory = $Inventory
 @onready var item_storer: ItemStorer = $ItemStorer
+var is_invulnerable: bool = false
+@onready var invulnerability_timer: Timer = $InvulnerabilityTimer
 
 func _ready() -> void:
-	add_to_group("player")
 	get_node("Direction/HitArea2D/CollisionShape2D").disabled = true
 	fsm = FSM.new(self, $States, $States/Idle)
 	weapon_thrower = $WeaponThrower
@@ -59,3 +64,13 @@ func _on_save_inventory_button_pressed() -> void:
 	inventory.save_inventory()
 	item_storer.save_slots()
 	pass # Replace with function body.
+
+func _on_hurt_area_2d_hurt(direction: Vector2, damage: float) -> void:
+	if is_invulnerable:
+		return
+	fsm.current_state.take_damage(damage)
+	is_invulnerable = true
+	invulnerability_timer.start(1.0)
+
+func _on_invulnerability_timer_timeout() -> void:
+	is_invulnerable = false

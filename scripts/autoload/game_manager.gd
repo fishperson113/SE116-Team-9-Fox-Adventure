@@ -10,17 +10,23 @@ var current_stage = ""
 var player: Player = null
 var player_has_blade: bool = false
 
+# Level progress
+var max_level_unlocked: int = 1
+
 #Slots that store items and weapons on use
 var slots_size = 6
 var slots_data: Array[Dictionary] = converted_empty_slots()
 #Inventory that stores items and weapons overall
 var inventory_data: Array[Dictionary] = []
+
 func _ready() -> void:
 	# Load checkpoint data when game starts
 	load_checkpoint_data()
 	load_inventory_data()
 	load_slots_data()
+	load_level_progress()
 	pass
+
 func collect_blade():
 	if player_has_blade:
 		return
@@ -32,18 +38,17 @@ func collect_blade():
 		print("GameManager: Player has collected the blade!")
 	else:
 		printerr("GameManager: Could not find player node to give blade to.")
+
 #change stage by path and target portal name
 func change_stage(stage_path: String, _target_portal_name: String = "") -> void:
 	target_portal_name = _target_portal_name
 	#change scene to stage path
 	get_tree().change_scene_to_file(stage_path)
 
-
 #call from dialogic
 func call_from_dialogic(msg:String = ""):
 	#Dialogic.VAR["PlayerScore"] = 30
 	print("Call from dialogic " + msg)
-
 
 #respawn at portal or door
 func respawn_at_portal() -> bool:
@@ -52,7 +57,6 @@ func respawn_at_portal() -> bool:
 		GameManager.target_portal_name = ""
 		true
 	return false
-
 
 # Checkpoint system functions
 func save_checkpoint(checkpoint_id: String) -> void:
@@ -63,7 +67,6 @@ func save_checkpoint(checkpoint_id: String) -> void:
 		"stage_path": current_stage.scene_file_path
 	}
 	print("Checkpoint saved: ", checkpoint_id)
-
 
 func load_checkpoint(checkpoint_id: String) -> Dictionary:
 	if checkpoint_id in checkpoint_data:
@@ -166,3 +169,28 @@ func converted_empty_slots() -> Array[Dictionary]:
 			"number_of_item": 0
 		}
 	return empty_slots
+
+# Level progress functions
+func unlock_level(level_num: int) -> void:
+	if level_num > max_level_unlocked:
+		max_level_unlocked = level_num
+		save_level_progress()
+		print("Level unlocked: ", level_num)
+
+func complete_level(level_num: int) -> void:
+	unlock_level(level_num + 1)
+
+func is_level_unlocked(level_num: int) -> bool:
+	return level_num <= max_level_unlocked
+
+func save_level_progress() -> void:
+	SaveSystem.save_level_progress(max_level_unlocked)
+
+func load_level_progress() -> void:
+	max_level_unlocked = SaveSystem.load_level_progress()
+	print("Level progress loaded: ", max_level_unlocked)
+
+func reset_level_progress() -> void:
+	max_level_unlocked = 1
+	SaveSystem.delete_level_progress_file()
+	print("Level progress reset")

@@ -11,8 +11,6 @@ extends CharacterBody2D
 
 signal healthChanged
 
-var hit_buffer: bool = false
-
 var jump_speed: float = 320.0
 var fsm: FSM = null
 var current_animation = null
@@ -22,7 +20,7 @@ var _next_animation = null
 var _next_direction: int = 1
 var _next_animated_sprite: AnimatedSprite2D = null
 
-var maxHealth: float = 250
+var maxHealth: float = 3
 var currentHealth: float = maxHealth
 
 func _ready() -> void:

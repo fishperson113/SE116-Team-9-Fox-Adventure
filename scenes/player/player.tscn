@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://chcs4qer8dybe"]
+[gd_scene load_steps=89 format=3 uid="uid://chcs4qer8dybe"]
 
 [ext_resource type="Script" uid="uid://d00o3jgu015v4" path="res://scripts/player/player.gd" id="1_ugbui"]
 [ext_resource type="Texture2D" uid="uid://cwgjo8l0lmemi" path="res://assets/sprites/characters/foxy/fox/fox_idle_1.png" id="2_5gtgg"]
@@ -74,6 +74,7 @@
 [ext_resource type="Texture2D" uid="uid://bij01i1v7nb15" path="res://assets/sprites/characters/foxy/fox/fox_hit_3.png" id="47_fvjb1"]
 [ext_resource type="Script" uid="uid://81kwo4qtirke" path="res://scripts/player/states/hit.gd" id="61_bysbl"]
 [ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="67_s4k4a"]
+[ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="68_21yht"]
 [ext_resource type="Script" uid="uid://y7g7u6e47yd6" path="res://scripts/player/states/defeat.gd" id="74_2wy34"]
 [ext_resource type="Script" uid="uid://eb7cglr7oflu" path="res://scripts/utils/weapon_aimer.gd" id="75_3p0jd"]
 [ext_resource type="Script" uid="uid://bvxcpvst3aaxd" path="res://scripts/player/states/throwing.gd" id="75_s050l"]
@@ -436,6 +437,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vkc6f"]
 size = Vector2(15, 28)
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_trum3"]
+height = 28.0
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uf5tr"]
 height = 28.0
 
@@ -456,13 +460,22 @@ animation = &"hat_blade_attack"
 frame = 1
 
 [node name="HitArea2D" type="Area2D" parent="Direction"]
-collision_mask = 8
+collision_mask = 24
 script = ExtResource("67_s4k4a")
 metadata/_custom_type_script = "uid://dkb25vr64v37l"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D"]
 position = Vector2(16.5, 1)
 shape = SubResource("RectangleShape2D_vkc6f")
+
+[node name="HurtArea2D" type="Area2D" parent="Direction"]
+collision_layer = 33
+collision_mask = 33
+script = ExtResource("68_21yht")
+metadata/_custom_type_script = "uid://cofkmvw2auxcs"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HurtArea2D"]
+shape = SubResource("CapsuleShape2D_trum3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_uf5tr")
@@ -517,5 +530,9 @@ inventory = NodePath("../Inventory")
 script = ExtResource("82_vkc6f")
 item_storer = NodePath("../ItemStorer")
 
+[node name="InvulnerabilityTimer" type="Timer" parent="."]
+
 [connection signal="animation_finished" from="Direction/AnimatedSprite2D" to="States/Attack" method="_on_attack_animation_finished"]
 [connection signal="animation_finished" from="Direction/AnimatedSprite2D" to="States/Hit" method="_on_hit_animation_finished"]
+[connection signal="hurt" from="Direction/HurtArea2D" to="." method="_on_hurt_area_2d_hurt"]
+[connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]
