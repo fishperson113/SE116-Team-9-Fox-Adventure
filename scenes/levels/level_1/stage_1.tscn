@@ -360,6 +360,7 @@ libraries = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="Starting/AnimationPlayer"]
+visible = false
 offset_left = -818.0
 offset_top = -133.0
 offset_right = -88.0

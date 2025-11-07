@@ -1,0 +1,99 @@
+[gd_scene load_steps=10 format=3 uid="uid://bm1rohh2die6g"]
+
+[ext_resource type="Script" uid="uid://dfomqe5lda13k" path="res://tests/test_start.gd" id="1_rhb77"]
+[ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="1_uy42n"]
+[ext_resource type="PackedScene" uid="uid://bh6uxsj1od1j6" path="res://scenes/levels/island/objects/raft2.tscn" id="2_rhb77"]
+[ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="3_4wjy1"]
+[ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="4_3cu1o"]
+
+[sub_resource type="Animation" id="Animation_knahy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeOutBackground/ColorRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rcbyu"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FadeOutBackground/ColorRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f3hr0"]
+_data = {
+&"RESET": SubResource("Animation_knahy"),
+&"fade_in": SubResource("Animation_rcbyu")
+}
+
+[sub_resource type="GDScript" id="GDScript_4wjy1"]
+script/source = "extends Label
+
+@onready var raft = get_parent().get_node(\"Raft\")
+
+func _ready():
+	mouse_filter = Control.MOUSE_FILTER_STOP
+	visible = true
+
+func _gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			if raft and raft.has_method(\"start_moving\"):
+				raft.start_moving()
+				visible = false
+				
+"
+
+[node name="TestStart" type="Node2D"]
+script = ExtResource("1_rhb77")
+
+[node name="Player" parent="." instance=ExtResource("1_uy42n")]
+z_index = 2
+position = Vector2(227, 104)
+
+[node name="MainUI" parent="Player" instance=ExtResource("3_4wjy1")]
+position = Vector2(-226, -106)
+
+[node name="Raft" parent="." instance=ExtResource("2_rhb77")]
+position = Vector2(234, 201)
+
+[node name="FadeOutBackground" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_f3hr0")
+}
+
+[node name="ColorRect" type="ColorRect" parent="FadeOutBackground"]
+visible = false
+offset_left = -157.0
+offset_top = -79.0
+offset_right = 573.0
+offset_bottom = 413.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Start" type="Label" parent="."]
+z_index = -1
+offset_left = 204.0
+offset_top = 213.0
+offset_right = 273.0
+offset_bottom = 236.0
+theme_override_fonts/font = ExtResource("4_3cu1o")
+text = "START"
+script = SubResource("GDScript_4wjy1")
+metadata/_edit_use_anchors_ = true
