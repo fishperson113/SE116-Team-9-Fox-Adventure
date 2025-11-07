@@ -21,6 +21,7 @@ func set_up_levels():
 
 func _on_level_selected(level_num: int):
 	if GameManager.is_level_unlocked(level_num):
+		hide()
 		load_level(level_num)
 
 func load_level(num: int):

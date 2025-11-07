@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://bqs7uxv4vt07x"]
+[gd_scene load_steps=53 format=4 uid="uid://bqs7uxv4vt07x"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_33rtp"]
 [ext_resource type="Script" uid="uid://c560wooagg2h" path="res://scenes/levels/level_1/stage_1.gd" id="1_j7dre"]
@@ -40,6 +40,7 @@
 [ext_resource type="PackedScene" uid="uid://da0mswdg4suuk" path="res://scenes/npc/sign8.tscn" id="33_64mh7"]
 [ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="33_j1ua3"]
 [ext_resource type="PackedScene" uid="uid://crwb5kl1tn450" path="res://scenes/enemies/minions/shootables/pelicans/pelican.tscn" id="34_6vpxb"]
+[ext_resource type="PackedScene" uid="uid://dubb5b1vjmsxd" path="res://scenes/levels/island/objects/door/door.tscn" id="41_jups3"]
 
 [sub_resource type="GDScript" id="GDScript_1vm6v"]
 script/source = "extends ParallaxLayer
@@ -224,7 +225,7 @@ tile_set = ExtResource("1_33rtp")
 
 [node name="Player" parent="." instance=ExtResource("2_dwsf3")]
 z_index = 2
-position = Vector2(564, -175)
+position = Vector2(-499, 1)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
@@ -396,3 +397,6 @@ position = Vector2(794, 242)
 
 [node name="Pelican" parent="." instance=ExtResource("34_6vpxb")]
 position = Vector2(1143, -12)
+
+[node name="Door" parent="." instance=ExtResource("41_jups3")]
+position = Vector2(1556, 231)

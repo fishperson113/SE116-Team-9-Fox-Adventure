@@ -20,7 +20,7 @@ var _next_animation = null
 var _next_direction: int = 1
 var _next_animated_sprite: AnimatedSprite2D = null
 
-var maxHealth: float = 250
+var maxHealth: float = 3
 var currentHealth: float = maxHealth
 
 func _ready() -> void:
