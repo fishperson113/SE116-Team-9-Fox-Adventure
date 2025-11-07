@@ -18,6 +18,7 @@ func _on_button_pressed(button_name: String) -> void:
 			if nine_patch:
 				var viewport_size = get_viewport().get_visible_rect().size
 				nine_patch.position = (viewport_size - nine_patch.size) / 2
+			hide()
 		"Quit":
 			print("Quitting game...")  
 			get_tree().quit()

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SE116-Team-9-Fox-Adventure"
-run/main_scene="uid://b4vxqbtljeims"
+run/main_scene="uid://w4bydp8fy3v3"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -34,9 +34,11 @@ directories/dtl_directory={
 "pelican_dialog": "res://addons/dialogic/pelican_dialog.dtl",
 "spike_dialog": "res://addons/dialogic/spike_dialog.dtl",
 "starfish_dialog": "res://addons/dialogic/starfish_dialog.dtl",
+"start_dialog": "res://start_dialog.dtl",
 "timeline": "res://addons/dialogic/timeline.dtl",
 "turtle": "res://addons/dialogic/turtle.dtl",
-"turtle_dialog": "res://addons/dialogic/turtle_dialog.dtl"
+"turtle_dialog": "res://addons/dialogic/turtle_dialog.dtl",
+"win_dialog": "res://win_dialog.dtl"
 }
 layout/style_directory={
 "": "res://addons/dialogic/Example Assets/Fonts/Text.tres",

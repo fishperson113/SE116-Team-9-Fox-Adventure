@@ -60,6 +60,7 @@ position = Vector2(320, 318)
 position = Vector2(196, 449)
 
 [node name="QuitButton" type="Button" parent="."]
+visible = false
 offset_left = 480.0
 offset_top = 8.0
 offset_right = 502.0
