@@ -1,35 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://mnmw5xca5d36"]
+[gd_scene load_steps=5 format=3 uid="uid://mnmw5xca5d36"]
 
 [ext_resource type="Script" uid="uid://3kurc7xfpqwj" path="res://scenes/ui/level.gd" id="1_7uotr"]
-[ext_resource type="Texture2D" uid="uid://dcrnqve71d36p" path="res://assets/sprites/environment/background/additional_sky.png" id="1_lv64f"]
-[ext_resource type="Texture2D" uid="uid://bqde0l4at7gv8" path="res://assets/sprites/environment/background/bg_image.png" id="2_cp8rx"]
-[ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="3_7uotr"]
 [ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="4_m71ps"]
 [ext_resource type="PackedScene" uid="uid://db58hsldb2k8s" path="res://scenes/ui/Level_Item.tscn" id="6_m71ps"]
 [ext_resource type="Texture2D" uid="uid://cx1m1wxkbipxh" path="res://assets/ui/buttons/close_button.png" id="7_m71ps"]
 
-[node name="Level" type="Node2D"]
+[node name="Level" type="CanvasLayer"]
 script = ExtResource("1_7uotr")
-
-[node name="Background" type="ParallaxBackground" parent="."]
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
-position = Vector2(-159, 0)
-
-[node name="SkySprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
-position = Vector2(504.125, 14)
-scale = Vector2(42.8047, 9.72656)
-texture = ExtResource("1_lv64f")
-
-[node name="SkySeaSprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
-position = Vector2(503.75, 207)
-scale = Vector2(3.55859, 1)
-texture = ExtResource("2_cp8rx")
-
-[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
-position = Vector2(503, 303)
-scale = Vector2(42.75, 2.65625)
-texture = ExtResource("3_7uotr")
 
 [node name="Header" type="Label" parent="."]
 offset_left = 190.0

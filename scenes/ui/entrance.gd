@@ -9,15 +9,15 @@ func _ready() -> void:
 	$SettingsButton.connect("button_down", Callable(self, "_on_settings_button_down"))
 
 func _on_button_pressed(button_name: String) -> void:
+	print("🔴 _on_button_pressed called with:", button_name)
 	match button_name:
 		"Level":
-			_change_scene("res://scenes/ui/Level.tscn")
-		"Inventory":
-			_change_scene("res://scenes/ui/Inventory.tscn")
-		"Farm":
-			_change_scene("res://scenes/ui/Farm.tscn")
-		"Forge":
-			_change_scene("res://scenes/ui/Forge.tscn")
+			var scene = load("res://scenes/ui/Level.tscn").instantiate()
+			var nine_patch = scene.get_node("NinePatchRect")
+			get_tree().root.add_child(scene)
+			if nine_patch:
+				var viewport_size = get_viewport().get_visible_rect().size
+				nine_patch.position = (viewport_size - nine_patch.size) / 2
 		"Quit":
 			print("Quitting game...")  
 			get_tree().quit()

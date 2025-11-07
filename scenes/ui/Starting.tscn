@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://qk7nu3v07uns" path="res://scenes/ui/starting.gd" id="1_7fqe3"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_0e4c3"]
-[ext_resource type="PackedScene" uid="uid://de4saaedddcpl" path="res://scenes/levels/island/objects/smoke.tscn" id="2_rcbyu"]
+[ext_resource type="PackedScene" uid="uid://de4saaedddcpl" path="res://scenes/levels/island/objects/smoke/smoke.tscn" id="2_rcbyu"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="3_rr8yx"]
 [ext_resource type="Texture2D" uid="uid://dcrnqve71d36p" path="res://assets/sprites/environment/background/additional_sky.png" id="4_82qor"]
 [ext_resource type="Texture2D" uid="uid://bqde0l4at7gv8" path="res://assets/sprites/environment/background/bg_image.png" id="5_4hmeu"]

@@ -79,6 +79,7 @@ text = "SETTINGS
 "
 
 [node name="Quit" type="Button" parent="NinePatchRect"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 90.0
 offset_top = 67.0
@@ -88,6 +89,7 @@ icon = ExtResource("6_f0m44")
 flat = true
 
 [node name="Resume" type="Button" parent="NinePatchRect"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 31.0
 offset_top = 67.0
@@ -97,6 +99,7 @@ icon = ExtResource("7_k5hx8")
 flat = true
 
 [node name="Retry" type="Button" parent="NinePatchRect"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 61.0
 offset_top = 67.0

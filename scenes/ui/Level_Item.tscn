@@ -25,7 +25,7 @@ offset_top = 49.0
 offset_right = 32.0
 offset_bottom = 72.0
 theme_override_fonts/font = ExtResource("3_rwkvf")
-text = "LEVEL 0"
+text = "LEVEL 1"
 
 [node name="Lock" type="Sprite2D" parent="."]
 position = Vector2(-8, -3)

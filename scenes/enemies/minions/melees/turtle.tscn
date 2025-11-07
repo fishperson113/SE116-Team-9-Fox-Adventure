@@ -1,0 +1,143 @@
+[gd_scene load_steps=18 format=3 uid="uid://bfht0850wn42w"]
+
+[ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_lwot8"]
+[ext_resource type="Texture2D" uid="uid://caslj3ghwybo" path="res://assets/sprites/enemies/monsters/turtle/turtle_blue_01.png" id="2_m4af1"]
+[ext_resource type="Script" uid="uid://dm02nnpk43g8p" path="res://scripts/enemies/minions/melees/turtle/turtle.gd" id="2_riaft"]
+[ext_resource type="Texture2D" uid="uid://dajth0jhe63or" path="res://assets/sprites/enemies/monsters/turtle/turtle_blue_02.png" id="3_riaft"]
+[ext_resource type="Texture2D" uid="uid://c3jvrw3sp38jb" path="res://assets/sprites/enemies/monsters/turtle/turtle_blue_03.png" id="4_3gepd"]
+[ext_resource type="Texture2D" uid="uid://drysjy1xdplcl" path="res://assets/sprites/enemies/monsters/turtle/turtle_blue_04.png" id="5_4cskd"]
+[ext_resource type="Texture2D" uid="uid://ry6e1sdb44oc" path="res://assets/sprites/enemies/monsters/turtle/turtle_blue_05.png" id="6_3fhif"]
+[ext_resource type="Texture2D" uid="uid://dxaoc07kcpaaf" path="res://assets/sprites/enemies/monsters/turtle/turtle_blue_walk_01.png" id="7_4xcq7"]
+[ext_resource type="Texture2D" uid="uid://cm8w8u007136u" path="res://assets/sprites/enemies/monsters/turtle/turtle_blue_walk_02.png" id="8_b0caf"]
+[ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="9_m4af1"]
+[ext_resource type="Script" uid="uid://cm17uvcigyehq" path="res://scripts/enemies/minions/melees/turtle/hiding.gd" id="9_qnqwk"]
+[ext_resource type="Script" uid="uid://2skgk0s5nt5l" path="res://scripts/enemies/minions/melees/turtle/hide.gd" id="10_sinc7"]
+[ext_resource type="Script" uid="uid://dv6qq3pmfcnqw" path="res://scripts/enemies/minions/melees/turtle/normal.gd" id="11_3gepd"]
+[ext_resource type="Script" uid="uid://c4macjfajsxwx" path="res://scripts/enemies/minions/melees/turtle/emerging.gd" id="11_q2vek"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_40mr0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_m4af1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_riaft")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3gepd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4cskd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3fhif")
+}],
+"loop": false,
+"name": &"emerging",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_riaft")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_m4af1")
+}],
+"loop": true,
+"name": &"hide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_3fhif")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4cskd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3gepd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_riaft")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_m4af1")
+}],
+"loop": false,
+"name": &"hiding",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_4xcq7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_b0caf")
+}],
+"loop": true,
+"name": &"normal",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_riaft"]
+size = Vector2(26, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n2i8s"]
+size = Vector2(22, 23)
+
+[node name="Turtle" instance=ExtResource("1_lwot8")]
+script = ExtResource("2_riaft")
+normal_time = 3.0
+hiding_time = 1.0
+hide_time = 3.0
+emerging_time = 1.0
+health = 200.0
+spike = 100.0
+movement_speed = 50.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]
+sprite_frames = SubResource("SpriteFrames_40mr0")
+animation = &"normal"
+
+[node name="HurtArea2D" parent="Direction" index="1"]
+visible = false
+collision_layer = 0
+
+[node name="CollisionShape2D" parent="Direction/HurtArea2D" index="0"]
+shape = null
+disabled = true
+
+[node name="FrontRayCast2D" parent="Direction" index="2"]
+target_position = Vector2(15, 0)
+
+[node name="DownRayCast2D" parent="Direction" index="3"]
+position = Vector2(15, 0)
+target_position = Vector2(0, 22)
+
+[node name="HitArea2D" type="Area2D" parent="Direction" index="4"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("9_m4af1")
+metadata/_custom_type_script = "uid://dkb25vr64v37l"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D" index="0"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_riaft")
+
+[node name="CollisionShape2D" parent="." index="1"]
+visible = false
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_n2i8s")
+
+[node name="Normal" parent="States" index="0"]
+script = ExtResource("11_3gepd")
+
+[node name="Hiding" type="Node" parent="States" index="3"]
+script = ExtResource("9_qnqwk")
+
+[node name="Hide" type="Node" parent="States" index="4"]
+script = ExtResource("10_sinc7")
+
+[node name="Emerging" type="Node" parent="States" index="5"]
+script = ExtResource("11_q2vek")

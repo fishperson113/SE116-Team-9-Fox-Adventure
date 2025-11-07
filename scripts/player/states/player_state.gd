@@ -1,6 +1,6 @@
 class_name PlayerState
 extends FSMState
-var smoke = preload("res://scenes/levels/island/objects/smoke.tscn")
+var smoke = preload("res://scenes/levels/island/objects/smoke/smoke.tscn")
 func _enter() -> void:
 	pass
 

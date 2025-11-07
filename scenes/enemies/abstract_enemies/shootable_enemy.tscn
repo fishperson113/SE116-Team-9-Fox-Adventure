@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dn2myx6njpjy5"]
+
+[ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_sl7t0"]
+[ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="2_n4b4j"]
+[ext_resource type="PackedScene" uid="uid://cvqfjx8p5pi7e" path="res://scenes/enemies/minions/shootables/seahorses/bullet.tscn" id="3_ftfhf"]
+[ext_resource type="Script" uid="uid://uifmm33yctg8" path="res://scripts/enemies/minions/shootable/seahorse/attack.gd" id="4_6o0dt"]
+
+[node name="ShootableEnemy" instance=ExtResource("1_sl7t0")]
+
+[node name="DetectRayCast2D" type="RayCast2D" parent="Direction" index="3"]
+position = Vector2(0, 6)
+target_position = Vector2(21, 0)
+collision_mask = 48
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="BulletFactory" type="Marker2D" parent="Direction" index="4"]
+position = Vector2(15, 1)
+script = ExtResource("2_n4b4j")
+product_packed_scene = ExtResource("3_ftfhf")
+target_container_name = &"Bullets"
+metadata/_custom_type_script = "uid://2dtm6jeegr43"
+
+[node name="Shoot" type="Node" parent="States" index="3"]
+script = ExtResource("4_6o0dt")

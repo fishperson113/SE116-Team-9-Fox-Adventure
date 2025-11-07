@@ -11,6 +11,7 @@ func _update(_delta: float):
 	
 	if obj.is_on_floor() and obj.velocity.y >= 0:
 		change_state(fsm.states.fall)
+		
 
 func _exit() -> void:
 	pass

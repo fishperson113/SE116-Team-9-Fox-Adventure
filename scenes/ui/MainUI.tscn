@@ -71,7 +71,7 @@ expand_mode = 4
 [node name="NumGems" type="Label" parent="Items"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_qg6rx")
-text = "100"
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -82,7 +82,7 @@ texture = ExtResource("4_4d7sh")
 [node name="NumKey" type="Label" parent="Items"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_qg6rx")
-text = "100"
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -94,7 +94,7 @@ expand_mode = 4
 [node name="NumCoin" type="Label" parent="Items"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_qg6rx")
-text = "100"
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 

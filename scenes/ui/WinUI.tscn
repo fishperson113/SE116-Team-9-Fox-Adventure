@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://ba6y3bdt8l512"]
+[gd_scene load_steps=11 format=3 uid="uid://ba6y3bdt8l512"]
 
 [ext_resource type="PackedScene" uid="uid://umk4alkghyk0" path="res://scenes/ui/Setting.tscn" id="1_t5ok1"]
+[ext_resource type="Script" uid="uid://dtp13dgtd3p3j" path="res://scenes/ui/win_ui.gd" id="2_37i6m"]
 [ext_resource type="Texture2D" uid="uid://c1oe2ajw3hwdp" path="res://assets/sprites/objects/chest/chest_gold_open_01.png" id="2_loma4"]
 [ext_resource type="Texture2D" uid="uid://cc8424juwfrr0" path="res://assets/sprites/objects/chest/chest_gold_open_02.png" id="3_37i6m"]
 [ext_resource type="Texture2D" uid="uid://db1k53jjooxc0" path="res://assets/sprites/objects/chest/chest_gold_open_03.png" id="4_euxcl"]
@@ -33,6 +34,8 @@ animations = [{
 }]
 
 [node name="Win" instance=ExtResource("1_t5ok1")]
+process_mode = 3
+script = ExtResource("2_37i6m")
 
 [node name="NinePatchRect" parent="." index="0"]
 offset_left = 203.0

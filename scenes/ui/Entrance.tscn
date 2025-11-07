@@ -57,6 +57,7 @@ theme_override_font_sizes/font_size = 30
 text = "PLAY NOW"
 
 [node name="Inventory" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(268, 140.5)
 scale = Vector2(1.75, 1.28125)
 texture = ExtResource("6_f8nrn")
@@ -69,6 +70,7 @@ offset_bottom = 180.0
 flat = true
 
 [node name="Inventory_Text" type="Label" parent="."]
+visible = false
 offset_left = 209.0
 offset_top = 130.0
 offset_right = 329.0
@@ -78,6 +80,7 @@ theme_override_font_sizes/font_size = 16
 text = "INVENTORY"
 
 [node name="Farm" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(269, 173)
 scale = Vector2(1.75, 1.28125)
 texture = ExtResource("7_thkx1")
@@ -90,6 +93,7 @@ offset_bottom = 180.0
 flat = true
 
 [node name="Farm_text" type="Label" parent="."]
+visible = false
 offset_left = 242.0
 offset_top = 165.0
 offset_right = 296.0
@@ -99,6 +103,7 @@ theme_override_font_sizes/font_size = 16
 text = "FARM"
 
 [node name="Forge" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(271, 206.875)
 scale = Vector2(1.75, 1.76562)
 texture = ExtResource("8_tk1gr")
@@ -111,6 +116,7 @@ offset_bottom = 180.0
 flat = true
 
 [node name="Forge_text" type="Label" parent="."]
+visible = false
 offset_left = 236.0
 offset_top = 199.0
 offset_right = 303.0
@@ -120,22 +126,28 @@ theme_override_font_sizes/font_size = 16
 text = "FORGE"
 
 [node name="Quit" type="Sprite2D" parent="."]
-position = Vector2(271, 238.5)
+position = Vector2(270, 142)
 scale = Vector2(2, 0.604167)
 texture = ExtResource("9_uw707")
 
 [node name="Button" type="Button" parent="Quit"]
-offset_left = 215.0
-offset_top = 109.0
-offset_right = 286.0
-offset_bottom = 180.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -23.0
+offset_top = -22.0
+offset_right = -25.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 2
 flat = true
+metadata/_edit_use_anchors_ = true
 
 [node name="Quit_text" type="Label" parent="."]
-offset_left = 244.0
-offset_top = 231.0
-offset_right = 311.0
-offset_bottom = 251.0
+offset_left = 243.0
+offset_top = 135.0
+offset_right = 310.0
+offset_bottom = 155.0
 theme_override_fonts/font = ExtResource("5_5abgg")
 theme_override_font_sizes/font_size = 16
 text = "QUIT"

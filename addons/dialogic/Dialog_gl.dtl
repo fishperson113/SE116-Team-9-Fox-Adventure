@@ -1,0 +1,9 @@
+[style name="Text"]
+Almost done!
+Now, press G to switch between items.
+[signal arg="wait_switch"]
+Well done! You can cycle through your inventory.
+Finally, press L to unlock chest.
+[signal arg="wait_unlock"]
+Perfect! I'm proud of you.
+You've learned all the basics!

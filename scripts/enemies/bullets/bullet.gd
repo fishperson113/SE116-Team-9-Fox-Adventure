@@ -9,8 +9,10 @@ func _ready() -> void:
 func _init_hit_area():
 	if has_node("Direction/HitArea2D"):
 		_hit_area = $Direction/HitArea2D
+	elif has_node("HitArea2D"):
+		_hit_area = $HitArea2D
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	move_and_slide()
 
 func set_damage(damage: float) -> void:
@@ -18,10 +20,3 @@ func set_damage(damage: float) -> void:
 
 func apply_velocity(fire_velocity: Vector2) -> void:
 	velocity = fire_velocity
-
-func _on_hit_area_2d_hitted(area: Variant) -> void:
-	queue_free()
-
-
-func _on_hit_area_2d_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
