@@ -50,20 +50,6 @@ func control_attack() -> bool:
 		return true
 	return false
 
-func control_hit() -> bool:
-	var is_hit = Input.is_action_just_pressed("hit")
-	if is_hit:
-		change_state(fsm.states.hit)
-		return true
-	return false
-
-func control_defeat() -> bool:
-	var is_defeat = Input.is_action_just_pressed("defeat")
-	if is_defeat:
-		change_state(fsm.states.defeat)
-		return true
-	return false
-
 func control_throwing(delta: float) -> bool:
 	if Input.is_action_pressed("throw"):
 		obj.weapon_thrower.find_throw_direction(delta)
@@ -73,14 +59,16 @@ func control_throwing(delta: float) -> bool:
 		obj.weapon_thrower.stop_find_throw_direction()
 	return false
 
-func deduct_health(amount: float) -> bool:
-	obj.currentHealth -= amount
-	print(obj.currentHealth)
-	obj.healthChanged.emit()
-	if (obj.currentHealth > 0):
-		return true
-	obj.currentHealth = 0
-	return false
+func take_damage(damage) -> void:
+	#Player take damage
+	#Player die if health is 0 and change to dead state
+	#Player hurt if health is not 0 and change to hurt state
+	obj.take_damage(damage)
+	if(obj.currentHealth<=0):
+		change_state(fsm.states.defeat)
+	else:
+		change_state(fsm.states.hit)
+	return
 	
 func add_jump_effect(pos: Vector2):
 	var jump_fx = smoke.instantiate()

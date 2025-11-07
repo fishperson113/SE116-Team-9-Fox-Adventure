@@ -530,5 +530,9 @@ inventory = NodePath("../Inventory")
 script = ExtResource("82_vkc6f")
 item_storer = NodePath("../ItemStorer")
 
+[node name="InvulnerabilityTimer" type="Timer" parent="."]
+
 [connection signal="animation_finished" from="Direction/AnimatedSprite2D" to="States/Attack" method="_on_attack_animation_finished"]
 [connection signal="animation_finished" from="Direction/AnimatedSprite2D" to="States/Hit" method="_on_hit_animation_finished"]
+[connection signal="hurt" from="Direction/HurtArea2D" to="." method="_on_hurt_area_2d_hurt"]
+[connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]

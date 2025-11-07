@@ -11,8 +11,6 @@ extends CharacterBody2D
 
 signal healthChanged
 
-var hit_buffer: bool = false
-
 var jump_speed: float = 320.0
 var fsm: FSM = null
 var current_animation = null
