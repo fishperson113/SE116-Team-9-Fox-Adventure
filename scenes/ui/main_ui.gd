@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasLayer
 
 func _ready() -> void:
 	$SettingsButton.connect("button_down", Callable(self, "_on_settings_button_down"))

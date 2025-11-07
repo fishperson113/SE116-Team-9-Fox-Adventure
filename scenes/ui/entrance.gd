@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasLayer
 
 func _ready() -> void:
 	$Play/Button.connect("button_down", Callable(self, "_on_button_pressed").bind("Level"))
