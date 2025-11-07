@@ -79,3 +79,6 @@ func deduct_health(amount: float) -> bool:
 		return true
 	obj.currentHealth = 0
 	return false
+
+func take_damage() -> void:
+	change_state(fsm.states.hit)

@@ -59,3 +59,8 @@ func _on_save_inventory_button_pressed() -> void:
 	inventory.save_inventory()
 	item_storer.save_slots()
 	pass # Replace with function body.
+
+
+func _on_hurt_area_2d_hurt(direction: Vector2, damage: float) -> void:
+	fsm.change_state(fsm.states.hit)
+	pass # Replace with function body.

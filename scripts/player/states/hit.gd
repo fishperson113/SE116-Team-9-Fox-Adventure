@@ -6,13 +6,14 @@ func _enter() -> void:
 	
 	obj.hit_buffer = true
 	obj.change_animation("hit")
+	obj.velocity = Vector2(0, 0)
 	pass
 
 func _update(_delta: float) -> void:
 	#Control jump
 	control_jump()
 	#Control moving
-	control_moving()
+	#control_moving()
 	control_attack()
 	#If not on floor change to fall
 	if not obj.is_on_floor():

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d226l58g63ih7"]
 
-[ext_resource type="PackedScene" uid="uid://pklnt4p62ciu" path="res://scenes/levels/island/objects/raft.tscn" id="1_85j1e"]
+[ext_resource type="PackedScene" uid="uid://pklnt4p62ciu" path="res://scenes/levels/island/objects/raft/raft.tscn" id="1_85j1e"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_68g5b"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="3_68g5b"]
 
@@ -10,6 +10,7 @@
 
 [node name="Raft" parent="." instance=ExtResource("1_85j1e")]
 position = Vector2(69, 244)
+script = null
 
 [node name="Player" parent="." instance=ExtResource("2_68g5b")]
 position = Vector2(81, -116)
