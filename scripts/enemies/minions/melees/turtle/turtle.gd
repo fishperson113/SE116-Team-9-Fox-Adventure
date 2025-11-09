@@ -17,6 +17,12 @@ func _ready() -> void:
 	_init_hiding_state()
 	_init_hide_state()
 	_init_emerging_state()
+	_init_hit_area()
+	pass
+
+func _init_hit_area() -> void:
+	var hit_area := $Direction/HitArea2D
+	hit_area.set_dealt_damage(spike)
 
 func _init_hiding_state() -> void:
 	if has_node("States/Hiding"):
