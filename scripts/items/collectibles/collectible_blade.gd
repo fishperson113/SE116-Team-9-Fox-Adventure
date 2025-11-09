@@ -1,5 +1,6 @@
 extends BaseCollectible
 class_name CollectibleBlade
 
-func _on_interaction_available() -> void:
-	print("Player touched the blade")
+func _ready() -> void:
+	animated_sprite.play("default")
+	item_type = "weapon_blade"

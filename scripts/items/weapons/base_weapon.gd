@@ -11,6 +11,8 @@ var dir: Vector2 = Vector2.ZERO
 #MUST include damage, erosion_rate
 var weapon_detail: Dictionary
 
+@export var sample_collectible_weapon: PackedScene
+
 func _init() -> void:
 	#Must put speed, gravity và spin_speed
 	pass
@@ -19,9 +21,7 @@ func _ready() -> void:
 	_velocity = dir * speed
 
 func _physics_process(delta: float) -> void:
-	_velocity.y += gravity * delta
-	move_and_collide(_velocity * delta)
-	rotate(deg_to_rad(spin_speed))
+	pass
 
 func _on_body_entered(body: Node2D) -> void:
 	print(weapon_detail)

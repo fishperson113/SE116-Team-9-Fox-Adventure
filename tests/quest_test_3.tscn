@@ -24,8 +24,40 @@ texture = ExtResource("2_2ljwt")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/StaticBody2D"]
 shape = SubResource("RectangleShape2D_03kx2")
 
+[node name="Floor2" type="Sprite2D" parent="."]
+position = Vector2(240, 56)
+scale = Vector2(5, 0.06)
+texture = ExtResource("2_2ljwt")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2/StaticBody2D"]
+shape = SubResource("RectangleShape2D_03kx2")
+
+[node name="Floor3" type="Sprite2D" parent="."]
+position = Vector2(445, 206)
+rotation = 1.5708
+scale = Vector2(5, 0.06)
+texture = ExtResource("2_2ljwt")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor3/StaticBody2D"]
+shape = SubResource("RectangleShape2D_03kx2")
+
+[node name="Floor4" type="Sprite2D" parent="."]
+position = Vector2(16, 209)
+rotation = 1.5708
+scale = Vector2(5, 0.06)
+texture = ExtResource("2_2ljwt")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor4/StaticBody2D"]
+shape = SubResource("RectangleShape2D_03kx2")
+
 [node name="Player" parent="." instance=ExtResource("3_fg14e")]
-position = Vector2(22, 206)
+position = Vector2(67, 211)
 
 [node name="Inventory Buttons" type="Node" parent="."]
 script = ExtResource("4_a4nmb")
@@ -94,13 +126,13 @@ offset_bottom = 110.0
 text = "Show Slots"
 
 [node name="Chest" parent="." instance=ExtResource("6_gnscl")]
-position = Vector2(426, 205)
+position = Vector2(375, 204)
 
 [node name="ChestKey" parent="." instance=ExtResource("6_jf5sl")]
 position = Vector2(277, 215)
 
 [node name="Crab" parent="." instance=ExtResource("7_2ljwt")]
-position = Vector2(179, 212)
+position = Vector2(221, 215)
 
 [connection signal="pressed" from="Inventory Buttons/ShowInventory" to="Inventory Buttons" method="_on_show_inventory_pressed"]
 [connection signal="pressed" from="Inventory Buttons/AddWeapon0" to="Inventory Buttons" method="_on_add_weapon_0_pressed"]
