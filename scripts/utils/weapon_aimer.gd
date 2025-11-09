@@ -3,7 +3,9 @@ extends Node
 
 @onready var item_storer: ItemStorer = $"../ItemStorer"
 @export var projectile_type: int = 0
-var projectile: PackedScene
+var weapon_type: String
+var weapon_detail: Dictionary
+var weapon: PackedScene
 
 @export var dir_vector: Vector2
 var max_dir_vector: Vector2 = Vector2(1, 1)
@@ -32,15 +34,17 @@ func _input(event: InputEvent) -> void:
 		mouse_dir_vector = Vector2(event.relative.x, event.relative.y)
 		mouse_still_time = 0
 
-func change_projectile(pjt_type: String) -> void:
-	if pjt_type == "none": 
-		projectile = null
+func change_weapon(weapon_type: String, weapon_detail: Dictionary) -> void:
+	self.weapon_type = weapon_type
+	self.weapon_detail = weapon_detail
+	if weapon_type == "none": 
+		weapon = null
 		return
-	elif pjt_type == "weapon_sample": projectile = preload("res://scenes/tests/projectile.tscn")
-	elif pjt_type == "weapon_blade": projectile = preload("res://scenes/tests/projectile_blade.tscn")
-	var pjt = projectile.instantiate()
-	speed = pjt.speed
-	gravity = pjt.gravity
+	if weapon_type == "weapon_blade": weapon = preload("res://scenes/items/weapons/weapon_blade.tscn")
+	var weapon_temp = weapon.instantiate()
+	#weapon_temp.add_general_weapon_properties(weapon_detail)
+	speed = weapon_temp.speed
+	gravity = weapon_temp.gravity
 
 func find_throw_direction(delta: float) -> void:
 	if !item_storer.is_slot_available(): return
@@ -70,7 +74,7 @@ func stop_find_throw_direction() -> void:
 	if !item_storer.is_slot_available(): return
 	if !item_storer.is_slot_weapon(): return
 	throw_projectile()
-	item_storer.reduce_item()
+	item_storer.remove_item(weapon_type, weapon_detail)
 	trajectory_line.visible = false
 
 func inspect_direction() -> void:
@@ -78,11 +82,12 @@ func inspect_direction() -> void:
 		dir_vector.x = -dir_vector.x
 
 func throw_projectile() -> void:
-	if projectile != null:
-		var product: Node2D = projectile.instantiate()
-		product.global_position = self.get_parent().position
-		product.dir = dir_vector
-		product.speed = speed
-		product.gravity = gravity
-		self.get_parent().get_parent().add_child(product)
+	if weapon != null:
+		var weapon_thrown: BaseWeapon = weapon.instantiate()
+		weapon_thrown.add_general_weapon_properties(weapon_detail)
+		weapon_thrown.global_position = self.get_parent().position
+		weapon_thrown.dir = dir_vector
+		weapon_thrown.speed = speed
+		weapon_thrown.gravity = gravity
+		self.get_parent().get_parent().add_child(weapon_thrown)
 	pass

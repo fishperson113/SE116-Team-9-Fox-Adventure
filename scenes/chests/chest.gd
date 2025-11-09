@@ -3,26 +3,30 @@ extends BaseCharacter
 
 signal unlock_chest
 
-var is_unlockable = false
-var player: Player = null
+var is_unlockable = true
 
 func _ready() -> void:
 	fsm = FSM.new(self, $States, $States/Closed)
 	super._ready()
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body is Player and body.inventory.is_key_available():
-		player = body
-		unlock_chest.connect(player.inventory.remove_key)
-		is_unlockable = true
-		print(is_unlockable)
+func _on__interaction_available() -> void:
+	if fsm.current_state == fsm.states.open:
+		print("The chest is already open")
+		return
+	
+	if not GameManager.player.inventory.is_key_available():
+		print("Player does not have any keys")
+		return
+	
+	print("Player is standing next to the chest")
 	pass # Replace with function body.
 
-func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body is Player:
-		if player:
-			unlock_chest.disconnect(player.inventory.remove_key)
-		player = null
-		is_unlockable = false
-		print(is_unlockable)
+func _on_interaction_unavailable() -> void:
+	print("Player is getting away from the chest")
+	pass # Replace with function body.
+
+func _on_interacted() -> void:
+	if GameManager.player.inventory.is_key_available() and is_unlockable:
+		fsm.change_state(fsm.states.open)
+		GameManager.player.inventory.remove_item("item_key", {})
 	pass # Replace with function body.

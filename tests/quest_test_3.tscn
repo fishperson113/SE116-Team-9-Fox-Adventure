@@ -1,0 +1,113 @@
+[gd_scene load_steps=9 format=3 uid="uid://bsdh2mswaobq8"]
+
+[ext_resource type="Script" uid="uid://dbnywb46siqhm" path="res://scenes/levels/stage.gd" id="1_jf5sl"]
+[ext_resource type="Texture2D" uid="uid://cxakiw7e7eaom" path="res://icon.svg" id="2_2ljwt"]
+[ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="3_fg14e"]
+[ext_resource type="Script" uid="uid://ddm6bjtgp8rv3" path="res://scripts/player/inventory_check.gd" id="4_a4nmb"]
+[ext_resource type="PackedScene" uid="uid://bhohtlj321per" path="res://scenes/chests/chest.tscn" id="6_gnscl"]
+[ext_resource type="PackedScene" uid="uid://crkmos1d5bdx3" path="res://scenes/items/collectible_items/collectible_chest_key.tscn" id="6_jf5sl"]
+[ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="7_2ljwt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_03kx2"]
+size = Vector2(128, 128)
+
+[node name="QuestTest" type="Node2D"]
+script = ExtResource("1_jf5sl")
+
+[node name="Floor" type="Sprite2D" parent="."]
+position = Vector2(240, 236)
+scale = Vector2(5, 0.06)
+texture = ExtResource("2_2ljwt")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/StaticBody2D"]
+shape = SubResource("RectangleShape2D_03kx2")
+
+[node name="Player" parent="." instance=ExtResource("3_fg14e")]
+position = Vector2(22, 206)
+
+[node name="Inventory Buttons" type="Node" parent="."]
+script = ExtResource("4_a4nmb")
+
+[node name="ShowInventory" type="Button" parent="Inventory Buttons"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 137.0
+offset_bottom = 39.0
+text = "Show Inventory"
+
+[node name="AddWeapon0" type="Button" parent="Inventory Buttons"]
+offset_left = 225.0
+offset_top = 8.0
+offset_right = 263.0
+offset_bottom = 39.0
+text = "W-0"
+
+[node name="AddWeapon1" type="Button" parent="Inventory Buttons"]
+offset_left = 268.0
+offset_top = 8.0
+offset_right = 306.0
+offset_bottom = 39.0
+text = "W-1"
+
+[node name="AddItem0" type="Button" parent="Inventory Buttons"]
+offset_left = 310.0
+offset_top = 7.0
+offset_right = 348.0
+offset_bottom = 38.0
+text = "N-0"
+
+[node name="AddItem1" type="Button" parent="Inventory Buttons"]
+offset_left = 352.0
+offset_top = 7.0
+offset_right = 390.0
+offset_bottom = 38.0
+text = "N-1"
+
+[node name="AddToSlot" type="Button" parent="Inventory Buttons"]
+offset_left = 235.0
+offset_top = 45.0
+offset_right = 328.0
+offset_bottom = 76.0
+text = "Add to Slot"
+
+[node name="ReturnItem" type="Button" parent="Inventory Buttons"]
+offset_left = 336.0
+offset_top = 44.0
+offset_right = 429.0
+offset_bottom = 75.0
+text = "Return Item"
+
+[node name="SaveButton" type="Button" parent="Inventory Buttons"]
+offset_left = 411.0
+offset_top = 7.0
+offset_right = 455.0
+offset_bottom = 38.0
+text = "Save"
+
+[node name="ShowSlotsButton" type="Button" parent="Inventory Buttons"]
+offset_left = 368.0
+offset_top = 79.0
+offset_right = 460.0
+offset_bottom = 110.0
+text = "Show Slots"
+
+[node name="Chest" parent="." instance=ExtResource("6_gnscl")]
+position = Vector2(426, 205)
+
+[node name="ChestKey" parent="." instance=ExtResource("6_jf5sl")]
+position = Vector2(277, 215)
+
+[node name="Crab" parent="." instance=ExtResource("7_2ljwt")]
+position = Vector2(179, 212)
+
+[connection signal="pressed" from="Inventory Buttons/ShowInventory" to="Inventory Buttons" method="_on_show_inventory_pressed"]
+[connection signal="pressed" from="Inventory Buttons/AddWeapon0" to="Inventory Buttons" method="_on_add_weapon_0_pressed"]
+[connection signal="pressed" from="Inventory Buttons/AddWeapon1" to="Inventory Buttons" method="_on_add_weapon_1_pressed"]
+[connection signal="pressed" from="Inventory Buttons/AddItem0" to="Inventory Buttons" method="_on_add_item_0_pressed"]
+[connection signal="pressed" from="Inventory Buttons/AddItem1" to="Inventory Buttons" method="_on_add_item_1_pressed"]
+[connection signal="pressed" from="Inventory Buttons/AddToSlot" to="Inventory Buttons" method="_on_add_to_slot_pressed"]
+[connection signal="pressed" from="Inventory Buttons/ReturnItem" to="Inventory Buttons" method="_on_return_item_pressed"]
+[connection signal="pressed" from="Inventory Buttons/SaveButton" to="Player" method="_on_save_inventory_button_pressed"]
+[connection signal="pressed" from="Inventory Buttons/ShowSlotsButton" to="Inventory Buttons" method="_on_show_slots_button_pressed"]
