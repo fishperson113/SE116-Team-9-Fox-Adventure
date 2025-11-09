@@ -1,0 +1,20 @@
+[gd_scene load_steps=7 format=4 uid="uid://2myew2spjl4b"]
+
+[ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
+[ext_resource type="PackedScene" uid="uid://cv7h7e7s07r0m" path="res://scenes/enemies/spawners/time_spawner.tscn" id="2_08qrd"]
+[ext_resource type="PackedScene" uid="uid://psxbpmcbicmg" path="res://scenes/enemies/minions/melees/aborigines/aborigine.tscn" id="3_1bdp4"]
+[ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="4_bed0j"]
+[ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="5_xl7d7"]
+[ext_resource type="PackedScene" uid="uid://cf30thpmo45yj" path="res://scenes/enemies/minions/shootables/seahorses/seahorse.tscn" id="6_gfba4"]
+
+[node name="Stage" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAABAAUAAAAEAAEAAAABAAYAAAAPAAQAAAACAAYAAAABAAQAAAADAAYAAAABAAQAAAAEAAYAAAABAAQAAAAFAAYAAAABAAQAAAAGAAYAAAABAAQAAAAHAAYAAAABAAQAAAAIAAYAAAABAAQAAAAJAAYAAAABAAQAAAAKAAYAAAABAAQAAAALAAYAAAABAAQAAAAMAAYAAAABAAQAAAANAAYAAAAQAAQAAAANAAUAAAAEAAEAAAANAAQAAAAEAAEAAAANAAMAAAAEAAEAAAANAAIAAAAEAAEAAAANAAEAAAAEAAAAAAABAAQAAAAEAAEAAAABAAMAAAAEAAEAAAABAAIAAAAEAAEAAAABAAEAAAAEAAAAAAA=")
+tile_set = ExtResource("1_fx7si")
+
+[node name="Bullets" type="Node" parent="."]
+
+[node name="Spawner2" parent="." instance=ExtResource("2_08qrd")]
+position = Vector2(141, 192)
+enemies = Array[PackedScene]([ExtResource("3_1bdp4"), ExtResource("4_bed0j"), ExtResource("5_xl7d7"), ExtResource("6_gfba4")])

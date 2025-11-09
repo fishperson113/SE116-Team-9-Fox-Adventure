@@ -108,7 +108,7 @@ size = Vector2(31, 7)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kqvr2"]
 size = Vector2(20, 29)
 
-[node name="Aborigine" instance=ExtResource("1_wpoo8")]
+[node name="Aborigine" groups=["melee"] instance=ExtResource("1_wpoo8")]
 script = ExtResource("2_dowjx")
 shoot_time = 0.4
 shoot_cooldown = 1.0

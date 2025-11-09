@@ -29,7 +29,7 @@ func _init_leave_state():
 	state.enter.connect(start_leave)
 
 func fire():
-	var bullet = _bullet_factory.create() as RigidBody2D
+	var bullet = _bullet_factory.create() as Bomb
 	bullet.set_damage(spike)
 
 func start_shoot() -> void:

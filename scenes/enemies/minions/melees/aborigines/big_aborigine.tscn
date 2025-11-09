@@ -98,7 +98,7 @@ size = Vector2(26, 58)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uo468"]
 size = Vector2(52, 54)
 
-[node name="BigAborigine" instance=ExtResource("1_y5h52")]
+[node name="BigAborigine" groups=["melee"] instance=ExtResource("1_y5h52")]
 script = ExtResource("2_uo468")
 health = 300.0
 spike = 150.0

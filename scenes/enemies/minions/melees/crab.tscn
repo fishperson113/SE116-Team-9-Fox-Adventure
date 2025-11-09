@@ -46,7 +46,7 @@ size = Vector2(40, 21)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fecqf"]
 size = Vector2(20, 16)
 
-[node name="Crab" instance=ExtResource("1_pccfa")]
+[node name="Crab" groups=["melee"] instance=ExtResource("1_pccfa")]
 script = ExtResource("2_31gao")
 health = 50.0
 spike = 50.0

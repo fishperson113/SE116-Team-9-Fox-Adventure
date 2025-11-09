@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=4 uid="uid://2myew2spjl4b"]
+[gd_scene load_steps=10 format=4 uid="uid://2myew2spjl4b"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
-[ext_resource type="PackedScene" uid="uid://cpc1vj8n1ssym" path="res://scenes/enemies/spawner.tscn" id="5_bed0j"]
+[ext_resource type="PackedScene" uid="uid://psxbpmcbicmg" path="res://scenes/enemies/minions/melees/aborigines/aborigine.tscn" id="3_1bdp4"]
+[ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="4_bed0j"]
+[ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="5_xl7d7"]
 [ext_resource type="PackedScene" uid="uid://crwb5kl1tn450" path="res://scenes/enemies/minions/shootables/pelicans/pelican.tscn" id="6_1bdp4"]
-[ext_resource type="PackedScene" uid="uid://ddc86ootpum2i" path="res://scenes/enemies/bosses/warlord_turtle/warlord_turtle.tscn" id="6_bed0j"]
-[ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="7_bed0j"]
-[ext_resource type="PackedScene" uid="uid://caj73aiw7tf22" path="res://scenes/enemies/minions/melees/aborigines/big_aborigine.tscn" id="9_gfba4"]
+[ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="8_ycpif"]
+[ext_resource type="PackedScene" uid="uid://d2wpy684uyjct" path="res://scenes/enemies/spawners/triggered_spawner.tscn" id="9_gfba4"]
+[ext_resource type="PackedScene" uid="uid://c1ojnmhr1sm5l" path="res://scenes/enemies/minions/melees/mushroom.tscn" id="9_rr8pu"]
+[ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="10_ycpif"]
 
 [node name="Stage" type="Node2D"]
 
@@ -15,16 +18,13 @@ tile_set = ExtResource("1_fx7si")
 
 [node name="Bullets" type="Node" parent="."]
 
-[node name="Spawner" parent="." instance=ExtResource("5_bed0j")]
-position = Vector2(255, 64)
-product_packed_scene = ExtResource("6_1bdp4")
-target_container_name = &"Bullets"
+[node name="Spawner2" parent="." instance=ExtResource("9_gfba4")]
+position = Vector2(301, 189)
+size = Vector2(60, 100)
+pos = Vector2(-200, -50)
+enemies = Array[PackedScene]([ExtResource("6_1bdp4"), ExtResource("8_ycpif"), ExtResource("5_xl7d7"), ExtResource("9_rr8pu"), ExtResource("4_bed0j"), ExtResource("3_1bdp4")])
+width = 110.0
+height = 100.0
 
-[node name="BigAborigine2" parent="." instance=ExtResource("9_gfba4")]
-position = Vector2(351, 155)
-
-[node name="KingCrab" parent="." instance=ExtResource("7_bed0j")]
-position = Vector2(124, 158)
-
-[node name="WarlordTurtle" parent="." instance=ExtResource("6_bed0j")]
-position = Vector2(239, 150)
+[node name="Player" parent="." instance=ExtResource("10_ycpif")]
+position = Vector2(102, 175)

@@ -64,7 +64,7 @@ size = Vector2(18, 17)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ekoui"]
 size = Vector2(20, 17)
 
-[node name="Seahorse" instance=ExtResource("1_ekoui")]
+[node name="Seahorse" groups=["range"] instance=ExtResource("1_ekoui")]
 script = ExtResource("2_xssdx")
 shoot_time = 1.5
 shoot_interval = 0.5

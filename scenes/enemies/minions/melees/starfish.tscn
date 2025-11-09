@@ -95,7 +95,7 @@ size = Vector2(19, 27)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qnhfo"]
 size = Vector2(18, 17)
 
-[node name="Starfish" instance=ExtResource("1_aiyma")]
+[node name="Starfish" groups=["melee"] instance=ExtResource("1_aiyma")]
 script = ExtResource("2_ms5pe")
 attack_speed_multiplier = 1.5
 stun_time = 1.0

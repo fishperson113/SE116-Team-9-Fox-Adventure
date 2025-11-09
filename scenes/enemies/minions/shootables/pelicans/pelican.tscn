@@ -50,11 +50,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xlw0r"]
 size = Vector2(32, 20)
 
-[node name="Pelican" instance=ExtResource("1_llgco")]
+[node name="Pelican" groups=["fly", "range"] instance=ExtResource("1_llgco")]
 script = ExtResource("2_i8hn4")
 shoot_time = 0.6
 shoot_interval = 0.6
 shoot_cooldown = 2.0
+health = 100.0
+spike = 120.0
 movement_speed = 50.0
 gravity = 0.0
 
