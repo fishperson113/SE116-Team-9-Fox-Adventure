@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal level_chosen(level_num: int)  
+
 func _ready() -> void:
 	$QuitButton.connect("button_down", Callable(self, "_on_quit_button_down"))
 	set_up_levels()
@@ -21,9 +23,8 @@ func set_up_levels():
 
 func _on_level_selected(level_num: int):
 	if GameManager.is_level_unlocked(level_num):
-		hide()
-		await get_tree().process_frame 
-		load_level(level_num)
+		level_chosen.emit(level_num)
+		queue_free()
 
 func load_level(num: int):
 	var level_path = "res://scenes/levels/level_" + str(num) + "/stage_1.tscn"
@@ -33,3 +34,7 @@ func load_level(num: int):
 
 func _on_quit_button_down():
 	queue_free()
+
+
+func _on_level_chosen(level_num: int) -> void:
+	pass # Replace with function body.

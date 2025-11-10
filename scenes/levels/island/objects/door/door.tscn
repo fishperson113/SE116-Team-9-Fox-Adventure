@@ -17,14 +17,29 @@ func _ready() -> void:
 	animated_sprite.play(\"idle\")
 
 func _process(delta):
-	if player_in_area: 
-		if Input.is_action_just_pressed(\"interact\"):
-			var scene = load(\"res://scenes/ui/Level.tscn\").instantiate()
-			get_tree().root.add_child(scene)
-			var nine_patch = scene.get_node(\"NinePatchRect\")
-			if nine_patch:
-				var viewport_size = get_viewport().get_visible_rect().size
-				nine_patch.position = (viewport_size - nine_patch.size) / 2
+	if player_in_area and Input.is_action_just_pressed(\"interact\"):
+		print(\"\\n================ MỞ UI CHỌN LEVEL ================\")
+		
+		var scene = load(\"res://scenes/ui/Level.tscn\").instantiate()
+		
+		# Thử add vào root hoặc Starting — bạn có thể thay đổi nếu cần
+		get_tree().root.add_child(scene)
+		print(\"📦 Level UI được thêm vào:\", get_tree().root.name)
+		
+		# In toàn bộ node trong root
+		print(\"📜 Danh sách node trong root:\")
+		for node in get_tree().root.get_children():
+			print(\"  🔹\", node.name)
+		
+		# Tìm node Starting
+		var starting = get_tree().root.find_child(\"Starting\", true, false)
+		
+		if starting:
+			print(\"🟢 Tìm thấy Starting:\", starting.get_path())
+			scene.level_chosen.connect(starting._on_level_chosen)
+		else:
+			printerr(\"❌ Không tìm thấy Starting để connect tín hiệu!\")
+
 		
 
 func load_next_stage():

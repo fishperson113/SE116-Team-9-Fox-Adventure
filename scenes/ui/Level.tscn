@@ -67,3 +67,5 @@ offset_right = 502.0
 offset_bottom = 31.0
 icon = ExtResource("7_m71ps")
 flat = true
+
+[connection signal="level_chosen" from="." to="." method="_on_level_chosen"]

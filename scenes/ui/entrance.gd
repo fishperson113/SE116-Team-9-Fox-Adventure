@@ -1,7 +1,7 @@
-extends Node2D
+extends CanvasLayer
 
 func _ready() -> void:
-	$Play/Button.connect("button_down", Callable(self, "_on_button_pressed").bind("Level"))
+	$PlayNow/Button.connect("button_down", Callable(self, "_on_button_pressed").bind("Level"))
 	$Inventory/Button.connect("button_down", Callable(self, "_on_button_pressed").bind("Inventory"))
 	$Farm/Button.connect("button_down", Callable(self, "_on_button_pressed").bind("Farm"))
 	$Forge/Button.connect("button_down", Callable(self, "_on_button_pressed").bind("Forge"))
@@ -12,7 +12,7 @@ func _on_button_pressed(button_name: String) -> void:
 	print("🔴 _on_button_pressed called with:", button_name)
 	match button_name:
 		"Level":
-			var scene = load("res://scenes/ui/Level.tscn").instantiate()
+			var scene = load("res://scenes/ui/Starting.tscn").instantiate()
 			var nine_patch = scene.get_node("NinePatchRect")
 			get_tree().root.add_child(scene)
 			if nine_patch:

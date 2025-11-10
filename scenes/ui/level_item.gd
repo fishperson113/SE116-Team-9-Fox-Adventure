@@ -44,3 +44,7 @@ func update_visual():
 			background.modulate = Color(0.5, 0.5, 0.5, 0.7)
 		else:
 			background.modulate = Color(1, 1, 1, 1)
+
+
+func _on_level_selected(level_number: int) -> void:
+	pass # Replace with function body.

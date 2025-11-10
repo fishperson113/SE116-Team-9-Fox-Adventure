@@ -171,12 +171,15 @@ tile_set = ExtResource("1_33rtp")
 [node name="Player" parent="." instance=ExtResource("2_dwsf3")]
 z_index = 2
 position = Vector2(88, 132)
+character_type = 2
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -35)
 offset = Vector2(0, -50)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
-[node name="MainUI" parent="Player" instance=ExtResource("3_0qf3m")]
-position = Vector2(-241, -136)
+[node name="MainUI" parent="." instance=ExtResource("3_0qf3m")]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

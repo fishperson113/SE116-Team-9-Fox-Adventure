@@ -14,13 +14,21 @@ func _init() -> void:
 	items_archive.resize(number_of_slots)
 
 func _ready() -> void:
+	#for i in range(number_of_slots):
+	#	items_archive[i] = {
+	#		"is_weapon": false,
+	#		"item_type": "none",
+	#		"number_of_item": 0
+	#	}
+	#Khúc này tạm thời làm comment để tutorial hoạt động cho build 1
 	for i in range(number_of_slots):
 		items_archive[i] = {
-			"is_weapon": false,
-			"item_type": "none",
-			"number_of_item": 0
+			"is_weapon": true,
+			"item_type": "weapon_sample",
+			"number_of_item": 100
 		}
-	items_archive = GameManager.slots_data
+	#items_archive = GameManager.slots_data
+	#Hàng này tạm thời làm comment để tutorial hoạt động cho build 1
 	change_item()
 	pass
 

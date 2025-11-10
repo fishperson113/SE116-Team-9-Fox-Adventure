@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dos6hwpl7kq7l" path="res://assets/ui/panels/progress.png" id="12_mjmcw"]
 [ext_resource type="Script" uid="uid://c2xtf1ss4k7gw" path="res://scenes/ui/texture_progress_bar.gd" id="14_rpv8g"]
 
-[node name="MainUI" type="Node2D"]
+[node name="MainUI" type="CanvasLayer"]
 script = ExtResource("1_7s5y6")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -126,25 +126,24 @@ texture = ExtResource("9_x0ka3")
 expand_mode = 3
 
 [node name="SettingsButton" type="Button" parent="."]
-offset_left = 441.0
-offset_top = 1.0
-offset_right = 481.0
-offset_bottom = 41.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -45.0
+offset_top = 7.0
+offset_right = -5.0
+offset_bottom = 47.0
+grow_horizontal = 0
 icon = ExtResource("6_hqns4")
 flat = true
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 96.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 107.0
+offset_bottom = 43.0
 value = 40.0
 texture_under = ExtResource("1_kdubu")
 texture_progress = ExtResource("12_mjmcw")
 texture_progress_offset = Vector2(18, 10)
 script = ExtResource("14_rpv8g")
-
-[connection signal="button_down" from="SettingsButton" to="." method="_on_settings_button_button_down"]

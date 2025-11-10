@@ -30,3 +30,5 @@ text = "LEVEL 1"
 [node name="Lock" type="Sprite2D" parent="."]
 position = Vector2(-8, -3)
 texture = ExtResource("4_awj77")
+
+[connection signal="level_selected" from="." to="." method="_on_level_selected"]
