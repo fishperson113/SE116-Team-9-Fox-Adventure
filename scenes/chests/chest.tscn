@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bhohtlj321per"]
+[gd_scene load_steps=16 format=3 uid="uid://bhohtlj321per"]
 
 [ext_resource type="Script" uid="uid://c7x67gfa3mird" path="res://scenes/chests/chest.gd" id="1_xxwql"]
 [ext_resource type="Texture2D" uid="uid://bidl5brkimhxo" path="res://assets/sprites/objects/chest/chest_close_01.png" id="2_jslgy"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b67b2vn864ieo" path="res://assets/sprites/objects/chest/chest_open_04.png" id="8_eo3wh"]
 [ext_resource type="Texture2D" uid="uid://bwcclik4ny1ry" path="res://assets/sprites/objects/chest/chest_open_05.png" id="9_oprcr"]
 [ext_resource type="Script" uid="uid://b2kvd8gekjjpm" path="res://scenes/chests/states/closed.gd" id="10_13qt1"]
+[ext_resource type="Script" uid="uid://3u7i3d58hkla" path="res://scripts/utils/interactive_area_2d.gd" id="10_70u57"]
 [ext_resource type="Script" uid="uid://cnf7unwj5fral" path="res://scenes/chests/states/open.gd" id="11_70u57"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_utdpp"]
@@ -71,10 +72,12 @@ shape = SubResource("RectangleShape2D_utdpp")
 sprite_frames = SubResource("SpriteFrames_fa4yk")
 animation = &"closed"
 
-[node name="Area2D" type="Area2D" parent="Direction"]
+[node name="InteractiveArea2D" type="Area2D" parent="Direction"]
 collision_mask = 4
+script = ExtResource("10_70u57")
+metadata/_custom_type_script = "uid://3u7i3d58hkla"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/InteractiveArea2D"]
 position = Vector2(0, 10)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_13qt1")
@@ -87,5 +90,8 @@ script = ExtResource("10_13qt1")
 [node name="Open" type="Node" parent="States"]
 script = ExtResource("11_70u57")
 
-[connection signal="body_entered" from="Direction/Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Direction/Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Direction/InteractiveArea2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Direction/InteractiveArea2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="interacted" from="Direction/InteractiveArea2D" to="." method="_on_interacted"]
+[connection signal="interaction_available" from="Direction/InteractiveArea2D" to="." method="_on__interaction_available"]
+[connection signal="interaction_unavailable" from="Direction/InteractiveArea2D" to="." method="_on_interaction_unavailable"]

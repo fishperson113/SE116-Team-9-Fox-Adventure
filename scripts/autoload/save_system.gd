@@ -217,9 +217,5 @@ func converted_empty_slots() -> Array[Dictionary]:
 	var empty_slots: Array[Dictionary]
 	empty_slots.resize(GameManager.slots_size)
 	for i in range(GameManager.slots_size):
-		empty_slots[i] = {
-			"is_weapon": false,
-			"item_type": "none",
-			"number_of_item": 0
-		}
+		empty_slots[i] = {}
 	return empty_slots
