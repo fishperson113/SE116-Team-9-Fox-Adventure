@@ -86,7 +86,7 @@ size = Vector2(26, 24)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n2i8s"]
 size = Vector2(22, 23)
 
-[node name="Turtle" instance=ExtResource("1_lwot8")]
+[node name="Turtle" groups=["melee"] instance=ExtResource("1_lwot8")]
 script = ExtResource("2_riaft")
 normal_time = 3.0
 hiding_time = 1.0

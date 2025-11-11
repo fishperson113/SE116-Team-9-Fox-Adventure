@@ -33,12 +33,14 @@ var _movement_speed: float = movement_speed
 var _patrol_controller: PatrolController = PatrolController.new(movement_range)
 var _front_ray_cast: RayCast2D = null
 var _down_ray_cast: RayCast2D = null
+var _collision_shape: CollisionShape2D = null
 
 func _ready() -> void:
 	super._ready()
 	_init_ray_cast()
 	_init_detect_player_area()
 	_init_hurt_area()
+	_init_collision_shape()
 	pass
 
 #init ray cast to check wall and fall
@@ -63,6 +65,10 @@ func _init_hurt_area():
 	if has_node("Direction/HurtArea2D"):
 		var hurt_area = $Direction/HurtArea2D
 		hurt_area.hurt.connect(_on_hurt_area_2d_hurt)
+		
+func _init_collision_shape():
+	if has_node("CollisionShape2D"):
+		_collision_shape = $CollisionShape2D
 
 func _update_movement(delta: float) -> void:
 	velocity.x = _movement_speed * direction
@@ -135,3 +141,8 @@ func take_damage(amount: int) -> void:
 
 func is_alive() -> bool:
 	return health > 0.0
+
+func get_size() -> Vector2:
+	if _collision_shape:
+		return _collision_shape.shape.size
+	return Vector2.ZERO

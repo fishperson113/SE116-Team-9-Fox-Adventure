@@ -19,6 +19,7 @@ func hit(hurt_area):
 # called when area entered
 func _on_area_entered(area):
 	hit(area)
+	print(area.name)
 	hitted.emit(area)
 
 func set_dealt_damage(dealt_damage: float) -> void:

@@ -45,7 +45,7 @@ size = Vector2(20, 23)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhuc4"]
 size = Vector2(12, 23)
 
-[node name="Mushroom" instance=ExtResource("1_cq6ry")]
+[node name="Mushroom" groups=["melee"] instance=ExtResource("1_cq6ry")]
 health = 50.0
 spike = 80.0
 movement_speed = 50.0
