@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://cbcm0t4a4tv44"]
+[gd_scene load_steps=72 format=3 uid="uid://cbcm0t4a4tv44"]
 
 [ext_resource type="Texture2D" uid="uid://busv6anromm7y" path="res://assets/sprites/caldron/pull_chain/6022.png" id="1_d8ggs"]
 [ext_resource type="Texture2D" uid="uid://y1gq2xbnqiw0" path="res://assets/sprites/caldron/caldron_body/3911.png" id="1_hdmar"]
@@ -64,6 +64,7 @@
 [ext_resource type="Texture2D" uid="uid://mdqed3vv0g03" path="res://assets/sprites/caldron/caldron_body/3964.png" id="58_e6nyi"]
 [ext_resource type="Texture2D" uid="uid://de7t3rmwws2df" path="res://assets/sprites/caldron/caldron_body/3966.png" id="59_13jmk"]
 [ext_resource type="Texture2D" uid="uid://3kkb441gn0rc" path="res://assets/sprites/caldron/caldron_head/2495.png" id="60_8gxwh"]
+[ext_resource type="Texture2D" uid="uid://bq88isixrh4vl" path="res://assets/sprites/caldron/mold/5546.png" id="62_ttluv"]
 [ext_resource type="PackedScene" uid="uid://dfwrc8lw3k5ov" path="res://scenes/minigames/FluidEmitter.tscn" id="65_16ol6"]
 
 [sub_resource type="GDScript" id="GDScript_42gci"]
@@ -309,6 +310,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CaldronArea" type="Control" parent="MainLayout"]
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
@@ -400,6 +402,11 @@ offset_right = 392.0
 offset_bottom = 190.0
 texture = ExtResource("1_d8ggs")
 stretch_mode = 5
+
+[node name="Mold" type="Sprite2D" parent="MainLayout/CaldronArea"]
+z_index = 1
+position = Vector2(667, 881)
+texture = ExtResource("62_ttluv")
 
 [node name="RightCollum" type="Control" parent="MainLayout"]
 clip_contents = true
