@@ -80,7 +80,6 @@ position = Vector2(248, 21)
 position = Vector2(-2, 0)
 
 [node name="MainUI" parent="Player" instance=ExtResource("7_jrwmw")]
-position = Vector2(-243, -136)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAgAAcAAAABAAQAAAAhAAcAAAABAAQAAAAiAAcAAAABAAQAAAAjAAcAAAABAAQAAAAkAAcAAAABAAQAAAAWAAcAAAAAAAQAAAAXAAcAAAABAAQAAAAYAAcAAAABAAQAAAAaAAcAAAABAAQAAAAZAAcAAAABAAQAAAAbAAcAAAABAAQAAAAcAAcAAAABAAQAAAAeAAcAAAABAAQAAAAdAAcAAAABAAQAAAAfAAcAAAABAAQAAAAlAAcAAAABAAQAAAAmAAcAAAABAAQAAAAnAAcAAAABAAQAAAAoAAcAAAABAAQAAAApAAcAAAABAAQAAAArAAcAAAABAAQAAAAqAAcAAAABAAQAAAAtAAcAAAABAAQAAAAsAAcAAAABAAQAAAAuAAcAAAABAAQAAAAvAAcAAAABAAQAAAAwAAcAAAABAAQAAAAZAAYAAQAAAAAAAQAdAAYAAQAAAAAAAQAkAAYAAQAAAAAAAQAqAAYAAQAAAAAAAQA=")
@@ -129,20 +128,11 @@ libraries = {
 
 [node name="ColorRect" type="ColorRect" parent="AnimationPlayer"]
 z_index = 2
-offset_left = -1062.0
-offset_top = -133.0
-offset_right = -480.0
-offset_bottom = 318.0
+offset_left = -1131.0
+offset_top = -140.0
+offset_right = -410.0
+offset_bottom = 344.0
 color = Color(0, 0, 0, 1)
 
 [node name="Sign" parent="." instance=ExtResource("12_0i4dy")]
-position = Vector2(883, 206)
-
-[node name="Label" type="Label" parent="."]
-offset_left = 829.0
-offset_top = 233.0
-offset_right = 945.0
-offset_bottom = 276.0
-theme_override_fonts/font = ExtResource("9_knahy")
-text = "PRESS E TO
- INTERACT"
+position = Vector2(772, 204)

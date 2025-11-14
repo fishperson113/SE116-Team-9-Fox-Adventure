@@ -1,7 +1,6 @@
 extends Sign
 
-func _ready():
-	player = get_tree().get_first_node_in_group("player")
+func get_timeline_name() -> String:
+	return "starfish_dialog"
 
-func _on_interactive_area_2d_interacted() -> void:
-	Dialogic.start("starfish_dialog")
+	

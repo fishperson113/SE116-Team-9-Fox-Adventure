@@ -20,7 +20,7 @@
 position = Vector2(-5, 0)
 
 [node name="SkySprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
-position = Vector2(504.125, 14)
+position = Vector2(491, 16)
 scale = Vector2(42.8047, 9.72656)
 texture = ExtResource("1_r475m")
 
@@ -36,27 +36,6 @@ texture = ExtResource("3_bx5ed")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("1_f8nrn")
-
-[node name="Play" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(270.5, 81.5)
-scale = Vector2(3.51389, 1.09722)
-texture = ExtResource("4_7oapf")
-
-[node name="Button" type="Button" parent="CanvasLayer/Play"]
-offset_left = -36.0
-offset_top = -35.0
-offset_right = 35.0
-offset_bottom = 36.0
-flat = true
-
-[node name="Play_Now" type="Label" parent="CanvasLayer"]
-offset_left = 179.0
-offset_top = 67.0
-offset_right = 374.0
-offset_bottom = 107.0
-theme_override_fonts/font = ExtResource("5_5abgg")
-theme_override_font_sizes/font_size = 30
-text = "PLAY NOW"
 
 [node name="Inventory" type="Sprite2D" parent="CanvasLayer"]
 visible = false
@@ -127,33 +106,6 @@ theme_override_fonts/font = ExtResource("5_5abgg")
 theme_override_font_sizes/font_size = 16
 text = "FORGE"
 
-[node name="Quit" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(270, 142)
-scale = Vector2(2, 0.604167)
-texture = ExtResource("9_uw707")
-
-[node name="Button" type="Button" parent="CanvasLayer/Quit"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -23.0
-offset_top = -22.0
-offset_right = -25.0
-offset_bottom = -26.0
-grow_horizontal = 2
-grow_vertical = 2
-flat = true
-metadata/_edit_use_anchors_ = true
-
-[node name="Quit_text" type="Label" parent="CanvasLayer"]
-offset_left = 243.0
-offset_top = 135.0
-offset_right = 310.0
-offset_bottom = 155.0
-theme_override_fonts/font = ExtResource("5_5abgg")
-theme_override_font_sizes/font_size = 16
-text = "QUIT"
-
 [node name="SettingsButton" type="Button" parent="CanvasLayer"]
 anchors_preset = 1
 anchor_left = 1.0
@@ -163,3 +115,61 @@ offset_bottom = 40.0
 grow_horizontal = 0
 icon = ExtResource("11_thkx1")
 flat = true
+
+[node name="PlayNow" type="NinePatchRect" parent="CanvasLayer"]
+z_index = -1
+offset_left = 142.0
+offset_top = 46.0
+offset_right = 397.0
+offset_bottom = 117.0
+texture = ExtResource("4_7oapf")
+
+[node name="Button" type="Button" parent="CanvasLayer/PlayNow"]
+layout_mode = 0
+offset_right = 253.0
+offset_bottom = 74.0
+flat = true
+expand_icon = true
+
+[node name="Play_Now" type="Label" parent="CanvasLayer/PlayNow"]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 21.0
+offset_right = 232.0
+offset_bottom = 61.0
+theme_override_fonts/font = ExtResource("5_5abgg")
+theme_override_font_sizes/font_size = 30
+text = "PLAY NOW"
+
+[node name="Quit" type="NinePatchRect" parent="CanvasLayer"]
+offset_left = 214.0
+offset_top = 127.0
+offset_right = 325.0
+offset_bottom = 167.0
+texture = ExtResource("9_uw707")
+
+[node name="Button" type="Button" parent="CanvasLayer/Quit"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.01802
+anchor_top = -3.21771
+anchor_right = -1.01802
+anchor_bottom = -2.11771
+offset_left = 224.0
+offset_top = 128.708
+offset_right = 222.0
+offset_bottom = 124.708
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+metadata/_edit_use_anchors_ = true
+
+[node name="Quit_text" type="Label" parent="CanvasLayer/Quit"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 13.0
+offset_right = 97.0
+offset_bottom = 33.0
+theme_override_fonts/font = ExtResource("5_5abgg")
+theme_override_font_sizes/font_size = 16
+text = "QUIT"

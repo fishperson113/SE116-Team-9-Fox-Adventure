@@ -17,15 +17,17 @@ func _ready() -> void:
 	animated_sprite.play(\"idle\")
 
 func _process(delta):
-	if player_in_area: 
-		if Input.is_action_just_pressed(\"interact\"):
-			var scene = load(\"res://scenes/ui/Level.tscn\").instantiate()
-			get_tree().root.add_child(scene)
-			var nine_patch = scene.get_node(\"NinePatchRect\")
-			if nine_patch:
-				var viewport_size = get_viewport().get_visible_rect().size
-				nine_patch.position = (viewport_size - nine_patch.size) / 2
+	if player_in_area and Input.is_action_just_pressed(\"interact\"):
 		
+		var scene = load(\"res://scenes/ui/Level.tscn\").instantiate()
+		
+		get_tree().root.add_child(scene)
+		print(\"📦 Level UI được thêm vào:\", get_tree().root.name)
+		
+		var starting = get_tree().root.find_child(\"Starting\", true, false)
+		
+		if starting:
+			scene.level_chosen.connect(starting._on_level_chosen)
 
 func load_next_stage():
 	var current_stage_path = get_tree().current_scene.scene_file_path

@@ -83,6 +83,7 @@ layout/style_list=["res://addons/dialogic/Example Assets/Fonts/Text.tres"]
 layout/default_style="res://addons/dialogic/Example Assets/Fonts/Text.tres"
 text/input_action="dialogic_default_action"
 text/autocolor_names=true
+timer/process_in_physics=true
 
 [display]
 
