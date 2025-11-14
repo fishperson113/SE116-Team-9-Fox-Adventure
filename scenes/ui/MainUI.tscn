@@ -129,19 +129,20 @@ expand_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -45.0
-offset_top = 7.0
-offset_right = -5.0
-offset_bottom = 47.0
+offset_left = -80.0
+offset_bottom = 80.0
 grow_horizontal = 0
 icon = ExtResource("6_hqns4")
 flat = true
+icon_alignment = 2
+expand_icon = true
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 offset_left = 11.0
 offset_top = 11.0
 offset_right = 107.0
 offset_bottom = 43.0
+scale = Vector2(2, 2)
 value = 40.0
 texture_under = ExtResource("1_kdubu")
 texture_progress = ExtResource("12_mjmcw")

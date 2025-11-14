@@ -3,11 +3,14 @@ extends CanvasLayer
 @onready var quit_button: Button = %Quit  
 @onready var resume_button: Button = %Resume
 @onready var retry_button: Button = %Retry
+@export var chest_animation: AnimationPlayer
 
 func _ready() -> void:
 	await get_tree().process_frame
 	
 	get_tree().paused = true
+	
+	chest_animation.play("Chest")
 	
 	if quit_button:
 		quit_button.pressed.connect(_on_quit_pressed)

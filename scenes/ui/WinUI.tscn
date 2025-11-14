@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ba6y3bdt8l512"]
+[gd_scene load_steps=13 format=3 uid="uid://ba6y3bdt8l512"]
 
 [ext_resource type="PackedScene" uid="uid://umk4alkghyk0" path="res://scenes/ui/Setting.tscn" id="1_t5ok1"]
 [ext_resource type="Script" uid="uid://dtp13dgtd3p3j" path="res://scenes/ui/win_ui.gd" id="2_37i6m"]
@@ -7,93 +7,123 @@
 [ext_resource type="Texture2D" uid="uid://db1k53jjooxc0" path="res://assets/sprites/objects/chest/chest_gold_open_03.png" id="4_euxcl"]
 [ext_resource type="Texture2D" uid="uid://c4m2ji6v3v1sj" path="res://assets/sprites/objects/chest/chest_gold_open_04.png" id="5_8384t"]
 [ext_resource type="Texture2D" uid="uid://rklpp03vtdqy" path="res://assets/sprites/objects/chest/chest_gold_open_05.png" id="6_078yc"]
-[ext_resource type="Script" uid="uid://csutw3iiqyr10" path="res://scenes/ui/chest.gd" id="7_mqp52"]
 [ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="8_4joce"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_2fgwp"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_loma4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_37i6m")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_euxcl")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_8384t")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_078yc")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[sub_resource type="Animation" id="Animation_loma4"]
+resource_name = "GoldenChest"
+length = 1.00002
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_loma4"), ExtResource("3_37i6m"), ExtResource("4_euxcl"), ExtResource("5_8384t"), ExtResource("6_078yc")]
+}
 
-[node name="Win" instance=ExtResource("1_t5ok1")]
+[sub_resource type="Animation" id="Animation_37i6m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="Animation" id="Animation_omj4g"]
+resource_name = "Chest"
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_loma4"), ExtResource("3_37i6m"), ExtResource("4_euxcl"), ExtResource("5_8384t"), ExtResource("6_078yc")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_euxcl"]
+_data = {
+&"Chest": SubResource("Animation_omj4g"),
+&"GoldenChest": SubResource("Animation_loma4"),
+&"RESET": SubResource("Animation_37i6m")
+}
+
+[node name="Win" node_paths=PackedStringArray("chest_animation") instance=ExtResource("1_t5ok1")]
 process_mode = 3
 script = ExtResource("2_37i6m")
+chest_animation = NodePath("NinePatchRect/TextureRect/AnimationPlayer")
 
-[node name="NinePatchRect" parent="." index="0"]
-offset_left = 203.0
-offset_top = 87.0
-offset_right = 351.0
-offset_bottom = 194.0
-
-[node name="Sound" parent="NinePatchRect" index="0"]
-visible = false
-
-[node name="Sfx" parent="NinePatchRect" index="1"]
-visible = false
-
-[node name="SoundCheckButton" parent="NinePatchRect" index="2"]
-visible = false
-
-[node name="SFXCheckButton" parent="NinePatchRect" index="3"]
-visible = false
-
-[node name="Setting" parent="NinePatchRect" index="4"]
-offset_left = 32.0
-offset_right = 116.0
+[node name="Setting" parent="NinePatchRect" index="0"]
+anchor_bottom = 0.05
+offset_left = -105.0
+offset_right = 105.0
+offset_bottom = 156.0
 text = "YOU WIN
 
 "
 
-[node name="Quit" parent="NinePatchRect" index="5"]
-offset_left = 82.0
-offset_top = 75.0
-offset_right = 106.0
-offset_bottom = 99.0
+[node name="Sound" parent="NinePatchRect" index="1"]
+visible = false
 
-[node name="Resume" parent="NinePatchRect" index="6"]
-offset_left = 42.0
-offset_top = 75.0
-offset_right = 66.0
-offset_bottom = 99.0
+[node name="Sfx" parent="NinePatchRect" index="2"]
+visible = false
 
-[node name="Retry" parent="NinePatchRect" index="7"]
-offset_left = 62.0
-offset_top = 75.0
-offset_right = 86.0
-offset_bottom = 99.0
+[node name="SoundCheckButton" parent="NinePatchRect" index="3"]
+visible = false
 
-[node name="Chest" type="AnimatedSprite2D" parent="NinePatchRect" index="8"]
-position = Vector2(73, 34)
-scale = Vector2(0.932, 1)
-sprite_frames = SubResource("SpriteFrames_2fgwp")
-autoplay = "default"
-frame_progress = 0.625681
-script = ExtResource("7_mqp52")
+[node name="SFXCheckButton" parent="NinePatchRect" index="4"]
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect" index="8"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -97.0
+offset_right = 96.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="NinePatchRect/TextureRect" index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_euxcl")
+}
 
 [node name="Score" type="Label" parent="NinePatchRect" index="9"]
-layout_mode = 0
-offset_left = 54.0
-offset_top = 62.0
-offset_right = 94.0
-offset_bottom = 85.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = 43.0
+offset_right = 40.0
+offset_bottom = 83.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("8_4joce")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 32
 text = "100"
