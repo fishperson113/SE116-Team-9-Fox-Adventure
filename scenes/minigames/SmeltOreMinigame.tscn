@@ -74,7 +74,7 @@ script/source = "extends Panel
 
 # 2. Kéo node PullLever (TextureButton)
 @export var pull_lever: Control
-@export var caldron_head_node: Node2D
+@export var caldron_head_node: Control
 
 # --- Các biến để tính toán ---
 var anim_duration: float = 0.0
@@ -149,6 +149,45 @@ func _pop_head():
 	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT) # Thêm hiệu ứng
 "
 
+[sub_resource type="Animation" id="Animation_ttluv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body/CaldronBody:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_hdmar")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/CaldronInner:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_rcpmq")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body/CaldronBody:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(28.5, 71.5)]
+}
+
 [sub_resource type="Animation" id="Animation_16ol6"]
 resource_name = "tilt"
 length = 7.0
@@ -180,77 +219,14 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Body/CaldronInner:position")
+tracks/2/path = NodePath("Body/CaldronBody:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5, 5.25, 5.5, 5.75, 6, 6.25, 6.5, 6.75, 7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5, 5.25, 5.5, 5.76667, 6, 6.26667, 6.5, 6.75, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, -108), Vector2(0, -109.55), Vector2(0, -109.85), Vector2(0, -107.2), Vector2(0, -103.065), Vector2(0, -97.38), Vector2(0, -99.905), Vector2(0, -96.655), Vector2(0, -94.985), Vector2(0, -94.28), Vector2(0, -93.52), Vector2(0, -93.27), Vector2(0, -86.92), Vector2(0, -88.155), Vector2(0, -89.46), Vector2(0, -89.36), Vector2(0, -87.395), Vector2(0, -81.71), Vector2(0, -85.97), Vector2(0, -85.83), Vector2(0, -83.04), Vector2(0, -85), Vector2(0, -83.93), Vector2(0, -78.87), Vector2(0, -79.32), Vector2(0, -80.425), Vector2(0, -78.98), Vector2(0, -73.195)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Body/CaldronBody:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3, 3.25, 3.5, 3.75, 4, 4.25, 4.5, 4.75, 5, 5.25, 5.5, 5.75, 6, 6.25, 6.5, 6.75, 7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -3.49), Vector2(0, -7.17), Vector2(0, -8.875), Vector2(0, -7.92), Vector2(0, -9.255), Vector2(0, -13.83), Vector2(0, -14.335), Vector2(0, -16.76), Vector2(0, -18.825), Vector2(0, -20.815), Vector2(0, -25.07), Vector2(0, -21.295), Vector2(0, -26.205), Vector2(0, -31.575), Vector2(0, -29.855), Vector2(0, -32.065), Vector2(0, -34.14), Vector2(0, -41.05), Vector2(0, -38.845), Vector2(0, -45.19), Vector2(0, -46.625), Vector2(0, -49), Vector2(0, -48.355), Vector2(0, -51.245), Vector2(0, -56.475), Vector2(0, -58.44), Vector2(0, -56.85)]
-}
-
-[sub_resource type="Animation" id="Animation_ttluv"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Body/CaldronBody:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_hdmar")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Body/CaldronInner:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_rcpmq")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Body/CaldronInner:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -110)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Body/CaldronBody:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(28.5, 72.5), Vector2(28.5, 70.5), Vector2(28.5, 68.5), Vector2(28.5, 65.5), Vector2(28.5, 61.5), Vector2(28.5, 58.5), Vector2(28.5, 52.5), Vector2(28.5, 46.5), Vector2(28.5, 47.5), Vector2(28.5, 39.5), Vector2(28.5, 40.5), Vector2(28.5, 36.5), Vector2(28.5, 34.5), Vector2(28.5, 30.5), Vector2(28.5, 27.5), Vector2(28.5, 24.5), Vector2(28.5, 21.5), Vector2(28.5, 16.5), Vector2(28.5, 15.5), Vector2(28.5, 5.5), Vector2(28.5, 1.5), Vector2(28.5, 1.5), Vector2(28.5, 0.5), Vector2(28.5, -3.5), Vector2(28.5, -6.5), Vector2(28.5, -10.5), Vector2(28.5, -13.5), Vector2(28.5, -17.5), Vector2(28.5, -21.5)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r41sa"]
@@ -264,24 +240,23 @@ script/source = "extends TextureButton
 signal pull_completed(strength: float)
 
 @export var max_pull_distance: float = 300.0
-
 @export var chain_node: TextureRect
 
 var is_dragging: bool = false
-var original_button_pos: Vector2
-var original_chain_pos: Vector2
+var original_button_offset: float
+var original_chain_offset: float
 var drag_start_y: float
 
 func _ready():
-	original_button_pos = position
+	# Lưu offset_top thay vì position
+	original_button_offset = offset_top
 	
 	if chain_node:
-		original_chain_pos = chain_node.position
+		original_chain_offset = chain_node.offset_top
 	else:
 		push_error(\"Lỗi: Node 'Chain' chưa được gán vào PullLever script!\")
 
 func _gui_input(event: InputEvent):
-
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
 			is_dragging = true
@@ -293,31 +268,26 @@ func _gui_input(event: InputEvent):
 				
 				var drag_delta = get_global_mouse_position().y - drag_start_y
 				var strength = clampf(drag_delta / max_pull_distance, 0.0, 1.0)
-				
 				pull_completed.emit(strength)
-				
+
 				var tween = create_tween()
-				tween.set_parallel(true) 
-				
-				tween.tween_property(self, \"position\", original_button_pos, 0.2).set_trans(Tween.TRANS_SPRING)
-				
+				tween.set_parallel(true)
+				# Tween offset_top chứ không phải position
+				tween.tween_property(self, \"offset_top\", original_button_offset, 0.2).set_trans(Tween.TRANS_SPRING)
 				if chain_node:
-					tween.tween_property(chain_node, \"position\", original_chain_pos, 0.2).set_trans(Tween.TRANS_SPRING)
+					tween.tween_property(chain_node, \"offset_top\", original_chain_offset, 0.2).set_trans(Tween.TRANS_SPRING)
 				
 				get_viewport().set_input_as_handled()
 
-	if event is InputEventMouseMotion:
-		if is_dragging:
-			var drag_delta = get_global_mouse_position().y - drag_start_y
-			
-			var clamped_delta = clampf(drag_delta, 0.0, max_pull_distance)
-			
-			position.y = original_button_pos.y + clamped_delta
-			
-			if chain_node:
-				chain_node.position.y = original_chain_pos.y + clamped_delta
-			
-			get_viewport().set_input_as_handled()
+	if event is InputEventMouseMotion and is_dragging:
+		var drag_delta = get_global_mouse_position().y - drag_start_y
+		var clamped_delta = clampf(drag_delta, 0.0, max_pull_distance)
+
+		offset_top = original_button_offset + clamped_delta
+		if chain_node:
+			chain_node.offset_top = original_chain_offset + clamped_delta
+
+		get_viewport().set_input_as_handled()
 "
 
 [node name="SmeltOreMinigame" type="Panel" node_paths=PackedStringArray("cauldron_anim_player", "pull_lever", "caldron_head_node")]
@@ -329,7 +299,7 @@ grow_vertical = 2
 script = SubResource("GDScript_42gci")
 cauldron_anim_player = NodePath("MainLayout/CaldronArea/Caldron/AnimationPlayer")
 pull_lever = NodePath("MainLayout/RightCollum/PullLever")
-caldron_head_node = NodePath("MainLayout/CaldronArea/Caldron/Head")
+caldron_head_node = NodePath("MainLayout/CaldronArea/Caldron/CaldronHead")
 
 [node name="MainLayout" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -344,46 +314,93 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 
-[node name="Caldron" type="Node2D" parent="MainLayout/CaldronArea"]
-position = Vector2(814, 608)
+[node name="Caldron" type="Control" parent="MainLayout/CaldronArea"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MainLayout/CaldronArea/Caldron"]
 libraries = {
 &"": SubResource("AnimationLibrary_r41sa")
 }
 
-[node name="Body" type="Node2D" parent="MainLayout/CaldronArea/Caldron"]
+[node name="Body" type="Control" parent="MainLayout/CaldronArea/Caldron"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 31.0
+offset_right = 352.0
+offset_bottom = 445.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="CaldronBody" type="Sprite2D" parent="MainLayout/CaldronArea/Caldron/Body"]
+[node name="CaldronBody" type="TextureRect" parent="MainLayout/CaldronArea/Caldron/Body"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -151.0
+offset_right = 132.0
+offset_bottom = 151.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_hdmar")
+stretch_mode = 5
 
-[node name="CaldronInner" type="Sprite2D" parent="MainLayout/CaldronArea/Caldron/Body"]
-position = Vector2(0, -110)
+[node name="CaldronInner" type="TextureRect" parent="MainLayout/CaldronArea/Caldron/Body"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -108.5
+offset_right = 108.5
+offset_bottom = 224.0
+grow_horizontal = 2
 texture = ExtResource("2_rcpmq")
+stretch_mode = 5
 
-[node name="CaldronHandle" type="Sprite2D" parent="MainLayout/CaldronArea/Caldron/Body"]
-position = Vector2(0, -46)
+[node name="CaldronHandle" type="TextureRect" parent="MainLayout/CaldronArea/Caldron"]
+layout_mode = 2
+offset_top = 171.0
+offset_right = 389.0
+offset_bottom = 201.0
 texture = ExtResource("3_rcpmq")
 
-[node name="Chain" type="TextureRect" parent="MainLayout/CaldronArea/Caldron/Body"]
-offset_left = 172.0
-offset_top = -482.0
-offset_right = 212.0
-offset_bottom = -34.0
-texture = ExtResource("1_d8ggs")
-
-[node name="Chain2" type="TextureRect" parent="MainLayout/CaldronArea/Caldron/Body"]
-offset_left = -211.0
-offset_top = -483.0
-offset_right = -171.0
-offset_bottom = -35.0
-texture = ExtResource("1_d8ggs")
-
-[node name="Head" type="Node2D" parent="MainLayout/CaldronArea/Caldron"]
-
-[node name="CaldronHead" type="Sprite2D" parent="MainLayout/CaldronArea/Caldron/Head"]
-position = Vector2(4, -124)
+[node name="CaldronHead" type="TextureRect" parent="MainLayout/CaldronArea/Caldron"]
+layout_mode = 0
+offset_left = 69.0
+offset_top = -6.0
+offset_right = 317.0
+offset_bottom = 165.0
 texture = ExtResource("60_8gxwh")
+stretch_mode = 5
+
+[node name="Chain" type="TextureRect" parent="MainLayout/CaldronArea/Caldron"]
+layout_mode = 2
+offset_left = -15.0
+offset_top = -257.0
+offset_right = 35.0
+offset_bottom = 210.0
+texture = ExtResource("1_d8ggs")
+stretch_mode = 5
+
+[node name="Chain2" type="TextureRect" parent="MainLayout/CaldronArea/Caldron"]
+layout_mode = 2
+offset_left = 372.0
+offset_top = -266.0
+offset_right = 392.0
+offset_bottom = 190.0
+texture = ExtResource("1_d8ggs")
+stretch_mode = 5
 
 [node name="RightCollum" type="Control" parent="MainLayout"]
 clip_contents = true
@@ -391,21 +408,27 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Chain" type="TextureRect" parent="MainLayout/RightCollum"]
-layout_mode = 2
-offset_left = 195.0
-offset_top = -429.0
-offset_right = 294.0
-offset_bottom = 19.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.5
+offset_top = -420.0
+offset_right = 49.5
+offset_bottom = 28.0
 grow_horizontal = 2
 texture = ExtResource("1_d8ggs")
 stretch_mode = 5
 
 [node name="PullLever" type="TextureButton" parent="MainLayout/RightCollum" node_paths=PackedStringArray("chain_node")]
-layout_mode = 2
-offset_left = 158.0
-offset_top = 21.0
-offset_right = 332.0
-offset_bottom = 171.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -87.0
+offset_right = 87.0
+offset_bottom = 150.0
+grow_horizontal = 2
 texture_normal = ExtResource("1_s8h4u")
 stretch_mode = 5
 script = SubResource("GDScript_d8ggs")
