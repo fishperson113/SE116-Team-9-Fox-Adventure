@@ -4,7 +4,7 @@ extends Node2D
 
 func _on_level_chosen(level_num: int):
 	hide()
-	await  get_tree().process_frame
+	await get_tree().process_frame
 	load_level(level_num)
 
 func _ready() -> void:
