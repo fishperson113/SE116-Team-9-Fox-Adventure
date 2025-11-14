@@ -1,71 +1,83 @@
 [gd_scene load_steps=5 format=3 uid="uid://mnmw5xca5d36"]
 
 [ext_resource type="Script" uid="uid://3kurc7xfpqwj" path="res://scenes/ui/level.gd" id="1_7uotr"]
+[ext_resource type="PackedScene" uid="uid://betu4c36ti73w" path="res://scenes/ui/level_item_ui.tscn" id="2_i0ro5"]
 [ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="4_m71ps"]
-[ext_resource type="PackedScene" uid="uid://db58hsldb2k8s" path="res://scenes/ui/Level_Item.tscn" id="6_m71ps"]
 [ext_resource type="Texture2D" uid="uid://cx1m1wxkbipxh" path="res://assets/ui/buttons/close_button.png" id="7_m71ps"]
 
-[node name="Level" type="CanvasLayer"]
+[node name="LevelLayer" type="CanvasLayer"]
 script = ExtResource("1_7uotr")
 
 [node name="Header" type="Label" parent="."]
-offset_left = 190.0
-offset_top = 7.0
-offset_right = 350.0
-offset_bottom = 47.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_top = 34.0
+offset_right = 160.0
+offset_bottom = 114.0
+grow_horizontal = 2
 theme_override_fonts/font = ExtResource("4_m71ps")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "LEVELS"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-offset_left = 70.0
-offset_top = 41.0
-offset_right = 443.0
-offset_bottom = 244.0
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 0.13
+anchor_right = 0.95
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="ScrollContainer"]
-custom_minimum_size = Vector2(365, 520)
+[node name="CenterContainer" type="CenterContainer" parent="ScrollContainer"]
 layout_mode = 2
 
-[node name="Level_1" parent="ScrollContainer/GridContainer" instance=ExtResource("6_m71ps")]
-position = Vector2(77, 61)
+[node name="GridContainer" type="GridContainer" parent="ScrollContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 30
+theme_override_constants/v_separation = 30
+columns = 3
 
-[node name="Level_2" parent="ScrollContainer/GridContainer" instance=ExtResource("6_m71ps")]
-position = Vector2(198, 61)
+[node name="LevelItem_1" parent="ScrollContainer/CenterContainer/GridContainer" instance=ExtResource("2_i0ro5")]
+layout_mode = 2
 
-[node name="Level_3" parent="ScrollContainer/GridContainer" instance=ExtResource("6_m71ps")]
-position = Vector2(320, 61)
+[node name="LevelItem_2" parent="ScrollContainer/CenterContainer/GridContainer" instance=ExtResource("2_i0ro5")]
+layout_mode = 2
 
-[node name="Level_4" parent="ScrollContainer/GridContainer" instance=ExtResource("6_m71ps")]
-position = Vector2(76, 188)
+[node name="LevelItem_3" parent="ScrollContainer/CenterContainer/GridContainer" instance=ExtResource("2_i0ro5")]
+layout_mode = 2
 
-[node name="Level_5" parent="ScrollContainer/GridContainer" instance=ExtResource("6_m71ps")]
-position = Vector2(197, 188)
+[node name="LevelItem_4" parent="ScrollContainer/CenterContainer/GridContainer" instance=ExtResource("2_i0ro5")]
+layout_mode = 2
 
-[node name="Level_6" parent="ScrollContainer/GridContainer" instance=ExtResource("6_m71ps")]
-position = Vector2(320, 188)
+[node name="LevelItem_5" parent="ScrollContainer/CenterContainer/GridContainer" instance=ExtResource("2_i0ro5")]
+layout_mode = 2
 
-[node name="Level_7" parent="ScrollContainer/GridContainer" instance=ExtResource("6_m71ps")]
-position = Vector2(76, 318)
+[node name="LevelItem_6" parent="ScrollContainer/CenterContainer/GridContainer" instance=ExtResource("2_i0ro5")]
+layout_mode = 2
 
-[node name="Level_8" parent="ScrollContainer/GridContainer" instance=ExtResource("6_m71ps")]
-position = Vector2(196, 318)
+[node name="LevelItem_7" parent="ScrollContainer/CenterContainer/GridContainer" instance=ExtResource("2_i0ro5")]
+layout_mode = 2
 
-[node name="Level_9" parent="ScrollContainer/GridContainer" instance=ExtResource("6_m71ps")]
-position = Vector2(320, 318)
+[node name="LevelItem_8" parent="ScrollContainer/CenterContainer/GridContainer" instance=ExtResource("2_i0ro5")]
+layout_mode = 2
 
-[node name="Level_10" parent="ScrollContainer/GridContainer" instance=ExtResource("6_m71ps")]
-position = Vector2(196, 449)
+[node name="LevelItem_9" parent="ScrollContainer/CenterContainer/GridContainer" instance=ExtResource("2_i0ro5")]
+layout_mode = 2
 
-[node name="QuitButton" type="Button" parent="."]
-visible = false
-offset_left = 480.0
-offset_top = 8.0
-offset_right = 502.0
-offset_bottom = 31.0
+[node name="LevelItem_10" parent="ScrollContainer/CenterContainer/GridContainer" instance=ExtResource("2_i0ro5")]
+layout_mode = 2
+
+[node name="ExitButton" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 80.0
+grow_horizontal = 0
 icon = ExtResource("7_m71ps")
 flat = true
-
-[connection signal="level_chosen" from="." to="." method="_on_level_chosen"]
+expand_icon = true

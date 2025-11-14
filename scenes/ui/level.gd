@@ -3,11 +3,11 @@ extends CanvasLayer
 signal level_chosen(level_num: int)  
 
 func _ready() -> void:
-	$QuitButton.connect("button_down", Callable(self, "_on_quit_button_down"))
+	#$QuitButton.connect("button_down", Callable(self, "_on_quit_button_down"))
 	set_up_levels()
 
 func set_up_levels():
-	var grid_container = $ScrollContainer/GridContainer
+	var grid_container = $ScrollContainer/CenterContainer/GridContainer
 	var level_items = grid_container.get_children()
 	
 	for i in range(level_items.size()):
