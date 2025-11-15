@@ -136,8 +136,8 @@ func disable_check_player_in_sight() -> void:
 	if(detect_player_area != null):
 		detect_player_area.get_node("CollisionShape2D").disabled = true
 
-func take_damage(amount: int) -> void:
-	health -= amount
+#func take_damage(amount: int) -> void:
+	#health -= amount
 
 func is_alive() -> bool:
 	return health > 0.0

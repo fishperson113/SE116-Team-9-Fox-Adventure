@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bclb52owsoiju"]
+
+[ext_resource type="Script" uid="uid://bd4j0r2lgvk57" path="res://scenes/ui/enermy_health_bar.gd" id="1_seyje"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5onf7"]
+bg_color = Color(0.933333, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h371y"]
+bg_color = Color(0, 0.724598, 0.227632, 1)
+
+[node name="EnermyHealthBar" type="ProgressBar"]
+offset_right = 210.0
+offset_bottom = 62.0
+theme_override_styles/background = SubResource("StyleBoxFlat_5onf7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_h371y")
+value = 60.0
+show_percentage = false
+script = ExtResource("1_seyje")
