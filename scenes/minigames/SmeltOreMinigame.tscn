@@ -115,6 +115,9 @@ func _on_lever_completed(strength: float):
 	if fluid_emitter:
 		fluid_emitter.set_fluid_active(false)
 		
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		return
+		
 	if anim_duration > 0.0:
 		var tween := create_tween()
 		var current_time := cauldron_anim_player.current_animation_position
@@ -232,7 +235,7 @@ _data = {
 [sub_resource type="GDScript" id="GDScript_d8ggs"]
 script/source = "extends TextureButton
 
-signal pulling(strength: float)        # <-- NEW
+signal pulling(strength: float)
 signal pull_completed(strength: float)
 
 @export var max_pull_distance: float = 300.0
@@ -251,13 +254,17 @@ func _ready():
 	else:
 		push_error(\"Lỗi: Node 'Chain' chưa được gán vào PullLever script!\")
 
+
 func _gui_input(event: InputEvent):
+
+	# START DRAG
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
 			is_dragging = true
 			drag_start_y = get_global_mouse_position().y
 			get_viewport().set_input_as_handled()
 
+		# RELEASE → only here lever returns up
 		else:
 			if is_dragging:
 				is_dragging = false
@@ -267,14 +274,17 @@ func _gui_input(event: InputEvent):
 
 				pull_completed.emit(strength)
 
+				# RETURN LEVER UP
 				var tween = create_tween()
 				tween.set_parallel(true)
-				tween.tween_property(self, \"offset_top\", original_button_offset, 0.2).set_trans(Tween.TRANS_SPRING)
+				tween.tween_property(self, \"offset_top\", original_button_offset, 0.2)
 				if chain_node:
-					tween.tween_property(chain_node, \"offset_top\", original_chain_offset, 0.2).set_trans(Tween.TRANS_SPRING)
+					tween.tween_property(chain_node, \"offset_top\", original_chain_offset, 0.2)
 
 				get_viewport().set_input_as_handled()
 
+
+	# DRAGGING
 	if event is InputEventMouseMotion and is_dragging:
 		var drag_delta = get_global_mouse_position().y - drag_start_y
 		var clamped_delta = clampf(drag_delta, 0.0, max_pull_distance)
@@ -283,8 +293,17 @@ func _gui_input(event: InputEvent):
 		if chain_node:
 			chain_node.offset_top = original_chain_offset + clamped_delta
 
-		# --- NEW: gửi signal liên tục khi kéo ---
-		pulling.emit(clamped_delta / max_pull_distance)
+		var strength = clamped_delta / max_pull_distance
+		pulling.emit(strength)
+
+		# AUTO COMPLETE when hit max — BUT DO NOT RESET POSITION
+		if clamped_delta >= max_pull_distance:
+			pull_completed.emit(1.0)
+			# do NOT reset lever here — keep it at max until user releases
+			# also stop any further dragging
+			is_dragging = true  # still holding
+			get_viewport().set_input_as_handled()
+			return
 
 		get_viewport().set_input_as_handled()
 "
