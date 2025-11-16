@@ -9,7 +9,7 @@ extends BaseCharacter
 #Sight: Tầm nhìn của quái vật để phát hiện nhân vật của người chơi. Tính theo đơn vị bán kinh Pixel.
 @export var sight: float = 100
 #Movement Range: Phạm vi di chuyển tối đa của quái. Tính theo đơn vị bán kính Pixel.
-@export var movement_range: float = 50
+@export var movement_range: float = 500
 #Attack Damage: Sát thương của cú đánh. Tính theo đơn vị HP.
 @export var attack_damage: float = 50
 #Attack Speed: Tốc độ của cú đánh. Tính từ lúc ra đòn cho đến lúc kết thúc đòn đánh. Đơn vị được tính theo Pixel / giây
@@ -30,10 +30,14 @@ var found_player: Player = null
 var player_detection_raycast: RayCast2D = null
 
 var _movement_speed: float = movement_speed
-var _patrol_controller: PatrolController = PatrolController.new(movement_range)
+var _jump_speed: float = jump_speed
+var _patrol_controller: PatrolController = null
 var _front_ray_cast: RayCast2D = null
 var _down_ray_cast: RayCast2D = null
 var _collision_shape: CollisionShape2D = null
+
+var _is_wall_detected: bool = false
+var _jump_raycast: RayCast2D = null
 
 func _ready() -> void:
 	super._ready()
@@ -41,6 +45,9 @@ func _ready() -> void:
 	_init_detect_player_area()
 	_init_hurt_area()
 	_init_collision_shape()
+	_patrol_controller = PatrolController.new(movement_range)
+	jump_speed = 235
+	_jump_speed = jump_speed
 	pass
 
 #init ray cast to check wall and fall
@@ -52,6 +59,10 @@ func _init_ray_cast():
 	#+ Khởi tạo raycast phát hiện người chơi
 	if has_node("Direction/PlayerDetectionRayCast"):
 		player_detection_raycast = $Direction/PlayerDetectionRayCast
+	if has_node("Direction/JumpRayCast2D"):
+		_jump_raycast = $Direction/JumpRayCast2D
+		_jump_raycast.target_position.y = -25
+		_jump_raycast.target_position.x = -10
 
 #init detect player area
 func _init_detect_player_area():
@@ -76,12 +87,35 @@ func _update_movement(delta: float) -> void:
 	move_and_slide()
 	pass
 	
-func try_patrol_turn(_delta: float):
-	var is_reach_limit = _patrol_controller.track_patrol(position.x, direction)
-	var should_turn_around = is_touch_wall() or is_can_fall() or is_reach_limit
-	if should_turn_around:
-		_patrol_controller.set_start_position(position.x)
-		turn_around()
+func try_patrol_turn(_delta: float) -> bool:
+	#var is_reach_limit = _patrol_controller.track_patrol(position.x, direction)
+	var want_to_turn = randf() < 0.001
+	if try_jump():
+		return false
+	if is_touch_wall() or is_can_fall() or want_to_turn:
+		turn()
+		return true
+	return false
+
+func turn() -> void:
+	_patrol_controller.set_start_position(position.x)
+	turn_around()
+
+func try_jump() -> bool:
+	if not is_touch_wall():
+		return false
+	
+	_jump_raycast.global_position = _front_ray_cast.get_collision_point()
+	_jump_raycast.force_raycast_update()
+	if not _jump_raycast.is_colliding() or _jump_raycast.get_collider() is Player:
+		jump()
+		return true
+
+	return false
+
+func jump() -> void:
+	if is_on_floor():
+		velocity.y = -_jump_speed
 
 func is_touch_wall() -> bool:
 	if _front_ray_cast and _front_ray_cast.enabled:
@@ -146,3 +180,9 @@ func get_size() -> Vector2:
 	if _collision_shape:
 		return _collision_shape.shape.size
 	return Vector2.ZERO
+
+func _on_front_dectect_area_2d_body_entered(_body):
+	_is_wall_detected = true
+
+func _on_front_dectect_area_2d_body_exited(_body):
+	_is_wall_detected = false

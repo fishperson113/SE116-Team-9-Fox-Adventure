@@ -25,7 +25,7 @@ func update_timer(delta: float) -> bool:
 
 func try_attack() -> void:
 	if obj.can_attack():
-		fsm.change_state(fsm.states.attack)
+		fsm.change_state(fsm.states.prepare)
 
 func try_recover() -> void:
 	if obj.is_alive():
