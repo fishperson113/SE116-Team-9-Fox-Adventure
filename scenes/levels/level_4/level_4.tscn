@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=4 uid="uid://xmmhse6d6ge7"]
+
+[ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_3uy1m"]
+[ext_resource type="PackedScene" uid="uid://d2wpy684uyjct" path="res://scenes/enemies/spawners/triggered_spawner.tscn" id="2_4f3hn"]
+[ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="3_bvs1t"]
+[ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="3_l583c"]
+
+[node name="Stage" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAQAAAABAAAAAAABAAQAAAACAAAAAAABAAQAAAADAAAAAAABAAQAAAAEAAAAAAAQAAMAAAAEAAEAAAAPAAQAAAAFAAEAAAABAAQAAAAGAAEAAAABAAQAAAAHAAEAAAAQAAMAAAAHAAIAAAAPAAQAAAAIAAIAAAABAAQAAAAJAAIAAAABAAQAAAAKAAIAAAAQAAMAAAAKAAMAAAAPAAQAAAALAAMAAAABAAQAAAAMAAMAAAAQAAMAAAAMAAQAAAAPAAQAAAANAAQAAAABAAQAAAAOAAQAAAAQAAMAAAAOAAUAAAAPAAQAAAAPAAUAAAABAAQAAAAQAAUAAAAQAAMAAAAQAAYAAAAPAAQAAAARAAYAAAABAAQAAAASAAYAAAAQAAMAAAASAAcAAAAPAAQAAAATAAcAAAABAAQAAAAUAAcAAAAQAAMAAAAUAAgAAAAPAAQAAAAVAAgAAAAQAAMAAAAVAAkAAAAPAAQAAAAWAAkAAAAQAAMAAAAWAAoAAAAPAAQAAAAXAAoAAAAQAAMAAAAXAAsAAAAPAAQAAAAYAAsAAAAQAAMAAAAYAAwAAAAPAAQAAAAZAAwAAAAQAAMAAAAZAA0AAAAPAAQAAAAaAA0AAAACAAQAAAAaAAwAAQAAAAAAAgA=")
+tile_set = ExtResource("1_3uy1m")
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Spawners" type="Node2D" parent="."]
+
+[node name="Spawner" parent="Spawners" instance=ExtResource("2_4f3hn")]
+trigger_size = Vector2(96, 96)
+trigger_position = Vector2(784, 336)
+enemies = Array[PackedScene]([ExtResource("3_l583c")])
+group = "Enemies"
+width = 200.0
+height = 25.0
+melee_spawn = 4
+range_spawn = 0
+
+[node name="Player" parent="." instance=ExtResource("3_bvs1t")]
+position = Vector2(16, -14)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]

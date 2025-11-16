@@ -1,14 +1,14 @@
 @tool
 extends Spawner
 
-@export var size: Vector2:
+@export var trigger_size: Vector2:
 	set(value):
-		size = value
+		trigger_size = value
 		update_size(value)
 
-@export var pos: Vector2:
+@export var trigger_position: Vector2:
 	set(value):
-		pos = value
+		trigger_position = value
 		update_pos(value)
 
 @onready var trigger_area := $Area2D
@@ -16,8 +16,8 @@ extends Spawner
 
 func _ready() -> void:
 	super._ready()
-	update_size(size)
-	update_pos(pos)
+	update_size(trigger_size)
+	update_pos(trigger_position)
 	trigger_area.body_entered.connect(_on_body_entered)
 
 func update_size(size: Vector2):
@@ -30,7 +30,7 @@ func update_pos(pos: Vector2):
 		trigger_area.position = pos
 	pass
 
-func _on_body_entered(body: Node2D):
+func _on_body_entered(_body: Node2D):
 	bias_spawn()
 	call_deferred("deactivate_spawner")
 	pass
