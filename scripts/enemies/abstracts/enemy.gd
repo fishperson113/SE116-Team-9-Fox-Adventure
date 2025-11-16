@@ -14,8 +14,6 @@ extends BaseCharacter
 @export var attack_damage: float = 50
 #Attack Speed: Tốc độ của cú đánh. Tính từ lúc ra đòn cho đến lúc kết thúc đòn đánh. Đơn vị được tính theo Pixel / giây
 @export var attack_speed: float = 50
-@export var hurt_time: float = 0.4
-
 #+ Thêm biến để chọn kiểu phát hiện người chơi
 @export var use_raycast_detection: bool = false
 
@@ -24,26 +22,32 @@ var jump_height: float = pow(jump_speed, 2.0) / (gravity * 2)
 #Air Time: Thời gian trên không, tính bằng công thức (Air Time = Jump Speed / Gravity)
 var air_time: float = jump_speed / gravity
 # detect player area
-var detect_player_area: Area2D = null
 var found_player: Player = null
 #+ Thêm tham chiếu đến RayCast phát hiện người chơi
 var player_detection_raycast: RayCast2D = null
 
 var _movement_speed: float = movement_speed
 var _jump_speed: float = jump_speed
+
 var _patrol_controller: PatrolController = null
+
 var _front_ray_cast: RayCast2D = null
 var _down_ray_cast: RayCast2D = null
-var _collision_shape: CollisionShape2D = null
-
-var _is_wall_detected: bool = false
 var _jump_raycast: RayCast2D = null
+
+var _collision_shape: CollisionShape2D = null
+var _hit_area_shape: CollisionShape2D = null
+
+var _detect_player_area: Area2D = null
+var _near_sense_area: Area2D = null
 
 func _ready() -> void:
 	super._ready()
 	_init_ray_cast()
 	_init_detect_player_area()
+	_init_near_sense_area()
 	_init_hurt_area()
+	_init_hit_area()
 	_init_collision_shape()
 	_patrol_controller = PatrolController.new(movement_range)
 	jump_speed = 235
@@ -67,9 +71,20 @@ func _init_ray_cast():
 #init detect player area
 func _init_detect_player_area():
 	if has_node("Direction/DetectPlayerArea2D"):
-		detect_player_area = $Direction/DetectPlayerArea2D
-		detect_player_area.body_entered.connect(_on_body_entered)
-		detect_player_area.body_exited.connect(_on_body_exited)
+		_detect_player_area = $Direction/DetectPlayerArea2D
+		_detect_player_area.body_entered.connect(_on_body_entered)
+		_detect_player_area.body_exited.connect(_on_body_exited)
+
+func _init_near_sense_area():
+	if has_node("Direction/NearSenseArea2D"):
+		_near_sense_area = $Direction/NearSenseArea2D
+
+func _init_hit_area():
+	if has_node("Direction/HitArea2D"):
+		var hit_area := $Direction/HitArea2D
+		hit_area.set_dealt_damage(spike)
+		hit_area.hitted.connect(_on_hit_area_2d_hitted)
+		_hit_area_shape = hit_area.get_node("NormalCollisionShape2D")
 
 # init hurt area
 func _init_hurt_area():
@@ -138,6 +153,9 @@ func _on_body_exited(_body: CharacterBody2D) -> void:
 func _on_hurt_area_2d_hurt(_direction: Vector2, _damage: float) -> void:
 	take_damage(_damage)
 	fsm.current_state.take_damage()
+
+func _on_hit_area_2d_hitted(_body) -> void:
+	pass
 	
 # called when player is in sight
 func _on_player_in_sight(_player_pos: Vector2):
@@ -163,12 +181,12 @@ func is_player_in_sight_by_raycast() -> bool:
 
 #+ Thêm các hàm bật/tắt vùng dò tìm từ Code 2
 func enable_check_player_in_sight() -> void:
-	if(detect_player_area != null):
-		detect_player_area.get_node("CollisionShape2D").disabled = false
+	if(_detect_player_area != null):
+		_detect_player_area.get_node("CollisionShape2D").disabled = false
 
 func disable_check_player_in_sight() -> void:
-	if(detect_player_area != null):
-		detect_player_area.get_node("CollisionShape2D").disabled = true
+	if(_detect_player_area != null):
+		_detect_player_area.get_node("CollisionShape2D").disabled = true
 
 func take_damage(amount: int) -> void:
 	health -= amount
@@ -180,9 +198,3 @@ func get_size() -> Vector2:
 	if _collision_shape:
 		return _collision_shape.shape.size
 	return Vector2.ZERO
-
-func _on_front_dectect_area_2d_body_entered(_body):
-	_is_wall_detected = true
-
-func _on_front_dectect_area_2d_body_exited(_body):
-	_is_wall_detected = false

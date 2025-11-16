@@ -21,18 +21,11 @@ var _sight: float = 0
 
 func _ready() -> void:
 	super._ready()
-	fsm=FSM.new(self,$States,$States/Normal)
-	_init_hit_area()
 	_init_prepare_state()
 	_init_attack_state()
 	_init_eager_state()
 	_init_stun_state()
 	_sight = _front_ray_cast.position.x
-
-func _init_hit_area():
-	var hit_area := $Direction/HitArea2D
-	hit_area.set_dealt_damage(spike)
-	hit_area.hitted.connect(_on_hit_area_2d_hitted)
 
 func _init_eager_state() -> void:
 	if has_node("States/Eager"):
@@ -94,7 +87,7 @@ func update_attack(_delta: float) -> void:
 	pass
 
 func start_prepare() -> void:
-	_movement_speed = 0
+	_movement_speed = movement_speed / attack_speed_multiplier
 	change_animation("prepare")
 	pass
 
@@ -117,7 +110,7 @@ func update_eager(_delta: float) -> void:
 	pass
 
 func start_stun() -> void:
-	_movement_speed = 0
+	_movement_speed = movement_speed / attack_speed_multiplier
 	change_animation("stun")
 	pass
 
