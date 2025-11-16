@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_aiyma"]
 [ext_resource type="Script" uid="uid://bbrlj6fy2to4d" path="res://scripts/enemies/minions/melees/starfish/starfish.gd" id="2_ms5pe"]
 [ext_resource type="Texture2D" uid="uid://blpjqqa5urugs" path="res://assets/sprites/enemies/monsters/starfish/starfish_atk_01.png" id="3_qnhfo"]
-[ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="3_uvchq"]
 [ext_resource type="Texture2D" uid="uid://wkme5fl2xn52" path="res://assets/sprites/enemies/monsters/starfish/starfish_atk_02.png" id="4_vqr1f"]
 [ext_resource type="Script" uid="uid://ccv3j6ublijcd" path="res://scripts/enemies/minions/melees/starfish/attack.gd" id="4_wpdss"]
 [ext_resource type="Script" uid="uid://ckkh2ua2sgfxb" path="res://scripts/enemies/minions/melees/starfish/stun.gd" id="5_3sr0h"]
@@ -84,11 +83,14 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_gt8ae"]
 radius = 15.0333
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ay3vc"]
-size = Vector2(16, 27)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_87oaq"]
+size = Vector2(18, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vqr1f"]
 size = Vector2(19, 27)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_87oaq"]
+radius = 40.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qnhfo"]
 size = Vector2(18, 28)
@@ -107,21 +109,17 @@ movement_speed = 50.0
 sprite_frames = SubResource("SpriteFrames_vuubp")
 animation = &"normal"
 
-[node name="HitArea2D" type="Area2D" parent="Direction" index="1"]
+[node name="HitArea2D" parent="Direction" index="1"]
 visible = false
-collision_layer = 0
-collision_mask = 33
-script = ExtResource("3_uvchq")
-metadata/_custom_type_script = "uid://dkb25vr64v37l"
 
 [node name="RollCollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D" index="0"]
 position = Vector2(-1, -1)
 shape = SubResource("CircleShape2D_gt8ae")
 disabled = true
 
-[node name="NormalCollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D" index="1"]
-position = Vector2(-1, 0.5)
-shape = SubResource("RectangleShape2D_ay3vc")
+[node name="NormalCollisionShape2D" parent="Direction/HitArea2D" index="1"]
+position = Vector2(0, 0)
+shape = SubResource("RectangleShape2D_87oaq")
 
 [node name="HurtArea2D" parent="Direction" index="2"]
 visible = false
@@ -139,16 +137,11 @@ hit_from_inside = true
 position = Vector2(16, 0)
 target_position = Vector2(0, 48)
 
-[node name="DetectPlayerArea2D" type="Area2D" parent="Direction" index="5"]
-collision_layer = 0
-collision_mask = 36
+[node name="JumpRayCast2D" parent="Direction" index="6"]
+visible = false
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Direction/DetectPlayerArea2D" index="0"]
-position = Vector2(1, 0)
-polygon = PackedVector2Array(0, 0, 200, -100, 200, 100)
-
-[node name="JumpRayCast2D" type="RayCast2D" parent="Direction" index="6"]
-target_position = Vector2(0, 0)
+[node name="CollisionShape2D" parent="Direction/NearSenseArea2D" index="0"]
+shape = SubResource("CircleShape2D_87oaq")
 
 [node name="CollisionShape2D" parent="." index="1"]
 visible = false
