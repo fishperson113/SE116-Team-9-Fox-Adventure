@@ -1,0 +1,310 @@
+[gd_scene load_steps=10 format=3 uid="uid://bbh8h6o3fs2r3"]
+
+[ext_resource type="Texture2D" uid="uid://bnbxan1lc7bpx" path="res://assets/sprites/caldron/mold/422.png" id="1_eix47"]
+[ext_resource type="Texture2D" uid="uid://7qaokb7xej13" path="res://assets/sprites/caldron/mold/443.png" id="2_gp2fn"]
+[ext_resource type="Texture2D" uid="uid://c1xueye05fac5" path="res://assets/sprites/caldron/mold/4705.png" id="3_oak1q"]
+[ext_resource type="Script" uid="uid://c8suqtt4rmk52" path="res://scripts/crafting/weapon_assembler.gd" id="4_gp2fn"]
+
+[sub_resource type="GDScript" id="GDScript_gp2fn"]
+script/source = "extends Panel
+
+@onready var assembler: WeaponAssembler = $MainLayout/AssembleArea/WeaponAssembler
+@onready var anim: AnimationPlayer = $MainLayout/AssembleArea/AnimationPlayer
+
+var input_enabled := false   # disable drag-drop until intro animation done
+
+
+func _ready() -> void:
+	input_enabled = false
+	_play_intro()
+
+
+func _play_intro() -> void:
+	anim.play(\"reveal\")   # front/back mở ra
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if(anim_name==\"reveal\"):
+		_reveal_blade()
+
+func _reveal_blade() -> void:
+	assembler.add_part(\"blade_1\", \"perfect\", \"copper\")
+		
+	anim.play(\"blade_move\")
+	
+	var t := create_tween()
+	t.finished.connect(func():
+		input_enabled = true   # NOW allow drag-drop
+	)
+"
+
+[sub_resource type="Animation" id="Animation_gp2fn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Closed:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Front:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Back:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Front:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(409, 277.5)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Back:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(409, 277.5)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("WeaponAssembler/BladeContainer:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("WeaponAssembler/BladeContainer:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(464, 458)]
+}
+
+[sub_resource type="Animation" id="Animation_eix47"]
+resource_name = "reveal"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Closed:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Front:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Back:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Front:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(409, 277.5), Vector2(304.425, 197.965)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Back:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(409, 277.5), Vector2(425.535, 289.31)]
+}
+
+[sub_resource type="Animation" id="Animation_oak1q"]
+resource_name = "blade_move"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponAssembler/BladeContainer:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponAssembler/BladeContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(464, 458), Vector2(464, 958)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oak1q"]
+_data = {
+&"RESET": SubResource("Animation_gp2fn"),
+&"blade_move": SubResource("Animation_oak1q"),
+&"reveal": SubResource("Animation_eix47")
+}
+
+[node name="AssembleWeaponMinigame" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_gp2fn")
+
+[node name="MainLayout" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AssembleArea" type="Control" parent="MainLayout"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Closed" type="TextureRect" parent="MainLayout/AssembleArea"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.5
+offset_top = -260.0
+offset_right = 142.5
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_eix47")
+
+[node name="Front" type="TextureRect" parent="MainLayout/AssembleArea"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -69.5
+offset_top = -163.5
+offset_right = 215.5
+offset_bottom = 356.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_gp2fn")
+
+[node name="Back" type="TextureRect" parent="MainLayout/AssembleArea"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -69.5
+offset_top = -163.5
+offset_right = 215.5
+offset_bottom = 356.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_oak1q")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainLayout/AssembleArea"]
+libraries = {
+&"": SubResource("AnimationLibrary_oak1q")
+}
+
+[node name="WeaponAssembler" type="Node2D" parent="MainLayout/AssembleArea"]
+script = ExtResource("4_gp2fn")
+
+[node name="BladeContainer" type="Node2D" parent="MainLayout/AssembleArea/WeaponAssembler"]
+position = Vector2(464, 458)
+rotation = -1.5708
+
+[node name="CollectionArea" type="Control" parent="MainLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="animation_finished" from="MainLayout/AssembleArea/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -74,9 +74,10 @@ script/source = "extends Panel
 @export var fluid_emitter: Node
 @export var pull_lever: Control
 @export var caldron_head_node: Control
-
+@export var mold: Node2D
 var anim_duration: float = 0.0
 var is_head_popped: bool = false
+var _blocker: Control
 
 func _ready():
 	if cauldron_anim_player == null or pull_lever == null:
@@ -111,6 +112,8 @@ func _on_lever_pulling(strength: float):
 
 
 func _on_lever_completed(strength: float):
+	if strength >= 1.0:
+		_lift_mold_and_transition()
 	# Khi buông cần → đảm bảo fluid tắt
 	if fluid_emitter:
 		fluid_emitter.set_fluid_active(false)
@@ -129,6 +132,33 @@ func _on_lever_completed(strength: float):
 			0.3
 		).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
+func _lift_mold_and_transition():
+	_input_block_screen(true)
+	
+	var tween := create_tween()
+	
+	var target_y := mold.position.y - 150.0  # kéo lên
+	
+	tween.tween_property(mold, \"position:y\", target_y, 0.6)\\
+		.set_trans(Tween.TRANS_SINE)\\
+		.set_ease(Tween.EASE_OUT)
+	
+	tween.finished.connect(_fade_and_change_scene)
+
+func _fade_and_change_scene():
+	var fade := ColorRect.new()
+	fade.color = Color(0, 0, 0, 0)   # transparent → black
+	fade.set_anchors_preset(Control.PRESET_FULL_RECT)
+	add_child(fade)
+
+	var tween := create_tween()
+	tween.tween_property(fade, \"color:a\", 1.0, 0.4)\\
+		.set_trans(Tween.TRANS_SINE)\\
+		.set_ease(Tween.EASE_IN)
+
+	tween.finished.connect(func():
+		get_tree().change_scene_to_file(\"res://scenes/minigames/AssembleWeaponMinigame.tscn\")
+	)
 
 func _pop_head():
 	is_head_popped = true
@@ -144,6 +174,18 @@ func _pop_head():
 		target_y,
 		0.5
 	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+func _input_block_screen(enable: bool):
+	if enable:
+		if _blocker == null:
+			_blocker = Control.new()
+			_blocker.mouse_filter = Control.MOUSE_FILTER_STOP
+			_blocker.set_anchors_preset(Control.PRESET_FULL_RECT)
+			add_child(_blocker)
+	else:
+		if _blocker:
+			_blocker.queue_free()
+			_blocker = null
 "
 
 [sub_resource type="Animation" id="Animation_ttluv"]
@@ -308,7 +350,7 @@ func _gui_input(event: InputEvent):
 		get_viewport().set_input_as_handled()
 "
 
-[node name="SmeltOreMinigame" type="Panel" node_paths=PackedStringArray("cauldron_anim_player", "fluid_emitter", "pull_lever", "caldron_head_node")]
+[node name="SmeltOreMinigame" type="Panel" node_paths=PackedStringArray("cauldron_anim_player", "fluid_emitter", "pull_lever", "caldron_head_node", "mold")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -319,6 +361,7 @@ cauldron_anim_player = NodePath("MainLayout/CaldronArea/Caldron/AnimationPlayer"
 fluid_emitter = NodePath("FluidEmitter")
 pull_lever = NodePath("MainLayout/RightCollum/PullLever")
 caldron_head_node = NodePath("MainLayout/CaldronArea/Caldron/CaldronHead")
+mold = NodePath("MainLayout/CaldronArea/Mold")
 
 [node name="MainLayout" type="HBoxContainer" parent="."]
 layout_mode = 1
