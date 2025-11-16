@@ -111,6 +111,7 @@ animation = &"normal"
 
 [node name="HitArea2D" parent="Direction" index="1"]
 visible = false
+collision_mask = 32
 
 [node name="RollCollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D" index="0"]
 position = Vector2(-1, -1)
@@ -131,7 +132,6 @@ shape = SubResource("RectangleShape2D_vqr1f")
 [node name="FrontRayCast2D" parent="Direction" index="3"]
 position = Vector2(16, -17)
 target_position = Vector2(0, 30)
-hit_from_inside = true
 
 [node name="DownRayCast2D" parent="Direction" index="4"]
 position = Vector2(16, 0)
