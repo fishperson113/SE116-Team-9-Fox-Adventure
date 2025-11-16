@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bxdgdv2dbs6tb"]
+[gd_scene load_steps=25 format=3 uid="uid://bxdgdv2dbs6tb"]
 
 [ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_aiyma"]
 [ext_resource type="Script" uid="uid://bbrlj6fy2to4d" path="res://scripts/enemies/minions/melees/starfish/starfish.gd" id="2_ms5pe"]
@@ -16,14 +16,13 @@
 [ext_resource type="Texture2D" uid="uid://dcvguxbpsvbbh" path="res://assets/sprites/enemies/monsters/starfish/starfish_01.png" id="11_cpedg"]
 [ext_resource type="Texture2D" uid="uid://2ig8m6lpwkw0" path="res://assets/sprites/enemies/monsters/starfish/starfish_02.png" id="12_8b0tx"]
 [ext_resource type="Texture2D" uid="uid://c2pflaeyavb4c" path="res://assets/sprites/enemies/monsters/starfish/starfish_03.png" id="13_4bdsv"]
+[ext_resource type="Script" uid="uid://l4u6ul371coy" path="res://scripts/enemies/minions/melees/starfish/prepare.gd" id="15_23kvq"]
 [ext_resource type="Script" uid="uid://ycom5xm05cmh" path="res://scripts/enemies/minions/melees/starfish/normal.gd" id="15_vqr1f"]
+[ext_resource type="Script" uid="uid://6ob2ki2e8jqk" path="res://scripts/enemies/minions/melees/starfish/eager.gd" id="18_gq6fc"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vuubp"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_qnhfo")
-}, {
 "duration": 1.0,
 "texture": ExtResource("4_vqr1f")
 }, {
@@ -35,9 +34,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("7_jq4de")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_sk10e")
 }],
 "loop": true,
 "name": &"attack",
@@ -71,12 +67,14 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("3_qnhfo")
+}],
+"loop": true,
+"name": &"prepare",
+"speed": 5.0
 }, {
+"frames": [{
 "duration": 1.0,
-"texture": ExtResource("13_4bdsv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_8b0tx")
+"texture": ExtResource("8_sk10e")
 }],
 "loop": true,
 "name": &"stun",
@@ -93,12 +91,14 @@ size = Vector2(16, 27)
 size = Vector2(19, 27)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qnhfo"]
-size = Vector2(18, 17)
+size = Vector2(18, 28)
 
 [node name="Starfish" groups=["melee"] instance=ExtResource("1_aiyma")]
 script = ExtResource("2_ms5pe")
-attack_speed_multiplier = 1.5
-stun_time = 1.0
+attack_speed_multiplier = 4.0
+prepare_time = 0.25
+eager_time = 1.0
+stun_time = 0.5
 health = 100.0
 spike = 70.0
 movement_speed = 50.0
@@ -108,8 +108,9 @@ sprite_frames = SubResource("SpriteFrames_vuubp")
 animation = &"normal"
 
 [node name="HitArea2D" type="Area2D" parent="Direction" index="1"]
+visible = false
 collision_layer = 0
-collision_mask = 32
+collision_mask = 33
 script = ExtResource("3_uvchq")
 metadata/_custom_type_script = "uid://dkb25vr64v37l"
 
@@ -130,26 +131,42 @@ position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_vqr1f")
 
 [node name="FrontRayCast2D" parent="Direction" index="3"]
-target_position = Vector2(15, 0)
+position = Vector2(16, -17)
+target_position = Vector2(0, 30)
+hit_from_inside = true
 
 [node name="DownRayCast2D" parent="Direction" index="4"]
-position = Vector2(15, 0)
+position = Vector2(16, 0)
+target_position = Vector2(0, 48)
 
-[node name="DetectRayCast2D" type="RayCast2D" parent="Direction" index="5"]
-target_position = Vector2(100, 0)
-collision_mask = 32
-collide_with_areas = true
+[node name="DetectPlayerArea2D" type="Area2D" parent="Direction" index="5"]
+collision_layer = 0
+collision_mask = 36
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Direction/DetectPlayerArea2D" index="0"]
+position = Vector2(1, 0)
+polygon = PackedVector2Array(0, 0, 200, -100, 200, 100)
+
+[node name="JumpRayCast2D" type="RayCast2D" parent="Direction" index="6"]
+target_position = Vector2(0, 0)
 
 [node name="CollisionShape2D" parent="." index="1"]
 visible = false
-position = Vector2(1, 5.5)
+position = Vector2(0, 0)
 shape = SubResource("RectangleShape2D_qnhfo")
 
 [node name="Normal" parent="States" index="0"]
 script = ExtResource("15_vqr1f")
 
-[node name="Attack" type="Node" parent="States" index="3"]
+[node name="Prepare" type="Node" parent="States" index="3"]
+script = ExtResource("15_23kvq")
+
+[node name="Attack" type="Node" parent="States" index="4"]
 script = ExtResource("4_wpdss")
 
-[node name="Stun" type="Node" parent="States" index="4"]
+[node name="Eager" type="Node" parent="States" index="5"]
+script = ExtResource("18_gq6fc")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
+[node name="Stun" type="Node" parent="States" index="6"]
 script = ExtResource("5_3sr0h")
