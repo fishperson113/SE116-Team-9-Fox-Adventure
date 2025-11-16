@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=11 format=3 uid="uid://d4afhielv3ocv"]
+[gd_resource type="TileSet" load_steps=12 format=3 uid="uid://d4afhielv3ocv"]
 
 [ext_resource type="Texture2D" uid="uid://v2dtejovry7r" path="res://assets/sprites/environment/terrain/terrain_32x32.png" id="1_4ofjo"]
 [ext_resource type="PackedScene" uid="uid://c3f1qqr1y2pb2" path="res://scenes/levels/island/objects/palm_tree_1.tscn" id="2_nf7gm"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ona0waro6ukn" path="res://scenes/levels/island/objects/spike.tscn" id="5_wnwxr"]
 [ext_resource type="PackedScene" uid="uid://crkmos1d5bdx3" path="res://scenes/items/collectible_items/collectible_chest_key.tscn" id="8_nutfu"]
 [ext_resource type="PackedScene" uid="uid://3jehn00g402y" path="res://scenes/levels/level_4/weak_floor/weak_floor.tscn" id="8_r072g"]
+[ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="9_nutfu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6gm7o"]
 texture = ExtResource("1_4ofjo")
@@ -398,6 +399,7 @@ scenes/4/scene = ExtResource("5_wnwxr")
 scenes/5/scene = ExtResource("5_la5tj")
 scenes/7/scene = ExtResource("8_r072g")
 scenes/8/scene = ExtResource("8_nutfu")
+scenes/9/scene = ExtResource("9_nutfu")
 
 [resource]
 tile_size = Vector2i(32, 32)

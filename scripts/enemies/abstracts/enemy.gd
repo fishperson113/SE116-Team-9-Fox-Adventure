@@ -66,7 +66,7 @@ func _init_ray_cast():
 	if has_node("Direction/JumpRayCast2D"):
 		_jump_raycast = $Direction/JumpRayCast2D
 		_jump_raycast.target_position.y = -25
-		_jump_raycast.target_position.x = -10
+		_jump_raycast.target_position.x = -16
 
 #init detect player area
 func _init_detect_player_area():
@@ -121,6 +121,7 @@ func try_jump() -> bool:
 		return false
 	
 	_jump_raycast.global_position = _front_ray_cast.get_collision_point()
+	_jump_raycast.global_position.x -= direction * _jump_raycast.target_position.x / 2
 	_jump_raycast.force_raycast_update()
 	if not _jump_raycast.is_colliding() or _jump_raycast.get_collider() is Player:
 		jump()
