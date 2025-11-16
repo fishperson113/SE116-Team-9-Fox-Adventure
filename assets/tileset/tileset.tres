@@ -1,7 +1,8 @@
-[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://d4afhielv3ocv"]
+[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://d4afhielv3ocv"]
 
 [ext_resource type="Texture2D" uid="uid://v2dtejovry7r" path="res://assets/sprites/environment/terrain/terrain_32x32.png" id="1_4ofjo"]
 [ext_resource type="PackedScene" uid="uid://c3f1qqr1y2pb2" path="res://scenes/levels/island/objects/palm_tree_1.tscn" id="2_nf7gm"]
+[ext_resource type="PackedScene" uid="uid://bhohtlj321per" path="res://scenes/chests/chest.tscn" id="3_la5tj"]
 [ext_resource type="PackedScene" uid="uid://buwu0utiiy074" path="res://scenes/levels/island/objects/leftdirection.tscn" id="3_wnwxr"]
 [ext_resource type="PackedScene" uid="uid://b5vi0curh4daf" path="res://scenes/levels/island/objects/rightdirection.tscn" id="5_la5tj"]
 [ext_resource type="PackedScene" uid="uid://ona0waro6ukn" path="res://scenes/levels/island/objects/spike.tscn" id="5_wnwxr"]
@@ -389,6 +390,7 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_6gm7o"]
 scenes/1/scene = ExtResource("2_nf7gm")
+scenes/2/scene = ExtResource("3_la5tj")
 scenes/3/scene = ExtResource("3_wnwxr")
 scenes/4/scene = ExtResource("5_wnwxr")
 scenes/5/scene = ExtResource("5_la5tj")
