@@ -24,6 +24,14 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("4_v317b")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_v317b")
 }, {
 "duration": 1.0,
 "texture": ExtResource("5_f7eix")
@@ -57,7 +65,7 @@ movement_speed = 50.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_8ad5u")
-animation = &"normal"
+animation = &"idle"
 
 [node name="HitArea2D" parent="Direction" index="1"]
 visible = false

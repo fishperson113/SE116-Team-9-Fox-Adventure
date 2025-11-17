@@ -52,6 +52,14 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("11_cpedg")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_cpedg")
 }, {
 "duration": 1.0,
 "texture": ExtResource("12_8b0tx")
@@ -107,7 +115,7 @@ movement_speed = 50.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]
 sprite_frames = SubResource("SpriteFrames_vuubp")
-animation = &"normal"
+animation = &"idle"
 
 [node name="HitArea2D" parent="Direction" index="1"]
 visible = false
@@ -145,7 +153,10 @@ visible = false
 position = Vector2(0, 0)
 shape = SubResource("RectangleShape2D_qnhfo")
 
-[node name="Normal" parent="States" index="0"]
+[node name="Idle" parent="States" index="0"]
+script = ExtResource("15_vqr1f")
+
+[node name="Normal" parent="States" index="1"]
 script = ExtResource("15_vqr1f")
 
 [node name="Prepare" type="Node" parent="States" index="3"]

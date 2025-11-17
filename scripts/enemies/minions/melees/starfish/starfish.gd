@@ -18,6 +18,7 @@ extends StatefulEnemy
 @onready var _normal_box: CollisionShape2D = $Direction/HitArea2D/NormalCollisionShape2D
 
 var _sight: float = 0
+var _player_pos: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	super._ready()
@@ -115,7 +116,12 @@ func start_stun() -> void:
 	pass
 
 func end_stun() -> void:
+	target(_player_pos)
 	pass
 	
 func update_stun(_delta: float) -> void:
 	pass
+
+func _on_body_entered(_body: CharacterBody2D) -> void:
+	super._on_body_entered(_body)
+	_player_pos = _body.position
