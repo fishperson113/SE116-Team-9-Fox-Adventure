@@ -19,7 +19,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vt4vx"]
-size = Vector2(32, 32)
+size = Vector2(30, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_41mna"]
 size = Vector2(32, 34)
@@ -70,7 +70,6 @@ metadata/_custom_type_script = "uid://dlxdtwr6rpwbr"
 sprite_frames = SubResource("SpriteFrames_41mna")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("RectangleShape2D_vt4vx")
 
 [node name="TriggerArea2D" type="Area2D" parent="."]

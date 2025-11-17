@@ -10,6 +10,10 @@ extends CharacterBody2D
 @export var character_type = 0
 
 signal healthChanged(character: BaseCharacter)
+signal movementChanging(mover: BaseCharacter)
+
+var external_force: float = 0
+var internal_force: float = 0
 
 var jump_speed: float = 320.0
 var fsm: FSM = null
@@ -40,8 +44,14 @@ func _physics_process(delta: float) -> void:
 
 
 func _update_movement(delta: float) -> void:
+	movementChanging.emit(self)
+	
+	velocity.x = internal_force + external_force
 	velocity.y += gravity * delta
 	move_and_slide()
+	
+	# Clear external force
+	external_force = 0
 	pass
 
 func turn_around() -> void:
@@ -112,11 +122,10 @@ func _check_changed_direction() -> void:
 # On changed direction
 func _on_changed_direction() -> void:
 	pass
-	
 func take_damage(amount: int):
-	print("💥 ", name, " nhận damage: ", amount)
+	print("?? ", name, " nh?n damage: ", amount)
 	currentHealth -= amount
-	print("   Health còn lại: ", currentHealth, "/", maxHealth)
+	print("   Health c�n l?i: ", currentHealth, "/", maxHealth)
 	healthChanged.emit()
 	
 func heal(amount: int):
