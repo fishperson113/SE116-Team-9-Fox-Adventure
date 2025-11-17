@@ -76,6 +76,10 @@ shape = SubResource("CapsuleShape2D_kyxrq")
 
 [node name="States" type="Node" parent="."]
 
+[node name="Idle" type="Node" parent="States"]
+script = ExtResource("3_5ne8s")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
 [node name="Normal" type="Node" parent="States"]
 script = ExtResource("3_5ne8s")
 

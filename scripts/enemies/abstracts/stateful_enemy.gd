@@ -11,6 +11,7 @@ enum InitialState { NORMAL, SLEEP }
 func _ready() -> void:
 	super._ready()
 	_init_normal_state()
+	_init_idle_state()
 	_init_hurt_state()
 	_init_dead_state()
 	_init_sleep_state()
@@ -29,6 +30,13 @@ func _init_initial_state() -> void:
 			print("Unknown state %s", initial_state)
 	
 	fsm = FSM.new(self, $States, state_node)
+
+func _init_idle_state() -> void:
+	if has_node("States/Idle"):
+		var state : EnemyState = get_node("States/Idle")
+		state.enter.connect(start_idle)
+		state.exit.connect(end_idle)
+		state.update.connect(update_idle)
 
 func _init_awaking_state() -> void:
 	if has_node("States/Awaking"):
@@ -70,13 +78,13 @@ func start_normal() -> void:
 	_near_sense_area.body_entered.connect(_on_normal_near_sense_body_entered)
 	change_animation("normal")
 
-
 func end_normal() -> void:
 	_near_sense_area.body_entered.disconnect(_on_normal_near_sense_body_entered)
 	pass
 
 func update_normal(_delta: float) -> void:
-	try_patrol_turn(_delta)
+	if try_patrol_turn(_delta) or randf() < 0.001:
+		fsm.change_state(fsm.states.idle)
 	pass
 
 func start_hurt() -> void:
@@ -121,17 +129,30 @@ func end_awaking() -> void:
 func update_awaking(_delta: float) -> void:
 	pass
 
+func start_idle() -> void:
+	_movement_speed = 0.0
+	change_animation("idle")
+	pass
+
+func end_idle() -> void:
+	pass
+
+func update_idle(_delta: float) -> void:
+	if randf() < 0.005:
+		fsm.change_state(fsm.states.normal)
+	pass
+
 func _on_sleep_near_sense_body_entered(_body) -> void:
 	if _body is Player:
 		fsm.change_state(fsm.states.awaking)
 
 func _on_normal_near_sense_body_entered(_body) -> void:
 	if _body is Player:
-		target_player(_body)
+		target(_body.position)
 
-func target_player(player: Player) -> void:
+func target(_position: Vector2) -> void:
 	var target_direction = -1
-	if player.position.x > position.x:
+	if _position.x > position.x:
 		target_direction = 1
 	
 	if target_direction != direction:
