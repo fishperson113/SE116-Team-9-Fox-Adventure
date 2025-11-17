@@ -2,9 +2,9 @@
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_3uy1m"]
 [ext_resource type="PackedScene" uid="uid://d2wpy684uyjct" path="res://scenes/enemies/spawners/triggered_spawner.tscn" id="2_4f3hn"]
-[ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="2_o2n0b"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="3_bvs1t"]
 [ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="3_l583c"]
+[ext_resource type="PackedScene" uid="uid://ug4jwylkxhnb" path="res://scenes/levels/level_4/stalactite/stalactite.tscn" id="4_vp5ds"]
 
 [node name="Stage" type="Node2D"]
 
@@ -14,12 +14,6 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAQAAAABAAAAAAABAAQAAAACAAAAAAABAAQ
 tile_set = ExtResource("1_3uy1m")
 
 [node name="Enemies" type="Node2D" parent="."]
-
-[node name="Crab" parent="Enemies" instance=ExtResource("2_o2n0b")]
-position = Vector2(2574, 3350)
-
-[node name="Crab2" parent="Enemies" instance=ExtResource("2_o2n0b")]
-position = Vector2(2359, 3349)
 
 [node name="Starfish" parent="Enemies" instance=ExtResource("3_l583c")]
 position = Vector2(1205, 2385)
@@ -39,8 +33,15 @@ melee_spawn = 6
 range_spawn = 0
 
 [node name="Player" parent="." instance=ExtResource("3_bvs1t")]
-position = Vector2(1732, 2505)
+position = Vector2(2156, 3257)
 metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2, 2)
+
+[node name="Obstacles" type="Node2D" parent="."]
+
+[node name="Stalactite" parent="Obstacles" instance=ExtResource("4_vp5ds")]
+position = Vector2(2558, 2768)
+shake_time = 1.0
+max_distance = 600.0

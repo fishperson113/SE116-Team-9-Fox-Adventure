@@ -4,12 +4,12 @@
 [ext_resource type="Script" uid="uid://cap8xhhyg6p03" path="res://scripts/enemies/controllers/triggered_spawner.gd" id="2_vj5cc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wqq05"]
-size = Vector2(60, 100)
+size = Vector2(96, 96)
 
 [node name="Spawner" instance=ExtResource("1_wqq05")]
 script = ExtResource("2_vj5cc")
-size = Vector2(0, 0)
-pos = Vector2(0, 0)
+trigger_size = Vector2(0, 0)
+trigger_position = Vector2(0, 0)
 enemies = Array[PackedScene]([])
 
 [node name="Area2D" type="Area2D" parent="." index="2"]
