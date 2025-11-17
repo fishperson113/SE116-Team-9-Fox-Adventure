@@ -137,9 +137,6 @@ target_position = Vector2(0, 30)
 position = Vector2(16, 0)
 target_position = Vector2(0, 48)
 
-[node name="JumpRayCast2D" parent="Direction" index="6"]
-hit_from_inside = true
-
 [node name="CollisionShape2D" parent="Direction/NearSenseArea2D" index="0"]
 shape = SubResource("CircleShape2D_87oaq")
 
