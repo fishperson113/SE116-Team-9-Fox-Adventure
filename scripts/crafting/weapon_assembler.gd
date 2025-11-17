@@ -1,5 +1,6 @@
 extends Node2D
 class_name WeaponAssembler
+
 # CONFIG + CACHE
 var config: Dictionary = {}
 var parts: Dictionary = {}
@@ -37,23 +38,43 @@ func load_config() -> void:
 	qualities = config.get("qualities", {})
 
 
+
 # ---------------------------------------------------------
-#  ADD PART
+#  ADD PART — WITH ANCHOR SUPPORT (FIX CENTER ALIGN)
 # ---------------------------------------------------------
 func add_part(part_id: String, quality: String, material: String) -> Dictionary:
-	var cfg = parts[part_id]
-	var container := get_container_for_type(cfg["type"])
+	if not parts.has(part_id):
+		push_error("Unknown part_id: " + part_id)
+		return {}
 
-	var sprite := Sprite2D.new()
-	sprite.centered = true
-	sprite.texture = load_texture_cached(parts_folder + part_id + ".png")
+	var cfg: Dictionary = parts[part_id]
+
+	var container: Control = get_container_for_type(cfg["type"])
+	if container == null:
+		push_error("Missing container: " + cfg["type"])
+		return {}
+
+	# Create TextureRect child
+	var sprite := TextureRect.new()
+	var tex = load_texture_cached(parts_folder + part_id + ".png")
+	sprite.texture = tex
+	sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	sprite.custom_minimum_size = tex.get_size()
+
+	# Let CenterContainer do the centering!
+	sprite.set_anchors_preset(Control.PRESET_CENTER)
+	sprite.position = Vector2.ZERO   # <-- PHẢI là 0,0 để centerContainer canh giữa
+
+	# Apply material
 	if cfg.get("uses_material", false):
 		sprite.modulate = get_material_color(material)
 	else:
 		sprite.modulate = Color.WHITE
 
-	# stacking
-	sprite.position = Vector2(0, -calculate_y_position())
+	# STACK bằng margin_top (không dùng position Y)
+	var y_offset = -calculate_y_position()
+	sprite.offset_top = y_offset
 
 	container.add_child(sprite)
 
@@ -63,27 +84,21 @@ func add_part(part_id: String, quality: String, material: String) -> Dictionary:
 		"material": material,
 		"config": cfg,
 		"sprite": sprite,
-		"type": cfg["type"]
+		"type": cfg["type"],
+		"container":container
 	}
 
 	assembled_parts.append(data)
 	return data
 
-
-
-
 # ---------------------------------------------------------
 #  HEIGHT STACKING
 # ---------------------------------------------------------
 func calculate_y_position() -> float:
-	var total_height: float = 0.0
-
-	for p: Dictionary in assembled_parts:
-		var h: float = float(p["config"].get("height", 0))
-		total_height += h
-
-	return total_height
-
+	var total: float = 0.0
+	for p in assembled_parts:
+		total += float(p["config"].get("height", 0))
+	return total
 
 # ---------------------------------------------------------
 #  TEXTURE CACHE
@@ -92,74 +107,72 @@ func load_texture_cached(path: String) -> Texture2D:
 	if texture_cache.has(path):
 		return texture_cache[path]
 
-	var tex := load(path)
+	var tex = load(path)
 	if tex is Texture2D:
-		texture_cache[path] = tex as Texture2D
+		texture_cache[path] = tex
 		return tex
 
 	return null
 
 
+
 # ---------------------------------------------------------
-#  MATERIAL COLOR (RGB array → Color)
+#  MATERIAL COLOR (RGB → Color)
 # ---------------------------------------------------------
 func get_material_color(material: String) -> Color:
 	if not materials.has(material):
 		return Color.WHITE
 
-	var rgb_val = materials[material].get("color", [1.0, 1.0, 1.0])
-	var rgb: Array = rgb_val
+	var rgb = materials[material].get("color", [1.0, 1.0, 1.0])
+	return Color(float(rgb[0]), float(rgb[1]), float(rgb[2]))
 
-	return Color(
-		float(rgb[0]),
-		float(rgb[1]),
-		float(rgb[2])
-	)
 
 
 # ---------------------------------------------------------
-#  FINAL STATS CALCULATION
+#  STATS
 # ---------------------------------------------------------
 func get_stats() -> Dictionary:
-	var final_stats: Dictionary = {}
+	var out := {}
 
-	for p: Dictionary in assembled_parts:
+	for p in assembled_parts:
 		var base_stats: Dictionary = p["config"].get("stats", {})
-		var q: String = p.get("quality", "perfect")
-		var mult: float = qualities.get(q, {}).get("multiplier", 1.0)
+		var quality = p.get("quality", "perfect")
+		var mult: float = qualities.get(quality, {}).get("multiplier", 1.0)
 
-		for stat_name: String in base_stats.keys():
-			var value: float = float(base_stats[stat_name]) * mult
-			final_stats[stat_name] = final_stats.get(stat_name, 0.0) + value
+		for stat_name in base_stats.keys():
+			out[stat_name] = out.get(stat_name, 0.0) + float(base_stats[stat_name]) * mult
 
-	return final_stats
+	return out
+
 
 
 # ---------------------------------------------------------
-#  EXPORT WEAPON AS TEXTURE (SubViewport)
+#  EXPORT TO TEXTURE
 # ---------------------------------------------------------
 func export_texture() -> ImageTexture:
-	var viewport := SubViewport.new()
-	viewport.disable_3d = true
-	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
-	viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
-	viewport.transparent_bg = true
-	viewport.size = Vector2(512, 512)
+	var vp := SubViewport.new()
+	vp.disable_3d = true
+	vp.render_target_update_mode = SubViewport.UPDATE_ONCE
+	vp.render_target_clear_mode = SubViewport.CLEAR_MODE_ALWAYS
+	vp.transparent_bg = true
+	vp.size = Vector2(512, 512)
 
-	add_child(viewport)
+	add_child(vp)
 
-	var clone := duplicate(0)
-	viewport.add_child(clone)
+	var clone = duplicate(0)
+	vp.add_child(clone)
 
 	await RenderingServer.frame_post_draw
 
-	var img: Image = viewport.get_texture().get_image()
-	var tex := ImageTexture.create_from_image(img)
+	var img = vp.get_texture().get_image()
+	var tex = ImageTexture.create_from_image(img)
 
-	viewport.queue_free()
-
+	vp.queue_free()
 	return tex
-	
+
+# ---------------------------------------------------------
+#  GET CONTAINER FOR PART TYPE
+# ---------------------------------------------------------
 func get_container_for_type(p_type: String) -> Node:
 	var name = p_type.capitalize() + "Container"
 	if has_node(name):

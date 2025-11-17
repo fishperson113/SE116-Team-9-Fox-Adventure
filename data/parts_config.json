@@ -19,7 +19,12 @@
 		"uses_material": false,
 		"stats": { "block": 3 }
   },
-
+	"crossguard_2": {
+		"type": "crossguard",
+		"height": 20,
+		"uses_material": false,
+		"stats": { "block": 3 }
+  },
 	"pommel_1": {
 		"type": "pommel",
 		"height": 30,
