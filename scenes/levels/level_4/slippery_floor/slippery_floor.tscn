@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://bl5gpcj66qrf7"]
+
+[ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="1_468fo"]
+[ext_resource type="Script" uid="uid://fkjuu0t8fuuw" path="res://scenes/levels/level_4/slippery_floor/slippery_floor.gd" id="1_gx123"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gx123"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_468fo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exn15"]
+size = Vector2(30, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1uhr"]
+size = Vector2(32, 2)
+
+[node name="SlipperyFloor" type="StaticBody2D" groups=["ground"]]
+script = ExtResource("1_gx123")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_gx123")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_exn15")
+
+[node name="TriggerArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 36
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TriggerArea2D"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_k1uhr")
+
+[connection signal="body_entered" from="TriggerArea2D" to="." method="_on_trigger_area_2d_body_entered"]
+[connection signal="body_exited" from="TriggerArea2D" to="." method="_on_trigger_area_2d_body_exited"]

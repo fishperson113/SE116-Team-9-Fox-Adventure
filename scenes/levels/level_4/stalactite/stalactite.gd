@@ -33,6 +33,7 @@ func _init_hit_area():
 	if has_node("HitArea2D"):
 		var hit_area := $HitArea2D
 		hit_area.set_dealt_damage(damage)
+		hit_area.body_entered.connect(_on_hit_area_body_entered)
 
 func _init_anim_player():
 	if has_node("AnimationPlayer"):
@@ -131,13 +132,15 @@ func start_fall() -> void:
 	pass
 
 func end_fall() -> void:
+	_body = null
 	pass
 
 func update_fall(_delta: float) -> void:
-	for i in get_slide_collision_count():
-		var collision = get_slide_collision(i).get_collider()
-		if collision is TileMapLayer:
-			fsm.change_state(fsm.states.dissolve)
+	if not _body:
+		return
+	
+	if _body.is_in_group("ground"):
+		fsm.change_state(fsm.states.dissolve)
 	pass
 
 func start_dissolve() -> void:
@@ -171,3 +174,7 @@ func drip():
 
 func _on_droplet_hit(body):
 	_body = body
+
+func _on_hit_area_body_entered(body):
+	_body = body
+	pass

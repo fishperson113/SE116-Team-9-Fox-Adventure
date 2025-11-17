@@ -10,6 +10,10 @@ extends CharacterBody2D
 @export var character_type = 0
 
 signal healthChanged
+signal movementChanging(mover: BaseCharacter)
+
+var external_force: float = 0
+var internal_force: float = 0
 
 var jump_speed: float = 320.0
 var fsm: FSM = null
@@ -40,8 +44,14 @@ func _physics_process(delta: float) -> void:
 
 
 func _update_movement(delta: float) -> void:
+	movementChanging.emit(self)
+	
+	velocity.x = internal_force + external_force
 	velocity.y += gravity * delta
 	move_and_slide()
+	
+	# Clear external force
+	external_force = 0
 	pass
 
 func turn_around() -> void:
