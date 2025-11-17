@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 class_name WeaponAssembler
 
 # CONFIG + CACHE
@@ -72,10 +72,6 @@ func add_part(part_id: String, quality: String, material: String) -> Dictionary:
 	else:
 		sprite.modulate = Color.WHITE
 
-	# STACK bằng margin_top (không dùng position Y)
-	var y_offset = -calculate_y_position()
-	sprite.offset_top = y_offset
-
 	container.add_child(sprite)
 
 	var data := {
@@ -92,15 +88,6 @@ func add_part(part_id: String, quality: String, material: String) -> Dictionary:
 	return data
 
 # ---------------------------------------------------------
-#  HEIGHT STACKING
-# ---------------------------------------------------------
-func calculate_y_position() -> float:
-	var total: float = 0.0
-	for p in assembled_parts:
-		total += float(p["config"].get("height", 0))
-	return total
-
-# ---------------------------------------------------------
 #  TEXTURE CACHE
 # ---------------------------------------------------------
 func load_texture_cached(path: String) -> Texture2D:
@@ -113,8 +100,6 @@ func load_texture_cached(path: String) -> Texture2D:
 		return tex
 
 	return null
-
-
 
 # ---------------------------------------------------------
 #  MATERIAL COLOR (RGB → Color)
@@ -144,8 +129,6 @@ func get_stats() -> Dictionary:
 
 	return out
 
-
-
 # ---------------------------------------------------------
 #  EXPORT TO TEXTURE
 # ---------------------------------------------------------
@@ -159,22 +142,110 @@ func export_texture() -> ImageTexture:
 
 	add_child(vp)
 
-	var clone = duplicate(0)
+	# Duplicate toàn bộ WeaponAssembler (UI containers included)
+	var clone := self.duplicate()
 	vp.add_child(clone)
 
+	# Center clone bên trong viewport
+	clone.position = vp.size / 2
+
+	# Chờ frame để viewport render
 	await RenderingServer.frame_post_draw
 
-	var img = vp.get_texture().get_image()
-	var tex = ImageTexture.create_from_image(img)
+	var img: Image = vp.get_texture().get_image()
+	var tex := ImageTexture.create_from_image(img)
 
 	vp.queue_free()
 	return tex
+
 
 # ---------------------------------------------------------
 #  GET CONTAINER FOR PART TYPE
 # ---------------------------------------------------------
 func get_container_for_type(p_type: String) -> Node:
 	var name = p_type.capitalize() + "Container"
-	if has_node(name):
-		return get_node(name)
+	var path_to_node = name
+	if has_node(path_to_node):
+		return get_node(path_to_node)
 	return null
+
+func export_to_image() -> Image:
+	# Chờ render xong
+	await RenderingServer.frame_post_draw
+	
+	# Lấy ảnh từ viewport hiện tại
+	var viewport = get_viewport()
+	var full_img = viewport.get_texture().get_image()
+	
+	# Tính bounds
+	var bounds = _get_weapon_bounds()
+	
+	# Crop theo bounds + padding
+	var padding = 20
+	var crop_rect = Rect2(
+		bounds.position.x - padding,
+		bounds.position.y - padding,
+		bounds.size.x + padding * 2,
+		bounds.size.y + padding * 2
+	)
+	
+	return full_img.get_region(crop_rect)
+
+func _get_weapon_bounds() -> Rect2:
+	var bounds: Rect2
+	var first = true
+	for p_data in assembled_parts:
+		var sprite = p_data["sprite"]
+		if first:
+			bounds = sprite.get_global_rect()
+			first = false
+		else:
+			bounds = bounds.merge(sprite.get_global_rect())
+	return bounds
+	
+func export_to_resource() -> WeaponData:
+	# 1. Tạo hình ảnh (đã crop)
+	var final_image = await export_to_image()
+	
+	# 2. Tạo đường dẫn và lưu file .png
+	# Đảm bảo thư mục tồn tại
+	DirAccess.make_dir_recursive_absolute("user://generated_weapons/")
+	
+	# Tạo tên file unique (dùng timestamp)
+	var timestamp = Time.get_unix_time_from_system()
+	var icon_save_path = "user://generated_weapons/weapon_{ts}.png".format({"ts": timestamp})
+	
+	var err = final_image.save_png(icon_save_path)
+	if err != OK:
+		push_error("Failed to save weapon icon: " + icon_save_path)
+		return null
+
+	# 3. Tạo "công thức" (blueprint)
+	var parts_data: Array[Dictionary] = []
+	for p in assembled_parts:
+		parts_data.append({
+			"id": p["id"],
+			"quality": p["quality"],
+			"material": p["material"]
+		})
+
+	# 4. Tính Stats
+	var final_stats = get_stats()
+
+	# 5. Tạo Resource
+	var weapon_res := WeaponData.new()
+	weapon_res.icon_path = icon_save_path
+	weapon_res.parts_list = parts_data
+	weapon_res.stats = final_stats
+	weapon_res.display_name = "My Awesome Sword" # (Nên cho người dùng đặt tên)
+
+	# 6. Lưu file .tres
+	var resource_save_path = "user://generated_weapons/weapon_{ts}.tres".format({"ts": timestamp})
+	err = ResourceSaver.save(weapon_res, resource_save_path)
+	
+	if err != OK:
+		push_error("Failed to save weapon resource: " + resource_save_path)
+		return null
+
+	print("Weapon exported successfully to: " + resource_save_path)
+	return weapon_res
