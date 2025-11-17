@@ -1,9 +1,15 @@
+class_name FunctionalTile
 extends StaticBody2D
 
-@export var friction: float = 0.995
+var _trigger_area: Area2D = null
 
-func applyForce(mover: BaseCharacter):
-	mover.external_force.x += int((mover.velocity.x - mover.internal_force.x) * friction - mover.external_force.x)
+func _ready() -> void:
+	_trigger_area = $TriggerArea2D
+	_trigger_area.body_entered.connect(_on_trigger_area_2d_body_entered)
+	_trigger_area.body_exited.connect(_on_trigger_area_2d_body_exited)
+
+func applyForce(_mover: BaseCharacter):
+	# Calculate mover.external_force here
 	pass
 
 func _on_trigger_area_2d_body_entered(body: Node2D) -> void:

@@ -74,8 +74,8 @@ position = Vector2(-1.5, -2)
 shape = SubResource("RectangleShape2D_0hpo1")
 
 [node name="FrontRayCast2D" parent="Direction" index="3"]
-position = Vector2(16, -13)
-target_position = Vector2(0, 22)
+position = Vector2(16, -21)
+target_position = Vector2(0, 30)
 
 [node name="DownRayCast2D" parent="Direction" index="4"]
 position = Vector2(16, 0)
