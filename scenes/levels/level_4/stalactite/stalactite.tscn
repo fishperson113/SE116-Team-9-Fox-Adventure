@@ -9,6 +9,9 @@
 [ext_resource type="Script" uid="uid://wokgymp1r0wt" path="res://scenes/levels/level_4/stalactite/melt.gd" id="5_fiv7s"]
 [ext_resource type="Script" uid="uid://dqsvfa8bf42pr" path="res://scenes/levels/level_4/stalactite/shake.gd" id="8_qye83"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5b6sq"]
+size = Vector2(30, 19)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ncq8f"]
 animations = [{
 "frames": [{
@@ -19,9 +22,6 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5b6sq"]
-size = Vector2(30, 19)
 
 [sub_resource type="Animation" id="Animation_l6a6g"]
 length = 0.001
@@ -65,12 +65,12 @@ collision_layer = 0
 script = ExtResource("1_5b6sq")
 metadata/_custom_type_script = "uid://dlxdtwr6rpwbr"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_ncq8f")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5.5)
 shape = SubResource("RectangleShape2D_5b6sq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ncq8f")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, 0)

@@ -61,6 +61,7 @@ polygon = PackedVector2Array(0, 0, 200, -100, 200, 100)
 
 [node name="JumpRayCast2D" type="RayCast2D" parent="Direction"]
 target_position = Vector2(0, 0)
+hit_from_inside = true
 
 [node name="NearSenseArea2D" type="Area2D" parent="Direction"]
 collision_layer = 0
