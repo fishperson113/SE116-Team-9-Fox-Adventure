@@ -1,0 +1,727 @@
+[gd_scene load_steps=11 format=3 uid="uid://bbh8h6o3fs2r3"]
+
+[ext_resource type="Texture2D" uid="uid://bnbxan1lc7bpx" path="res://assets/sprites/caldron/mold/422.png" id="1_eix47"]
+[ext_resource type="Texture2D" uid="uid://7qaokb7xej13" path="res://assets/sprites/caldron/mold/443.png" id="2_gp2fn"]
+[ext_resource type="Texture2D" uid="uid://c1xueye05fac5" path="res://assets/sprites/caldron/mold/4705.png" id="3_oak1q"]
+[ext_resource type="Script" uid="uid://c8suqtt4rmk52" path="res://scripts/crafting/weapon_assembler.gd" id="4_gp2fn"]
+
+[sub_resource type="GDScript" id="GDScript_gp2fn"]
+script/source = "extends Panel
+
+@onready var assembler: WeaponAssembler = $MainLayout/AssembleArea/WeaponAssembler
+@onready var anim: AnimationPlayer = $MainLayout/AssembleArea/AnimationPlayer
+
+var input_enabled := false   # disable drag-drop until intro animation done
+
+
+func _ready() -> void:
+	input_enabled = false
+	_play_intro()
+
+
+func _play_intro() -> void:
+	anim.play(\"reveal\")   # front/back mở ra
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if(anim_name==\"reveal\"):
+		_reveal_blade()
+
+func _reveal_blade() -> void:
+	assembler.add_part(\"blade_1\", \"perfect\", \"copper\")
+		
+	anim.play(\"blade_move\")
+	
+	var t := create_tween()
+	t.finished.connect(func():
+		input_enabled = true   # NOW allow drag-drop
+	)
+"
+
+[sub_resource type="Animation" id="Animation_gp2fn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Closed:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Front:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Back:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Front:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(409, 277.5)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Back:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(409, 277.5)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("WeaponAssembler/BladeContainer:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("WeaponAssembler/BladeContainer:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(464, 458)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("WeaponAssembler/CrossguardContainer:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("WeaponAssembler/GripContainer:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("WeaponAssembler/PommelContainer:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("WeaponAssembler/CrossguardContainer:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(464, 803)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("WeaponAssembler/GripContainer:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(464, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("WeaponAssembler/PommelContainer:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(464, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_oak1q"]
+resource_name = "blade_move"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponAssembler/BladeContainer:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponAssembler/BladeContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(464, 458), Vector2(464, 1085)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WeaponAssembler/CrossguardContainer:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WeaponAssembler/GripContainer:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("WeaponAssembler/PommelContainer:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("WeaponAssembler/CrossguardContainer:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(464, 803)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("WeaponAssembler/GripContainer:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(464, 756)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("WeaponAssembler/PommelContainer:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(464, 720)]
+}
+
+[sub_resource type="Animation" id="Animation_eix47"]
+resource_name = "reveal"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Closed:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Front:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Back:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Front:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(409, 277.5), Vector2(304.425, 197.965)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Back:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(409, 277.5), Vector2(425.535, 289.31)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oak1q"]
+_data = {
+&"RESET": SubResource("Animation_gp2fn"),
+&"blade_move": SubResource("Animation_oak1q"),
+&"reveal": SubResource("Animation_eix47")
+}
+
+[sub_resource type="GDScript" id="GDScript_oak1q"]
+script/source = "extends Control
+
+@export var assembler: WeaponAssembler
+@export var assemble_area: Control
+
+@onready var list_container := $ScrollContainer/VBoxContainer
+
+var dragging_part: String = \"\"
+var dragging_icon: Node2D = null
+
+var current_stage: int = 1
+const MAX_STAGE := 3
+
+const STAGE_TYPES := {
+	1: \"crossguard\",
+	2: \"grip\",
+	3: \"pommel\"
+}
+
+
+func _ready():
+	# Chờ 1 frame để đảm bảo assembler load config
+	if assembler == null:
+		await get_tree().process_frame
+	populate_parts()
+
+
+func _process(delta):
+	if dragging_icon:
+		dragging_icon.global_position = get_global_mouse_position()
+
+
+func populate_parts():
+	for c in list_container.get_children():
+		c.queue_free()
+
+	var required_type = STAGE_TYPES.get(current_stage, \"\")
+
+	for part_id in assembler.parts.keys():
+		var cfg = assembler.parts[part_id]
+
+		if cfg.get(\"type\", \"\") != required_type:
+			continue
+
+		var tex := load(assembler.parts_folder + part_id + \".png\")
+
+		var btn := Button.new()
+		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		btn.custom_minimum_size = Vector2(0, 120)
+		btn.focus_mode = Control.FOCUS_NONE
+		btn.add_theme_constant_override(\"content_margin_left\", 0) 
+		btn.add_theme_constant_override(\"content_margin_right\", 0)
+
+
+		var icon := TextureRect.new()
+		icon.texture = tex
+		icon.custom_minimum_size = Vector2(96, 96)
+		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		icon.anchor_left = 0.5
+		icon.anchor_right = 0.5 
+		icon.offset_left = -48 
+		icon.offset_top = 12
+		btn.add_child(icon)
+
+		btn.connect(\"gui_input\", func(event):
+			_on_part_button_input(part_id, tex, event)
+		)
+
+		list_container.add_child(btn)
+
+
+func _on_part_button_input(part_id: String, tex: Texture2D, event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		dragging_part = part_id
+		_start_drag_icon(tex)
+
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+		if dragging_icon:
+			_drop_part()
+
+
+func _start_drag_icon(tex: Texture2D):
+	# Wrapper xoay được
+	dragging_icon = Node2D.new()
+	dragging_icon.z_index = 999
+
+	var tex_node := Sprite2D.new()
+	tex_node.texture = tex
+	tex_node.centered = true
+	tex_node.scale = Vector2(1, 1)  # giống ~96px
+	tex_node.rotation_degrees = -90
+
+	dragging_icon.add_child(tex_node)
+	get_tree().root.add_child(dragging_icon)
+
+	# đặt vị trí đúng vào con trỏ
+	dragging_icon.global_position = get_global_mouse_position()
+
+
+func _drop_part():
+	var mouse_pos = get_global_mouse_position()
+
+	# 1) Kiểm tra hợp lệ
+	if not can_drop_part(mouse_pos):
+		_reset_drag()
+		return
+
+	# 2) Thêm part vào assembler
+	var part_data = assembler.add_part(dragging_part, \"perfect\", \"steel\")
+	var container: Control = part_data[\"container\"]
+
+	# 3) Animate rơi
+	var tw = animate_part_drop(container)
+
+	# 4) Chuyển stage
+	await advance_stage(tw)
+
+	# 5) Cleanup drag icon
+	_reset_drag()
+
+func can_drop_part(mouse_pos: Vector2) -> bool:
+	# Phải nằm trong assemble area
+	if not assemble_area.get_global_rect().has_point(mouse_pos):
+		print(\"Drop failed → outside assemble area\")
+		return false
+
+	# Kiểm tra type part có đúng stage
+	var required_type = STAGE_TYPES[current_stage]
+	var part_type = assembler.parts[dragging_part][\"type\"]
+
+	if part_type != required_type:
+		print(\"Drop failed → part type does not match stage\")
+		return false
+
+	return true
+	
+
+func animate_part_drop(container: Control) -> Tween:
+
+	var tw := create_tween()
+
+	# 1. Lưu vị trí local cuối cùng (đúng vị trí snap)
+	var final_local := container.position
+
+	# 2. Ẩn rect để tránh nhảy frame
+	container.visible = false
+
+	# 3. Dời lên 150px theo local Y
+	container.position = final_local + Vector2(0, -150)
+
+	# 4. Bật lại visible
+	container.visible = true
+
+	# 5. Tween rơi xuống lại đúng final_local
+	tw.tween_property(container, \"position\", final_local, 0.25) \\
+		.set_trans(Tween.TRANS_QUAD) \\
+		.set_ease(Tween.EASE_OUT)
+		
+	return tw
+
+func advance_stage(tw: Tween) -> void:
+	current_stage += 1
+
+	# nếu làm xong toàn bộ
+	if current_stage > MAX_STAGE:
+		await tw.finished
+		await assembler.export_png()
+		get_tree().reload_current_scene()
+		return
+
+	# Ngược lại → cập nhật list parts cho stage mới
+	populate_parts()
+	
+func _reset_drag():
+	if dragging_icon:
+		dragging_icon.queue_free()
+
+	dragging_icon = null
+	dragging_part = \"\"
+"
+
+[node name="AssembleWeaponMinigame" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_gp2fn")
+
+[node name="MainLayout" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AssembleArea" type="Control" parent="MainLayout"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Closed" type="TextureRect" parent="MainLayout/AssembleArea"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.5
+offset_top = -260.0
+offset_right = 142.5
+offset_bottom = 260.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_eix47")
+
+[node name="Front" type="TextureRect" parent="MainLayout/AssembleArea"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -69.5
+offset_top = -163.5
+offset_right = 215.5
+offset_bottom = 356.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_gp2fn")
+
+[node name="Back" type="TextureRect" parent="MainLayout/AssembleArea"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -69.5
+offset_top = -163.5
+offset_right = 215.5
+offset_bottom = 356.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_oak1q")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MainLayout/AssembleArea"]
+libraries = {
+&"": SubResource("AnimationLibrary_oak1q")
+}
+
+[node name="WeaponAssembler" type="Control" parent="MainLayout/AssembleArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_gp2fn")
+
+[node name="BladeContainer" type="CenterContainer" parent="MainLayout/AssembleArea/WeaponAssembler"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.5
+offset_top = 17.0
+offset_right = 185.5
+offset_bottom = 217.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5708
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GripContainer" type="CenterContainer" parent="MainLayout/AssembleArea/WeaponAssembler"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.5
+offset_top = -441.0
+offset_right = 185.5
+offset_bottom = -241.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5708
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CrossguardContainer" type="CenterContainer" parent="MainLayout/AssembleArea/WeaponAssembler"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.5
+offset_top = 362.0
+offset_right = 185.5
+offset_bottom = 562.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5708
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PommelContainer" type="CenterContainer" parent="MainLayout/AssembleArea/WeaponAssembler"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.5
+offset_top = -441.0
+offset_right = 185.5
+offset_bottom = -241.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5708
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CollectionArea" type="Control" parent="MainLayout" node_paths=PackedStringArray("assembler", "assemble_area")]
+layout_mode = 2
+size_flags_horizontal = 3
+script = SubResource("GDScript_oak1q")
+assembler = NodePath("../AssembleArea/WeaponAssembler")
+assemble_area = NodePath("../AssembleArea")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainLayout/CollectionArea"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainLayout/CollectionArea/ScrollContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="animation_finished" from="MainLayout/AssembleArea/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

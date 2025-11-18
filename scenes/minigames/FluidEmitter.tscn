@@ -1,0 +1,88 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfwrc8lw3k5ov"]
+
+[ext_resource type="Texture2D" uid="uid://d1y386i0vnknf" path="res://scenes/minigames/water_particle.png" id="1_x0kk6"]
+
+[sub_resource type="GDScript" id="GDScript_t34rx"]
+script/source = "extends Node2D
+
+@export var particle_texture: Texture
+@export var max_particles = 1000
+@export var spawn_time = 0.05
+@export var magic_color: Color = Color(\"ff00ff\")
+
+var current_particle_count = 0
+var spawn_timer = 0.0
+var water_particles: Array = []
+var active := false
+
+func set_fluid_active(state: bool):
+	active = state
+	
+func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+func create_particle():
+	var trans = global_transform
+	trans.origin += Vector2(randf_range(-5, 5), randf_range(-5, 5))
+
+	var ps = PhysicsServer2D
+	var rs = RenderingServer
+
+	# --- Physics ---
+	var body = ps.body_create()
+	ps.body_set_mode(body, PhysicsServer2D.BODY_MODE_RIGID)
+	ps.body_set_space(body, get_world_2d().space)
+
+	var shape = ps.circle_shape_create()
+	ps.shape_set_data(shape, 8)
+	ps.body_add_shape(body, shape, Transform2D.IDENTITY)
+
+	ps.body_set_collision_layer(body, 1)
+	ps.body_set_collision_mask(body, 1)
+	ps.body_set_param(body, PhysicsServer2D.BODY_PARAM_FRICTION, 0.0)
+	ps.body_set_param(body, PhysicsServer2D.BODY_PARAM_MASS, 0.05)
+	ps.body_set_param(body, PhysicsServer2D.BODY_PARAM_GRAVITY_SCALE, 2.0)
+
+	ps.body_set_state(body, PhysicsServer2D.BODY_STATE_TRANSFORM, trans)
+
+	# --- Visual ---
+	var item = rs.canvas_item_create()
+	rs.canvas_item_set_parent(item, get_canvas_item())
+	rs.canvas_item_set_transform(item, trans)
+
+	var rect = Rect2(-8, -8, particle_texture.get_width(), particle_texture.get_height())
+	rs.canvas_item_add_texture_rect(item, rect, particle_texture)
+	rs.canvas_item_set_self_modulate(item, magic_color)
+
+	water_particles.append([body, item])
+
+
+func _physics_process(delta):
+	spawn_timer -= delta
+
+	if active and spawn_timer <= 0 and current_particle_count < max_particles:
+		create_particle()
+		current_particle_count += 1
+		spawn_timer = spawn_time
+
+	# --- Update + Cleanup ---
+	for i in range(water_particles.size() - 1, -1, -1):
+		var col = water_particles[i]
+		var body = col[0]
+		var item = col[1]
+
+		var trans = PhysicsServer2D.body_get_state(body, PhysicsServer2D.BODY_STATE_TRANSFORM)
+		trans.origin -= global_position
+
+		RenderingServer.canvas_item_set_transform(item, trans)
+
+		if trans.origin.y > 1500:
+			PhysicsServer2D.free_rid(body)
+			RenderingServer.free_rid(item)
+			water_particles.remove_at(i)
+			current_particle_count -= 1
+"
+
+[node name="FluidEmitter" type="Node2D"]
+script = SubResource("GDScript_t34rx")
+particle_texture = ExtResource("1_x0kk6")
