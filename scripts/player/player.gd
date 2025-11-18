@@ -74,3 +74,7 @@ func _on_hurt_area_2d_hurt(direction: Vector2, damage: float) -> void:
 
 func _on_invulnerability_timer_timeout() -> void:
 	is_invulnerable = false
+
+#func _physics_process(delta: float) -> void:
+	#super._physics_process(delta)
+	#print("player speed: ", velocity.y)

@@ -7,7 +7,7 @@ func _ready() -> void:
 	super._ready()
 	_type = "clingfall"
 
-func calculate_force(internal_force: Vector2, current_force: Vector2) -> Vector2:
+func calculate_force(internal_force: Vector2, impulse: Vector2, current_force: Vector2) -> Vector2:
 	var external_force := Vector2.ZERO
 	if current_force.y < 0:
 		external_force.y += -current_force.y * up_friction

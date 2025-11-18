@@ -85,8 +85,9 @@ func end_normal() -> void:
 	pass
 
 func update_normal(_delta: float) -> void:
-	if try_patrol_turn(_delta) or randf() < idle_chance:
-		fsm.change_state(fsm.states.idle)
+	try_patrol_turn(_delta)
+	#if try_patrol_turn(_delta) or randf() < idle_chance:
+		#fsm.change_state(fsm.states.idle)
 	pass
 
 func start_hurt() -> void:
