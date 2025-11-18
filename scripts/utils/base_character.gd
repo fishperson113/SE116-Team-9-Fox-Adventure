@@ -12,6 +12,8 @@ extends CharacterBody2D
 signal healthChanged
 signal movementChanging(mover: BaseCharacter)
 
+# These attributes are used to compute externally before collision changing
+var old_velocity: Vector2 = Vector2.ZERO
 # These attributes are used to apply external forces
 var impulse: Vector2 = Vector2.ZERO
 var forces: Dictionary = {}
@@ -47,6 +49,9 @@ func _physics_process(delta: float) -> void:
 
 
 func _update_movement(delta: float) -> void:
+	# save state before collision
+	old_velocity = velocity
+	
 	movementChanging.emit(self)
 	
 	_calculate_external_force()
@@ -155,6 +160,7 @@ func _dampen(force: Vector2, _friction: float) -> Vector2:
 		force.x = 0.0
 	if is_on_floor() or is_on_ceiling():
 		force.y = 0.0
-	force *= _friction
+	force.x = int(force.x * _friction)
+	force.y = int(force.y * _friction)
 	
 	return force

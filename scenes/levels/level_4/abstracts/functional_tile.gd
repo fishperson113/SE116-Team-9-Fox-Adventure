@@ -14,26 +14,26 @@ func apply_effect(_mover: BaseCharacter):
 	apply_impulse(_mover)
 
 func apply_impulse(_mover: BaseCharacter):
-	var impulse := calculate_impulse(_mover.impulse, _mover.velocity)
+	var impulse := calculate_impulse(_mover.internal_force, _mover.impulse, _mover.velocity)
 	
 	_mover.apply_impulse(impulse)
 	pass
 
-func calculate_impulse(impulse: Vector2, current_force: Vector2) -> Vector2:
+func calculate_impulse(internal_force: Vector2, impulse: Vector2, current_force: Vector2) -> Vector2:
 	return Vector2.ZERO
 
 func apply_force(_mover: BaseCharacter):
 	if _mover.has_force(_type):
 		return
 	
-	var external_force := calculate_force(_mover.internal_force, _mover.velocity)
+	var external_force := calculate_force(_mover.internal_force, _mover.impulse, _mover.velocity)
 	if external_force == Vector2.ZERO:
 		return
 
 	_mover.apply_force(_type, external_force)
 	pass
 
-func calculate_force(internal_force: Vector2, current_force: Vector2) -> Vector2:
+func calculate_force(internal_force: Vector2, impulse: Vector2, current_force: Vector2) -> Vector2:
 	# Calculate mover.external_force here
 	return Vector2.ZERO
 

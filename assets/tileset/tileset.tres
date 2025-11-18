@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=18 format=3 uid="uid://d4afhielv3ocv"]
+[gd_resource type="TileSet" load_steps=19 format=3 uid="uid://d4afhielv3ocv"]
 
 [ext_resource type="Texture2D" uid="uid://v2dtejovry7r" path="res://assets/sprites/environment/terrain/terrain_32x32.png" id="1_4ofjo"]
 [ext_resource type="PackedScene" uid="uid://c3f1qqr1y2pb2" path="res://scenes/levels/island/objects/palm_tree_1.tscn" id="2_nf7gm"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cq0i4tyt3pnq2" path="res://scenes/levels/level_4/flowway/flowway.tscn" id="6_lfyu1"]
 [ext_resource type="PackedScene" uid="uid://b66b8vgbxnm7n" path="res://scenes/levels/level_4/flowway/surf_flowway.tscn" id="7_4elon"]
 [ext_resource type="PackedScene" uid="uid://ug4jwylkxhnb" path="res://scenes/levels/level_4/stalactite/stalactite.tscn" id="7_nutfu"]
+[ext_resource type="PackedScene" uid="uid://ci70rataq7x2j" path="res://scenes/levels/level_5/small_spike/small_spike.tscn" id="8_mj7xo"]
 [ext_resource type="PackedScene" uid="uid://crkmos1d5bdx3" path="res://scenes/items/collectible_items/collectible_chest_key.tscn" id="8_nutfu"]
 [ext_resource type="PackedScene" uid="uid://3jehn00g402y" path="res://scenes/levels/level_4/weak_floor/weak_floor.tscn" id="8_r072g"]
 [ext_resource type="PackedScene" uid="uid://brnu5n664x08s" path="res://scenes/levels/level_4/grass/grass.tscn" id="15_sxrog"]
@@ -410,6 +411,7 @@ scenes/11/scene = ExtResource("4_vv5ud")
 scenes/12/scene = ExtResource("5_eylfi")
 scenes/13/scene = ExtResource("6_lfyu1")
 scenes/14/scene = ExtResource("7_4elon")
+scenes/15/scene = ExtResource("8_mj7xo")
 
 [resource]
 tile_size = Vector2i(32, 32)

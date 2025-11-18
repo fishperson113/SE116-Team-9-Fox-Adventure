@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://ci70rataq7x2j"]
+
+[ext_resource type="Script" uid="uid://b7t8xw4rxo86n" path="res://scenes/levels/level_5/small_spike/small_spike.gd" id="1_ju0bw"]
+[ext_resource type="Texture2D" uid="uid://dcrnqve71d36p" path="res://assets/sprites/environment/background/additional_sky.png" id="2_gmfty"]
+[ext_resource type="Script" uid="uid://cyd3s2adl23oa" path="res://scenes/levels/level_5/small_spike/small_spike_hit.gd" id="3_ju0bw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eii22"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_gmfty")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ma1i"]
+size = Vector2(32, 6)
+
+[node name="SmallSpike" type="Node2D"]
+script = ExtResource("1_ju0bw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(0, 13)
+scale = Vector2(1, 0.1875)
+sprite_frames = SubResource("SpriteFrames_eii22")
+
+[node name="HitArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 48
+script = ExtResource("3_ju0bw")
+metadata/_custom_type_script = "uid://dkb25vr64v37l"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea2D"]
+position = Vector2(0, 13)
+shape = SubResource("RectangleShape2D_7ma1i")
