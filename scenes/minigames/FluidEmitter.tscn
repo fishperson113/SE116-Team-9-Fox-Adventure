@@ -51,8 +51,7 @@ func create_particle():
 	rs.canvas_item_set_transform(item, trans)
 
 	var rect = Rect2(-8, -8, particle_texture.get_width(), particle_texture.get_height())
-	rs.canvas_item_add_texture_rect(item, rect, particle_texture)
-	rs.canvas_item_set_self_modulate(item, magic_color)
+	rs.canvas_item_add_texture_rect(item, rect, particle_texture, true, magic_color)
 
 	water_particles.append([body, item])
 
