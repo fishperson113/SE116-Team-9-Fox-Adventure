@@ -77,6 +77,8 @@ size = Vector2(32, 17)
 [node name="Pelican" groups=["fly", "range"] instance=ExtResource("1_llgco")]
 script = ExtResource("2_i8hn4")
 bullet_impulse = Vector2(75, -200)
+left_bound = -100.0
+right_bound = 100.0
 shoot_time = 0.6
 shoot_interval = 0.6
 shoot_cooldown = 2.0
