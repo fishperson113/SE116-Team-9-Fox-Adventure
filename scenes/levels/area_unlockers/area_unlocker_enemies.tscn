@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bu0ebjvtvbb4j"]
+
+[ext_resource type="Texture2D" uid="uid://ddyvyvrav5jnd" path="res://assets/sprites/mystery/Mystery Pack 76.png" id="1_6ukay"]
+[ext_resource type="Script" uid="uid://buergu6n6j4ti" path="res://scripts/utils/enemy_area_checker.gd" id="2_70p6f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70p6f"]
+atlas = ExtResource("1_6ukay")
+region = Rect2(96, 32, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yhtmw"]
+size = Vector2(100, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ukay"]
+size = Vector2(895.75, 99)
+
+[node name="AreaUnlockerEnemies" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = SubResource("AtlasTexture_70p6f")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D"]
+scale = Vector2(0.16, 0.16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/StaticBody2D"]
+shape = SubResource("RectangleShape2D_yhtmw")
+
+[node name="EnemyTestArea" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("2_70p6f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyTestArea"]
+position = Vector2(0, 22.5)
+shape = SubResource("RectangleShape2D_6ukay")
+debug_color = Color(0, 0.648849, 0.166609, 0.42)
+
+[connection signal="area_entered" from="EnemyTestArea" to="EnemyTestArea" method="_on_area_entered"]
+[connection signal="area_exited" from="EnemyTestArea" to="EnemyTestArea" method="_on_area_exited"]
