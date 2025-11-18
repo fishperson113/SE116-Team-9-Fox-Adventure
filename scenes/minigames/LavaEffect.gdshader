@@ -2,7 +2,7 @@ shader_type canvas_item;
 
 uniform sampler2D noise;
 uniform float water_speed:hint_range(0.0, 0.5, 0.01) = 0.1;
-uniform float color_detect_threshold = 0.6; 
+uniform float color_detect_threshold = 0.6;
 uniform vec4 water_dev_color: source_color;
 uniform vec4 water_color:source_color = vec4(0,0,1,1);
 uniform vec4 bubble_color:source_color = vec4(0,0,1.5,1);
@@ -29,9 +29,9 @@ void fragment(){
 	vec4 bubble;
 
 	float color_diff = distance(screen_tex.rgb, water_dev_color.rgb);
-	
+
 	if(color_diff < color_detect_threshold){
-		
+
 		particle_color = n*water_color;
 		bubble = bn*bubble_color;
 		if(bn.r>0.50){
@@ -41,7 +41,7 @@ void fragment(){
 		//transparent
 		particle_color = vec4(0.0);
 	}
-	
+
 	//assign final color
 	COLOR = particle_color;
 }

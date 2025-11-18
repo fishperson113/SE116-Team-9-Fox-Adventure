@@ -1,11 +1,9 @@
-[gd_scene load_steps=89 format=3 uid="uid://cbcm0t4a4tv44"]
+[gd_scene load_steps=87 format=3 uid="uid://cbcm0t4a4tv44"]
 
 [ext_resource type="Texture2D" uid="uid://busv6anromm7y" path="res://assets/sprites/caldron/pull_chain/6022.png" id="1_d8ggs"]
 [ext_resource type="Texture2D" uid="uid://y1gq2xbnqiw0" path="res://assets/sprites/caldron/caldron_body/3911.png" id="1_hdmar"]
-[ext_resource type="Texture2D" uid="uid://c4xwgv0tf8bxf" path="res://assets/ui/buttons/scrap.png" id="1_ptgyn"]
 [ext_resource type="Texture2D" uid="uid://dbq6qwfb16l4a" path="res://assets/sprites/caldron/pull_chain/6023.png" id="1_s8h4u"]
 [ext_resource type="Texture2D" uid="uid://cp6t8mjtay7em" path="res://assets/sprites/caldron/caldron_body/3910.png" id="2_rcpmq"]
-[ext_resource type="Texture2D" uid="uid://cx1m1wxkbipxh" path="res://assets/ui/buttons/close_button.png" id="2_s8h4u"]
 [ext_resource type="Texture2D" uid="uid://cnc7uf01gvro5" path="res://assets/sprites/caldron/caldron_body/3969.png" id="3_rcpmq"]
 [ext_resource type="Texture2D" uid="uid://bsf7w55n8x84x" path="res://assets/sprites/caldron/caldron_body/3913.png" id="4_rtbvo"]
 [ext_resource type="Texture2D" uid="uid://syw8egcheaj" path="res://assets/sprites/caldron/caldron_body/3915.png" id="5_fef20"]
@@ -83,10 +81,11 @@
 [sub_resource type="GDScript" id="GDScript_42gci"]
 script/source = "extends Panel
 
-# -----------------------------
-# CONFIG (KHÔNG HARD-CODE)
-# -----------------------------
+signal smelting_done(part_id: String, quality: String, material: String)
 
+# -----------------------------
+# CONFIG
+# -----------------------------
 @export_group(\"Nodes\")
 @export var cauldron_anim_player: AnimationPlayer
 @export var fluid_emitter: Node
@@ -94,7 +93,6 @@ script/source = "extends Panel
 @export var caldron_head_node: Control
 @export var mold: Node2D
 @export var fire_anim: AnimatedSprite2D
-@export_file(\"*.tscn\") var next_scene: String
 
 @export_group(\"Animation Config\")
 @export var fluid_threshold: float = 0.05
@@ -185,7 +183,6 @@ func _on_lever_completed(strength: float):
 	if strength >= 1.0:
 		_lift_mold_finish()
 
-	# Always stop fluid when release
 	if fluid_emitter:
 		fluid_emitter.set_fluid_active(false)
 
@@ -246,7 +243,7 @@ func _lift_mold_small():
 
 
 # ============================================================
-# FULL FINISH LIFT + SCENE TRANSITION
+# FULL FINISH LIFT → EMIT SIGNAL
 # ============================================================
 func _lift_mold_finish():
 	if mold == null:
@@ -264,24 +261,22 @@ func _lift_mold_finish():
 		mold_full_lift_time
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
-	tween.finished.connect(_fade_and_change_scene)
+	# Khi xong → emit signal
+	tween.finished.connect(_on_finish_complete)
 
 
-func _fade_and_change_scene():
-	var fade := ColorRect.new()
-	fade.color = Color(0, 0, 0, 0)
-	fade.set_anchors_preset(Control.PRESET_FULL_RECT)
-	add_child(fade)
+# Emit signal để MinigameUI nhận
+func _on_finish_complete():
+	_input_block_screen(false)
 
-	var tween := create_tween()
-	tween.set_trans(Tween.TRANS_SINE)
-	tween.set_ease(Tween.EASE_IN)
-	tween.tween_property(fade, \"color:a\", 1.0, fade_time)
+	# TODO: trả về data thật sự bạn muốn
+	# hiện tại để demo:
+	var part_id := \"blade_1\"
+	var quality := \"high\"
+	var material := \"iron\"
 
-	tween.finished.connect(func():
-		if next_scene != \"\":
-			get_tree().change_scene_to_file(next_scene)
-	)
+	emit_signal(\"smelting_done\", part_id, quality, material)
+
 
 # ============================================================
 # INPUT BLOCKER
@@ -535,7 +530,6 @@ pull_lever = NodePath("MainLayout/RightCollum/PullLever")
 caldron_head_node = NodePath("MainLayout/CaldronArea/Caldron/CaldronHead")
 mold = NodePath("MainLayout/CaldronArea/Mold")
 fire_anim = NodePath("MainLayout/CaldronArea/Fire")
-next_scene = "uid://bbh8h6o3fs2r3"
 
 [node name="MainLayout" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -585,9 +579,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -132.0
-offset_top = -151.0
+offset_top = -150.0
 offset_right = 132.0
-offset_bottom = 151.0
+offset_bottom = 152.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_hdmar")
@@ -682,27 +676,6 @@ texture_normal = ExtResource("1_s8h4u")
 stretch_mode = 5
 script = SubResource("GDScript_d8ggs")
 chain_node = NodePath("../Chain")
-
-[node name="ScrapButton" type="TextureButton" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -227.0
-offset_top = -94.0
-grow_horizontal = 0
-grow_vertical = 0
-texture_normal = ExtResource("1_ptgyn")
-stretch_mode = 5
-
-[node name="BackButton" type="TextureButton" parent="."]
-layout_mode = 1
-offset_right = 121.0
-offset_bottom = 120.0
-texture_normal = ExtResource("2_s8h4u")
-stretch_mode = 5
 
 [node name="FluidEmitter" parent="." instance=ExtResource("65_16ol6")]
 position = Vector2(667, 589)
