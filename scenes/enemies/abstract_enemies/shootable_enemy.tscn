@@ -30,3 +30,6 @@ metadata/_custom_type_script = "uid://2dtm6jeegr43"
 
 [node name="Shoot" type="Node" parent="States" index="3"]
 script = ExtResource("4_6o0dt")
+
+[node name="ShootTimer" type="Timer" parent="." index="3"]
+one_shot = true
