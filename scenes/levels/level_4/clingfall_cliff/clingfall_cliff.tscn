@@ -23,8 +23,8 @@ size = Vector2(34, 32)
 
 [node name="ClingfallCliff" instance=ExtResource("1_557c3")]
 script = ExtResource("2_inj6e")
-up_friction = 0.12
-down_friction = 0.05
+up_friction = 0.2
+down_friction = 0.075
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 modulate = Color(1, 1, 0, 1)
