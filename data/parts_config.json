@@ -2,7 +2,7 @@
   "parts": {
 	"blade_1": {
 		"type": "blade",
-		"height": 100,
+		"height": 150,
 		"uses_material": true,
 		"stats": { "damage": 10, "weight": 5 }
 	},
@@ -15,19 +15,19 @@
 
 	"crossguard_1": {
 		"type": "crossguard",
-		"height": 20,
+		"height": 45,
 		"uses_material": false,
 		"stats": { "block": 3 }
   },
 	"crossguard_2": {
 		"type": "crossguard",
-		"height": 20,
+		"height": 50,
 		"uses_material": false,
 		"stats": { "block": 3 }
   },
 	"pommel_1": {
 		"type": "pommel",
-		"height": 30,
+		"height": 20,
 		"uses_material": false,
 		"stats": { "balance": 6 }
   },
