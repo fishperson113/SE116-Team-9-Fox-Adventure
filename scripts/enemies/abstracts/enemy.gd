@@ -21,10 +21,7 @@ extends BaseCharacter
 var jump_height: float = pow(jump_speed, 2.0) / (gravity * 2)
 #Air Time: Thời gian trên không, tính bằng công thức (Air Time = Jump Speed / Gravity)
 var air_time: float = jump_speed / gravity
-# detect player area
 var found_player: Player = null
-#+ Thêm tham chiếu đến RayCast phát hiện người chơi
-var player_detection_raycast: RayCast2D = null
 
 var _movement_speed: float = movement_speed
 var _jump_speed: float = jump_speed
@@ -34,6 +31,7 @@ var _patrol_controller: PatrolController = null
 var _front_ray_cast: RayCast2D = null
 var _down_ray_cast: RayCast2D = null
 var _jump_raycast: RayCast2D = null
+var player_detection_raycast: RayCast2D = null
 
 var _collision_shape: CollisionShape2D = null
 var _hit_area_shape: CollisionShape2D = null

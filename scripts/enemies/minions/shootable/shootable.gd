@@ -1,22 +1,30 @@
 class_name ShootableEnemy
 extends StatefulEnemy
 
+enum Direction { LEFT = -1, RIGHT = 1 }
+
+@export var initial_direction: Direction = Direction.LEFT
 @export var shoot_time: float = 0.5
 @export var shoot_interval: float = 0.5
 @export var shoot_cooldown: float = 3.0
 
 var _cooldown: float = 0.0
 
-@onready var _detect_ray_cast : RayCast2D = $Direction/DetectRayCast2D
 @onready var _bullet_factory := $Direction/BulletFactory
-@onready var _shoot_state : EnemyState = $States/Shoot
+var _shoot_state : EnemyState = null
 
 func _ready() -> void:
 	super._ready()
-	_shoot_state.enter.connect(start_shoot)
-	_shoot_state.update.connect(update_shoot)
-	_shoot_state.exit.connect(end_shoot)
+	_init_shoot_state()
+	change_direction(initial_direction)
 	pass
+
+func _init_shoot_state():
+	if has_node("States/Shoot"):
+		_shoot_state = $States/Shoot
+		_shoot_state.enter.connect(start_shoot)
+		_shoot_state.update.connect(update_shoot)
+		_shoot_state.exit.connect(end_shoot)
 
 func fire():
 	var bullet = _bullet_factory.create() as RigidBody2D
@@ -36,6 +44,6 @@ func update_shoot(_delta: float) -> void:
 		fire()
 
 func can_attack() -> bool:
-	if _detect_ray_cast:
-		return _detect_ray_cast.is_colliding()
+	if player_detection_raycast:
+		return player_detection_raycast.is_colliding()
 	return false
