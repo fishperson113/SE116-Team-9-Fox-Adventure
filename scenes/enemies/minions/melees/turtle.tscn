@@ -88,10 +88,21 @@ animations = [{
 "loop": true,
 "name": &"normal",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_riaft")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_m4af1")
+}],
+"loop": true,
+"name": &"sleep",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jwmse"]
-size = Vector2(25, 23)
+size = Vector2(30, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqg2b"]
 size = Vector2(25, 23)
@@ -103,6 +114,7 @@ radius = 40.0
 size = Vector2(24, 23)
 
 [node name="Turtle" groups=["melee"] instance=ExtResource("1_lwot8")]
+collision_layer = 1
 script = ExtResource("2_riaft")
 normal_time = 3.0
 hiding_time = 1.0
@@ -114,19 +126,18 @@ movement_speed = 50.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]
 sprite_frames = SubResource("SpriteFrames_40mr0")
-animation = &"idle"
-frame_progress = 0.667647
+animation = &"sleep"
+frame_progress = 0.96781
 
 [node name="HitArea2D" parent="Direction" index="1"]
-visible = false
+collision_mask = 32
 
 [node name="NormalCollisionShape2D" parent="Direction/HitArea2D" index="0"]
-position = Vector2(0.5, 3.5)
+position = Vector2(0, 0)
 shape = SubResource("RectangleShape2D_jwmse")
 
 [node name="HurtArea2D" parent="Direction" index="2"]
 visible = false
-collision_layer = 0
 
 [node name="CollisionShape2D" parent="Direction/HurtArea2D" index="0"]
 position = Vector2(0.5, 3.5)
@@ -140,11 +151,16 @@ target_position = Vector2(0, 32)
 position = Vector2(16, 0)
 target_position = Vector2(0, 48)
 
+[node name="DetectPlayerArea2D" parent="Direction" index="5"]
+visible = false
+
+[node name="NearSenseArea2D" parent="Direction" index="7"]
+visible = false
+
 [node name="CollisionShape2D" parent="Direction/NearSenseArea2D" index="0"]
 shape = SubResource("CircleShape2D_jwmse")
 
 [node name="CollisionShape2D" parent="." index="1"]
-visible = false
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_n2i8s")
 

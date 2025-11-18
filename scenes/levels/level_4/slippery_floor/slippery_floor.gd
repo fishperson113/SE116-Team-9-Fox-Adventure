@@ -1,15 +1,13 @@
-extends StaticBody2D
+class_name SlipperyFloor
+extends FunctionalTile
 
 @export var friction: float = 0.995
 
-func applyForce(mover: BaseCharacter):
-	mover.external_force.x += int((mover.velocity.x - mover.internal_force.x) * friction - mover.external_force.x)
-	pass
+func _ready() -> void:
+	super._ready()
+	_type = "slippery"
 
-func _on_trigger_area_2d_body_entered(body: Node2D) -> void:
-	if body is BaseCharacter and not body.movementChanging.is_connected(applyForce):
-		body.movementChanging.connect(applyForce)
-
-func _on_trigger_area_2d_body_exited(body: Node2D) -> void:
-	if body is BaseCharacter and body.movementChanging.is_connected(applyForce):
-		body.movementChanging.disconnect(applyForce)
+func calculate_force(internal_force: Vector2, current_force: Vector2) -> Vector2:
+	var external_force := Vector2.ZERO
+	external_force.x = int((current_force.x - internal_force.x) * friction)
+	return external_force

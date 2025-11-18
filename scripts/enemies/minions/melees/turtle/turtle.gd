@@ -12,6 +12,8 @@ extends StatefulEnemy
 @export var hide_time: float = 3.0
 @export var emerging_time: float = 1.0
 
+var _is_hitted: bool = false
+
 func _ready() -> void:
 	super._ready()
 	_init_hiding_state()
@@ -45,4 +47,22 @@ func start_hiding():
 
 func start_emerging():
 	change_animation("emerging")
+	pass
+
+func start_sleep() -> void:
+	_movement_speed = 0
+	change_animation("sleep")
+	pass
+
+func end_sleep() -> void:
+	pass
+
+func update_sleep(_delta: float) -> void:
+	if _is_hitted:
+		fsm.change_state(fsm.states.normal)
+	pass
+
+func _on_hit_area_2d_hitted(body):
+	super._on_hit_area_2d_hitted(body)
+	_is_hitted = true
 	pass

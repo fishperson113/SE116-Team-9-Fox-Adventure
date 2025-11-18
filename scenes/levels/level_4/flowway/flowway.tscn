@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://cq0i4tyt3pnq2"]
+
+[ext_resource type="PackedScene" uid="uid://dewtqhftkhq2v" path="res://scenes/levels/level_4/abstracts/functional_tile.tscn" id="1_7q3p4"]
+[ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="2_57c54"]
+[ext_resource type="Script" uid="uid://bhilnlk3essw5" path="res://scenes/levels/level_4/flowway/flowway.gd" id="2_bfay4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bfay4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_57c54")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7q3p4"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_57c54"]
+size = Vector2(32, 1)
+
+[node name="Flowway" instance=ExtResource("1_7q3p4")]
+script = ExtResource("2_bfay4")
+direction = -1
+force = 100.0
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+modulate = Color(0.247059, 1, 0.498039, 1)
+sprite_frames = SubResource("SpriteFrames_bfay4")
+
+[node name="CollisionShape2D" parent="." index="1"]
+visible = false
+shape = SubResource("RectangleShape2D_7q3p4")
+
+[node name="CollisionShape2D" parent="TriggerArea2D" index="0"]
+position = Vector2(0, -16.5)
+shape = SubResource("RectangleShape2D_57c54")

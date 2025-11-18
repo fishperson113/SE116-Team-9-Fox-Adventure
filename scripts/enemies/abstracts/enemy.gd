@@ -40,6 +40,7 @@ var _hit_area_shape: CollisionShape2D = null
 
 var _detect_player_area: Area2D = null
 var _near_sense_area: Area2D = null
+var _hit_area: HitArea2D = null
 
 func _ready() -> void:
 	super._ready()
@@ -81,10 +82,10 @@ func _init_near_sense_area():
 
 func _init_hit_area():
 	if has_node("Direction/HitArea2D"):
-		var hit_area := $Direction/HitArea2D
-		hit_area.set_dealt_damage(spike)
-		hit_area.hitted.connect(_on_hit_area_2d_hitted)
-		_hit_area_shape = hit_area.get_node("NormalCollisionShape2D")
+		_hit_area = $Direction/HitArea2D
+		_hit_area.set_dealt_damage(spike)
+		_hit_area.hitted.connect(_on_hit_area_2d_hitted)
+		_hit_area_shape = _hit_area.get_node("NormalCollisionShape2D")
 
 # init hurt area
 func _init_hurt_area():
