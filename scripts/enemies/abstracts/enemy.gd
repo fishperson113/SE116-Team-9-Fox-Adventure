@@ -17,6 +17,8 @@ extends BaseCharacter
 #+ Thêm biến để chọn kiểu phát hiện người chơi
 @export var use_raycast_detection: bool = false
 
+@export var turn_chance: float = 0.001
+
 #Jump Height: Tính bằng công thức (Jump Height = Jump Speed ^2 / 2x Gravity)
 var jump_height: float = pow(jump_speed, 2.0) / (gravity * 2)
 #Air Time: Thời gian trên không, tính bằng công thức (Air Time = Jump Speed / Gravity)
@@ -103,10 +105,9 @@ func _update_movement(delta: float) -> void:
 	
 func try_patrol_turn(_delta: float) -> bool:
 	#var is_reach_limit = _patrol_controller.track_patrol(position.x, direction)
-	var want_to_turn = randf() < 0.001
 	if try_jump():
 		return false
-	if is_touch_wall() or is_can_fall() or want_to_turn:
+	if is_touch_wall() or is_can_fall() or want_to_turn():
 		turn()
 		return true
 	return false
@@ -199,3 +200,6 @@ func get_size() -> Vector2:
 	if _collision_shape:
 		return _collision_shape.shape.size
 	return Vector2.ZERO
+
+func want_to_turn() -> bool:
+	return randf() < turn_chance

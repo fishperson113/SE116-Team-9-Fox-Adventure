@@ -68,13 +68,16 @@ func update_normal(_delta: float) -> void:
 	try_patrol_turn(_delta)
 	if randf() < idle_chance:
 		fsm.change_state(fsm.states.idle)
-	if can_attack():
-		fsm.change_state(fsm.states.shoot)
+	try_attack()
 	pass
 
 func update_idle(_delta: float) -> void:
 	if randf() < idle_chance:
 		fsm.change_state(fsm.states.normal)
-	if can_attack():
-		fsm.change_state(fsm.states.shoot)
+	try_attack()
 	pass
+
+func try_attack() -> void:
+	if can_attack():
+		found_player = player_detection_raycast.get_collider() as Player
+		fsm.change_state(fsm.states.shoot)

@@ -12,7 +12,8 @@ tile_map_data = PackedByteArray("AAAAAAAAAAABAAQAAAABAAAAAAABAAQAAAACAAAAAAABAAQ
 tile_set = ExtResource("1_j6x0d")
 
 [node name="Player" parent="." instance=ExtResource("2_iaf1b")]
-position = Vector2(30, -13)
+position = Vector2(185, -27)
+metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(2, 2)
@@ -48,7 +49,29 @@ initial_state = 1
 [node name="Pelicans" type="Node2D" parent="Enemies"]
 
 [node name="Pelican" parent="Enemies/Pelicans" instance=ExtResource("4_esomf")]
-position = Vector2(465, -190)
+position = Vector2(599, -238)
+left_bound = 200.0
+right_bound = 2150.0
+sight = 300.0
+
+[node name="Pelican2" parent="Enemies/Pelicans" instance=ExtResource("4_esomf")]
+position = Vector2(837, -292)
+left_bound = 200.0
+right_bound = 2150.0
+initial_direction = 1
+sight = 300.0
+
+[node name="Pelican3" parent="Enemies/Pelicans" instance=ExtResource("4_esomf")]
+position = Vector2(1488, -266)
+left_bound = 200.0
+right_bound = 2150.0
+initial_direction = 1
+sight = 300.0
+
+[node name="Pelican4" parent="Enemies/Pelicans" instance=ExtResource("4_esomf")]
+position = Vector2(1914, -215)
+left_bound = 200.0
+right_bound = 2150.0
 sight = 300.0
 
 [node name="Bullets" type="Node2D" parent="."]
