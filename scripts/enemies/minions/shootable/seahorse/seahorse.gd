@@ -8,10 +8,12 @@ extends ShootableEnemy
 
 func _ready() -> void:
 	super._ready()
-	fsm=FSM.new(self,$States,$States/Normal)
-	_detect_ray_cast.target_position.x = sight
+	player_detection_raycast.target_position.x = sight
 
 func fire():
 	var bullet = _bullet_factory.create() as Bullet
 	bullet.set_damage(attack_damage)
 	bullet.apply_velocity(Vector2(attack_speed * direction, 0.0))
+
+func update_normal(_delta: float) -> void:
+	pass

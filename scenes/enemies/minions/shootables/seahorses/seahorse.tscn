@@ -73,8 +73,6 @@ size = Vector2(20, 17)
 [node name="Seahorse" groups=["range"] instance=ExtResource("1_ekoui")]
 script = ExtResource("2_xssdx")
 shoot_time = 1.5
-shoot_interval = 0.5
-shoot_cooldown = 3.0
 movement_speed = 0.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]
@@ -86,9 +84,6 @@ position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_oongk")
 disabled = true
 
-[node name="HurtArea2D" parent="Direction" index="2"]
-collision_layer = 48
-
 [node name="CollisionShape2D" parent="Direction/HurtArea2D" index="0"]
 visible = false
 position = Vector2(0, 6.5)
@@ -99,9 +94,6 @@ enabled = false
 target_position = Vector2(0, 0)
 collision_mask = 0
 
-[node name="DetectRayCast2D" parent="Direction" index="4"]
-collision_mask = 32
-
 [node name="DownRayCast2D" parent="Direction" index="6"]
 position = Vector2(0, 0)
 enabled = false
@@ -110,6 +102,9 @@ collision_mask = 0
 
 [node name="CollisionPolygon2D" parent="Direction/DetectPlayerArea2D" index="0"]
 disabled = true
+
+[node name="JumpRayCast2D" parent="Direction" index="8"]
+enabled = false
 
 [node name="CollisionShape2D" parent="Direction/NearSenseArea2D" index="0"]
 position = Vector2(0, 6)
