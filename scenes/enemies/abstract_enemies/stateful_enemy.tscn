@@ -18,7 +18,7 @@ height = 24.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_c0p0d"]
 
 [node name="StatefulEnemy" type="CharacterBody2D"]
-collision_layer = 0
+collision_layer = 8
 script = ExtResource("1_kv5n8")
 metadata/_custom_type_script = "uid://bp2wf2jejmiqr"
 

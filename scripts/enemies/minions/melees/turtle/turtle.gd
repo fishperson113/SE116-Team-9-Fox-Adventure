@@ -51,10 +51,12 @@ func start_emerging():
 
 func start_sleep() -> void:
 	_movement_speed = 0
+	_near_sense_area.body_entered.connect(_on_sleep_near_sense_body_entered)
 	change_animation("sleep")
 	pass
 
 func end_sleep() -> void:
+	_near_sense_area.body_entered.disconnect(_on_sleep_near_sense_body_entered)
 	pass
 
 func update_sleep(_delta: float) -> void:

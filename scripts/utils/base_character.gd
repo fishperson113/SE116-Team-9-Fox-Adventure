@@ -50,7 +50,6 @@ func _update_movement(delta: float) -> void:
 	movementChanging.emit(self)
 	
 	_calculate_external_force()
-	_apply_friction(0.95)
 	
 	velocity.x = internal_force.x + external_force.x + impulse.x
 	velocity.y += internal_force.y + external_force.y + impulse.y
@@ -58,6 +57,7 @@ func _update_movement(delta: float) -> void:
 	move_and_slide()
 	
 	forces.clear()
+	impulse = _dampen(impulse, 0.995)
 	pass
 
 func turn_around() -> void:
@@ -150,5 +150,11 @@ func _calculate_external_force():
 func apply_impulse(_impulse: Vector2):
 	impulse += _impulse
 
-func _apply_friction(_friction: float):
-	impulse *= _friction
+func _dampen(force: Vector2, _friction: float) -> Vector2:
+	if is_on_wall():
+		force.x = 0.0
+	if is_on_floor() or is_on_ceiling():
+		force.y = 0.0
+	force *= _friction
+	
+	return force
