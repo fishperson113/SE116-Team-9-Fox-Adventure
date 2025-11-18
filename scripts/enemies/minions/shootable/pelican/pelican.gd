@@ -7,43 +7,19 @@ extends ShootableEnemy
 #Người chơi chạm vào cầu gai sẽ mất máu theo Spike
 #Sau khi hết 10 giây sẽ tự động bay đi mất
 
-var _is_timeout = false
+@export var bullet_impulse: Vector2 = Vector2(75, -200)
 
 func _ready() -> void:
 	super._ready()
-	fsm=FSM.new(self,$States,$States/Normal)
-	_init_leave_state()
-	_init_flying_timer()
-	_init_screen_notifier()
-
-func _init_screen_notifier():
-	var notifier := $VisibleOnScreenNotifier2D
-	notifier.screen_exited.connect(_on_visible_on_screen_notifier_2d_screen_exited)
-
-func _init_flying_timer():
-	var timer := $FlyingTimer
-	timer.timeout.connect(_on_flying_timer_timeout)
-
-func _init_leave_state():
-	var state : EnemyState = $States/Leave
-	state.enter.connect(start_leave)
+	player_detection_raycast.target_position.y = sight
 
 func fire():
 	var bullet = _bullet_factory.create() as Bomb
 	bullet.set_damage(spike)
+	var _bullet_impulse = bullet_impulse
+	_bullet_impulse.x *= direction
+	bullet.apply_impulse(_bullet_impulse)
 
 func start_shoot() -> void:
 	super.start_shoot()
 	_movement_speed = 0
-
-func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	queue_free()
-
-func _on_flying_timer_timeout() -> void:
-	_is_timeout = true
-
-func start_leave() -> void:
-	$CollisionShape2D.disabled = true
-
-func can_leave() -> bool:
-	return _is_timeout

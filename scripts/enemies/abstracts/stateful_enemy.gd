@@ -8,6 +8,8 @@ enum InitialState { NORMAL, SLEEP }
 @export var hurt_time: float = 0.4
 @export var awake_time: float = 2
 
+@export var idle_chance: float = 0.001
+
 func _ready() -> void:
 	super._ready()
 	_init_normal_state()
@@ -83,7 +85,7 @@ func end_normal() -> void:
 	pass
 
 func update_normal(_delta: float) -> void:
-	if try_patrol_turn(_delta) or randf() < 0.001:
+	if try_patrol_turn(_delta) or randf() < idle_chance:
 		fsm.change_state(fsm.states.idle)
 	pass
 
@@ -138,7 +140,7 @@ func end_idle() -> void:
 	pass
 
 func update_idle(_delta: float) -> void:
-	if randf() < 0.005:
+	if randf() < idle_chance:
 		fsm.change_state(fsm.states.normal)
 	pass
 

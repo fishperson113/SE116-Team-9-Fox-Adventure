@@ -393,7 +393,7 @@ texture_region_size = Vector2i(32, 32)
 16:0/0 = 0
 16:0/0/terrain_set = 0
 16:0/0/terrain = 1
-16:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+16:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_6gm7o"]
 scenes/1/scene = ExtResource("2_nf7gm")
@@ -414,6 +414,8 @@ scenes/14/scene = ExtResource("7_4elon")
 [resource]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
+physics_layer_1/collision_layer = 1
+physics_layer_1/collision_mask = 12
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Land"
 terrain_set_0/terrain_0/color = Color(0.207843, 0.705882, 0.223529, 1)
