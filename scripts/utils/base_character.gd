@@ -9,7 +9,7 @@ extends CharacterBody2D
 
 @export var character_type = 0
 
-signal healthChanged
+signal healthChanged(character: BaseCharacter)
 
 var jump_speed: float = 320.0
 var fsm: FSM = null
@@ -112,10 +112,13 @@ func _check_changed_direction() -> void:
 # On changed direction
 func _on_changed_direction() -> void:
 	pass
+	
 func take_damage(amount: int):
+	print("💥 ", name, " nhận damage: ", amount)
 	currentHealth -= amount
-	healthChanged.emit()  
+	print("   Health còn lại: ", currentHealth, "/", maxHealth)
+	healthChanged.emit()
 	
 func heal(amount: int):
 	currentHealth += amount
-	healthChanged.emit()
+	healthChanged.emit(self)
