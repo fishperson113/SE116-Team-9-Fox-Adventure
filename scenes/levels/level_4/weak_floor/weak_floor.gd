@@ -85,6 +85,9 @@ func update_normal(_delta: float) -> void:
 
 func start_break() -> void:
 	set_collision_layer_value(8, true)
+	
+	set_collision_mask_value(8, false)
+	set_collision_mask_value(3, false)
 	pass
 
 func end_break() -> void:

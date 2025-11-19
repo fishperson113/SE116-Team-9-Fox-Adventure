@@ -6,7 +6,7 @@
 [node name="SurfFlowway" instance=ExtResource("1_7o106")]
 script = ExtResource("2_4uiaq")
 direction = 1
-force = 25.0
+force = 10.0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 modulate = Color(0.247059, 1, 0.584314, 1)

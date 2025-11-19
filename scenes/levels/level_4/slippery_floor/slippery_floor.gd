@@ -1,7 +1,7 @@
 class_name SlipperyFloor
 extends FunctionalTile
 
-@export var friction: float = 0.99
+@export var friction: Vector2 = Vector2(0.99, 0.15)
 
 func _ready() -> void:
 	super._ready()
@@ -10,14 +10,20 @@ func _ready() -> void:
 func calculate_force(internal_force: Vector2, impulse: Vector2, current_force: Vector2) -> Vector2:
 	var _external_force := Vector2.ZERO
 	_external_force.x += -internal_force.x
+	_external_force.y += current_force.y * -friction.y
 	return _external_force
 
 func calculate_impulse(internal_force: Vector2, impulse: Vector2, current_force: Vector2) -> Vector2:
 	var _impulse := Vector2.ZERO
 	var fill_impulse = current_force.x - impulse.x
-	var sliding_impulse = (internal_force.x - current_force.x) * (1 - friction)
+	var sliding_impulse = (internal_force.x - current_force.x) * (1 - friction.x)
 	_impulse.x +=  fill_impulse + sliding_impulse
 	return _impulse
+
+func _on_trigger_area_2d_body_entered(body: Node2D) -> void:
+	super._on_trigger_area_2d_body_entered(body)
+	if body is Player:
+		body.current_jump = 1
 
 # The wind fomula
 #func calculate_impulse(internal_force: Vector2, impulse: Vector2, current_force: Vector2) -> Vector2:

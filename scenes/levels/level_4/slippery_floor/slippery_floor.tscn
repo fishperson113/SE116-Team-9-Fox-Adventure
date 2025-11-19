@@ -21,9 +21,9 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g5lji"]
 size = Vector2(32, 1)
 
-[node name="SlipperyFloor" instance=ExtResource("1_gx123")]
+[node name="SlipperyFloor" groups=["ground"] instance=ExtResource("1_gx123")]
 script = ExtResource("2_exn15")
-friction = 0.99
+friction = Vector2(0.99, 0.15)
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_exn15")
