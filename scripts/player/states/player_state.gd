@@ -15,12 +15,12 @@ func control_moving() -> bool:
 	if is_moving and obj.fsm.current_state != fsm.states.throwing:
 		dir = sign(dir)
 		obj.change_direction(dir)
-		obj.velocity.x = obj.movement_speed * dir
+		obj.internal_force.x = obj.movement_speed * dir
 		if obj.is_on_floor():
 			change_state(fsm.states.walk)
 		return true
 	else:
-		obj.velocity.x = 0
+		obj.internal_force.x = 0
 	return false
 
 #Control jumping

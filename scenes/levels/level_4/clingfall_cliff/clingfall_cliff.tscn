@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://orwikebrs5ow"]
+
+[ext_resource type="PackedScene" uid="uid://dewtqhftkhq2v" path="res://scenes/levels/level_4/abstracts/functional_tile.tscn" id="1_557c3"]
+[ext_resource type="Script" uid="uid://c1vuixwkhocbe" path="res://scenes/levels/level_4/clingfall_cliff/clingfall_cliff.gd" id="2_inj6e"]
+[ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="3_rb48p"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qtj2r"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rb48p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rb48p"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qtj2r"]
+size = Vector2(34, 32)
+
+[node name="ClingfallCliff" instance=ExtResource("1_557c3")]
+script = ExtResource("2_inj6e")
+up_friction = 0.2
+down_friction = 0.075
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+modulate = Color(1, 1, 0, 1)
+sprite_frames = SubResource("SpriteFrames_qtj2r")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_rb48p")
+
+[node name="CollisionShape2D" parent="TriggerArea2D" index="0"]
+shape = SubResource("RectangleShape2D_qtj2r")

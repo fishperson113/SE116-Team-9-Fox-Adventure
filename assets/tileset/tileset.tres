@@ -1,10 +1,21 @@
-[gd_resource type="TileSet" load_steps=8 format=3 uid="uid://d4afhielv3ocv"]
+[gd_resource type="TileSet" load_steps=19 format=3 uid="uid://d4afhielv3ocv"]
 
 [ext_resource type="Texture2D" uid="uid://v2dtejovry7r" path="res://assets/sprites/environment/terrain/terrain_32x32.png" id="1_4ofjo"]
 [ext_resource type="PackedScene" uid="uid://c3f1qqr1y2pb2" path="res://scenes/levels/island/objects/palm_tree_1.tscn" id="2_nf7gm"]
+[ext_resource type="PackedScene" uid="uid://bl5gpcj66qrf7" path="res://scenes/levels/level_4/slippery_floor/slippery_floor.tscn" id="3_j352j"]
+[ext_resource type="PackedScene" uid="uid://bhohtlj321per" path="res://scenes/chests/chest.tscn" id="3_la5tj"]
 [ext_resource type="PackedScene" uid="uid://buwu0utiiy074" path="res://scenes/levels/island/objects/leftdirection.tscn" id="3_wnwxr"]
+[ext_resource type="PackedScene" uid="uid://csiy77spb8hht" path="res://scenes/levels/level_4/stalactite/big_stalactite.tscn" id="4_vv5ud"]
+[ext_resource type="PackedScene" uid="uid://orwikebrs5ow" path="res://scenes/levels/level_4/clingfall_cliff/clingfall_cliff.tscn" id="5_eylfi"]
 [ext_resource type="PackedScene" uid="uid://b5vi0curh4daf" path="res://scenes/levels/island/objects/rightdirection.tscn" id="5_la5tj"]
 [ext_resource type="PackedScene" uid="uid://ona0waro6ukn" path="res://scenes/levels/island/objects/spike.tscn" id="5_wnwxr"]
+[ext_resource type="PackedScene" uid="uid://cq0i4tyt3pnq2" path="res://scenes/levels/level_4/flowway/flowway.tscn" id="6_lfyu1"]
+[ext_resource type="PackedScene" uid="uid://b66b8vgbxnm7n" path="res://scenes/levels/level_4/flowway/surf_flowway.tscn" id="7_4elon"]
+[ext_resource type="PackedScene" uid="uid://ug4jwylkxhnb" path="res://scenes/levels/level_4/stalactite/stalactite.tscn" id="7_nutfu"]
+[ext_resource type="PackedScene" uid="uid://ci70rataq7x2j" path="res://scenes/levels/level_5/small_spike/small_spike.tscn" id="8_mj7xo"]
+[ext_resource type="PackedScene" uid="uid://crkmos1d5bdx3" path="res://scenes/items/collectible_items/collectible_chest_key.tscn" id="8_nutfu"]
+[ext_resource type="PackedScene" uid="uid://3jehn00g402y" path="res://scenes/levels/level_4/weak_floor/weak_floor.tscn" id="8_r072g"]
+[ext_resource type="PackedScene" uid="uid://brnu5n664x08s" path="res://scenes/levels/level_4/grass/grass.tscn" id="15_sxrog"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6gm7o"]
 texture = ExtResource("1_4ofjo")
@@ -252,13 +263,7 @@ texture_region_size = Vector2i(32, 32)
 7:3/0/terrains_peering_bit/top_left_corner = 0
 7:3/0/terrains_peering_bit/top_side = 0
 9:3/0 = 0
-9:3/0/terrain_set = 0
-9:3/0/terrain = 0
 9:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-9:3/0/terrains_peering_bit/right_side = 0
-9:3/0/terrains_peering_bit/bottom_side = 0
-9:3/0/terrains_peering_bit/bottom_left_corner = 0
-9:3/0/terrains_peering_bit/left_side = 0
 10:3/0 = 0
 10:3/0/terrain_set = 0
 10:3/0/terrain = 0
@@ -386,18 +391,39 @@ texture_region_size = Vector2i(32, 32)
 4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 4:1/0/terrains_peering_bit/bottom_side = 0
 4:1/0/terrains_peering_bit/top_side = 0
+16:0/0 = 0
+16:0/0/terrain_set = 0
+16:0/0/terrain = 1
+16:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_6gm7o"]
 scenes/1/scene = ExtResource("2_nf7gm")
+scenes/2/scene = ExtResource("3_la5tj")
 scenes/3/scene = ExtResource("3_wnwxr")
 scenes/4/scene = ExtResource("5_wnwxr")
 scenes/5/scene = ExtResource("5_la5tj")
+scenes/6/scene = ExtResource("7_nutfu")
+scenes/7/scene = ExtResource("8_r072g")
+scenes/8/scene = ExtResource("8_nutfu")
+scenes/9/scene = ExtResource("15_sxrog")
+scenes/10/scene = ExtResource("3_j352j")
+scenes/11/scene = ExtResource("4_vv5ud")
+scenes/12/scene = ExtResource("5_eylfi")
+scenes/13/scene = ExtResource("6_lfyu1")
+scenes/14/scene = ExtResource("7_4elon")
+scenes/15/scene = ExtResource("8_mj7xo")
 
 [resource]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
+physics_layer_1/collision_layer = 1
+physics_layer_1/collision_mask = 12
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Land"
 terrain_set_0/terrain_0/color = Color(0.207843, 0.705882, 0.223529, 1)
+terrain_set_0/terrain_1/name = "Transparent"
+terrain_set_0/terrain_1/color = Color(0.5, 0.4375, 0.25, 1)
+custom_data_layer_0/name = "direction"
+custom_data_layer_0/type = 2
 sources/0 = SubResource("TileSetAtlasSource_6gm7o")
 sources/1 = SubResource("TileSetScenesCollectionSource_6gm7o")

@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://brnu5n664x08s"]
+
+[ext_resource type="PackedScene" uid="uid://dewtqhftkhq2v" path="res://scenes/levels/level_4/abstracts/functional_tile.tscn" id="1_wdiag"]
+[ext_resource type="Texture2D" uid="uid://dcrnqve71d36p" path="res://assets/sprites/environment/background/additional_sky.png" id="2_5qoym"]
+[ext_resource type="Script" uid="uid://drewggbjrqjyv" path="res://scenes/levels/level_4/grass/grass.gd" id="2_xjk6v"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xjk6v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5qoym")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k3fp7"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wdiag"]
+size = Vector2(32, 1)
+
+[node name="Grass" instance=ExtResource("1_wdiag")]
+script = ExtResource("2_xjk6v")
+friction = 0.5
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+modulate = Color(0, 0.352941, 0, 1)
+sprite_frames = SubResource("SpriteFrames_xjk6v")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_k3fp7")
+
+[node name="CollisionShape2D" parent="TriggerArea2D" index="0"]
+position = Vector2(0, -16.5)
+shape = SubResource("RectangleShape2D_wdiag")

@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://csiy77spb8hht"]
+
+[ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="1_75x3j"]
+[ext_resource type="Script" uid="uid://d0ymcxp21dv27" path="res://scenes/levels/level_4/stalactite/big_stalactite.gd" id="1_gn5yh"]
+[ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="2_qhbcy"]
+[ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/states/enemy_state.gd" id="5_2tjut"]
+[ext_resource type="Script" uid="uid://dqsvfa8bf42pr" path="res://scenes/levels/level_4/stalactite/shake.gd" id="7_1mdtm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sgtce"]
+size = Vector2(62, 60)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3jttv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_75x3j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gat2g"]
+size = Vector2(62, 63)
+
+[node name="BigStalactite" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_gn5yh")
+shake_time = 3.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 17)
+shape = SubResource("RectangleShape2D_sgtce")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(16, 16)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_3jttv")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(16, 16)
+target_position = Vector2(0, 0)
+collision_mask = 5
+
+[node name="HitArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 33
+script = ExtResource("2_qhbcy")
+metadata/_custom_type_script = "uid://dkb25vr64v37l"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea2D"]
+position = Vector2(16, 16.5)
+shape = SubResource("RectangleShape2D_gat2g")
+
+[node name="States" type="Node" parent="."]
+
+[node name="Normal" type="Node" parent="States"]
+script = ExtResource("5_2tjut")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
+[node name="Shake" type="Node" parent="States"]
+script = ExtResource("7_1mdtm")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
+[node name="Fall" type="Node" parent="States"]
+script = ExtResource("5_2tjut")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
+[node name="Lay" type="Node" parent="States"]
+script = ExtResource("5_2tjut")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"

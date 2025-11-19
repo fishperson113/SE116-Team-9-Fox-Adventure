@@ -101,6 +101,7 @@ enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 melee=""
 range=""
 fly=""
+ground=""
 
 [input]
 

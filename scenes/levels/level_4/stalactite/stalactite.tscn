@@ -1,0 +1,120 @@
+[gd_scene load_steps=14 format=3 uid="uid://ug4jwylkxhnb"]
+
+[ext_resource type="Script" uid="uid://bpboriryv7afi" path="res://scenes/levels/level_4/stalactite/stalactite.gd" id="1_5b6sq"]
+[ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="1_twahy"]
+[ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="3_1js2s"]
+[ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/states/enemy_state.gd" id="3_5b6sq"]
+[ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="3_htorf"]
+[ext_resource type="PackedScene" uid="uid://cm7rhrtvxeai8" path="res://scenes/levels/level_4/stalactite/droplet.tscn" id="5_5lqak"]
+[ext_resource type="Script" uid="uid://wokgymp1r0wt" path="res://scenes/levels/level_4/stalactite/melt.gd" id="5_fiv7s"]
+[ext_resource type="Script" uid="uid://dqsvfa8bf42pr" path="res://scenes/levels/level_4/stalactite/shake.gd" id="8_qye83"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5b6sq"]
+size = Vector2(30, 19)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ncq8f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_twahy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_l6a6g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qye83"]
+resource_name = "dissolving"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 6.49801),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x6cja"]
+_data = {
+&"RESET": SubResource("Animation_l6a6g"),
+&"dissolving": SubResource("Animation_qye83")
+}
+
+[node name="Stalactite" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_5b6sq")
+metadata/_custom_type_script = "uid://dlxdtwr6rpwbr"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_5b6sq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ncq8f")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 0)
+collision_mask = 5
+
+[node name="HitArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 33
+script = ExtResource("3_htorf")
+metadata/_custom_type_script = "uid://dkb25vr64v37l"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitArea2D"]
+polygon = PackedVector2Array(-15, -15, 0, 15, 15, -15)
+
+[node name="DropFactory" type="Marker2D" parent="."]
+position = Vector2(0, 16)
+script = ExtResource("3_1js2s")
+product_packed_scene = ExtResource("5_5lqak")
+target_container_name = &"Obstacles"
+metadata/_custom_type_script = "uid://2dtm6jeegr43"
+
+[node name="States" type="Node" parent="."]
+
+[node name="Normal" type="Node" parent="States"]
+script = ExtResource("3_5b6sq")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
+[node name="Melt" type="Node" parent="States"]
+script = ExtResource("5_fiv7s")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
+[node name="Shake" type="Node" parent="States"]
+script = ExtResource("8_qye83")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
+[node name="Fall" type="Node" parent="States"]
+script = ExtResource("3_5b6sq")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
+[node name="Dissolve" type="Node" parent="States"]
+script = ExtResource("3_5b6sq")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_x6cja")
+}

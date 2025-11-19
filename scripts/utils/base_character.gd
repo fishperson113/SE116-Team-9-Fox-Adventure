@@ -9,7 +9,16 @@ extends CharacterBody2D
 
 @export var character_type = 0
 
-signal healthChanged(character: BaseCharacter)
+signal healthChanged
+signal movementChanging(mover: BaseCharacter)
+
+# These attributes are used to compute externally before collision changing
+var old_velocity: Vector2 = Vector2.ZERO
+# These attributes are used to apply external forces
+var impulse: Vector2 = Vector2.ZERO
+var forces: Dictionary = {}
+var external_force: Vector2 = Vector2.ZERO
+var internal_force: Vector2 = Vector2.ZERO
 
 var jump_speed: float = 320.0
 var fsm: FSM = null
@@ -40,8 +49,20 @@ func _physics_process(delta: float) -> void:
 
 
 func _update_movement(delta: float) -> void:
+	# save state before collision
+	old_velocity = velocity
+	
+	movementChanging.emit(self)
+	
+	_calculate_external_force()
+	
+	velocity.x = internal_force.x + external_force.x + impulse.x
+	velocity.y += internal_force.y + external_force.y + impulse.y
 	velocity.y += gravity * delta
 	move_and_slide()
+	
+	forces.clear()
+	impulse = _dampen(impulse, 0.995)
 	pass
 
 func turn_around() -> void:
@@ -112,13 +133,34 @@ func _check_changed_direction() -> void:
 # On changed direction
 func _on_changed_direction() -> void:
 	pass
-	
 func take_damage(amount: int):
-	print("💥 ", name, " nhận damage: ", amount)
 	currentHealth -= amount
-	print("   Health còn lại: ", currentHealth, "/", maxHealth)
-	healthChanged.emit()
+	healthChanged.emit()  
 	
 func heal(amount: int):
 	currentHealth += amount
-	healthChanged.emit(self)
+	healthChanged.emit()
+
+func has_force(type: String) -> bool:
+	return forces.has(type)
+
+func apply_force(type: String, force: Vector2):
+	forces.set(type, force)
+
+func _calculate_external_force():
+	external_force = Vector2.ZERO
+	for force in forces.values():
+		external_force += force
+
+func apply_impulse(_impulse: Vector2):
+	impulse += _impulse
+
+func _dampen(force: Vector2, _friction: float) -> Vector2:
+	if is_on_wall():
+		force.x = 0.0
+	if is_on_floor() or is_on_ceiling():
+		force.y = 0.0
+	force.x = int(force.x * _friction)
+	force.y = int(force.y * _friction)
+	
+	return force

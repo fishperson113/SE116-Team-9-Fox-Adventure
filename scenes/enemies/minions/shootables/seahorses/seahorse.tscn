@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cf30thpmo45yj"]
+[gd_scene load_steps=18 format=3 uid="uid://cf30thpmo45yj"]
 
 [ext_resource type="PackedScene" uid="uid://dn2myx6njpjy5" path="res://scenes/enemies/abstract_enemies/shootable_enemy.tscn" id="1_ekoui"]
 [ext_resource type="Script" uid="uid://b1k8grxh31gq0" path="res://scripts/enemies/minions/shootable/seahorse/seahorse.gd" id="2_xssdx"]
@@ -58,8 +58,14 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oongk"]
+size = Vector2(18, 17)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xssdx"]
 size = Vector2(18, 17)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oongk"]
+radius = 40.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ekoui"]
 size = Vector2(20, 17)
@@ -67,40 +73,47 @@ size = Vector2(20, 17)
 [node name="Seahorse" groups=["range"] instance=ExtResource("1_ekoui")]
 script = ExtResource("2_xssdx")
 shoot_time = 1.5
-shoot_interval = 0.5
-shoot_cooldown = 3.0
 movement_speed = 0.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]
 sprite_frames = SubResource("SpriteFrames_jpc2o")
 animation = &"shoot"
 
-[node name="HurtArea2D" parent="Direction" index="1"]
-collision_layer = 48
+[node name="NormalCollisionShape2D" parent="Direction/HitArea2D" index="0"]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_oongk")
+disabled = true
 
 [node name="CollisionShape2D" parent="Direction/HurtArea2D" index="0"]
 visible = false
 position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_xssdx")
 
-[node name="FrontRayCast2D" parent="Direction" index="2"]
+[node name="FrontRayCast2D" parent="Direction" index="3"]
 enabled = false
 target_position = Vector2(0, 0)
 collision_mask = 0
 
-[node name="DownRayCast2D" parent="Direction" index="3"]
+[node name="DownRayCast2D" parent="Direction" index="6"]
 position = Vector2(0, 0)
 enabled = false
 target_position = Vector2(0, 0)
 collision_mask = 0
 
-[node name="DetectRayCast2D" parent="Direction" index="4"]
-collision_mask = 32
+[node name="CollisionPolygon2D" parent="Direction/DetectPlayerArea2D" index="0"]
+disabled = true
+
+[node name="JumpRayCast2D" parent="Direction" index="8"]
+enabled = false
+
+[node name="CollisionShape2D" parent="Direction/NearSenseArea2D" index="0"]
+position = Vector2(0, 6)
+shape = SubResource("CircleShape2D_oongk")
 
 [node name="CollisionShape2D" parent="." index="1"]
 visible = false
 position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_ekoui")
 
-[node name="Normal" parent="States" index="0"]
+[node name="Normal" parent="States" index="1"]
 script = ExtResource("12_xssdx")

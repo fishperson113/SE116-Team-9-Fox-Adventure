@@ -12,17 +12,14 @@ extends StatefulEnemy
 @export var hide_time: float = 3.0
 @export var emerging_time: float = 1.0
 
+var _is_hitted: bool = false
+
 func _ready() -> void:
 	super._ready()
 	_init_hiding_state()
 	_init_hide_state()
 	_init_emerging_state()
-	_init_hit_area()
 	pass
-
-func _init_hit_area() -> void:
-	var hit_area := $Direction/HitArea2D
-	hit_area.set_dealt_damage(spike)
 
 func _init_hiding_state() -> void:
 	if has_node("States/Hiding"):
@@ -50,4 +47,24 @@ func start_hiding():
 
 func start_emerging():
 	change_animation("emerging")
+	pass
+
+func start_sleep() -> void:
+	_movement_speed = 0
+	_near_sense_area.body_entered.connect(_on_sleep_near_sense_body_entered)
+	change_animation("sleep")
+	pass
+
+func end_sleep() -> void:
+	_near_sense_area.body_entered.disconnect(_on_sleep_near_sense_body_entered)
+	pass
+
+func update_sleep(_delta: float) -> void:
+	if _is_hitted:
+		fsm.change_state(fsm.states.normal)
+	pass
+
+func _on_hit_area_2d_hitted(body):
+	super._on_hit_area_2d_hitted(body)
+	_is_hitted = true
 	pass
