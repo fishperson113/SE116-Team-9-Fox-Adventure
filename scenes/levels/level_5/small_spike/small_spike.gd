@@ -13,12 +13,12 @@ func _init_hit_area():
 	if has_node("HitArea2D"):
 		_hit_area = get_node("HitArea2D") as SmallSpikeHitArea2D
 		_hit_area.hitting.connect(_on_hit_area_hitting)
+		_hit_area.checking.connect(_on_hit_area_checking)
 		_hit_area.set_target_name("Player")
 		_hit_area.set_condition(_is_player_too_fast)
 
 func _on_hit_area_hitting(body: BaseCharacter):
 	_hit_area.set_dealt_damage(_compute_damage(body.old_velocity.y))
-	print(_compute_damage(body.old_velocity.y))
 	pass
 
 func _compute_damage(speed: float) -> float:
@@ -26,5 +26,9 @@ func _compute_damage(speed: float) -> float:
 	return base_damage * exceeded_speed
 
 func _is_player_too_fast(body: BaseCharacter):
-	print("speed check: ", body.old_velocity.y)
 	return absf(body.old_velocity.y) >= safe_speed
+
+func _on_hit_area_checking(body: BaseCharacter):
+	if body is Player:
+		body.current_jump = 1
+	pass
