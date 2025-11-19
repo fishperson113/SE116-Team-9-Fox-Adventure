@@ -1,6 +1,7 @@
 class_name SmallSpikeHitArea2D
 extends HitArea2D
 
+signal checking(body: BaseCharacter)
 signal hitting(body: BaseCharacter)
 
 var target_name: String = ""
@@ -10,6 +11,8 @@ func hit(hurt_area):
 	var target = hurt_area.find_parent(target_name) as BaseCharacter
 	if not target:
 		return
+	
+	checking.emit(target)
 	if condition and not condition.call(target):
 		return
 		

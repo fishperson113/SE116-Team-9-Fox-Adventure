@@ -13,14 +13,19 @@ var _cooldown: float = 0.0
 var _is_ready: bool = true
 var _shoot_timer: Timer = null
 
-@onready var _bullet_factory := $Direction/BulletFactory
+var _bullet_factory: Node2DFactory = null
 
 func _ready() -> void:
 	super._ready()
 	_init_shoot_state()
 	_init_shoot_timer()
+	_init_bullet_factory()
 	change_direction(initial_direction)
 	pass
+
+func _init_bullet_factory():
+	if has_node("Direction/BulletFactory"):
+		_bullet_factory = $Direction/BulletFactory
 
 func _init_shoot_timer():
 	if has_node("ShootTimer"):

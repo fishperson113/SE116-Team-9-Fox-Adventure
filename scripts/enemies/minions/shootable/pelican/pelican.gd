@@ -40,4 +40,5 @@ func has_reached_bounds() -> bool:
 	return has_reached_left or has_reached_right
 
 func aim() -> void:
-	change_direction(found_player.direction)
+	if found_player.velocity.x * self.direction < 0:
+		turn()

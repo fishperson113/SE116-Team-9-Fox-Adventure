@@ -11,5 +11,3 @@ func _update( _delta ):
 	super._update(_delta)
 	if update_timer(_delta):
 		fsm.change_state(fsm.states.throw)
-	#if obj.can_stab():
-		#fsm.change_state(fsm.states.stab)
