@@ -1,0 +1,88 @@
+[gd_scene load_steps=10 format=3 uid="uid://dauwviqn4hey8"]
+
+[ext_resource type="Script" uid="uid://44pm3ssa8qyh" path="res://scenes/levels/level_2/disappear_block/disappear_block.gd" id="1_e5y2o"]
+[ext_resource type="Texture2D" uid="uid://dir4b4yfyheg3" path="res://assets/sprites/environment/terrain/tilesetv2.png" id="2_80g4n"]
+[ext_resource type="Texture2D" uid="uid://dtpfir3yuq0ct" path="res://assets/sprites/environment/terrain/empty_tile.png" id="3_mt5jr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cue4"]
+atlas = ExtResource("2_80g4n")
+region = Rect2(0, 192, 64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e5y2o"]
+size = Vector2(66, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ldt5n"]
+size = Vector2(64, 64)
+
+[sub_resource type="Animation" id="Animation_6v5wp"]
+resource_name = "block_shake"
+length = 0.333337
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Direction/Normal:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(-2, -2), Vector2(2, 2), Vector2(-2, 2), Vector2(2, -2), Vector2(-2, -2), Vector2(2, 2), Vector2(-2, 2), Vector2(2, -2), Vector2(-2, -2), Vector2(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_jo358"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Direction/Normal:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jo358"]
+_data = {
+&"RESET": SubResource("Animation_jo358"),
+&"block_shake": SubResource("Animation_6v5wp")
+}
+
+[node name="DisappearBlock" type="RigidBody2D"]
+collision_mask = 4
+lock_rotation = true
+freeze = true
+script = ExtResource("1_e5y2o")
+animation_name = "block_shake"
+shaking_duration = 1.5
+disappearing_duration = 2.5
+
+[node name="Direction" type="Node2D" parent="."]
+
+[node name="Normal" type="Sprite2D" parent="Direction"]
+self_modulate = Color(0.999999, 0.995328, 0.502145, 1)
+texture = SubResource("AtlasTexture_3cue4")
+
+[node name="Disappeared" type="Sprite2D" parent="Direction"]
+texture = ExtResource("3_mt5jr")
+
+[node name="Area2D" type="Area2D" parent="Direction"]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/Area2D"]
+shape = SubResource("RectangleShape2D_e5y2o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ldt5n")
+debug_color = Color(0.982696, 0, 0.359851, 0.42)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_jo358")
+}
+
+[connection signal="body_entered" from="Direction/Area2D" to="." method="_on_body_entered"]
