@@ -79,3 +79,8 @@ func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, direction: Vector2, damage:
 
 func _on_invulnerability_timer_timeout() -> void:
 	is_invulnerable = false
+
+func set_empty_health() -> void:
+	fsm.current_state.take_damage(currentHealth)
+	pass
+
