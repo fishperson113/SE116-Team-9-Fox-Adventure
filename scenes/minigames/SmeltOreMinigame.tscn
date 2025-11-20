@@ -1,11 +1,9 @@
-[gd_scene load_steps=70 format=3 uid="uid://cbcm0t4a4tv44"]
+[gd_scene load_steps=87 format=3 uid="uid://cbcm0t4a4tv44"]
 
 [ext_resource type="Texture2D" uid="uid://busv6anromm7y" path="res://assets/sprites/caldron/pull_chain/6022.png" id="1_d8ggs"]
 [ext_resource type="Texture2D" uid="uid://y1gq2xbnqiw0" path="res://assets/sprites/caldron/caldron_body/3911.png" id="1_hdmar"]
-[ext_resource type="Texture2D" uid="uid://c4xwgv0tf8bxf" path="res://assets/ui/buttons/scrap.png" id="1_ptgyn"]
 [ext_resource type="Texture2D" uid="uid://dbq6qwfb16l4a" path="res://assets/sprites/caldron/pull_chain/6023.png" id="1_s8h4u"]
 [ext_resource type="Texture2D" uid="uid://cp6t8mjtay7em" path="res://assets/sprites/caldron/caldron_body/3910.png" id="2_rcpmq"]
-[ext_resource type="Texture2D" uid="uid://cx1m1wxkbipxh" path="res://assets/ui/buttons/close_button.png" id="2_s8h4u"]
 [ext_resource type="Texture2D" uid="uid://cnc7uf01gvro5" path="res://assets/sprites/caldron/caldron_body/3969.png" id="3_rcpmq"]
 [ext_resource type="Texture2D" uid="uid://bsf7w55n8x84x" path="res://assets/sprites/caldron/caldron_body/3913.png" id="4_rtbvo"]
 [ext_resource type="Texture2D" uid="uid://syw8egcheaj" path="res://assets/sprites/caldron/caldron_body/3915.png" id="5_fef20"]
@@ -64,89 +62,236 @@
 [ext_resource type="Texture2D" uid="uid://mdqed3vv0g03" path="res://assets/sprites/caldron/caldron_body/3964.png" id="58_e6nyi"]
 [ext_resource type="Texture2D" uid="uid://de7t3rmwws2df" path="res://assets/sprites/caldron/caldron_body/3966.png" id="59_13jmk"]
 [ext_resource type="Texture2D" uid="uid://3kkb441gn0rc" path="res://assets/sprites/caldron/caldron_head/2495.png" id="60_8gxwh"]
+[ext_resource type="Texture2D" uid="uid://bq88isixrh4vl" path="res://assets/sprites/caldron/mold/5546.png" id="62_ttluv"]
+[ext_resource type="Texture2D" uid="uid://4f8q1s2t4dxb" path="res://assets/sprites/fire/3068.png" id="63_asyei"]
+[ext_resource type="Texture2D" uid="uid://cgcyfmkxmv4iy" path="res://assets/sprites/fire/3069.png" id="64_iynft"]
+[ext_resource type="PackedScene" uid="uid://dfwrc8lw3k5ov" path="res://scenes/minigames/FluidEmitter.tscn" id="65_16ol6"]
+[ext_resource type="Texture2D" uid="uid://tbuualb30pgb" path="res://assets/sprites/fire/3070.png" id="65_yiwhl"]
+[ext_resource type="Texture2D" uid="uid://c45s3des1avmd" path="res://assets/sprites/fire/3071.png" id="66_jxbpp"]
+[ext_resource type="Texture2D" uid="uid://b4t1rvrwp8rlt" path="res://assets/sprites/fire/3072.png" id="67_3k2r5"]
+[ext_resource type="Texture2D" uid="uid://dnc6sgbr86j" path="res://assets/sprites/fire/3073.png" id="68_m1k1f"]
+[ext_resource type="Texture2D" uid="uid://85w4kf3d47mt" path="res://assets/sprites/fire/3074.png" id="69_1dlb5"]
+[ext_resource type="Texture2D" uid="uid://64xy52t13t2" path="res://assets/sprites/fire/3075.png" id="70_jtovc"]
+[ext_resource type="Texture2D" uid="uid://b65tiaqkiifq0" path="res://assets/sprites/fire/3076.png" id="71_cc121"]
+[ext_resource type="Texture2D" uid="uid://cm3u2xwpuwu2y" path="res://assets/sprites/fire/3077.png" id="72_jbq5g"]
+[ext_resource type="Texture2D" uid="uid://ctcmkiihi0y81" path="res://assets/sprites/fire/3078.png" id="73_e6nyi"]
+[ext_resource type="Texture2D" uid="uid://bmmow3lwu27yl" path="res://assets/sprites/fire/3079.png" id="74_13jmk"]
+[ext_resource type="Shader" uid="uid://dhe06yes5vaas" path="res://scenes/minigames/LavaEffect.gdshader" id="79_iynft"]
 
 [sub_resource type="GDScript" id="GDScript_42gci"]
 script/source = "extends Panel
 
-# --- Kéo các node vào đây trong Inspector ---
-# 1. Kéo node AnimationPlayer của cái nồi
-@export var cauldron_anim_player: AnimationPlayer
+signal smelting_done(part_id: String, quality: String, material: String)
 
-# 2. Kéo node PullLever (TextureButton)
+# -----------------------------
+# CONFIG
+# -----------------------------
+@export_group(\"Nodes\")
+@export var cauldron_anim_player: AnimationPlayer
+@export var fluid_emitter: Node
 @export var pull_lever: Control
 @export var caldron_head_node: Control
+@export var mold: Node2D
+@export var fire_anim: AnimatedSprite2D
 
-# --- Các biến để tính toán ---
+@export_group(\"Animation Config\")
+@export var fluid_threshold: float = 0.05
+@export var tilt_rewind_time: float = 0.3
+
+@export_group(\"Pop Config\")
+@export var head_pop_offset: float = 150.0
+@export var mold_small_lift_offset: float = 100.0
+
+@export_group(\"Finish Config\")
+@export var mold_full_lift_offset: float = 150.0
+@export var mold_full_lift_time: float = 0.6
+@export var fade_time: float = 0.4
+
+# -------------------------------------
+# Internal State
+# -------------------------------------
 var anim_duration: float = 0.0
-var original_lever_y: float = 0.0
-var max_pull_distance: float = 0.0
 var is_head_popped: bool = false
+var is_mold_raised_once: bool = false
+
+var _blocker: Control
+
+
+# ============================================================
+# READY
+# ============================================================
 func _ready():
-	# --- A. Lấy thông tin Animation ---
+	_validate_nodes()
+	_setup_tilt_animation()
+	_setup_fire()
+	_connect_signals()
+
+
+func _validate_nodes():
 	if cauldron_anim_player == null or pull_lever == null:
-		push_error(\"Lỗi: Vui lòng kéo 'cauldron_anim_player' và 'pull_lever' vào Inspector.\")
+		push_error(\"SmeltOreMinigame: Missing required nodes.\")
 		return
-		
+
+
+func _setup_tilt_animation():
 	if cauldron_anim_player.has_animation(\"tilt\"):
-		# Lấy tổng thời lượng của animation (ví dụ: 1.943 giây)
 		anim_duration = cauldron_anim_player.get_animation(\"tilt\").length
-		
 		cauldron_anim_player.play(\"tilt\")
-		cauldron_anim_player.seek(0.0, true) 
+		cauldron_anim_player.seek(0.0, true)
 		cauldron_anim_player.pause()
-	else:
-		push_error(\"Lỗi: Không tìm thấy animation 'tilt' trong AnimationPlayer.\")
-	
-	if caldron_head_node == null:
-		push_error(\"Lỗi: Vui lòng kéo 'caldron_head_node' vào Inspector.\")
-	original_lever_y=pull_lever.position.y
-	max_pull_distance=pull_lever.max_pull_distance
 
 
-func _process(delta: float):
-	# Nếu chưa sẵn sàng, không làm gì cả
-	if anim_duration == 0.0:
+func _setup_fire():
+	if fire_anim:
+		fire_anim.play(\"idle\")
+
+
+func _connect_signals():
+	pull_lever.connect(\"pulling\", _on_lever_pulling)
+	pull_lever.connect(\"pull_completed\", _on_lever_completed)
+
+
+# ============================================================
+# LEVER PULL LOGIC
+# ============================================================
+func _on_lever_pulling(strength: float):
+	_update_tilt_animation(strength)
+	_update_fluid(strength)
+
+	if strength > fluid_threshold and not is_head_popped:
+		_pop_head()
+		_lift_mold_small()
+
+
+func _update_tilt_animation(strength: float):
+	if anim_duration <= 0.0:
 		return
 
-	# --- LOGIC LIÊN KẾT THỜI GIAN THỰC ---
-	
-	# 1. Lấy vị trí Y hiện tại của cần kéo
-	var current_lever_y = pull_lever.position.y
-	
-	# 2. Tính toán \"strength\" (sức mạnh 0.0 -> 1.0)
-	# inverse_lerp: Tính xem \"current_lever_y\" đang ở % bao nhiêu
-	# trên quãng đường từ \"original_lever_y\" đến \"vị trí kéo tối đa\"?
-	var strength = inverse_lerp(original_lever_y, original_lever_y + max_pull_distance, current_lever_y)
-	
-	# Kẹp giá trị (clamp) để đảm bảo nó luôn từ 0.0 đến 1.0
-	strength = clampf(strength, 0.0, 1.0)
-	# 3. Tính toán thời gian (time) trong animation
-	var target_time = strength * anim_duration
-	
-	# 4. Tua (seek) animation đến đúng thời điểm
-	cauldron_anim_player.seek(target_time,true)
-	if strength > 0.05 and not is_head_popped:
-		_pop_head()
+	var t := strength * anim_duration
+	cauldron_anim_player.seek(t, true)
 
+
+func _update_fluid(strength: float):
+	if fluid_emitter:
+		fluid_emitter.set_fluid_active(strength > fluid_threshold)
+
+
+# ============================================================
+# LEVER RELEASE LOGIC
+# ============================================================
+func _on_lever_completed(strength: float):
+	if strength >= 1.0:
+		_lift_mold_finish()
+
+	if fluid_emitter:
+		fluid_emitter.set_fluid_active(false)
+
+	# avoid rewind when still clicking
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		return
+
+	_rewind_tilt_animation()
+
+
+func _rewind_tilt_animation():
+	if anim_duration <= 0.0:
+		return
+
+	var current := cauldron_anim_player.current_animation_position
+
+	create_tween().tween_method(
+		func(t): cauldron_anim_player.seek(t, true),
+		current,
+		0.0,
+		tilt_rewind_time
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+
+# ============================================================
+# SMALL ACTIONS (POP & SMALL LIFT)
+# ============================================================
 func _pop_head():
 	is_head_popped = true
-	print(\"Bật nắp CaldronHead!\")
-	
+
 	if caldron_head_node == null:
 		return
-		
-	var tween = create_tween()
+
+	var target := caldron_head_node.position.y - head_pop_offset
+
+	create_tween().tween_property(
+		caldron_head_node,
+		\"position:y\",
+		target,
+		0.5
+	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+
+func _lift_mold_small():
+	if is_mold_raised_once or mold == null:
+		return
+
+	is_mold_raised_once = true
 	
-	#Tính toán vị trí đích (bay lên 150px)
-	var target_y = caldron_head_node.position.y - 150.0 # (Âm là bay lên)
-	
-	#Ra lệnh cho Tween:
+	var target := mold.position.y - mold_small_lift_offset
+
+	create_tween().tween_property(
+		mold,
+		\"position:y\",
+		target,
+		0.25
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+
+# ============================================================
+# FULL FINISH LIFT → EMIT SIGNAL
+# ============================================================
+func _lift_mold_finish():
+	if mold == null:
+		return
+
+	_input_block_screen(true)
+
+	var target := mold.position.y - mold_full_lift_offset
+
+	var tween := create_tween()
 	tween.tween_property(
-		caldron_head_node,      # Node cần di chuyển
-		\"position:y\",           # Thuộc tính cần thay đổi
-		target_y,               # Vị trí đích
-		0.5                     # Thời gian bay (0.5 giây)
-	).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT) # Thêm hiệu ứng
+		mold,
+		\"position:y\",
+		target,
+		mold_full_lift_time
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+	# Khi xong → emit signal
+	tween.finished.connect(_on_finish_complete)
+
+
+# Emit signal để MinigameUI nhận
+func _on_finish_complete():
+	_input_block_screen(false)
+
+	# TODO: trả về data thật sự bạn muốn
+	# hiện tại để demo:
+	var part_id := \"blade_1\"
+	var quality := \"high\"
+	var material := \"iron\"
+
+	emit_signal(\"smelting_done\", part_id, quality, material)
+
+
+# ============================================================
+# INPUT BLOCKER
+# ============================================================
+func _input_block_screen(enable: bool):
+	if enable:
+		if _blocker == null:
+			_blocker = Control.new()
+			_blocker.mouse_filter = Control.MOUSE_FILTER_STOP
+			_blocker.set_anchors_preset(Control.PRESET_FULL_RECT)
+			add_child(_blocker)
+	else:
+		if _blocker:
+			_blocker.queue_free()
+			_blocker = null
 "
 
 [sub_resource type="Animation" id="Animation_ttluv"]
@@ -235,8 +380,54 @@ _data = {
 &"tilt": SubResource("Animation_16ol6")
 }
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_l4olc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("63_asyei")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_iynft")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_yiwhl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_jxbpp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_3k2r5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_m1k1f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_1dlb5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_jtovc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_cc121")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_jbq5g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("73_e6nyi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("74_13jmk")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
 [sub_resource type="GDScript" id="GDScript_d8ggs"]
 script/source = "extends TextureButton
+
+signal pulling(strength: float)
 signal pull_completed(strength: float)
 
 @export var max_pull_distance: float = 300.0
@@ -248,37 +439,44 @@ var original_chain_offset: float
 var drag_start_y: float
 
 func _ready():
-	# Lưu offset_top thay vì position
 	original_button_offset = offset_top
-	
+
 	if chain_node:
 		original_chain_offset = chain_node.offset_top
 	else:
 		push_error(\"Lỗi: Node 'Chain' chưa được gán vào PullLever script!\")
 
+
 func _gui_input(event: InputEvent):
+
+	# START DRAG
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
 			is_dragging = true
 			drag_start_y = get_global_mouse_position().y
 			get_viewport().set_input_as_handled()
+
+		# RELEASE → only here lever returns up
 		else:
 			if is_dragging:
 				is_dragging = false
-				
+
 				var drag_delta = get_global_mouse_position().y - drag_start_y
 				var strength = clampf(drag_delta / max_pull_distance, 0.0, 1.0)
+
 				pull_completed.emit(strength)
 
+				# RETURN LEVER UP
 				var tween = create_tween()
 				tween.set_parallel(true)
-				# Tween offset_top chứ không phải position
-				tween.tween_property(self, \"offset_top\", original_button_offset, 0.2).set_trans(Tween.TRANS_SPRING)
+				tween.tween_property(self, \"offset_top\", original_button_offset, 0.2)
 				if chain_node:
-					tween.tween_property(chain_node, \"offset_top\", original_chain_offset, 0.2).set_trans(Tween.TRANS_SPRING)
-				
+					tween.tween_property(chain_node, \"offset_top\", original_chain_offset, 0.2)
+
 				get_viewport().set_input_as_handled()
 
+
+	# DRAGGING
 	if event is InputEventMouseMotion and is_dragging:
 		var drag_delta = get_global_mouse_position().y - drag_start_y
 		var clamped_delta = clampf(drag_delta, 0.0, max_pull_distance)
@@ -287,10 +485,39 @@ func _gui_input(event: InputEvent):
 		if chain_node:
 			chain_node.offset_top = original_chain_offset + clamped_delta
 
+		var strength = clamped_delta / max_pull_distance
+		pulling.emit(strength)
+
+		# AUTO COMPLETE when hit max — BUT DO NOT RESET POSITION
+		if clamped_delta >= max_pull_distance:
+			pull_completed.emit(1.0)
+			# do NOT reset lever here — keep it at max until user releases
+			# also stop any further dragging
+			is_dragging = true  # still holding
+			get_viewport().set_input_as_handled()
+			return
+
 		get_viewport().set_input_as_handled()
 "
 
-[node name="SmeltOreMinigame" type="Panel" node_paths=PackedStringArray("cauldron_anim_player", "pull_lever", "caldron_head_node")]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_iynft"]
+noise_type = 3
+frequency = 0.0091
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iynft"]
+seamless = true
+noise = SubResource("FastNoiseLite_iynft")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iynft"]
+shader = ExtResource("79_iynft")
+shader_parameter/noise = SubResource("NoiseTexture2D_iynft")
+shader_parameter/water_speed = 0.1
+shader_parameter/color_detect_threshold = 0.2
+shader_parameter/water_dev_color = Color(1, 0, 1, 1)
+shader_parameter/water_color = Color(0.922526, 0, 0.153227, 1)
+shader_parameter/bubble_color = Color(1, 0.854902, 0, 1)
+
+[node name="SmeltOreMinigame" type="Panel" node_paths=PackedStringArray("cauldron_anim_player", "fluid_emitter", "pull_lever", "caldron_head_node", "mold", "fire_anim")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -298,8 +525,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_42gci")
 cauldron_anim_player = NodePath("MainLayout/CaldronArea/Caldron/AnimationPlayer")
+fluid_emitter = NodePath("FluidEmitter")
 pull_lever = NodePath("MainLayout/RightCollum/PullLever")
 caldron_head_node = NodePath("MainLayout/CaldronArea/Caldron/CaldronHead")
+mold = NodePath("MainLayout/CaldronArea/Mold")
+fire_anim = NodePath("MainLayout/CaldronArea/Fire")
 
 [node name="MainLayout" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -310,6 +540,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CaldronArea" type="Control" parent="MainLayout"]
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
@@ -402,6 +633,18 @@ offset_bottom = 190.0
 texture = ExtResource("1_d8ggs")
 stretch_mode = 5
 
+[node name="Mold" type="Sprite2D" parent="MainLayout/CaldronArea"]
+z_index = 1
+position = Vector2(667, 1047)
+texture = ExtResource("62_ttluv")
+
+[node name="Fire" type="AnimatedSprite2D" parent="MainLayout/CaldronArea"]
+position = Vector2(662, 789)
+sprite_frames = SubResource("SpriteFrames_l4olc")
+animation = &"idle"
+frame = 9
+frame_progress = 0.0450572
+
 [node name="RightCollum" type="Control" parent="MainLayout"]
 clip_contents = true
 layout_mode = 2
@@ -434,23 +677,18 @@ stretch_mode = 5
 script = SubResource("GDScript_d8ggs")
 chain_node = NodePath("../Chain")
 
-[node name="ScrapButton" type="TextureButton" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+[node name="FluidEmitter" parent="." instance=ExtResource("65_16ol6")]
+position = Vector2(667, 589)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+z_index = 999
+material = SubResource("ShaderMaterial_iynft")
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -227.0
-offset_top = -94.0
-grow_horizontal = 0
-grow_vertical = 0
-texture_normal = ExtResource("1_ptgyn")
-stretch_mode = 5
-
-[node name="BackButton" type="TextureButton" parent="."]
-layout_mode = 1
-offset_right = 121.0
-offset_bottom = 120.0
-texture_normal = ExtResource("2_s8h4u")
-stretch_mode = 5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

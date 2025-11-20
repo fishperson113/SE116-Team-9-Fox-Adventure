@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://qbrulhlifs0u"]
+
+[ext_resource type="PackedScene" uid="uid://cbcm0t4a4tv44" path="res://scenes/minigames/SmeltOreMinigame.tscn" id="1_jqwtp"]
+[ext_resource type="PackedScene" uid="uid://bbh8h6o3fs2r3" path="res://scenes/minigames/AssembleWeaponMinigame.tscn" id="2_othmq"]
+[ext_resource type="Texture2D" uid="uid://cx1m1wxkbipxh" path="res://assets/ui/buttons/close_button.png" id="4_f2o30"]
+
+[sub_resource type="GDScript" id="GDScript_rddwq"]
+script/source = "extends Control
+
+@onready var smelt := $SmeltOreMinigame
+@onready var assemble := $AssembleWeaponMinigame
+
+
+func _ready():
+	# Start with smelt minigame
+	smelt.visible = true
+	assemble.visible = false
+
+	# Listen for smelting result
+	smelt.smelting_done.connect(_on_smelting_done)
+	assemble.assemble_done.connect(_on_assemble_done)
+
+func _on_smelting_done(part_id: String, quality: String, material: String):
+	# Chuyển panel smelt -> assemble
+	_switch_panel(smelt, assemble)
+
+	# Gửi dữ liệu sang assemble bằng API
+	assemble.start_assemble(part_id, quality, material)
+
+func _on_assemble_done(path):
+	print(\"Assemble finished → exported to: \", path)
+	get_tree().reload_current_scene()
+
+# ============================================================
+# PANEL TRANSITION
+# ============================================================
+func _switch_panel(old_panel: Control, new_panel: Control):
+	old_panel.visible = false
+	new_panel.visible = true
+"
+
+[node name="MinigameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_rddwq")
+
+[node name="AssembleWeaponMinigame" parent="." instance=ExtResource("2_othmq")]
+layout_mode = 1
+
+[node name="SmeltOreMinigame" parent="." instance=ExtResource("1_jqwtp")]
+layout_mode = 1
+
+[node name="BackButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 121.0
+offset_bottom = 120.0
+texture_normal = ExtResource("4_f2o30")
+stretch_mode = 5
