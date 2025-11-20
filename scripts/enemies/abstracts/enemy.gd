@@ -37,6 +37,7 @@ var player_detection_raycast: RayCast2D = null
 
 var _collision_shape: CollisionShape2D = null
 var _hit_area_shape: CollisionShape2D = null
+var _detect_area_shape: CollisionPolygon2D = null
 
 var _detect_player_area: Area2D = null
 var _near_sense_area: Area2D = null
@@ -73,12 +74,15 @@ func _init_ray_cast():
 func _init_detect_player_area():
 	if has_node("Direction/DetectPlayerArea2D"):
 		_detect_player_area = $Direction/DetectPlayerArea2D
+		_detect_area_shape = _detect_player_area.get_node("CollisionPolygon2D")
 		_detect_player_area.body_entered.connect(_on_body_entered)
 		_detect_player_area.body_exited.connect(_on_body_exited)
 
 func _init_near_sense_area():
 	if has_node("Direction/NearSenseArea2D"):
 		_near_sense_area = $Direction/NearSenseArea2D
+		_near_sense_area.body_entered.connect(_on_near_sense_body_entered)
+		_near_sense_area.body_exited.connect(_on_near_sense_body_exited)
 
 func _init_hit_area():
 	if has_node("Direction/HitArea2D"):
@@ -151,6 +155,15 @@ func _on_body_entered(_body: CharacterBody2D) -> void:
 func _on_body_exited(_body: CharacterBody2D) -> void:
 	found_player = null
 	_on_player_not_in_sight()
+
+func _on_near_sense_body_entered(_body) -> void:
+	if _body is Player:
+		found_player = _body
+
+func _on_near_sense_body_exited(_body) -> void:
+	#if _body is Player:
+		#found_player = null
+	pass
 
 func _on_hurt_area_2d_hurt(_direction: Vector2, _damage: float) -> void:
 	take_damage(_damage)

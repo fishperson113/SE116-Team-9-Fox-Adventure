@@ -51,17 +51,14 @@ func start_emerging():
 
 func start_sleep() -> void:
 	_movement_speed = 0
-	_near_sense_area.body_entered.connect(_on_sleep_near_sense_body_entered)
+	_detect_area_shape.disabled = true
 	change_animation("sleep")
 	pass
 
-func end_sleep() -> void:
-	_near_sense_area.body_entered.disconnect(_on_sleep_near_sense_body_entered)
-	pass
-
 func update_sleep(_delta: float) -> void:
+	super.update_sleep(_delta)
 	if _is_hitted:
-		fsm.change_state(fsm.states.normal)
+		fsm.change_state(fsm.states.awaking)
 	pass
 
 func _on_hit_area_2d_hitted(body):

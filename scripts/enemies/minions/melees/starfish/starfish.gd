@@ -108,6 +108,8 @@ func end_eager() -> void:
 	
 func update_eager(_delta: float) -> void:
 	update_attack(_delta)
+	if can_attack() and _compute_target_direction(found_player.position) != direction:
+		fsm.change_state(fsm.states.stun)
 	pass
 
 func start_stun() -> void:
