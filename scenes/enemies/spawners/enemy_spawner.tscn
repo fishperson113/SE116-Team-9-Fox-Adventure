@@ -1,14 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dneojmamv2lg3"]
+[gd_scene load_steps=2 format=3 uid="uid://dneojmamv2lg3"]
 
-[ext_resource type="Script" uid="uid://dvop2ohs883rf" path="res://scripts/enemies/controllers/enemy_spawner.gd" id="1_wanlw"]
-[ext_resource type="PackedScene" uid="uid://psxbpmcbicmg" path="res://scenes/enemies/minions/melees/aborigines/aborigine.tscn" id="2_chmo0"]
-[ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="3_fksky"]
-[ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="4_fmppi"]
-[ext_resource type="PackedScene" uid="uid://cf30thpmo45yj" path="res://scenes/enemies/minions/shootables/seahorses/seahorse.tscn" id="5_6cacc"]
+[ext_resource type="Script" uid="uid://dvop2ohs883rf" path="res://scripts/enemies/controllers/spawner/enemy_spawner.gd" id="1_wanlw"]
 
 [node name="Spawner" type="Node2D"]
 script = ExtResource("1_wanlw")
-enemies = Array[PackedScene]([ExtResource("2_chmo0"), ExtResource("3_fksky"), ExtResource("4_fmppi"), ExtResource("5_6cacc")])
+type = null
 
 [node name="DebugOx" type="RayCast2D" parent="."]
 target_position = Vector2(0, 0)

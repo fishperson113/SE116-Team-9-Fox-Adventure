@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dboyhgacrhohs"]
+
+[ext_resource type="Script" uid="uid://leomj74dh7m1" path="res://scenes/levels/level_5/Rock/rock.gd" id="1_233se"]
+[ext_resource type="Texture2D" uid="uid://dws8ejbhk0a2q" path="res://assets/sprites/enemies/monsters/pelican/pelican_bullet.png" id="1_s6pxi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_233se"]
+size = Vector2(20, 18)
+
+[node name="Rock" type="CharacterBody2D"]
+script = ExtResource("1_233se")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_s6pxi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_233se")
