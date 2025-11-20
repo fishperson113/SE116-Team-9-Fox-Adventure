@@ -2,7 +2,8 @@ extends Area2D
 class_name HitArea2D
 
 # damage of hit
-var _dealt_damage: float = 1
+var _dealt_damage: float = 20
+var _attacker: BaseCharacter = null
 
 # signal when hit area
 signal hitted(area)
@@ -14,7 +15,7 @@ func _init() -> void:
 func hit(hurt_area):
 	if(hurt_area.has_method("take_damage")):
 		var hit_dir:Vector2 = hurt_area.global_position - global_position
-		hurt_area.take_damage(hit_dir.normalized(), _dealt_damage)
+		hurt_area.take_damage(_attacker, hit_dir.normalized(), _dealt_damage)
 
 # called when area entered
 func _on_area_entered(area):
@@ -23,3 +24,6 @@ func _on_area_entered(area):
 
 func set_dealt_damage(dealt_damage: float) -> void:
 	_dealt_damage = dealt_damage
+
+func set_attacker(attacker: BaseCharacter) -> void:
+	_attacker = attacker

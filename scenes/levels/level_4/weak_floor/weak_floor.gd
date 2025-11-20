@@ -121,5 +121,5 @@ func update_dissolve(_delta: float) -> void:
 func _on_trigger_area_body_entered(_body) -> void:
 	_is_broken = true
 
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	fsm.change_state(fsm.states.dissolve)

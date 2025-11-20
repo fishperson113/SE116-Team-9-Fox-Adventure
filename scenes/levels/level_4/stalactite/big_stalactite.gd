@@ -9,8 +9,6 @@ var _gravity: float = 0.0
 var _body: Node2D = null
 var _raycast: RayCast2D = null
 
-@onready var _collision_shape: CollisionShape2D = $CollisionShape2D
-
 func _ready() -> void:
 	_init_normal_state()
 	_init_shake_state()

@@ -9,6 +9,14 @@ func _ready() -> void:
 	_trigger_area.body_entered.connect(_on_trigger_area_2d_body_entered)
 	_trigger_area.body_exited.connect(_on_trigger_area_2d_body_exited)
 
+func _on_trigger_area_2d_body_entered(body: Node2D) -> void:
+	if body is BaseCharacter and not body.movementChanging.is_connected(apply_effect):
+		body.movementChanging.connect(apply_effect)
+
+func _on_trigger_area_2d_body_exited(body: Node2D) -> void:
+	if body is BaseCharacter and body.movementChanging.is_connected(apply_effect):
+		body.movementChanging.disconnect(apply_effect)
+
 func apply_effect(_mover: BaseCharacter):
 	apply_force(_mover)
 	apply_impulse(_mover)
@@ -19,7 +27,9 @@ func apply_impulse(_mover: BaseCharacter):
 	_mover.apply_impulse(impulse)
 	pass
 
-func calculate_impulse(internal_force: Vector2, impulse: Vector2, current_force: Vector2) -> Vector2:
+# Whatever inheriting from this script should only ovveride this method
+func calculate_impulse(_internal_force: Vector2, _impulse: Vector2, _current_force: Vector2) -> Vector2:
+	# Calculate impulse here
 	return Vector2.ZERO
 
 func apply_force(_mover: BaseCharacter):
@@ -33,14 +43,7 @@ func apply_force(_mover: BaseCharacter):
 	_mover.apply_force(_type, external_force)
 	pass
 
-func calculate_force(internal_force: Vector2, impulse: Vector2, current_force: Vector2) -> Vector2:
+# Whatever inheriting from this script should only ovveride this method
+func calculate_force(_internal_force: Vector2, _impulse: Vector2, _current_force: Vector2) -> Vector2:
 	# Calculate mover.external_force here
 	return Vector2.ZERO
-
-func _on_trigger_area_2d_body_entered(body: Node2D) -> void:
-	if body is BaseCharacter and not body.movementChanging.is_connected(apply_effect):
-		body.movementChanging.connect(apply_effect)
-
-func _on_trigger_area_2d_body_exited(body: Node2D) -> void:
-	if body is BaseCharacter and body.movementChanging.is_connected(apply_effect):
-		body.movementChanging.disconnect(apply_effect)

@@ -91,7 +91,7 @@ func update_normal(_delta: float) -> void:
 	pass
 
 func start_hurt() -> void:
-	_movement_speed = 0.0
+	#_movement_speed = 0.0
 	change_animation("hurt")
 
 func end_hurt() -> void:

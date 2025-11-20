@@ -55,7 +55,7 @@ func respawn_at_portal() -> bool:
 	if not target_portal_name.is_empty():
 		player.global_position = current_stage.find_child(target_portal_name).global_position
 		GameManager.target_portal_name = ""
-		true
+		return true
 	return false
 
 # Checkpoint system functions

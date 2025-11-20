@@ -10,7 +10,6 @@ var _gravity: float = 0.0
 var _anim_player: AnimationPlayer = null
 var _raycast: RayCast2D = null
 
-@onready var _collision_shape: CollisionShape2D = $CollisionShape2D
 @onready var _drop_factory: Node2DFactory = $DropFactory
 
 func _ready() -> void:
@@ -155,7 +154,7 @@ func end_dissolve() -> void:
 func update_dissolve(_delta: float) -> void:
 	pass
 
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	queue_free()
 
 func can_fall() -> bool:

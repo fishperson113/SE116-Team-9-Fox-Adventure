@@ -30,8 +30,10 @@ func try_attack() -> void:
 func try_recover() -> void:
 	if obj.is_alive():
 		fsm.change_state(fsm.states.normal)
-	else:
-		fsm.change_state(fsm.states.dead)
+		return
+	fsm.change_state(fsm.states.dead)
 
-func take_damage() -> void:
+func take_damage(_attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
+	obj.take_damage(_damage)
+	obj.bounce_off(_direction)
 	change_state(fsm.states.hurt)

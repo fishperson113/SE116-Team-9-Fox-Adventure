@@ -75,5 +75,5 @@ func start_disolve():
 		_is_dissolved = true
 		_anim_player.play("dissolving")
 
-func _on_animation_finished(anim_name: String):
+func _on_animation_finished(_anim_name: String):
 	queue_free()

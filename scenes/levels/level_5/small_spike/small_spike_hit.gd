@@ -19,8 +19,8 @@ func hit(hurt_area):
 	hitting.emit(target)
 	super.hit(hurt_area)
 
-func set_target_name(name: String):
-	target_name = name
+func set_target_name(_target_name: String):
+	target_name = _target_name
 
 func set_condition(callback: Callable):
 	condition = callback

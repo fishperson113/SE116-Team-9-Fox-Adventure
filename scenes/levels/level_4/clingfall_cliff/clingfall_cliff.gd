@@ -7,12 +7,12 @@ func _ready() -> void:
 	super._ready()
 	_type = "clingfall"
 
-func calculate_force(internal_force: Vector2, impulse: Vector2, current_force: Vector2) -> Vector2:
+func calculate_force(_internal_force: Vector2, _impulse: Vector2, _current_force: Vector2) -> Vector2:
 	var external_force := Vector2.ZERO
-	if current_force.y < 0:
-		external_force.y += -current_force.y * up_friction
+	if _current_force.y < 0:
+		external_force.y += -_current_force.y * up_friction
 	else:
-		external_force.y += -current_force.y * down_friction
+		external_force.y += -_current_force.y * down_friction
 	return external_force
 
 func _on_trigger_area_2d_body_entered(body: Node2D) -> void:
