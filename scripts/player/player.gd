@@ -75,6 +75,10 @@ func _on_hurt_area_2d_hurt(direction: Vector2, damage: float) -> void:
 func _on_invulnerability_timer_timeout() -> void:
 	is_invulnerable = false
 
+func set_empty_health() -> void:
+	fsm.current_state.take_damage(currentHealth)
+	pass
+
 #func _physics_process(delta: float) -> void:
 	#super._physics_process(delta)
 	#print("player speed: ", velocity.y)

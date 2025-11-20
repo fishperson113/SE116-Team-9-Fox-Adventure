@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=4 uid="uid://bqs7uxv4vt07x"]
+[gd_scene load_steps=61 format=4 uid="uid://bqs7uxv4vt07x"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_33rtp"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_dwsf3"]
@@ -51,32 +51,38 @@ size = Vector2(542, 103)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_srx1h"]
 size = Vector2(850, 128)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ol6co"]
+size = Vector2(30, 192)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j1ua3"]
-size = Vector2(30, 96)
+size = Vector2(30, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cacsb"]
+size = Vector2(30, 192)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c7qlg"]
-size = Vector2(30, 200)
+size = Vector2(30, 192)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jups3"]
-size = Vector2(30, 180)
+size = Vector2(30, 160)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_af67u"]
-size = Vector2(100, 32)
+size = Vector2(96, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dh8so"]
-size = Vector2(30, 132)
+size = Vector2(30, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8lhl"]
-size = Vector2(30, 112)
+size = Vector2(30, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wuc3"]
-size = Vector2(96, 16)
+size = Vector2(96, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_64mh7"]
-size = Vector2(30, 192)
+size = Vector2(30, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bedff"]
-size = Vector2(30, 192)
+size = Vector2(30, 128)
 
 [sub_resource type="GDScript" id="GDScript_1vm6v"]
 script/source = "extends ParallaxLayer
@@ -200,7 +206,7 @@ animations = [{
 
 [node name="Stage" type="Node2D"]
 
-[node name="Bullets" type="Node2D" parent="."]
+[node name="Enemies" type="Node2D" parent="."]
 
 [node name="World" type="Node2D" parent="."]
 
@@ -267,18 +273,32 @@ shape = SubResource("RectangleShape2D_srx1h")
 
 [node name="Spawner" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(214, -101)
-size = Vector2(40, 160)
-pos = Vector2(800, -16)
+trigger_size = Vector2(30, 192)
+trigger_position = Vector2(900, 0)
 enemies = Array[PackedScene]([ExtResource("5_5o6pu")])
+group = "Enemies"
 width = 500.0
 height = 40.0
 range_spawn = 0
 
+[node name="DebugOx" parent="World/Spawner" index="0"]
+target_position = Vector2(500, 0)
+
+[node name="DebugOy" parent="World/Spawner" index="1"]
+target_position = Vector2(0, -60)
+
+[node name="Area2D" parent="World/Spawner" index="2"]
+position = Vector2(900, 0)
+
+[node name="CollisionShape2D" parent="World/Spawner/Area2D" index="0"]
+shape = SubResource("RectangleShape2D_ol6co")
+
 [node name="Spawner2" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(413, -565)
-size = Vector2(30, 96)
-pos = Vector2(736, 0)
+trigger_size = Vector2(30, 128)
+trigger_position = Vector2(850, 16)
 enemies = Array[PackedScene]([ExtResource("6_sweax")])
+group = "Enemies"
 width = 500.0
 range_spawn = 0
 
@@ -286,24 +306,40 @@ range_spawn = 0
 target_position = Vector2(500, 0)
 
 [node name="Area2D" parent="World/Spawner2" index="2"]
-position = Vector2(736, 0)
+position = Vector2(850, 16)
 
 [node name="CollisionShape2D" parent="World/Spawner2/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_j1ua3")
 
 [node name="Spawner3" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(1648, 182)
-size = Vector2(30, 160)
-pos = Vector2(-300, -43)
+trigger_size = Vector2(30, 192)
+trigger_position = Vector2(-600, -60)
 enemies = Array[PackedScene]([ExtResource("7_j1ua3")])
+group = "Enemies"
+width = 10.0
+height = 10.0
 melee_spawn = 1
 range_spawn = 0
 
+[node name="DebugOx" parent="World/Spawner3" index="0"]
+target_position = Vector2(10, 0)
+
+[node name="DebugOy" parent="World/Spawner3" index="1"]
+target_position = Vector2(0, -15)
+
+[node name="Area2D" parent="World/Spawner3" index="2"]
+position = Vector2(-600, -60)
+
+[node name="CollisionShape2D" parent="World/Spawner3/Area2D" index="0"]
+shape = SubResource("RectangleShape2D_cacsb")
+
 [node name="Spawner4" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(1268, -274)
-size = Vector2(30, 200)
-pos = Vector2(-200, -80)
+trigger_size = Vector2(30, 192)
+trigger_position = Vector2(-250, -82)
 enemies = Array[PackedScene]([ExtResource("7_j1ua3")])
+group = "Enemies"
 width = 10.0
 height = 10.0
 melee_spawn = 1
@@ -316,16 +352,17 @@ target_position = Vector2(10, 0)
 target_position = Vector2(0, -15)
 
 [node name="Area2D" parent="World/Spawner4" index="2"]
-position = Vector2(-200, -80)
+position = Vector2(-250, -82)
 
 [node name="CollisionShape2D" parent="World/Spawner4/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_c7qlg")
 
 [node name="Spawner5" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(1924, -468)
-size = Vector2(30, 180)
-pos = Vector2(30, 130)
+trigger_size = Vector2(30, 160)
+trigger_position = Vector2(250, 128)
 enemies = Array[PackedScene]([ExtResource("7_j1ua3")])
+group = "Enemies"
 width = 300.0
 height = 70.0
 melee_spawn = 1
@@ -338,16 +375,17 @@ target_position = Vector2(300, 0)
 target_position = Vector2(0, -105)
 
 [node name="Area2D" parent="World/Spawner5" index="2"]
-position = Vector2(30, 130)
+position = Vector2(250, 128)
 
 [node name="CollisionShape2D" parent="World/Spawner5/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_jups3")
 
 [node name="Spawner6" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(2755, -333)
-size = Vector2(100, 32)
-pos = Vector2(22, -450)
+trigger_size = Vector2(96, 32)
+trigger_position = Vector2(25, -450)
 enemies = Array[PackedScene]([ExtResource("7_j1ua3")])
+group = "Enemies"
 width = 50.0
 height = 50.0
 melee_spawn = 1
@@ -360,16 +398,17 @@ target_position = Vector2(50, 0)
 target_position = Vector2(0, -75)
 
 [node name="Area2D" parent="World/Spawner6" index="2"]
-position = Vector2(22, -450)
+position = Vector2(25, -450)
 
 [node name="CollisionShape2D" parent="World/Spawner6/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_af67u")
 
 [node name="Spawner7" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(3554, 203)
-size = Vector2(30, 132)
-pos = Vector2(-500, -47)
+trigger_size = Vector2(30, 128)
+trigger_position = Vector2(-500, -48)
 enemies = Array[PackedScene]([ExtResource("5_5o6pu"), ExtResource("6_sweax")])
+group = "Enemies"
 width = 475.0
 height = 40.0
 range_spawn = 0
@@ -381,16 +420,17 @@ target_position = Vector2(475, 0)
 target_position = Vector2(0, -60)
 
 [node name="Area2D" parent="World/Spawner7" index="2"]
-position = Vector2(-500, -47)
+position = Vector2(-500, -48)
 
 [node name="CollisionShape2D" parent="World/Spawner7/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_dh8so")
 
 [node name="Spawner8" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(3831, -406)
-size = Vector2(30, 112)
-pos = Vector2(-300, -30)
+trigger_size = Vector2(30, 96)
+trigger_position = Vector2(-300, -31)
 enemies = Array[PackedScene]([ExtResource("5_5o6pu"), ExtResource("6_sweax")])
+group = "Enemies"
 width = 400.0
 height = 30.0
 range_spawn = 0
@@ -402,16 +442,17 @@ target_position = Vector2(400, 0)
 target_position = Vector2(0, -45)
 
 [node name="Area2D" parent="World/Spawner8" index="2"]
-position = Vector2(-300, -30)
+position = Vector2(-300, -31)
 
 [node name="CollisionShape2D" parent="World/Spawner8/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_v8lhl")
 
 [node name="Spawner9" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(3949, -530)
-size = Vector2(96, 16)
-pos = Vector2(303, 25)
+trigger_size = Vector2(96, 15)
+trigger_position = Vector2(303, 23.895)
 enemies = Array[PackedScene]([ExtResource("7_j1ua3")])
+group = "Enemies"
 width = 140.0
 height = 25.0
 melee_spawn = 1
@@ -424,16 +465,17 @@ target_position = Vector2(140, 0)
 target_position = Vector2(0, -37.5)
 
 [node name="Area2D" parent="World/Spawner9" index="2"]
-position = Vector2(303, 25)
+position = Vector2(303, 23.895)
 
 [node name="CollisionShape2D" parent="World/Spawner9/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_5wuc3")
 
 [node name="Spawner10" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(3192, -542)
-size = Vector2(30, 192)
-pos = Vector2(736, -71)
+trigger_size = Vector2(30, 128)
+trigger_position = Vector2(450, -102)
 enemies = Array[PackedScene]([ExtResource("7_j1ua3")])
+group = "Enemies"
 width = 300.0
 height = 1.0
 range_spawn = 0
@@ -445,16 +487,17 @@ target_position = Vector2(300, 0)
 target_position = Vector2(0, -1.5)
 
 [node name="Area2D" parent="World/Spawner10" index="2"]
-position = Vector2(736, -71)
+position = Vector2(450, -102)
 
 [node name="CollisionShape2D" parent="World/Spawner10/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_64mh7")
 
 [node name="Spawner11" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(3655, -750)
-size = Vector2(30, 192)
-pos = Vector2(-400, -23)
+trigger_size = Vector2(30, 128)
+trigger_position = Vector2(-300, -55)
 enemies = Array[PackedScene]([ExtResource("5_5o6pu"), ExtResource("6_sweax")])
+group = "Enemies"
 width = 500.0
 height = 50.0
 melee_spawn = 3
@@ -467,7 +510,7 @@ target_position = Vector2(500, 0)
 target_position = Vector2(0, -75)
 
 [node name="Area2D" parent="World/Spawner11" index="2"]
-position = Vector2(-400, -23)
+position = Vector2(-300, -55)
 
 [node name="CollisionShape2D" parent="World/Spawner11/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_bedff")
@@ -618,7 +661,9 @@ position = Vector2(1274, 238)
 [editable path="World/AreaUnlockerEnemies3"]
 [editable path="World/AreaUnlockerEnemies4"]
 [editable path="World/AreaUnlockerEnemies5"]
+[editable path="World/Spawner"]
 [editable path="World/Spawner2"]
+[editable path="World/Spawner3"]
 [editable path="World/Spawner4"]
 [editable path="World/Spawner5"]
 [editable path="World/Spawner6"]
