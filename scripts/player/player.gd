@@ -15,10 +15,15 @@ var weapon_thrower: WeaponThrower
 var is_invulnerable: bool = false
 @onready var invulnerability_timer: Timer = $InvulnerabilityTimer
 
+# This will be used to accept reflect damage
+@onready var hit_area: HitArea2D = $Direction/HitArea2D
+
 func _ready() -> void:
 	get_node("Direction/HitArea2D/CollisionShape2D").disabled = true
 	fsm = FSM.new(self, $States, $States/Idle)
 	weapon_thrower = $WeaponThrower
+	# Set the attacker to take damage from reflect
+	hit_area.set_attacker(self)
 	super._ready()
 	GameManager.player = self
 
@@ -65,7 +70,7 @@ func _on_save_inventory_button_pressed() -> void:
 	item_storer.save_slots()
 	pass # Replace with function body.
 
-func _on_hurt_area_2d_hurt(direction: Vector2, damage: float) -> void:
+func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, direction: Vector2, damage: float) -> void:
 	if is_invulnerable:
 		return
 	fsm.current_state.take_damage(damage)
@@ -74,11 +79,3 @@ func _on_hurt_area_2d_hurt(direction: Vector2, damage: float) -> void:
 
 func _on_invulnerability_timer_timeout() -> void:
 	is_invulnerable = false
-
-func set_empty_health() -> void:
-	fsm.current_state.take_damage(currentHealth)
-	pass
-
-#func _physics_process(delta: float) -> void:
-	#super._physics_process(delta)
-	#print("player speed: ", velocity.y)

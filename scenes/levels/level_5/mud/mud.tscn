@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://btechtxx2sskd"]
+
+[ext_resource type="PackedScene" uid="uid://dewtqhftkhq2v" path="res://scenes/levels/level_4/abstracts/functional_tile.tscn" id="1_qr58c"]
+[ext_resource type="Texture2D" uid="uid://dcrnqve71d36p" path="res://assets/sprites/environment/background/additional_sky.png" id="2_eg8y8"]
+[ext_resource type="Script" uid="uid://jxmvxio325as" path="res://scenes/levels/level_5/mud/mud.gd" id="2_ytfv3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ytfv3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_eg8y8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yyysg"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qr58c"]
+size = Vector2(34, 34)
+
+[node name="Mud" instance=ExtResource("1_qr58c")]
+script = ExtResource("2_ytfv3")
+friction = 0.75
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+modulate = Color(0.654242, 0.220648, 0.0733631, 1)
+sprite_frames = SubResource("SpriteFrames_ytfv3")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_yyysg")
+
+[node name="TriggerArea2D" parent="." index="2"]
+visible = false
+
+[node name="CollisionShape2D" parent="TriggerArea2D" index="0"]
+shape = SubResource("RectangleShape2D_qr58c")

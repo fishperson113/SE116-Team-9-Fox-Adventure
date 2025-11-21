@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://ci70rataq7x2j" path="res://scenes/levels/level_5/small_spike/small_spike.tscn" id="8_mj7xo"]
 [ext_resource type="PackedScene" uid="uid://crkmos1d5bdx3" path="res://scenes/items/collectible_items/collectible_chest_key.tscn" id="8_nutfu"]
 [ext_resource type="PackedScene" uid="uid://3jehn00g402y" path="res://scenes/levels/level_4/weak_floor/weak_floor.tscn" id="8_r072g"]
+[ext_resource type="PackedScene" uid="uid://btechtxx2sskd" path="res://scenes/levels/level_5/mud/mud.tscn" id="9_tk48q"]
+[ext_resource type="PackedScene" uid="uid://cw41ooeg3pxq1" path="res://scenes/levels/island/objects/checkpoint/checkpoint.tscn" id="10_xdv3y"]
 [ext_resource type="PackedScene" uid="uid://brnu5n664x08s" path="res://scenes/levels/level_4/grass/grass.tscn" id="15_sxrog"]
 [ext_resource type="Texture2D" uid="uid://dcssgaoibxenb" path="res://assets/sprites/environment/terrain/CaveBG.png" id="17_tk48q"]
 
@@ -413,6 +415,8 @@ scenes/12/scene = ExtResource("5_eylfi")
 scenes/13/scene = ExtResource("6_lfyu1")
 scenes/14/scene = ExtResource("7_4elon")
 scenes/15/scene = ExtResource("8_mj7xo")
+scenes/16/scene = ExtResource("9_tk48q")
+scenes/17/scene = ExtResource("10_xdv3y")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xdv3y"]
 texture = ExtResource("17_tk48q")

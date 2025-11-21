@@ -2,7 +2,7 @@ extends EnemyState
 
 func _enter() -> void:
 	super._enter()
-	timer = obj.emerging_time
+	timer = obj.transition_time
 
 func _update( _delta ):
 	super._update(_delta)

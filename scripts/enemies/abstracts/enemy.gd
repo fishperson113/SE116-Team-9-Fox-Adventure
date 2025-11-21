@@ -37,6 +37,8 @@ var player_detection_raycast: RayCast2D = null
 
 var _collision_shape: CollisionShape2D = null
 var _hit_area_shape: CollisionShape2D = null
+var _hurt_area_shape: CollisionShape2D = null
+var _detect_area_shape: CollisionPolygon2D = null
 
 var _detect_player_area: Area2D = null
 var _near_sense_area: Area2D = null
@@ -53,6 +55,7 @@ func _ready() -> void:
 	_patrol_controller = PatrolController.new(movement_range)
 	jump_speed = 235
 	_jump_speed = jump_speed
+	currentHealth = health
 	pass
 
 #init ray cast to check wall and fall
@@ -73,17 +76,21 @@ func _init_ray_cast():
 func _init_detect_player_area():
 	if has_node("Direction/DetectPlayerArea2D"):
 		_detect_player_area = $Direction/DetectPlayerArea2D
+		_detect_area_shape = _detect_player_area.get_node("CollisionPolygon2D")
 		_detect_player_area.body_entered.connect(_on_body_entered)
 		_detect_player_area.body_exited.connect(_on_body_exited)
 
 func _init_near_sense_area():
 	if has_node("Direction/NearSenseArea2D"):
 		_near_sense_area = $Direction/NearSenseArea2D
+		_near_sense_area.body_entered.connect(_on_near_sense_body_entered)
+		_near_sense_area.body_exited.connect(_on_near_sense_body_exited)
 
 func _init_hit_area():
 	if has_node("Direction/HitArea2D"):
 		_hit_area = $Direction/HitArea2D
 		_hit_area.set_dealt_damage(spike)
+		_hit_area.set_attacker(self)
 		_hit_area.hitted.connect(_on_hit_area_2d_hitted)
 		_hit_area_shape = _hit_area.get_node("NormalCollisionShape2D")
 
@@ -91,6 +98,7 @@ func _init_hit_area():
 func _init_hurt_area():
 	if has_node("Direction/HurtArea2D"):
 		var hurt_area = $Direction/HurtArea2D
+		_hurt_area_shape = hurt_area.get_node("CollisionShape2D")
 		hurt_area.hurt.connect(_on_hurt_area_2d_hurt)
 		
 func _init_collision_shape():
@@ -152,9 +160,17 @@ func _on_body_exited(_body: CharacterBody2D) -> void:
 	found_player = null
 	_on_player_not_in_sight()
 
-func _on_hurt_area_2d_hurt(_direction: Vector2, _damage: float) -> void:
-	take_damage(_damage)
-	fsm.current_state.take_damage()
+func _on_near_sense_body_entered(_body) -> void:
+	if _body is Player:
+		found_player = _body
+
+func _on_near_sense_body_exited(_body) -> void:
+	#if _body is Player:
+		#found_player = null
+	pass
+
+func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
+	fsm.current_state.take_damage(_attacker, _direction, _damage)
 
 func _on_hit_area_2d_hitted(_body) -> void:
 	pass
@@ -190,11 +206,8 @@ func disable_check_player_in_sight() -> void:
 	if(_detect_player_area != null):
 		_detect_player_area.get_node("CollisionShape2D").disabled = true
 
-#func take_damage(amount: int) -> void:
-	#health -= amount
-
 func is_alive() -> bool:
-	return health > 0.0
+	return currentHealth > 0.0
 
 func get_size() -> Vector2:
 	if _collision_shape:
@@ -203,3 +216,9 @@ func get_size() -> Vector2:
 
 func want_to_turn() -> bool:
 	return randf() < turn_chance
+
+func resolve_damage(_attacker: BaseCharacter, _damage: float):
+	take_damage(int(_damage))
+
+func bounce_off(_direction: Vector2) -> void:
+	_movement_speed = movement_speed * _direction.x * direction * 1.25

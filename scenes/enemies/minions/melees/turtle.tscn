@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bfht0850wn42w"]
+[gd_scene load_steps=18 format=3 uid="uid://bfht0850wn42w"]
 
 [ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_lwot8"]
 [ext_resource type="Texture2D" uid="uid://caslj3ghwybo" path="res://assets/sprites/enemies/monsters/turtle/turtle_blue_01.png" id="2_m4af1"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://cm8w8u007136u" path="res://assets/sprites/enemies/monsters/turtle/turtle_blue_walk_02.png" id="8_b0caf"]
 [ext_resource type="Script" uid="uid://cm17uvcigyehq" path="res://scripts/enemies/minions/melees/turtle/hiding.gd" id="9_qnqwk"]
 [ext_resource type="Script" uid="uid://2skgk0s5nt5l" path="res://scripts/enemies/minions/melees/turtle/hide.gd" id="10_sinc7"]
-[ext_resource type="Script" uid="uid://dv6qq3pmfcnqw" path="res://scripts/enemies/minions/melees/turtle/normal.gd" id="11_3gepd"]
 [ext_resource type="Script" uid="uid://c4macjfajsxwx" path="res://scripts/enemies/minions/melees/turtle/emerging.gd" id="11_q2vek"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_40mr0"]
@@ -67,6 +66,11 @@ animations = [{
 "name": &"hiding",
 "speed": 5.0
 }, {
+"frames": [],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("5_4cskd")
@@ -116,18 +120,18 @@ size = Vector2(24, 20)
 [node name="Turtle" groups=["melee"] instance=ExtResource("1_lwot8")]
 collision_layer = 9
 script = ExtResource("2_riaft")
+reflect_percentage = 0.5
+max_tolerable_pct = 0.3
 normal_time = 3.0
-hiding_time = 1.0
+transition_time = 0.25
 hide_time = 3.0
-emerging_time = 1.0
 health = 200.0
 spike = 100.0
 movement_speed = 50.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]
 sprite_frames = SubResource("SpriteFrames_40mr0")
-animation = &"sleep"
-frame_progress = 0.699201
+animation = &"emerging"
 
 [node name="HitArea2D" parent="Direction" index="1"]
 collision_mask = 32
@@ -163,9 +167,6 @@ shape = SubResource("CircleShape2D_jwmse")
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_n2i8s")
-
-[node name="Normal" parent="States" index="1"]
-script = ExtResource("11_3gepd")
 
 [node name="Hiding" type="Node" parent="States" index="3"]
 script = ExtResource("9_qnqwk")

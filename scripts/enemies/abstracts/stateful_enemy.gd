@@ -77,21 +77,21 @@ func _init_dead_state() -> void:
 
 func start_normal() -> void:
 	_movement_speed = movement_speed
-	_near_sense_area.body_entered.connect(_on_normal_near_sense_body_entered)
 	change_animation("normal")
 
 func end_normal() -> void:
-	_near_sense_area.body_entered.disconnect(_on_normal_near_sense_body_entered)
 	pass
 
 func update_normal(_delta: float) -> void:
 	try_patrol_turn(_delta)
+	if found_player:
+		target(found_player.position)
 	#if try_patrol_turn(_delta) or randf() < idle_chance:
 		#fsm.change_state(fsm.states.idle)
 	pass
 
 func start_hurt() -> void:
-	_movement_speed = 0.0
+	#_movement_speed = 0.0
 	change_animation("hurt")
 
 func end_hurt() -> void:
@@ -112,14 +112,15 @@ func update_dead(_delta: float) -> void:
 func start_sleep() -> void:
 	_movement_speed = 0
 	_hit_area_shape.disabled = true
-	_near_sense_area.body_entered.connect(_on_sleep_near_sense_body_entered)
+	_detect_area_shape.disabled = true
 	pass
 
 func end_sleep() -> void:
-	_near_sense_area.body_entered.disconnect(_on_sleep_near_sense_body_entered)
 	pass
 
 func update_sleep(_delta: float) -> void:
+	if found_player:
+		fsm.change_state(fsm.states.awaking)
 	pass
 
 func start_awaking() -> void:
@@ -127,6 +128,7 @@ func start_awaking() -> void:
 
 func end_awaking() -> void:
 	_hit_area_shape.disabled = false
+	_detect_area_shape.disabled = false
 	pass
 
 func update_awaking(_delta: float) -> void:
@@ -145,18 +147,12 @@ func update_idle(_delta: float) -> void:
 		fsm.change_state(fsm.states.normal)
 	pass
 
-func _on_sleep_near_sense_body_entered(_body) -> void:
-	if _body is Player:
-		fsm.change_state(fsm.states.awaking)
-
-func _on_normal_near_sense_body_entered(_body) -> void:
-	if _body is Player:
-		target(_body.position)
-
 func target(_position: Vector2) -> void:
+	if _compute_target_direction(_position) != direction:
+		turn()
+
+func _compute_target_direction(_position: Vector2) -> int:
 	var target_direction = -1
 	if _position.x > position.x:
 		target_direction = 1
-	
-	if target_direction != direction:
-		turn()
+	return target_direction

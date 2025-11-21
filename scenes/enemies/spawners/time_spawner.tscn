@@ -1,12 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://cv7h7e7s07r0m"]
 
 [ext_resource type="PackedScene" uid="uid://dneojmamv2lg3" path="res://scenes/enemies/spawners/enemy_spawner.tscn" id="1_m1o0v"]
-[ext_resource type="Script" uid="uid://cp3iupwhhb2s8" path="res://scripts/enemies/controllers/time_spawner.gd" id="2_ffsuw"]
+[ext_resource type="Script" uid="uid://52xmo0ev1xid" path="res://scripts/enemies/controllers/spawner/composite_spawner.gd" id="2_ffsuw"]
 
 [node name="Spawner" instance=ExtResource("1_m1o0v")]
 script = ExtResource("2_ffsuw")
-enemies = Array[PackedScene]([])
+type = 0
+spawn_cooldown = 2.0
 
-[node name="Timer" type="Timer" parent="." index="1"]
-wait_time = 5.0
+[node name="Timer" type="Timer" parent="." index="2"]
+wait_time = 2.0
 autostart = true

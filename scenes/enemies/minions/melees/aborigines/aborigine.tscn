@@ -1,11 +1,15 @@
-[gd_scene load_steps=25 format=3 uid="uid://psxbpmcbicmg"]
+[gd_scene load_steps=29 format=3 uid="uid://psxbpmcbicmg"]
 
 [ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_wpoo8"]
 [ext_resource type="Texture2D" uid="uid://4j8nk7vkp4dl" path="res://assets/sprites/enemies/monsters/spear/spear_17.png" id="2_88lkr"]
 [ext_resource type="Script" uid="uid://c8104lykhb2g5" path="res://scripts/enemies/minions/melees/aborigine/aborigine.gd" id="2_dowjx"]
 [ext_resource type="Texture2D" uid="uid://1u7kimbp81gh" path="res://assets/sprites/enemies/monsters/spear/spear_18.png" id="3_5r1ng"]
+[ext_resource type="Texture2D" uid="uid://7b80ixyf6507" path="res://assets/sprites/enemies/monsters/spear/spear_13.png" id="3_06fmv"]
+[ext_resource type="Texture2D" uid="uid://bvbiaf8kin41n" path="res://assets/sprites/enemies/monsters/spear/spear_14.png" id="4_eulpy"]
 [ext_resource type="Texture2D" uid="uid://b7r8ok4c2joj0" path="res://assets/sprites/enemies/monsters/spear/spear_5.png" id="4_kqvr2"]
+[ext_resource type="Texture2D" uid="uid://cgu5gtto40dcs" path="res://assets/sprites/enemies/monsters/spear/spear_15.png" id="5_aukwt"]
 [ext_resource type="Texture2D" uid="uid://dsmq4ksgxty26" path="res://assets/sprites/enemies/monsters/spear/spear_6.png" id="5_dowjx"]
+[ext_resource type="Texture2D" uid="uid://bvk1wyh200ndb" path="res://assets/sprites/enemies/monsters/spear/spear_16.png" id="6_3honk"]
 [ext_resource type="Texture2D" uid="uid://4oedp5c3nihy" path="res://assets/sprites/enemies/monsters/spear/spear_7.png" id="6_du6fd"]
 [ext_resource type="Texture2D" uid="uid://c7bcen2ofnedx" path="res://assets/sprites/enemies/monsters/spear/spear_8.png" id="7_m66qe"]
 [ext_resource type="Texture2D" uid="uid://c6ieee4png12f" path="res://assets/sprites/enemies/monsters/spear/spear_1.png" id="8_0p3na"]
@@ -22,6 +26,23 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4vqwu"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_06fmv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_eulpy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_aukwt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3honk")
+}],
+"loop": true,
+"name": &"defend",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_88lkr")
@@ -103,13 +124,14 @@ size = Vector2(13, 28)
 size = Vector2(15, 29)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yegg3"]
-radius = 40.0
+radius = 96.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kqvr2"]
 size = Vector2(20, 29)
 
 [node name="Aborigine" groups=["melee"] instance=ExtResource("1_wpoo8")]
 script = ExtResource("2_dowjx")
+safe_distance = 50.0
 bullet_up_impulse = -400.0
 initial_direction = -1
 shoot_time = 0.4
@@ -117,11 +139,11 @@ shoot_interval = 0.0
 shoot_cooldown = 1.0
 health = 200.0
 spike = 100.0
-movement_speed = 50.0
+movement_speed = 80.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]
 sprite_frames = SubResource("SpriteFrames_4vqwu")
-animation = &"shoot"
+animation = &"normal"
 
 [node name="HitArea2D" parent="Direction" index="1"]
 visible = false
@@ -139,6 +161,7 @@ position = Vector2(-2.5, 2.5)
 shape = SubResource("RectangleShape2D_5r1ng")
 
 [node name="FrontRayCast2D" parent="Direction" index="3"]
+visible = false
 position = Vector2(23, -12)
 target_position = Vector2(0, 29)
 
@@ -159,16 +182,26 @@ target_container_name = &"Bullets"
 metadata/_custom_type_script = "uid://2dtm6jeegr43"
 
 [node name="DownRayCast2D" parent="Direction" index="6"]
+visible = false
 position = Vector2(16, 17)
 target_position = Vector2(0, 48)
 
-[node name="DetectPlayerArea2D" parent="Direction" index="7"]
+[node name="BehindDownRayCast2D" type="RayCast2D" parent="Direction" index="7"]
+visible = false
+position = Vector2(-16, 17)
+target_position = Vector2(0, 48)
+
+[node name="DetectPlayerArea2D" parent="Direction" index="8"]
 visible = false
 
-[node name="JumpRayCast2D" parent="Direction" index="8"]
+[node name="JumpRayCast2D" parent="Direction" index="9"]
+visible = false
+
+[node name="NearSenseArea2D" parent="Direction" index="10"]
 visible = false
 
 [node name="CollisionShape2D" parent="Direction/NearSenseArea2D" index="0"]
+position = Vector2(-6, 0)
 shape = SubResource("CircleShape2D_yegg3")
 
 [node name="CollisionShape2D" parent="." index="1"]

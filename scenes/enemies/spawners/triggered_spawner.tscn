@@ -1,16 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2wpy684uyjct"]
+[gd_scene load_steps=3 format=3 uid="uid://d2wpy684uyjct"]
 
 [ext_resource type="PackedScene" uid="uid://dneojmamv2lg3" path="res://scenes/enemies/spawners/enemy_spawner.tscn" id="1_wqq05"]
-[ext_resource type="Script" uid="uid://cap8xhhyg6p03" path="res://scripts/enemies/controllers/triggered_spawner.gd" id="2_vj5cc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wqq05"]
-size = Vector2(96, 96)
+size = Vector2(32, 288)
 
 [node name="Spawner" instance=ExtResource("1_wqq05")]
-script = ExtResource("2_vj5cc")
+type = 1
 trigger_size = Vector2(0, 0)
 trigger_position = Vector2(0, 0)
-enemies = Array[PackedScene]([])
 
 [node name="Area2D" type="Area2D" parent="." index="2"]
 collision_layer = 0
