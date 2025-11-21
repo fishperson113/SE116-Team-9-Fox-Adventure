@@ -1,7 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://da0mswdg4suuk"]
-
-[ext_resource type="PackedScene" uid="uid://5pp64vwco2e1" path="res://scenes/npc/sign.tscn" id="1_8e10c"]
-[ext_resource type="Script" uid="uid://0fxo78jhnome" path="res://scenes/npc/sign_8.gd" id="2_bvksl"]
-
-[node name="Sign" instance=ExtResource("1_8e10c")]
-script = ExtResource("2_bvksl")

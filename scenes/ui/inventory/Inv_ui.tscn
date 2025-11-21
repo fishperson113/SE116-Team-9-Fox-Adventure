@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://bquisodmhmkdk"]
+
+[ext_resource type="PackedScene" uid="uid://gvvexixu8mup" path="res://scenes/ui/inventory/Slot.tscn" id="1_01wpf"]
+[ext_resource type="Script" uid="uid://d2u08xj6xk11q" path="res://scripts/ui/inventory/inv_ui.gd" id="1_3wycr"]
+
+[node name="InvUi" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_3wycr")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 0
+offset_right = 596.0
+offset_bottom = 96.0
+theme_override_constants/h_separation = 5
+columns = 6
+
+[node name="Slot" parent="GridContainer" instance=ExtResource("1_01wpf")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="Slot2" parent="GridContainer" instance=ExtResource("1_01wpf")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="Slot3" parent="GridContainer" instance=ExtResource("1_01wpf")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="Slot4" parent="GridContainer" instance=ExtResource("1_01wpf")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="Slot5" parent="GridContainer" instance=ExtResource("1_01wpf")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+
+[node name="Slot6" parent="GridContainer" instance=ExtResource("1_01wpf")]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
