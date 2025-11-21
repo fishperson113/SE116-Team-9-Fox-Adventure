@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=4 uid="uid://2myew2spjl4b"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
-[ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="3_52dwj"]
+[ext_resource type="PackedScene" uid="uid://psxbpmcbicmg" path="res://scenes/enemies/minions/melees/aborigines/aborigine.tscn" id="3_52dwj"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="10_ycpif"]
 
 [node name="Stage" type="Node2D"]
@@ -14,7 +14,9 @@ tile_set = ExtResource("1_fx7si")
 
 [node name="Player" parent="." instance=ExtResource("10_ycpif")]
 position = Vector2(102, 175)
+movement_speed = 50.0
 character_type = 3
 
-[node name="Turtle" parent="." instance=ExtResource("3_52dwj")]
-position = Vector2(347, 171)
+[node name="Aborigine" parent="." instance=ExtResource("3_52dwj")]
+position = Vector2(359, 167)
+movement_speed = 40.0

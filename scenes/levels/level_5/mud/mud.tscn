@@ -30,7 +30,6 @@ modulate = Color(0.654242, 0.220648, 0.0733631, 1)
 sprite_frames = SubResource("SpriteFrames_ytfv3")
 
 [node name="CollisionShape2D" parent="." index="1"]
-visible = false
 shape = SubResource("RectangleShape2D_yyysg")
 
 [node name="TriggerArea2D" parent="." index="2"]

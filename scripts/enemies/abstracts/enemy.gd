@@ -108,7 +108,6 @@ func _init_collision_shape():
 func _update_movement(delta: float) -> void:
 	velocity.x = _movement_speed * direction
 	velocity.y += gravity * delta
-	print(velocity)
 	move_and_slide()
 	pass
 	
@@ -222,6 +221,4 @@ func resolve_damage(_attacker: BaseCharacter, _damage: float):
 	take_damage(int(_damage))
 
 func bounce_off(_direction: Vector2) -> void:
-	_movement_speed = -movement_speed * _direction.x
-	velocity.y += -movement_speed * _direction.y
-	print(_movement_speed)
+	_movement_speed = movement_speed * _direction.x * direction * 1.25
