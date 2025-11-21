@@ -81,7 +81,7 @@
 [sub_resource type="GDScript" id="GDScript_42gci"]
 script/source = "extends Panel
 
-signal smelting_done(part_id: String, quality: String, material: String)
+signal smelting_done(part_id: String, material: String)
 
 # -----------------------------
 # CONFIG
@@ -272,10 +272,9 @@ func _on_finish_complete():
 	# TODO: trả về data thật sự bạn muốn
 	# hiện tại để demo:
 	var part_id := \"blade_1\"
-	var quality := \"high\"
-	var material := \"iron\"
+	var material := \"copper\"
 
-	emit_signal(\"smelting_done\", part_id, quality, material)
+	emit_signal(\"smelting_done\", part_id, material)
 
 
 # ============================================================

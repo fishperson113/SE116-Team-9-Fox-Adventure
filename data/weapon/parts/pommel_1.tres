@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponPartData" load_steps=3 format=3 uid="uid://4puqxbxsfi6b"]
+
+[ext_resource type="Script" uid="uid://b60t44i4hl225" path="res://scripts/crafting/weapon_part_data.gd" id="1_nc6ip"]
+[ext_resource type="Texture2D" uid="uid://b2okowv77bea1" path="res://assets/sprites/weapon_parts/pommel_1.png" id="2_nc6ip"]
+
+[resource]
+script = ExtResource("1_nc6ip")
+id = "pommel_1"
+display_name = ""
+type = "pommel"
+sprite = ExtResource("2_nc6ip")
+height = 20
+uses_material = false
+damage = 0
+max_health = 0
+attack_speed = 0.0
+special_skill = ""
+metadata/_custom_type_script = "uid://b60t44i4hl225"

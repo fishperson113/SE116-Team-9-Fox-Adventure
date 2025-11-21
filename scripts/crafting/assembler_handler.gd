@@ -39,13 +39,13 @@ func populate_parts():
 
 	var required_type = STAGE_TYPES.get(current_stage, "")
 
-	for part_id in assembler.parts.keys():
-		var cfg = assembler.parts[part_id]
+	for part_id in assembler.part_map.keys():
+		var part:WeaponPartData = assembler.part_map[part_id]
 
-		if cfg.get("type", "") != required_type:
+		if part.type != required_type:
 			continue
-
-		var tex := load(assembler.parts_folder + part_id + ".png")
+			
+		var tex := part.sprite
 
 		var btn := Button.new()
 		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -110,7 +110,7 @@ func _drop_part():
 		return
 
 	# 2) Thêm part vào assembler
-	var part_data = assembler.add_part(dragging_part, "perfect", "steel")
+	var part_data = assembler.add_part(dragging_part, "copper")
 	var container: Control = part_data["container"]
 
 	# 3) Animate rơi
@@ -130,7 +130,7 @@ func can_drop_part(mouse_pos: Vector2) -> bool:
 
 	# Kiểm tra type part có đúng stage
 	var required_type = STAGE_TYPES[current_stage]
-	var part_type = assembler.parts[dragging_part]["type"]
+	var part_type = assembler.part_map[dragging_part].type
 
 	if part_type != required_type:
 		print("Drop failed → part type does not match stage")

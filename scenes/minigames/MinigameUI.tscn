@@ -20,12 +20,12 @@ func _ready():
 	smelt.smelting_done.connect(_on_smelting_done)
 	assemble.assemble_done.connect(_on_assemble_done)
 
-func _on_smelting_done(part_id: String, quality: String, material: String):
+func _on_smelting_done(part_id: String, material: String):
 	# Chuyển panel smelt -> assemble
 	_switch_panel(smelt, assemble)
 
 	# Gửi dữ liệu sang assemble bằng API
-	assemble.start_assemble(part_id, quality, material)
+	assemble.start_assemble(part_id, material)
 
 func _on_assemble_done(path):
 	print(\"Assemble finished → exported to: \", path)

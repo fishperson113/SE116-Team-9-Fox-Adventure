@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WeaponMaterialData" load_steps=2 format=3 uid="uid://g5k57m8utwwn"]
+
+[ext_resource type="Script" uid="uid://bg7o110gecbgs" path="res://scripts/crafting/weapon_material_data.gd" id="1_thlt4"]
+
+[resource]
+script = ExtResource("1_thlt4")
+id = "iron"
+display_name = ""
+color = Color(0.230315, 0.230315, 0.230315, 1)
+metadata/_custom_type_script = "uid://bg7o110gecbgs"
