@@ -1,5 +1,6 @@
-[gd_scene load_steps=60 format=4 uid="uid://cchdurl56vp0g"]
+[gd_scene load_steps=61 format=4 uid="uid://cchdurl56vp0g"]
 
+[ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="1_ryjcr"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_ryjcr"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="3_4dlow"]
 [ext_resource type="PackedScene" uid="uid://slg0p8vvevb8" path="res://scenes/levels/island/objects/door/Win_door.tscn" id="3_4tvhb"]
@@ -222,6 +223,12 @@ position = Vector2(4010, -3732)
 
 [node name="Mushroom4" parent="Enemies" instance=ExtResource("3_ryjcr")]
 position = Vector2(842, -1525)
+
+[node name="KingCrab" parent="Enemies" instance=ExtResource("1_ryjcr")]
+position = Vector2(4629, -4079)
+
+[node name="KingCrab2" parent="Enemies" instance=ExtResource("1_ryjcr")]
+position = Vector2(5000, -4082)
 
 [node name="World" type="Node2D" parent="."]
 
