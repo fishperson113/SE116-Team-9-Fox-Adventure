@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=4 uid="uid://bqs7uxv4vt07x"]
+[gd_scene load_steps=58 format=4 uid="uid://bqs7uxv4vt07x"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_33rtp"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_dwsf3"]
@@ -7,12 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://d2wpy684uyjct" path="res://scenes/enemies/spawners/triggered_spawner.tscn" id="4_5o6pu"]
 [ext_resource type="Texture2D" uid="uid://bqde0l4at7gv8" path="res://assets/sprites/environment/background/bg_image.png" id="4_i388g"]
 [ext_resource type="PackedScene" uid="uid://bu0ebjvtvbb4j" path="res://scenes/levels/area_unlockers/area_unlocker_enemies.tscn" id="4_jxlqe"]
-[ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="5_5o6pu"]
 [ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="5_5usqu"]
 [ext_resource type="Texture2D" uid="uid://dekyi7oa4n0sg" path="res://assets/sprites/environment/background/water_reflect_big_01.png" id="6_1vm6v"]
 [ext_resource type="Texture2D" uid="uid://m5yds3bm8pou" path="res://assets/sprites/environment/background/big_clouds.png" id="6_bfafv"]
-[ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="6_sweax"]
-[ext_resource type="PackedScene" uid="uid://c1ojnmhr1sm5l" path="res://scenes/enemies/minions/melees/mushroom.tscn" id="7_j1ua3"]
 [ext_resource type="Texture2D" uid="uid://ci5tpl05cnmra" path="res://assets/sprites/environment/background/small_cloud_1.png" id="7_rltkt"]
 [ext_resource type="Texture2D" uid="uid://b6dilwf04d4be" path="res://assets/sprites/environment/background/water_reflect_big_02.png" id="7_wxig3"]
 [ext_resource type="Texture2D" uid="uid://drl3x1wfs0vai" path="res://assets/sprites/environment/background/water_reflect_big_03.png" id="8_586f6"]
@@ -273,13 +270,12 @@ shape = SubResource("RectangleShape2D_srx1h")
 
 [node name="Spawner" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(214, -101)
-trigger_size = Vector2(30, 192)
-trigger_position = Vector2(900, 0)
-enemies = Array[PackedScene]([ExtResource("5_5o6pu")])
-group = "Enemies"
 width = 500.0
 height = 40.0
 range_spawn = 0
+trigger_size = Vector2(30, 192)
+trigger_position = Vector2(900, 0)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner" index="0"]
 target_position = Vector2(500, 0)
@@ -295,12 +291,11 @@ shape = SubResource("RectangleShape2D_ol6co")
 
 [node name="Spawner2" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(413, -565)
-trigger_size = Vector2(30, 128)
-trigger_position = Vector2(850, 16)
-enemies = Array[PackedScene]([ExtResource("6_sweax")])
-group = "Enemies"
 width = 500.0
 range_spawn = 0
+trigger_size = Vector2(30, 128)
+trigger_position = Vector2(850, 16)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner2" index="0"]
 target_position = Vector2(500, 0)
@@ -313,14 +308,13 @@ shape = SubResource("RectangleShape2D_j1ua3")
 
 [node name="Spawner3" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(1648, 182)
-trigger_size = Vector2(30, 192)
-trigger_position = Vector2(-600, -60)
-enemies = Array[PackedScene]([ExtResource("7_j1ua3")])
-group = "Enemies"
 width = 10.0
 height = 10.0
 melee_spawn = 1
 range_spawn = 0
+trigger_size = Vector2(30, 192)
+trigger_position = Vector2(-600, -60)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner3" index="0"]
 target_position = Vector2(10, 0)
@@ -336,14 +330,13 @@ shape = SubResource("RectangleShape2D_cacsb")
 
 [node name="Spawner4" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(1268, -274)
-trigger_size = Vector2(30, 192)
-trigger_position = Vector2(-250, -82)
-enemies = Array[PackedScene]([ExtResource("7_j1ua3")])
-group = "Enemies"
 width = 10.0
 height = 10.0
 melee_spawn = 1
 range_spawn = 0
+trigger_size = Vector2(30, 192)
+trigger_position = Vector2(-250, -82)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner4" index="0"]
 target_position = Vector2(10, 0)
@@ -359,14 +352,13 @@ shape = SubResource("RectangleShape2D_c7qlg")
 
 [node name="Spawner5" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(1924, -468)
-trigger_size = Vector2(30, 160)
-trigger_position = Vector2(250, 128)
-enemies = Array[PackedScene]([ExtResource("7_j1ua3")])
-group = "Enemies"
 width = 300.0
 height = 70.0
 melee_spawn = 1
 range_spawn = 0
+trigger_size = Vector2(30, 160)
+trigger_position = Vector2(250, 128)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner5" index="0"]
 target_position = Vector2(300, 0)
@@ -382,14 +374,13 @@ shape = SubResource("RectangleShape2D_jups3")
 
 [node name="Spawner6" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(2755, -333)
-trigger_size = Vector2(96, 32)
-trigger_position = Vector2(25, -450)
-enemies = Array[PackedScene]([ExtResource("7_j1ua3")])
-group = "Enemies"
 width = 50.0
 height = 50.0
 melee_spawn = 1
 range_spawn = 0
+trigger_size = Vector2(96, 32)
+trigger_position = Vector2(25, -450)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner6" index="0"]
 target_position = Vector2(50, 0)
@@ -405,13 +396,12 @@ shape = SubResource("RectangleShape2D_af67u")
 
 [node name="Spawner7" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(3554, 203)
-trigger_size = Vector2(30, 128)
-trigger_position = Vector2(-500, -48)
-enemies = Array[PackedScene]([ExtResource("5_5o6pu"), ExtResource("6_sweax")])
-group = "Enemies"
 width = 475.0
 height = 40.0
 range_spawn = 0
+trigger_size = Vector2(30, 128)
+trigger_position = Vector2(-500, -48)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner7" index="0"]
 target_position = Vector2(475, 0)
@@ -427,13 +417,12 @@ shape = SubResource("RectangleShape2D_dh8so")
 
 [node name="Spawner8" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(3831, -406)
-trigger_size = Vector2(30, 96)
-trigger_position = Vector2(-300, -31)
-enemies = Array[PackedScene]([ExtResource("5_5o6pu"), ExtResource("6_sweax")])
-group = "Enemies"
 width = 400.0
 height = 30.0
 range_spawn = 0
+trigger_size = Vector2(30, 96)
+trigger_position = Vector2(-300, -31)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner8" index="0"]
 target_position = Vector2(400, 0)
@@ -449,14 +438,13 @@ shape = SubResource("RectangleShape2D_v8lhl")
 
 [node name="Spawner9" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(3949, -530)
-trigger_size = Vector2(96, 15)
-trigger_position = Vector2(303, 23.895)
-enemies = Array[PackedScene]([ExtResource("7_j1ua3")])
-group = "Enemies"
 width = 140.0
 height = 25.0
 melee_spawn = 1
 range_spawn = 0
+trigger_size = Vector2(96, 15)
+trigger_position = Vector2(303, 23.895)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner9" index="0"]
 target_position = Vector2(140, 0)
@@ -472,13 +460,12 @@ shape = SubResource("RectangleShape2D_5wuc3")
 
 [node name="Spawner10" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(3192, -542)
-trigger_size = Vector2(30, 128)
-trigger_position = Vector2(450, -102)
-enemies = Array[PackedScene]([ExtResource("7_j1ua3")])
-group = "Enemies"
 width = 300.0
 height = 1.0
 range_spawn = 0
+trigger_size = Vector2(30, 128)
+trigger_position = Vector2(450, -102)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner10" index="0"]
 target_position = Vector2(300, 0)
@@ -494,14 +481,13 @@ shape = SubResource("RectangleShape2D_64mh7")
 
 [node name="Spawner11" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(3655, -750)
-trigger_size = Vector2(30, 128)
-trigger_position = Vector2(-300, -55)
-enemies = Array[PackedScene]([ExtResource("5_5o6pu"), ExtResource("6_sweax")])
-group = "Enemies"
 width = 500.0
 height = 50.0
 melee_spawn = 3
 range_spawn = 0
+trigger_size = Vector2(30, 128)
+trigger_position = Vector2(-300, -55)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner11" index="0"]
 target_position = Vector2(500, 0)

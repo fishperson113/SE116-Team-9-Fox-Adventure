@@ -1,13 +1,11 @@
-[gd_scene load_steps=66 format=4 uid="uid://ctnn4ampknjte"]
+[gd_scene load_steps=64 format=4 uid="uid://ctnn4ampknjte"]
 
 [ext_resource type="TileSet" uid="uid://xcv3crb1m8j3" path="res://assets/tileset/tileset_64.tres" id="1_d28cy"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_2qphj"]
 [ext_resource type="PackedScene" uid="uid://bu0ebjvtvbb4j" path="res://scenes/levels/area_unlockers/area_unlocker_enemies.tscn" id="3_h0lkx"]
 [ext_resource type="PackedScene" uid="uid://d2wpy684uyjct" path="res://scenes/enemies/spawners/triggered_spawner.tscn" id="3_ljkq7"]
 [ext_resource type="PackedScene" uid="uid://slg0p8vvevb8" path="res://scenes/levels/island/objects/door/Win_door.tscn" id="4_4lvta"]
-[ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="4_h0lkx"]
 [ext_resource type="Texture2D" uid="uid://ddyvyvrav5jnd" path="res://assets/sprites/mystery/Mystery Pack 76.png" id="4_lebvl"]
-[ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="5_71fgi"]
 [ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="8_4lvta"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="8_u56sg"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="9_f3mxx"]
@@ -326,13 +324,12 @@ shape = SubResource("RectangleShape2D_oc4am")
 
 [node name="Spawner" parent="World" instance=ExtResource("3_ljkq7")]
 position = Vector2(910, 674)
-trigger_size = Vector2(30, 1000)
-trigger_position = Vector2(-350, 0)
-enemies = Array[PackedScene]([ExtResource("4_h0lkx"), ExtResource("5_71fgi")])
-group = "Enemies"
 width = 300.0
 height = 100.0
 range_spawn = 0
+trigger_size = Vector2(30, 1000)
+trigger_position = Vector2(-350, 0)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner" index="0"]
 target_position = Vector2(300, 0)
@@ -348,14 +345,13 @@ shape = SubResource("RectangleShape2D_lebvl")
 
 [node name="Spawner2" parent="World" instance=ExtResource("3_ljkq7")]
 position = Vector2(3056, 618)
-trigger_size = Vector2(30, 800)
-trigger_position = Vector2(-550, -300)
-enemies = Array[PackedScene]([ExtResource("8_4lvta")])
-group = "Enemies"
 width = 400.0
 height = 100.0
 melee_spawn = 1
 range_spawn = 0
+trigger_size = Vector2(30, 800)
+trigger_position = Vector2(-550, -300)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner2" index="0"]
 target_position = Vector2(400, 0)
@@ -371,14 +367,13 @@ shape = SubResource("RectangleShape2D_2j6a3")
 
 [node name="Spawner3" parent="World" instance=ExtResource("3_ljkq7")]
 position = Vector2(4748, 423)
-trigger_size = Vector2(30, 800)
-trigger_position = Vector2(-500, -100)
-enemies = Array[PackedScene]([ExtResource("8_4lvta")])
-group = "Enemies"
 width = 600.0
 height = 100.0
 melee_spawn = 1
 range_spawn = 0
+trigger_size = Vector2(30, 800)
+trigger_position = Vector2(-500, -100)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner3" index="0"]
 target_position = Vector2(600, 0)
@@ -394,14 +389,13 @@ shape = SubResource("RectangleShape2D_lni3k")
 
 [node name="Spawner4" parent="World" instance=ExtResource("3_ljkq7")]
 position = Vector2(6479, 657)
-trigger_size = Vector2(30, 800)
-trigger_position = Vector2(-500, -350)
-enemies = Array[PackedScene]([ExtResource("4_h0lkx"), ExtResource("5_71fgi"), ExtResource("8_4lvta")])
-group = "Enemies"
 width = 550.0
 height = 100.0
 melee_spawn = 3
 range_spawn = 0
+trigger_size = Vector2(30, 800)
+trigger_position = Vector2(-500, -350)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner4" index="0"]
 target_position = Vector2(550, 0)
@@ -417,13 +411,12 @@ shape = SubResource("RectangleShape2D_n6lnb")
 
 [node name="Spawner5" parent="World" instance=ExtResource("3_ljkq7")]
 position = Vector2(8004, 691)
-trigger_size = Vector2(30, 600)
-trigger_position = Vector2(-300, -287)
-enemies = Array[PackedScene]([ExtResource("4_h0lkx"), ExtResource("5_71fgi")])
-group = "Enemies"
 width = 250.0
 height = 10.0
 range_spawn = 0
+trigger_size = Vector2(30, 600)
+trigger_position = Vector2(-300, -287)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner5" index="0"]
 target_position = Vector2(250, 0)
@@ -439,13 +432,12 @@ shape = SubResource("RectangleShape2D_n5iiw")
 
 [node name="Spawner6" parent="World" instance=ExtResource("3_ljkq7")]
 position = Vector2(11620, 427)
-trigger_size = Vector2(30, 1600)
-trigger_position = Vector2(-800, -500)
-enemies = Array[PackedScene]([ExtResource("5_71fgi"), ExtResource("4_h0lkx")])
-group = "Enemies"
 width = 500.0
 height = 100.0
 range_spawn = 0
+trigger_size = Vector2(30, 1600)
+trigger_position = Vector2(-800, -500)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner6" index="0"]
 target_position = Vector2(500, 0)
@@ -461,14 +453,13 @@ shape = SubResource("RectangleShape2D_h61we")
 
 [node name="Spawner7" parent="World" instance=ExtResource("3_ljkq7")]
 position = Vector2(16124, 651)
-trigger_size = Vector2(30, 800)
-trigger_position = Vector2(-275, -450)
-enemies = Array[PackedScene]([ExtResource("5_71fgi"), ExtResource("4_h0lkx"), ExtResource("8_4lvta")])
-group = "Enemies"
 width = 750.0
 height = 50.0
 melee_spawn = 4
 range_spawn = 0
+trigger_size = Vector2(30, 800)
+trigger_position = Vector2(-275, -450)
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner7" index="0"]
 target_position = Vector2(750, 0)
