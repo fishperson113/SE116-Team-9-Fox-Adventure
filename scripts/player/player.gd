@@ -83,4 +83,3 @@ func _on_invulnerability_timer_timeout() -> void:
 func set_empty_health() -> void:
 	fsm.current_state.take_damage(currentHealth)
 	pass
-
