@@ -181,3 +181,12 @@ func _reset_drag():
 
 	dragging_icon = null
 	dragging_part = ""
+
+func reset_handler():
+	dragging_part = ""
+	if dragging_icon:
+		dragging_icon.queue_free()
+	dragging_icon = null
+
+	current_stage = 1
+	populate_parts()

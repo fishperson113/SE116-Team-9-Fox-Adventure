@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://bm35kkpuu3dh4"]
+
+[ext_resource type="Script" uid="uid://wafaqglkxlfr" path="res://scripts/npc/anvil.gd" id="1_gkump"]
+[ext_resource type="Texture2D" uid="uid://buserohj0i6lc" path="res://assets/sprites/anvil/anvil.png" id="2_gkump"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0hotx"]
+
+[node name="Anvil" type="Area2D"]
+collision_mask = 5
+script = ExtResource("1_gkump")
+metadata/_custom_type_script = "uid://3u7i3d58hkla"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_0hotx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.164729, 0.185484)
+texture = ExtResource("2_gkump")

@@ -136,3 +136,13 @@ func get_container_for_type(p_type: String) -> Node:
 	if has_node(node_name):
 		return get_node(node_name)
 	return null
+
+func reset_assembler():
+	assembled_parts.clear()
+
+	# Clear all part containers
+	for c in ["BladeContainer", "CrossguardContainer", "GripContainer", "PommelContainer"]:
+		if has_node(c):
+			var node = get_node(c)
+			for child in node.get_children():
+				child.queue_free()

@@ -6,20 +6,39 @@
 
 [sub_resource type="GDScript" id="GDScript_rddwq"]
 script/source = "extends Control
+signal closed
 
 @onready var smelt := $SmeltOreMinigame
 @onready var assemble := $AssembleWeaponMinigame
 
 
 func _ready():
-	# Start with smelt minigame
-	smelt.visible = true
-	assemble.visible = false
+	visible = false
 
 	# Listen for smelting result
 	smelt.smelting_done.connect(_on_smelting_done)
 	assemble.assemble_done.connect(_on_assemble_done)
 
+func open():
+	reset()
+	visible = true
+	smelt.visible = true
+	assemble.visible = false
+
+	_disable_player(true)
+
+
+func close():
+	visible = false
+	_disable_player(false)
+	emit_signal(\"closed\")
+	
+func _disable_player(state: bool):
+	if GameManager.player:
+		GameManager.player.set_process(!state)
+		GameManager.player.set_physics_process(!state)
+		GameManager.player.input_enabled = !state
+		
 func _on_smelting_done(part_id: String, material: String):
 	# Chuyển panel smelt -> assemble
 	_switch_panel(smelt, assemble)
@@ -29,7 +48,7 @@ func _on_smelting_done(part_id: String, material: String):
 
 func _on_assemble_done(path):
 	print(\"Assemble finished → exported to: \", path)
-	get_tree().reload_current_scene()
+	close()
 
 # ============================================================
 # PANEL TRANSITION
@@ -37,6 +56,12 @@ func _on_assemble_done(path):
 func _switch_panel(old_panel: Control, new_panel: Control):
 	old_panel.visible = false
 	new_panel.visible = true
+
+func reset():
+	if smelt.has_method(\"reset_minigame\"):
+		smelt.reset_minigame()
+	if assemble.has_method(\"reset_minigame\"):
+		assemble.reset_minigame()
 "
 
 [node name="MinigameUI" type="Control"]

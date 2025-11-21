@@ -16,7 +16,6 @@ signal assemble_done(export_path)
 
 var input_enabled := false
 var _incoming_part_id := \"\"
-var _incoming_quality := \"\"
 var _incoming_material := \"\"
 
 func _ready() -> void:
@@ -52,6 +51,28 @@ func _reveal_blade() -> void:
 	t.finished.connect(func():
 		input_enabled = true
 	)
+	
+func reset_minigame():
+	# Reset internal flags
+	input_enabled = false
+	_incoming_part_id = \"\"
+	_incoming_material = \"\"
+
+	# Reset animation
+	if anim:
+		anim.stop()
+		anim.seek(0.0, true)
+		# optional: ensure all panels start hidden
+		if $MainLayout/AssembleArea/BladeSprite:
+			$MainLayout/AssembleArea/BladeSprite.visible = false
+
+	# Reset assembler (clear sprites)
+	if assembler and assembler.has_method(\"reset_assembler\"):
+		assembler.reset_assembler()
+
+	# Reset handler that manages drag & drop
+	if collection_area and collection_area.has_method(\"reset_handler\"):
+		collection_area.reset_handler()
 "
 
 [sub_resource type="Animation" id="Animation_gp2fn"]
