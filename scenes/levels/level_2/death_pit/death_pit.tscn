@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d4g0t6v7fn5uq"]
+
+[ext_resource type="Script" uid="uid://8n3frxko6taf" path="res://scenes/levels/level_2/death_pit/death_pit.gd" id="1_n6qxe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_agllo"]
+
+[node name="DeathPit" type="Area2D"]
+collision_mask = 4
+script = ExtResource("1_n6qxe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_agllo")
+debug_color = Color(0.60551, 0.365282, 1, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
