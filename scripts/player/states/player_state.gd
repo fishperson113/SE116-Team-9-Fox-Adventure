@@ -1,6 +1,11 @@
 class_name PlayerState
 extends FSMState
+
 var smoke = preload("res://scenes/levels/island/objects/smoke/smoke.tscn")
+
+#Sound effects
+@onready var sfx_jump: AudioStreamPlayer = $"../../SFX/Jump"
+
 func _enter() -> void:
 	pass
 
@@ -31,6 +36,7 @@ func control_jump() -> bool:
 	if (is_jumping and obj.current_jump<obj.jump_step):
 		obj.velocity.y = -obj.jump_speed
 		change_state(fsm.states.jump)
+		sfx_jump.play()
 		#var starting = obj.get_parent()
 		#if starting.has_method("add_smoke_effect"):
 			#starting.add_smoke_effect(obj.global_position)

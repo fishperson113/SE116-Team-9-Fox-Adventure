@@ -241,7 +241,7 @@ func save_tutorial_progress(is_finished: bool) -> void:
 		printerr("An error occurred when trying to save level progress.")
 		
 func load_tutorial_progress() -> Dictionary:
-	if not has_save_file():
+	if not has_tutorial_progress_file():
 		return {}
 
 	var file = FileAccess.open(TUTORIAL_PROGRESS_FILE, FileAccess.READ)

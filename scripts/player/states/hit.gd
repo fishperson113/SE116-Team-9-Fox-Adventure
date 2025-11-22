@@ -1,7 +1,9 @@
 extends PlayerState
 
+@onready var sfx_hit: AudioStreamPlayer = $"../../SFX/Hit"
+
 func _enter() -> void:
-	
+	sfx_hit.play()
 	obj.change_animation("hit")
 	obj.velocity.y = -250
 	obj.velocity.x = -250 * sign(obj.velocity.x)

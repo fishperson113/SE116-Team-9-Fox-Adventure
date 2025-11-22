@@ -25,6 +25,7 @@ var inventory_data: Array[Dictionary] = []
 
 func _ready() -> void:
 	# Load checkpoint data when game starts
+	load_tutorial_progress()
 	load_checkpoint_data()
 	load_inventory_data()
 	load_slots_data()

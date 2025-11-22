@@ -3,6 +3,8 @@ extends Node2D
 @export var target_door = "Door"
 @onready var animated_sprite = $AnimatedSprite2D
 
+@onready var sfx_win: AudioStreamPlayer = $Win
+
 var player_in_area = false
 var win_ui_shown = false  
 
@@ -38,6 +40,7 @@ func move_player_to_door():
 	print("Đã di chuyển người chơi đến cửa: ", target_door)
 
 func _on_interactive_area_2d_interacted() -> void:
+	sfx_win.play()
 	GameManager.unlock_level()
 	if player_in_area and not win_ui_shown:
 		win_ui_shown = true 
