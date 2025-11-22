@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=4 uid="uid://cchdurl56vp0g"]
+[gd_scene load_steps=64 format=4 uid="uid://cchdurl56vp0g"]
 
 [ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="1_ryjcr"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_ryjcr"]
@@ -12,8 +12,11 @@
 [ext_resource type="Texture2D" uid="uid://ddyvyvrav5jnd" path="res://assets/sprites/mystery/Mystery Pack 76.png" id="5_rpd7o"]
 [ext_resource type="Texture2D" uid="uid://bqde0l4at7gv8" path="res://assets/sprites/environment/background/bg_image.png" id="6_rpd7o"]
 [ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="7_3c5t6"]
+[ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="8_ctv1g"]
 [ext_resource type="Texture2D" uid="uid://dekyi7oa4n0sg" path="res://assets/sprites/environment/background/water_reflect_big_01.png" id="8_y84bu"]
 [ext_resource type="Texture2D" uid="uid://b6dilwf04d4be" path="res://assets/sprites/environment/background/water_reflect_big_02.png" id="9_ctv1g"]
+[ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="9_goifi"]
+[ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="10_c8euh"]
 [ext_resource type="Texture2D" uid="uid://drl3x1wfs0vai" path="res://assets/sprites/environment/background/water_reflect_big_03.png" id="10_goifi"]
 [ext_resource type="Texture2D" uid="uid://c5ur36rqix0vh" path="res://assets/sprites/environment/background/water_reflect_big_04.png" id="11_c8euh"]
 [ext_resource type="Texture2D" uid="uid://do3ghl5b5mpgy" path="res://assets/sprites/environment/background/water_reflect_small_01.png" id="12_1vunm"]
@@ -289,6 +292,8 @@ width = 100.0
 height = 20.0
 trigger_size = Vector2(30, 64)
 trigger_position = Vector2(-300, 118)
+objects = Array[PackedScene]([ExtResource("8_ctv1g"), ExtResource("9_goifi"), ExtResource("10_c8euh")])
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner" index="0"]
 target_position = Vector2(100, 0)
@@ -308,6 +313,8 @@ width = 125.0
 height = 20.0
 trigger_size = Vector2(30, 64)
 trigger_position = Vector2(-36, 398)
+objects = Array[PackedScene]([ExtResource("8_ctv1g"), ExtResource("9_goifi"), ExtResource("10_c8euh")])
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner2" index="0"]
 target_position = Vector2(125, 0)
@@ -327,6 +334,8 @@ width = 100.0
 height = 20.0
 trigger_size = Vector2(30, 64)
 trigger_position = Vector2(-40, 939)
+objects = Array[PackedScene]([ExtResource("8_ctv1g"), ExtResource("9_goifi"), ExtResource("10_c8euh")])
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner3" index="0"]
 target_position = Vector2(100, 0)
@@ -346,6 +355,8 @@ width = 100.0
 height = 20.0
 trigger_size = Vector2(30, 64)
 trigger_position = Vector2(-326, 939)
+objects = Array[PackedScene]([ExtResource("10_c8euh"), ExtResource("9_goifi"), ExtResource("8_ctv1g")])
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner4" index="0"]
 target_position = Vector2(100, 0)
@@ -365,6 +376,9 @@ width = 900.0
 height = 20.0
 trigger_size = Vector2(30, 128)
 trigger_position = Vector2(1221, -170)
+objects = Array[PackedScene]([ExtResource("8_ctv1g"), ExtResource("9_goifi"), ExtResource("10_c8euh")])
+spawn_count = 3
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner5" index="0"]
 target_position = Vector2(900, 0)
@@ -384,6 +398,9 @@ width = 300.0
 height = 20.0
 trigger_size = Vector2(30, 192)
 trigger_position = Vector2(-250, 52)
+objects = Array[PackedScene]([ExtResource("10_c8euh"), ExtResource("8_ctv1g"), ExtResource("9_goifi")])
+spawn_count = 2
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner6" index="0"]
 target_position = Vector2(300, 0)
@@ -403,6 +420,9 @@ width = 450.0
 height = 20.0
 trigger_size = Vector2(30, 192)
 trigger_position = Vector2(-156, 274)
+objects = Array[PackedScene]([ExtResource("10_c8euh"), ExtResource("8_ctv1g"), ExtResource("9_goifi")])
+spawn_count = 2
+group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner7" index="0"]
 target_position = Vector2(450, 0)

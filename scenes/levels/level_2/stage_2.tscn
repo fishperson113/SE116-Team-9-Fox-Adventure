@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=4 uid="uid://ctnn4ampknjte"]
+[gd_scene load_steps=66 format=4 uid="uid://ctnn4ampknjte"]
 
 [ext_resource type="TileSet" uid="uid://xcv3crb1m8j3" path="res://assets/tileset/tileset_64.tres" id="1_d28cy"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_2qphj"]
@@ -7,8 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://slg0p8vvevb8" path="res://scenes/levels/island/objects/door/Win_door.tscn" id="4_4lvta"]
 [ext_resource type="Texture2D" uid="uid://ddyvyvrav5jnd" path="res://assets/sprites/mystery/Mystery Pack 76.png" id="4_lebvl"]
 [ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="8_4lvta"]
+[ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="8_n6lnb"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="8_u56sg"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="9_f3mxx"]
+[ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="9_ka18f"]
 [ext_resource type="PackedScene" uid="uid://d4g0t6v7fn5uq" path="res://scenes/levels/level_2/death_pit/death_pit.tscn" id="10_n6lnb"]
 [ext_resource type="Texture2D" uid="uid://dcrnqve71d36p" path="res://assets/sprites/environment/background/additional_sky.png" id="10_vunfs"]
 [ext_resource type="Texture2D" uid="uid://bqde0l4at7gv8" path="res://assets/sprites/environment/background/bg_image.png" id="11_uo7op"]
@@ -44,8 +46,8 @@
 atlas = ExtResource("4_lebvl")
 region = Rect2(96, 0, 16, 16)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_71fgi"]
-size = Vector2(750.875, 405.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h8jsa"]
+size = Vector2(1305, 405.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ka18f"]
 size = Vector2(1440, 571)
@@ -247,8 +249,8 @@ scale = Vector2(2, 24)
 texture = SubResource("AtlasTexture_n6lnb")
 
 [node name="CollisionShape2D" parent="World/AreaUnlockerEnemies/EnemyTestArea" index="0"]
-position = Vector2(262.563, -17.25)
-shape = SubResource("RectangleShape2D_71fgi")
+position = Vector2(-14.4998, -17.25)
+shape = SubResource("RectangleShape2D_h8jsa")
 
 [node name="AreaUnlockerEnemies2" parent="World" instance=ExtResource("3_h0lkx")]
 position = Vector2(3952, 450)
@@ -329,6 +331,8 @@ height = 100.0
 range_spawn = 0
 trigger_size = Vector2(30, 1000)
 trigger_position = Vector2(-350, 0)
+objects = Array[PackedScene]([ExtResource("8_n6lnb"), ExtResource("9_ka18f")])
+spawn_count = 2
 group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner" index="0"]
@@ -351,6 +355,7 @@ melee_spawn = 1
 range_spawn = 0
 trigger_size = Vector2(30, 800)
 trigger_position = Vector2(-550, -300)
+objects = Array[PackedScene]([ExtResource("8_4lvta")])
 group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner2" index="0"]
@@ -373,6 +378,7 @@ melee_spawn = 1
 range_spawn = 0
 trigger_size = Vector2(30, 800)
 trigger_position = Vector2(-500, -100)
+objects = Array[PackedScene]([ExtResource("8_4lvta")])
 group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner3" index="0"]
@@ -395,6 +401,8 @@ melee_spawn = 3
 range_spawn = 0
 trigger_size = Vector2(30, 800)
 trigger_position = Vector2(-500, -350)
+objects = Array[PackedScene]([ExtResource("9_ka18f"), ExtResource("8_4lvta"), ExtResource("8_n6lnb")])
+spawn_count = 2
 group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner4" index="0"]
@@ -416,6 +424,8 @@ height = 10.0
 range_spawn = 0
 trigger_size = Vector2(30, 600)
 trigger_position = Vector2(-300, -287)
+objects = Array[PackedScene]([ExtResource("8_n6lnb"), ExtResource("9_ka18f")])
+spawn_count = 2
 group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner5" index="0"]
@@ -437,6 +447,8 @@ height = 100.0
 range_spawn = 0
 trigger_size = Vector2(30, 1600)
 trigger_position = Vector2(-800, -500)
+objects = Array[PackedScene]([ExtResource("9_ka18f"), ExtResource("8_n6lnb")])
+spawn_count = 2
 group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner6" index="0"]
@@ -459,6 +471,8 @@ melee_spawn = 4
 range_spawn = 0
 trigger_size = Vector2(30, 800)
 trigger_position = Vector2(-275, -450)
+objects = Array[PackedScene]([ExtResource("8_n6lnb"), ExtResource("9_ka18f"), ExtResource("8_4lvta")])
+spawn_count = 4
 group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner7" index="0"]
