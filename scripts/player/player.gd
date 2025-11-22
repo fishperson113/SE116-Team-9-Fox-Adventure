@@ -36,6 +36,8 @@ func _ready() -> void:
 	GameManager.player = self
 	base_speed=movement_speed
 	maxHealth=100
+	currentHealth=maxHealth
+	equip_weapon(GameManager.equipped_weapon_path)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("change_form"):
@@ -46,8 +48,6 @@ func _process(delta: float) -> void:
 			new_type = character_type + 1
 		change_player_type(new_type)
 		
-	print(maxHealth)
-
 func change_player_type(char_type: int) -> void:
 	var animation_reset = get_reset_animation_name(current_animation)
 	character_type = char_type
@@ -96,6 +96,8 @@ func set_empty_health() -> void:
 	fsm.current_state.take_damage(currentHealth)
 	pass
 func equip_weapon(tres_path: String):
+	if tres_path =="":
+		return
 	is_equipped=true
 	var w := load(tres_path) as WeaponData
 	if w == null:

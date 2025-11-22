@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=4 uid="uid://bqs7uxv4vt07x"]
+[gd_scene load_steps=51 format=4 uid="uid://bqs7uxv4vt07x"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_33rtp"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_dwsf3"]
@@ -27,17 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://dt1od2hyke60g" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_02.png" id="19_0qf3m"]
 [ext_resource type="Texture2D" uid="uid://frimagh5yfit" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_03.png" id="20_qul5t"]
 [ext_resource type="Texture2D" uid="uid://cjcxdxoq8hp4l" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_04.png" id="21_pkhui"]
-[ext_resource type="PackedScene" uid="uid://5pp64vwco2e1" path="res://scenes/npc/sign.tscn" id="25_c4j3j"]
-[ext_resource type="PackedScene" uid="uid://g5mwh48q6r27" path="res://scenes/npc/sign2.tscn" id="26_4uhvw"]
-[ext_resource type="PackedScene" uid="uid://cv5kt0si2h1kg" path="res://scenes/npc/sign4.tscn" id="27_jups3"]
-[ext_resource type="PackedScene" uid="uid://buayv5wh1bl4u" path="res://scenes/npc/sign3.tscn" id="27_uu7ke"]
-[ext_resource type="PackedScene" uid="uid://dt8iucgnaxhj8" path="res://scenes/npc/sign5.tscn" id="28_af67u"]
-[ext_resource type="PackedScene" uid="uid://bb8ah6yewvkgx" path="res://scenes/npc/sign6.tscn" id="30_w06il"]
-[ext_resource type="PackedScene" uid="uid://crgqefvompc8w" path="res://scenes/npc/sign7.tscn" id="31_v8lhl"]
-[ext_resource type="PackedScene" uid="uid://djsaw6o34gu6c" path="res://scenes/npc/sign_pelican.tscn" id="32_5wuc3"]
-[ext_resource type="PackedScene" uid="uid://da0mswdg4suuk" path="res://scenes/npc/sign8.tscn" id="33_64mh7"]
 [ext_resource type="PackedScene" uid="uid://slg0p8vvevb8" path="res://scenes/levels/island/objects/door/Win_door.tscn" id="39_6vpxb"]
-[ext_resource type="PackedScene" uid="uid://dig0vp14ug647" path="res://scenes/npc/sign_win.tscn" id="42_af67u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5o6pu"]
 size = Vector2(1023.19, 96)
@@ -523,7 +513,6 @@ shape = SubResource("RectangleShape2D_bedff")
 [node name="Player" parent="." instance=ExtResource("2_dwsf3")]
 z_index = 2
 position = Vector2(3748, -598)
-character_type = 2
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -35)
@@ -627,39 +616,6 @@ centered = false
 position = Vector2(360.925, 188.14)
 sprite_frames = SubResource("SpriteFrames_c4j3j")
 centered = false
-
-[node name="Board" type="Node2D" parent="."]
-visible = false
-
-[node name="AD_SPACE" parent="Board" instance=ExtResource("25_c4j3j")]
-position = Vector2(87, 239)
-
-[node name="CV" parent="Board" instance=ExtResource("26_4uhvw")]
-position = Vector2(510, 239)
-
-[node name="GL" parent="Board" instance=ExtResource("27_uu7ke")]
-position = Vector2(397, 143)
-
-[node name="Spike" parent="Board" instance=ExtResource("27_jups3")]
-position = Vector2(221, -49)
-
-[node name="Crab" parent="Board" instance=ExtResource("28_af67u")]
-position = Vector2(511, -178)
-
-[node name="Starfish" parent="Board" instance=ExtResource("30_w06il")]
-position = Vector2(868, -177)
-
-[node name="Mushroom" parent="Board" instance=ExtResource("31_v8lhl")]
-position = Vector2(769, -49)
-
-[node name="Pelican" parent="Board" instance=ExtResource("32_5wuc3")]
-position = Vector2(1031, 47)
-
-[node name="Turtle" parent="Board" instance=ExtResource("33_64mh7")]
-position = Vector2(946, 238)
-
-[node name="Sign" parent="Board" instance=ExtResource("42_af67u")]
-position = Vector2(1274, 238)
 
 [editable path="World/AreaUnlockerEnemies"]
 [editable path="World/AreaUnlockerEnemies2"]

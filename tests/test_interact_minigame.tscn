@@ -17,10 +17,9 @@ position = Vector2(73, 233)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
-[node name="Anvil" parent="." node_paths=PackedStringArray("minigame_ui", "material_panel") instance=ExtResource("3_cpyw6")]
+[node name="Anvil" parent="." node_paths=PackedStringArray("material_panel") instance=ExtResource("3_cpyw6")]
 position = Vector2(183, 246)
 collision_mask = 1
-minigame_ui = NodePath("../CanvasLayer/MinigameUI")
 material_panel = NodePath("../CanvasLayer/MaterialSelectPopup")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

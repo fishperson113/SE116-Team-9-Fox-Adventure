@@ -22,6 +22,7 @@ var slots_size = 6
 var slots_data: Array[Dictionary] = converted_empty_slots()
 #Inventory that stores items and weapons overall
 var inventory_data: Array[Dictionary] = []
+var equipped_weapon_path: String = ""
 
 func _ready() -> void:
 	# Load checkpoint data when game starts
@@ -207,6 +208,5 @@ func load_tutorial_progress() -> void:
 	if not tutorial_progress.is_empty():
 		is_tutorial_finished = tutorial_progress["is_tutorial_finished"]
 		print("Tutorial progress loaded")
-
 #func get_tutorial_progress() -> bool:
 #	return is_tutorial_finished
