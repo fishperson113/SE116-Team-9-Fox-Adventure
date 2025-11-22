@@ -35,6 +35,7 @@ func _ready() -> void:
 	super._ready()
 	GameManager.player = self
 	base_speed=movement_speed
+	maxHealth=100
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("change_form"):
@@ -44,6 +45,8 @@ func _process(delta: float) -> void:
 		else:
 			new_type = character_type + 1
 		change_player_type(new_type)
+		
+	print(maxHealth)
 
 func change_player_type(char_type: int) -> void:
 	var animation_reset = get_reset_animation_name(current_animation)
