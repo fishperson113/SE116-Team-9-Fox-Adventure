@@ -49,7 +49,8 @@ func _process(delta: float) -> void:
 		change_player_type(new_type)
 		
 func change_player_type(char_type: int) -> void:
-	var animation_reset = get_reset_animation_name(current_animation)
+	var base_anim = current_animation if current_animation != null else "idle"
+	var animation_reset = get_reset_animation_name(base_anim)
 	character_type = char_type
 	change_animation(animation_reset)
 
