@@ -22,7 +22,9 @@ overrides = {
 [sub_resource type="Resource" id="Resource_batpd"]
 script = ExtResource("2_revxj")
 scene = ExtResource("3_upuwc")
-overrides = {}
+overrides = {
+"disabled": "true"
+}
 
 [sub_resource type="Resource" id="Resource_br076"]
 script = ExtResource("2_revxj")
@@ -32,13 +34,16 @@ overrides = {}
 [sub_resource type="Resource" id="Resource_haqgj"]
 script = ExtResource("2_revxj")
 scene = ExtResource("5_ortlr")
-overrides = {}
+overrides = {
+"disabled": "true"
+}
 
 [sub_resource type="Resource" id="Resource_v4f53"]
 script = ExtResource("2_revxj")
 scene = ExtResource("6_4l15x")
 overrides = {
-"box_size": "Vector2(200, 200)"
+"box_margin_bottom": "200.0",
+"box_size": "Vector2(400, 400)"
 }
 
 [sub_resource type="Resource" id="Resource_4qo0i"]
@@ -49,7 +54,9 @@ overrides = {}
 [sub_resource type="Resource" id="Resource_rec1c"]
 script = ExtResource("2_revxj")
 scene = ExtResource("8_37tu2")
-overrides = {}
+overrides = {
+"disabled": "true"
+}
 
 [sub_resource type="Resource" id="Resource_vtgxx"]
 script = ExtResource("2_revxj")

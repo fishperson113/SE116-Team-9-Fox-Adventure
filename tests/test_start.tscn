@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dfomqe5lda13k" path="res://tests/test_start.gd" id="1_rhb77"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="1_uy42n"]
-[ext_resource type="PackedScene" uid="uid://bh6uxsj1od1j6" path="res://scenes/levels/island/objects/raft2.tscn" id="2_rhb77"]
+[ext_resource type="PackedScene" uid="uid://bh6uxsj1od1j6" path="res://scenes/levels/island/objects/raft/raft2.tscn" id="2_rhb77"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="3_4wjy1"]
 [ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="4_3cu1o"]
 

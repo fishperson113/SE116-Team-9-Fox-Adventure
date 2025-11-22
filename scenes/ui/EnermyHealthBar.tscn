@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bclb52owsoiju"]
 
-[ext_resource type="Script" uid="uid://bd4j0r2lgvk57" path="res://scenes/ui/enermy_health_bar.gd" id="1_seyje"]
+[ext_resource type="Script" uid="uid://bd4j0r2lgvk57" path="res://scripts/ui/enermy_health_bar.gd" id="1_seyje"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5onf7"]
 bg_color = Color(0.933333, 0, 0, 1)

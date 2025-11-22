@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://bh6uxsj1od1j6"]
+
+[ext_resource type="PackedScene" uid="uid://pklnt4p62ciu" path="res://scenes/levels/island/objects/raft/raft.tscn" id="1_asqjr"]
+[ext_resource type="Script" uid="uid://f1skqfa72mhn" path="res://scripts/object/raft/raft2.gd" id="2_d6v1e"]
+
+[node name="Raft" instance=ExtResource("1_asqjr")]
+script = ExtResource("2_d6v1e")

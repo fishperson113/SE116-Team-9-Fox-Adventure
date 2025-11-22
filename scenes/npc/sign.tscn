@@ -1,6 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://5pp64vwco2e1"]
+[gd_scene load_steps=9 format=3 uid="uid://d3vvc1dl0n5j"]
 
-[ext_resource type="Script" uid="uid://cnpe6ngndwpfr" path="res://scenes/npc/sign.gd" id="1_pw8ce"]
+[ext_resource type="Script" uid="uid://cnpe6ngndwpfr" path="res://scripts/npc/sign.gd" id="1_pw8ce"]
 [ext_resource type="Texture2D" uid="uid://bgjq0vp7fcjgl" path="res://assets/ui/panels/signs.png" id="2_75u3p"]
 [ext_resource type="Script" uid="uid://3u7i3d58hkla" path="res://scripts/utils/interactive_area_2d.gd" id="3_75u3p"]
 [ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="4_rwooc"]
@@ -37,6 +37,7 @@ position = Vector2(-0.5, -0.25)
 shape = SubResource("RectangleShape2D_80kq2")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -55.0
 offset_top = 19.0
 offset_right = 61.0
@@ -56,6 +57,7 @@ shape = SubResource("RectangleShape2D_xju52")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 100
+visible = false
 
 [node name="Button" type="Button" parent="CanvasLayer"]
 offset_left = 449.0
