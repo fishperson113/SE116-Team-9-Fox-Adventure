@@ -81,7 +81,7 @@
 [sub_resource type="GDScript" id="GDScript_42gci"]
 script/source = "extends Panel
 
-signal smelting_done(part_id: String, material: String)
+signal smelting_done()
 
 # -----------------------------
 # CONFIG
@@ -275,13 +275,7 @@ func _lift_mold_finish():
 # Emit signal để MinigameUI nhận
 func _on_finish_complete():
 	_input_block_screen(false)
-
-	# TODO: trả về data thật sự bạn muốn
-	# hiện tại để demo:
-	var part_id := \"blade_1\"
-	var material := \"copper\"
-
-	emit_signal(\"smelting_done\", part_id, material)
+	emit_signal(\"smelting_done\")
 
 
 # ============================================================

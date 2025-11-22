@@ -1,10 +1,12 @@
-[gd_resource type="Resource" script_class="WeaponMaterialData" load_steps=2 format=3 uid="uid://b1qe5hffbbbqj"]
+[gd_resource type="Resource" script_class="WeaponMaterialData" load_steps=3 format=3 uid="uid://b1qe5hffbbbqj"]
 
 [ext_resource type="Script" uid="uid://bg7o110gecbgs" path="res://scripts/crafting/weapon_material_data.gd" id="1_fpr0x"]
+[ext_resource type="Texture2D" uid="uid://dii20mcgenauy" path="res://assets/sprites/ore/3972.png" id="2_ptj30"]
 
 [resource]
 script = ExtResource("1_fpr0x")
 id = "gold"
 display_name = ""
 color = Color(0.943, 0.93, 0.52, 1)
+icon = ExtResource("2_ptj30")
 metadata/_custom_type_script = "uid://bg7o110gecbgs"

@@ -1,0 +1,91 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsjp8w4bw1sb2"]
+
+[ext_resource type="Script" uid="uid://bg7o110gecbgs" path="res://scripts/crafting/weapon_material_data.gd" id="1_4ysgo"]
+[ext_resource type="Resource" uid="uid://b7f1xt8sai4l1" path="res://data/weapon/materials/copper.tres" id="2_l2idu"]
+[ext_resource type="Resource" uid="uid://b1qe5hffbbbqj" path="res://data/weapon/materials/gold.tres" id="3_j10xm"]
+[ext_resource type="Resource" uid="uid://g5k57m8utwwn" path="res://data/weapon/materials/iron.tres" id="4_sporn"]
+
+[sub_resource type="GDScript" id="GDScript_n82oa"]
+script/source = "extends Panel
+signal material_selected(material: String)
+
+@export var material_list: Array[WeaponMaterialData]
+@onready var hbox := $HBoxContainer
+@export var offset_y = 50
+
+
+func _ready():
+	visible = false
+	_load_materials()
+
+
+func open():
+	visible = true
+	_center_panel()
+
+
+func close():
+	visible = false
+
+
+func _center_panel():
+	var vp_size = get_viewport_rect().size
+	var my_size = size
+	position = Vector2(
+		(vp_size.x - my_size.x) * 0.5,
+		(vp_size.y - my_size.y) * 0.5 + offset_y
+	)
+
+
+func _load_materials():
+	# Xóa cũ
+	for c in hbox.get_children():
+		c.queue_free()
+
+	var count := material_list.size()
+
+	for i in count:
+		var mat := material_list[i]
+
+		# --- ICON ---
+		var icon := TextureRect.new()
+		icon.texture = mat.icon
+		icon.custom_minimum_size = Vector2(40, 0)
+		icon.expand_mode = TextureRect.EXPAND_KEEP_SIZE
+		icon.stretch_mode = TextureRect.STRETCH_SCALE
+
+		# click
+		icon.gui_input.connect(func(event):
+			if event is InputEventMouseButton \\
+			and event.pressed \\
+			and event.button_index == MOUSE_BUTTON_LEFT:
+				close()
+				material_selected.emit(mat.id)
+		)
+
+		hbox.add_child(icon)
+
+		# --- Separator (không thêm separator cuối) ---
+		if i < count - 1:
+			var sep := VSeparator.new()
+			sep.custom_minimum_size = Vector2(8, 0)
+			hbox.add_child(sep)
+"
+
+[node name="MaterialSelectPopup" type="Panel"]
+offset_right = 150.0
+offset_bottom = 100.0
+script = SubResource("GDScript_n82oa")
+material_list = Array[ExtResource("1_4ysgo")]([ExtResource("2_l2idu"), ExtResource("3_j10xm"), ExtResource("4_sporn")])
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

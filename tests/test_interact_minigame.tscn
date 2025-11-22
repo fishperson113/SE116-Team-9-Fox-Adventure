@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://km5dkyl4vud"]
+[gd_scene load_steps=6 format=4 uid="uid://km5dkyl4vud"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_mxpv1"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_1bc84"]
 [ext_resource type="PackedScene" uid="uid://bm35kkpuu3dh4" path="res://scenes/anvil/anvil.tscn" id="3_cpyw6"]
 [ext_resource type="PackedScene" uid="uid://qbrulhlifs0u" path="res://scenes/minigames/MinigameUI.tscn" id="4_55ngx"]
+[ext_resource type="PackedScene" uid="uid://bsjp8w4bw1sb2" path="res://scenes/minigames/material_select_popup.tscn" id="5_iq0td"]
 
 [node name="TestInteractMinigame" type="Node2D"]
 
@@ -14,12 +15,19 @@ tile_set = ExtResource("1_mxpv1")
 [node name="Player" parent="." instance=ExtResource("2_1bc84")]
 position = Vector2(73, 233)
 
-[node name="Anvil" parent="." node_paths=PackedStringArray("minigame_ui") instance=ExtResource("3_cpyw6")]
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="Anvil" parent="." node_paths=PackedStringArray("minigame_ui", "material_panel") instance=ExtResource("3_cpyw6")]
 position = Vector2(183, 246)
 collision_mask = 1
 minigame_ui = NodePath("../CanvasLayer/MinigameUI")
+material_panel = NodePath("../CanvasLayer/MaterialSelectPopup")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MinigameUI" parent="CanvasLayer" instance=ExtResource("4_55ngx")]
 visible = false
+
+[node name="MaterialSelectPopup" parent="CanvasLayer" instance=ExtResource("5_iq0td")]
+visible = false
+offset_y = 100

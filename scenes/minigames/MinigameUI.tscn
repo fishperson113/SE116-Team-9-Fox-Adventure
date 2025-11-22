@@ -11,7 +11,7 @@ signal closed
 @onready var smelt := $SmeltOreMinigame
 @onready var assemble := $AssembleWeaponMinigame
 
-
+var selected_material := \"\"
 func _ready():
 	visible = false
 
@@ -19,8 +19,9 @@ func _ready():
 	smelt.smelting_done.connect(_on_smelting_done)
 	assemble.assemble_done.connect(_on_assemble_done)
 
-func open():
+func open(mat_id: String):
 	reset()
+	selected_material = mat_id
 	visible = true
 	smelt.visible = true
 	assemble.visible = false
@@ -39,12 +40,14 @@ func _disable_player(state: bool):
 		GameManager.player.set_physics_process(!state)
 		GameManager.player.input_enabled = !state
 		
-func _on_smelting_done(part_id: String, material: String):
+func _on_smelting_done():
 	# Chuyển panel smelt -> assemble
 	_switch_panel(smelt, assemble)
-
-	# Gửi dữ liệu sang assemble bằng API
-	assemble.start_assemble(part_id, material)
+	
+	#Expand later if needed
+	var part_id = \"blade_1\"
+	# Gửi dữ liệu sang assemble
+	assemble.start_assemble(part_id,  selected_material)
 
 func _on_assemble_done(path):
 	print(\"Assemble finished → exported to: \", path)
