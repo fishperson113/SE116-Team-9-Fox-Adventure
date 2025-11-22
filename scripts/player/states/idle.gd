@@ -11,6 +11,7 @@ func _update(_delta: float) -> void:
 	control_moving()
 	control_attack()
 	control_throwing(_delta)
+	control_unequip()
 	#If not on floor change to fall
 	if not obj.is_on_floor():
 		change_state(fsm.states.fall)

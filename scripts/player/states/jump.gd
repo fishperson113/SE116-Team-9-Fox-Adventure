@@ -9,6 +9,7 @@ func _update(_delta: float):
 	control_moving()
 	control_attack()
 	control_throwing(_delta)
+	control_unequip()
 	#If velocity.y is greater than 0 change to fall
 	if obj.velocity.y > 0:
 		change_state(fsm.states.fall)

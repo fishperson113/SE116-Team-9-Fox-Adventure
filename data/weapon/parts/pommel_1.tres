@@ -14,5 +14,5 @@ uses_material = false
 damage = 0
 max_health = 0
 attack_speed = 0.0
-special_skill = ""
+special_skill = "triple_jump"
 metadata/_custom_type_script = "uid://b60t44i4hl225"

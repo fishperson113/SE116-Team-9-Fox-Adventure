@@ -168,8 +168,15 @@ func advance_stage(tw: Tween) -> void:
 	# nếu làm xong toàn bộ
 	if current_stage > MAX_STAGE:
 		await tw.finished
-		var path := await assembler.export_png()
-		emit_signal("assemble_done", path)
+		# 1) Export PNG
+		var png_path := await assembler.export_png()
+
+		# 2) Build WeaponData object
+		var weapon_data := assembler.export_weapon_data(png_path)
+
+		# 3) Save to .tres
+		var tres_path := assembler.save_weapon_tres(weapon_data)
+		emit_signal("assemble_done", tres_path)
 		return
 
 	# Ngược lại → cập nhật list parts cho stage mới

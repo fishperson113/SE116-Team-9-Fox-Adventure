@@ -52,6 +52,7 @@ func _on_smelting_done():
 func _on_assemble_done(path):
 	print(\"Assemble finished → exported to: \", path)
 	close()
+	GameManager.player.equip_weapon(path)
 
 # ============================================================
 # PANEL TRANSITION

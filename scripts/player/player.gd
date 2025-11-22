@@ -17,15 +17,24 @@ var is_invulnerable: bool = false
 
 # This will be used to accept reflect damage
 @onready var hit_area: HitArea2D = $Direction/HitArea2D
-
+var decorator_manager: DecoratorManager = null
+var weapon_manager: WeaponEquipmentManager= null
+var attack_damage
+var attack_speed
+var base_speed
+var is_equipped:bool = false
 func _ready() -> void:
 	get_node("Direction/HitArea2D/CollisionShape2D").disabled = true
 	fsm = FSM.new(self, $States, $States/Idle)
 	weapon_thrower = $WeaponThrower
+	decorator_manager= DecoratorManager.new()
+	decorator_manager.initialize(self)
+	weapon_manager=WeaponEquipmentManager.new()
 	# Set the attacker to take damage from reflect
 	hit_area.set_attacker(self)
 	super._ready()
 	GameManager.player = self
+	base_speed=movement_speed
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("change_form"):
@@ -83,3 +92,48 @@ func _on_invulnerability_timer_timeout() -> void:
 func set_empty_health() -> void:
 	fsm.current_state.take_damage(currentHealth)
 	pass
+func equip_weapon(tres_path: String):
+	is_equipped=true
+	var w := load(tres_path) as WeaponData
+	if w == null:
+		push_error("WeaponData load failed: " + tres_path)
+		return
+
+	# Update stats
+	if w.blade:
+		attack_damage = w.blade.damage
+
+	if w.crossguard:
+		maxHealth += w.crossguard.max_health
+
+	if w.grip:
+		attack_speed = w.grip.attack_speed
+
+	if w.pommel:
+		_apply_special_skill(w.pommel.special_skill)
+
+	change_player_type(2)
+	print("Player equipped craft weapon successfully!")
+func unequip_weapon():
+	if !is_equipped:
+		return
+	is_equipped=false
+	_reset_weapon_stats()
+	if character_type == 3:
+		change_player_type(1) # còn hat
+	else:
+		change_player_type(0) # không còn gì
+	print("Weapon unequipped.")
+	
+func _apply_special_skill(skill: String):
+	match skill:
+		"triple_jump":
+			jump_step = 3
+		"speed_up":
+			movement_speed = base_speed * 2
+		_:
+			_reset_weapon_stats()
+
+func _reset_weapon_stats():
+	jump_step = 2   
+	movement_speed=base_speed

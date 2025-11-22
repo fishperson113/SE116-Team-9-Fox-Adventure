@@ -12,7 +12,6 @@ var texture_cache := {}    # vẫn giữ nếu bạn cần export png nhanh
 func _ready() -> void:
 	_build_lookup_tables()
 
-
 # ---------------------------------------------------------
 #  BUILD LOOKUP TABLES
 # ---------------------------------------------------------
@@ -146,3 +145,38 @@ func reset_assembler():
 			var node = get_node(c)
 			for child in node.get_children():
 				child.queue_free()
+
+func export_weapon_data(png_path: String) -> WeaponData:
+	var w := WeaponData.new()
+
+	for entry in assembled_parts:
+		var part: WeaponPartData = entry["part"]
+		match part.type:
+			"blade":
+				w.blade = part
+			"crossguard":
+				w.crossguard = part
+			"grip":
+				w.grip = part
+			"pommel":
+				w.pommel = part
+
+	w.material = assembled_parts[0]["material"]
+	w.png_path = png_path
+
+	return w
+	
+func save_weapon_tres(weapon: WeaponData) -> String:
+	var folder = "user://weapons"
+	var dir := DirAccess.open("user://")
+	if not dir.dir_exists("weapons"):
+		dir.make_dir("weapons")
+
+	var timestamp := Time.get_unix_time_from_system()
+	var path := "%s/weapon_%s.tres" % [folder, timestamp]
+
+	var ok := ResourceSaver.save(weapon, path)
+	if ok != OK:
+		push_error("Failed to save WeaponData: %s" % path)
+
+	return path
