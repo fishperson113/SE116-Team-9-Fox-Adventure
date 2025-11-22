@@ -1,169 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://w4bydp8fy3v3"]
+[gd_scene load_steps=7 format=3 uid="uid://w4bydp8fy3v3"]
 
 [ext_resource type="Script" uid="uid://m2p8q8rd5t01" path="res://scripts/ui/entrance.gd" id="1_f8nrn"]
-[ext_resource type="Texture2D" uid="uid://dcrnqve71d36p" path="res://assets/sprites/environment/background/additional_sky.png" id="1_r475m"]
-[ext_resource type="Texture2D" uid="uid://bqde0l4at7gv8" path="res://assets/sprites/environment/background/bg_image.png" id="2_hr47i"]
-[ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="3_bx5ed"]
 [ext_resource type="Texture2D" uid="uid://b5u76leuvijwt" path="res://assets/ui/panels/ButtonFrame1.png" id="4_7oapf"]
 [ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="5_5abgg"]
-[ext_resource type="Texture2D" uid="uid://dqxhpklt374c7" path="res://assets/ui/panels/20240707dragonHeaderA.png" id="6_f8nrn"]
-[ext_resource type="Texture2D" uid="uid://ba6aqqry6wrn2" path="res://assets/ui/panels/20240707dragonHeaderB.png" id="7_thkx1"]
-[ext_resource type="Texture2D" uid="uid://d0llrhrxbxm50" path="res://assets/ui/panels/20240709dragonBarB.png" id="8_tk1gr"]
 [ext_resource type="Texture2D" uid="uid://de80pp3hymiw3" path="res://assets/ui/panels/20240707dragon9SlicesE.png" id="9_uw707"]
 [ext_resource type="Texture2D" uid="uid://bak1dc8urb02c" path="res://assets/ui/buttons/settings_button.png" id="11_thkx1"]
-[ext_resource type="PackedScene" uid="uid://mnmw5xca5d36" path="res://scenes/ui/Level.tscn" id="12_thkx1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f8nrn"]
 
-[node name="Entrance" type="Node2D" node_paths=PackedStringArray("main_menu_layer", "level_layer")]
+[node name="Entrance" type="Node2D"]
 script = ExtResource("1_f8nrn")
-main_menu_layer = NodePath("MainMenuLayer")
-level_layer = NodePath("LevelLayer")
 
 [node name="Background" type="ParallaxBackground" parent="."]
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
-position = Vector2(-5, 0)
-
-[node name="SkySprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
-position = Vector2(504.125, 14)
-scale = Vector2(42.8047, 9.72656)
-texture = ExtResource("1_r475m")
-
-[node name="SkySeaSprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
-position = Vector2(503.75, 207)
-scale = Vector2(3.55859, 1)
-texture = ExtResource("2_hr47i")
-
-[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
-position = Vector2(503, 303)
-scale = Vector2(42.75, 2.65625)
-texture = ExtResource("3_bx5ed")
-
 [node name="MainMenuLayer" type="CanvasLayer" parent="."]
-
-[node name="Play" type="Sprite2D" parent="MainMenuLayer"]
-visible = false
-position = Vector2(270.5, 81.5)
-scale = Vector2(3.51389, 1.09722)
-texture = ExtResource("4_7oapf")
-
-[node name="Button" type="Button" parent="MainMenuLayer/Play"]
-visible = false
-offset_left = -36.0
-offset_top = -35.0
-offset_right = 35.0
-offset_bottom = 36.0
-flat = true
-
-[node name="Play_Now" type="Label" parent="MainMenuLayer"]
-visible = false
-offset_left = 179.0
-offset_top = 67.0
-offset_right = 374.0
-offset_bottom = 107.0
-theme_override_fonts/font = ExtResource("5_5abgg")
-theme_override_font_sizes/font_size = 30
-text = "PLAY NOW"
-
-[node name="Inventory" type="Sprite2D" parent="MainMenuLayer"]
-visible = false
-position = Vector2(268, 140.5)
-scale = Vector2(1.75, 1.28125)
-texture = ExtResource("6_f8nrn")
-
-[node name="Button" type="Button" parent="MainMenuLayer/Inventory"]
-offset_left = 215.0
-offset_top = 109.0
-offset_right = 286.0
-offset_bottom = 180.0
-flat = true
-
-[node name="Inventory_Text" type="Label" parent="MainMenuLayer"]
-visible = false
-offset_left = 209.0
-offset_top = 130.0
-offset_right = 329.0
-offset_bottom = 150.0
-theme_override_fonts/font = ExtResource("5_5abgg")
-theme_override_font_sizes/font_size = 16
-text = "INVENTORY"
-
-[node name="Farm" type="Sprite2D" parent="MainMenuLayer"]
-visible = false
-position = Vector2(269, 173)
-scale = Vector2(1.75, 1.28125)
-texture = ExtResource("7_thkx1")
-
-[node name="Button" type="Button" parent="MainMenuLayer/Farm"]
-offset_left = 215.0
-offset_top = 109.0
-offset_right = 286.0
-offset_bottom = 180.0
-flat = true
-
-[node name="Farm_text" type="Label" parent="MainMenuLayer"]
-visible = false
-offset_left = 242.0
-offset_top = 165.0
-offset_right = 296.0
-offset_bottom = 185.0
-theme_override_fonts/font = ExtResource("5_5abgg")
-theme_override_font_sizes/font_size = 16
-text = "FARM"
-
-[node name="Forge" type="Sprite2D" parent="MainMenuLayer"]
-visible = false
-position = Vector2(271, 206.875)
-scale = Vector2(1.75, 1.76562)
-texture = ExtResource("8_tk1gr")
-
-[node name="Button" type="Button" parent="MainMenuLayer/Forge"]
-offset_left = 215.0
-offset_top = 109.0
-offset_right = 286.0
-offset_bottom = 180.0
-flat = true
-
-[node name="Forge_text" type="Label" parent="MainMenuLayer"]
-visible = false
-offset_left = 236.0
-offset_top = 199.0
-offset_right = 303.0
-offset_bottom = 219.0
-theme_override_fonts/font = ExtResource("5_5abgg")
-theme_override_font_sizes/font_size = 16
-text = "FORGE"
-
-[node name="Quit" type="Sprite2D" parent="MainMenuLayer"]
-visible = false
-position = Vector2(270, 142)
-scale = Vector2(2, 0.604167)
-texture = ExtResource("9_uw707")
-
-[node name="Button" type="Button" parent="MainMenuLayer/Quit"]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -23.0
-offset_top = -22.0
-offset_right = -25.0
-offset_bottom = -26.0
-grow_horizontal = 2
-grow_vertical = 2
-flat = true
-metadata/_edit_use_anchors_ = true
-
-[node name="Quit_text" type="Label" parent="MainMenuLayer"]
-visible = false
-offset_left = 243.0
-offset_top = 135.0
-offset_right = 310.0
-offset_bottom = 155.0
-theme_override_fonts/font = ExtResource("5_5abgg")
-theme_override_font_sizes/font_size = 16
-text = "QUIT"
 
 [node name="SettingsButton" type="Button" parent="MainMenuLayer"]
 anchors_preset = 1
@@ -249,8 +99,3 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_f8nrn")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_f8nrn")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_f8nrn")
 text = "QUIT"
-
-[node name="LevelLayer" parent="." instance=ExtResource("12_thkx1")]
-visible = false
-
-[editable path="LevelLayer"]

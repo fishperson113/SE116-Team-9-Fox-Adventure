@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://slg0p8vvevb8"]
+[gd_scene load_steps=18 format=3 uid="uid://slg0p8vvevb8"]
 
 [ext_resource type="Texture2D" uid="uid://cpvkepx2kh0ku" path="res://assets/sprites/objects/door/closing.png" id="1_7l4jk"]
 [ext_resource type="Script" uid="uid://l7xnwnjlisqx" path="res://scripts/object/door/win_door.gd" id="1_x6qlk"]
 [ext_resource type="Texture2D" uid="uid://bywbldgj5n4af" path="res://assets/sprites/objects/door/idle.png" id="2_8ymf3"]
 [ext_resource type="Texture2D" uid="uid://cwhw7q87xsjwa" path="res://assets/sprites/objects/door/opening.png" id="3_2wyd1"]
 [ext_resource type="Script" uid="uid://3u7i3d58hkla" path="res://scripts/utils/interactive_area_2d.gd" id="4_l7mgg"]
+[ext_resource type="AudioStream" uid="uid://w5jqjknju6hu" path="res://assets/audio/sfx/coin.mp3" id="6_rndn5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mpm61"]
 atlas = ExtResource("1_7l4jk")
@@ -84,12 +85,12 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7l4jk"]
-size = Vector2(14, 32)
+size = Vector2(32, 47)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l7mgg"]
 size = Vector2(32, 47)
 
-[node name="Door" type="Node2D"]
+[node name="WinDoor" type="Node2D"]
 script = ExtResource("1_x6qlk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -103,7 +104,7 @@ collision_mask = 4
 script = ExtResource("4_l7mgg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractiveArea2D"]
-position = Vector2(0, -16)
+position = Vector2(0, -26.5)
 shape = SubResource("RectangleShape2D_7l4jk")
 
 [node name="DetectionArea2D" type="Area2D" parent="."]
@@ -113,6 +114,10 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea2D"]
 position = Vector2(0, -26.5)
 shape = SubResource("RectangleShape2D_l7mgg")
+
+[node name="Win" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("6_rndn5")
 
 [connection signal="interacted" from="InteractiveArea2D" to="." method="_on_interactive_area_2d_interacted"]
 [connection signal="body_entered" from="DetectionArea2D" to="." method="_on_detection_area_2d_body_entered"]

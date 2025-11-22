@@ -23,11 +23,13 @@ func set_up_levels():
 
 func _on_level_selected(level_num: int):
 	if GameManager.is_level_unlocked(level_num):
+		get_tree().paused = false
 		level_chosen.emit(level_num)
+		load_level(level_num)
 		queue_free()
 
 func load_level(num: int):
-	var level_path = "res://scenes/levels/level_" + str(num) + "/stage_1.tscn"
+	var level_path = "res://scenes/levels/level_" + str(num) + "/stage_" + str(num) + ".tscn"
 	
 	if ResourceLoader.exists(level_path):
 		get_tree().change_scene_to_file(level_path)
@@ -35,6 +37,10 @@ func load_level(num: int):
 func _on_quit_button_down():
 	queue_free()
 
-
 func _on_level_chosen(level_num: int) -> void:
+	pass # Replace with function body.
+
+func _on_exit_button_pressed() -> void:
+	get_tree().paused = false
+	queue_free()
 	pass # Replace with function body.

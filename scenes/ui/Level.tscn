@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cx1m1wxkbipxh" path="res://assets/ui/buttons/close_button.png" id="7_m71ps"]
 
 [node name="LevelLayer" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_7uotr")
 
 [node name="Header" type="Label" parent="."]
@@ -81,3 +82,5 @@ grow_horizontal = 0
 icon = ExtResource("7_m71ps")
 flat = true
 expand_icon = true
+
+[connection signal="pressed" from="ExitButton" to="." method="_on_exit_button_pressed"]

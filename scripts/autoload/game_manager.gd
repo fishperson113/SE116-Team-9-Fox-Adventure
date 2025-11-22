@@ -10,7 +10,11 @@ var current_stage = ""
 var player: Player = null
 var player_has_blade: bool = false
 
+# Lobby progress
+var is_tutorial_finished = false
+
 # Level progress
+var current_level: int = 0
 var max_level_unlocked: int = 1
 
 #Slots that store items and weapons on use
@@ -21,6 +25,7 @@ var inventory_data: Array[Dictionary] = []
 
 func _ready() -> void:
 	# Load checkpoint data when game starts
+	load_tutorial_progress()
 	load_checkpoint_data()
 	load_inventory_data()
 	load_slots_data()
@@ -44,6 +49,9 @@ func change_stage(stage_path: String, _target_portal_name: String = "") -> void:
 	target_portal_name = _target_portal_name
 	#change scene to stage path
 	get_tree().change_scene_to_file(stage_path)
+
+func load_current_stage(level: int) -> void:
+	current_level = level
 
 #call from dialogic
 func call_from_dialogic(msg:String = ""):
@@ -167,14 +175,13 @@ func converted_empty_slots() -> Array[Dictionary]:
 	return empty_slots
 
 # Level progress functions
-func unlock_level(level_num: int) -> void:
-	if level_num > max_level_unlocked:
-		max_level_unlocked = level_num
+func unlock_level() -> void:
+	if current_level + 1 > max_level_unlocked:
+		max_level_unlocked = current_level + 1
 		save_level_progress()
-		print("Level unlocked: ", level_num)
-
-func complete_level(level_num: int) -> void:
-	unlock_level(level_num + 1)
+		print("Level unlocked: ", current_level + 1)
+	else:
+		print("Not reached max level. Can't unlock new level")
 
 func is_level_unlocked(level_num: int) -> bool:
 	return level_num <= max_level_unlocked
@@ -190,3 +197,16 @@ func reset_level_progress() -> void:
 	max_level_unlocked = 1
 	SaveSystem.delete_level_progress_file()
 	print("Level progress reset")
+
+func mark_tutorial_finished() -> void:
+	is_tutorial_finished = true
+	SaveSystem.save_tutorial_progress(is_tutorial_finished)
+
+func load_tutorial_progress() -> void:
+	var tutorial_progress: Dictionary = SaveSystem.load_tutorial_progress()
+	if not tutorial_progress.is_empty():
+		is_tutorial_finished = tutorial_progress["is_tutorial_finished"]
+		print("Tutorial progress loaded")
+
+#func get_tutorial_progress() -> bool:
+#	return is_tutorial_finished

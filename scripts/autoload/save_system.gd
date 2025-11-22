@@ -6,6 +6,7 @@ extends Node
 const SAVE_FILE = "user://checkpoint_save.dat"
 const SLOTS_FILE = "user://slots_save.dat"
 const INVENTORY_FILE = "user://inventory_save.dat"
+const TUTORIAL_PROGRESS_FILE = "user://tutorial_progress.dat"
 const LEVEL_PROGRESS_FILE = "user://level_progress.dat"
 
 # Save checkpoint data to file
@@ -212,6 +213,14 @@ func delete_level_progress_file() -> void:
 		DirAccess.remove_absolute(LEVEL_PROGRESS_FILE)
 		print("Level progress file deleted")
 
+func has_tutorial_progress_file() -> bool:
+	return FileAccess.file_exists(TUTORIAL_PROGRESS_FILE)
+
+func delete_tutorial_progress_file() -> void:
+	if has_tutorial_progress_file():
+		DirAccess.remove_absolute(TUTORIAL_PROGRESS_FILE)
+		print("Tutorial file deleted")
+
 # Convert empty slots
 func converted_empty_slots() -> Array[Dictionary]:
 	var empty_slots: Array[Dictionary]
@@ -219,3 +228,35 @@ func converted_empty_slots() -> Array[Dictionary]:
 	for i in range(GameManager.slots_size):
 		empty_slots[i] = {}
 	return empty_slots
+
+func save_tutorial_progress(is_finished: bool) -> void:
+	var file = FileAccess.open(TUTORIAL_PROGRESS_FILE, FileAccess.WRITE)
+	if file:
+		var data = {"is_tutorial_finished": is_finished}
+		var json_string = JSON.stringify(data, "\t")
+		file.store_string(json_string)
+		file.close()
+		print("Tutorial progress is saved!")
+	else:
+		printerr("An error occurred when trying to save level progress.")
+		
+func load_tutorial_progress() -> Dictionary:
+	if not has_tutorial_progress_file():
+		return {}
+
+	var file = FileAccess.open(TUTORIAL_PROGRESS_FILE, FileAccess.READ)
+	if file:
+		var content = file.get_as_text()
+		file.close()
+		
+		var json = JSON.new()
+		var error = json.parse(content)
+		
+		if error != OK:
+			printerr("Error parsing JSON file: ", error)
+			return {}
+			
+		return json.get_data()
+	
+	printerr("An error occurred when trying to open the save file.")
+	return {}

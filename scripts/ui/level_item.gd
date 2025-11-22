@@ -16,7 +16,9 @@ func _ready() -> void:
 
 func _on_pressed() -> void:
 	if not is_locked:
+		GameManager.load_current_stage(level_number)
 		level_selected.emit(level_number)
+		print("Loading level " + str(level_number))
 	else:
 		print("Level ", level_number, " đang bị khóa!")
 
