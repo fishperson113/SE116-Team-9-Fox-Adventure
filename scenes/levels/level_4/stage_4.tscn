@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://xmmhse6d6ge7"]
+[gd_scene load_steps=11 format=4 uid="uid://xmmhse6d6ge7"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_3uy1m"]
 [ext_resource type="PackedScene" uid="uid://d2wpy684uyjct" path="res://scenes/enemies/spawners/triggered_spawner.tscn" id="2_4f3hn"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="3_l583c"]
 [ext_resource type="PackedScene" uid="uid://cf30thpmo45yj" path="res://scenes/enemies/minions/shootables/seahorses/seahorse.tscn" id="5_n84ud"]
 [ext_resource type="PackedScene" uid="uid://crwb5kl1tn450" path="res://scenes/enemies/minions/shootables/pelicans/pelican.tscn" id="6_qpij7"]
+[ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="10_c7rpm"]
 
 [node name="Stage" type="Node2D"]
 
@@ -298,7 +299,12 @@ position = Vector2(19976, 3325)
 metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -35)
 zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="MainUI" parent="." instance=ExtResource("10_c7rpm")]
 
 [node name="Obstacles" type="Node2D" parent="."]
 

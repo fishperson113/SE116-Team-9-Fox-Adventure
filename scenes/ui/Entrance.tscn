@@ -1,9 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://w4bydp8fy3v3"]
+[gd_scene load_steps=7 format=3 uid="uid://w4bydp8fy3v3"]
 
 [ext_resource type="Script" uid="uid://m2p8q8rd5t01" path="res://scripts/ui/entrance.gd" id="1_f8nrn"]
-[ext_resource type="Texture2D" uid="uid://dcrnqve71d36p" path="res://assets/sprites/environment/background/additional_sky.png" id="1_r475m"]
-[ext_resource type="Texture2D" uid="uid://bqde0l4at7gv8" path="res://assets/sprites/environment/background/bg_image.png" id="2_hr47i"]
-[ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="3_bx5ed"]
 [ext_resource type="Texture2D" uid="uid://b5u76leuvijwt" path="res://assets/ui/panels/ButtonFrame1.png" id="4_7oapf"]
 [ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="5_5abgg"]
 [ext_resource type="Texture2D" uid="uid://de80pp3hymiw3" path="res://assets/ui/panels/20240707dragon9SlicesE.png" id="9_uw707"]
@@ -15,24 +12,6 @@
 script = ExtResource("1_f8nrn")
 
 [node name="Background" type="ParallaxBackground" parent="."]
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
-position = Vector2(-5, 0)
-
-[node name="SkySprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
-position = Vector2(504.125, 14)
-scale = Vector2(42.8047, 9.72656)
-texture = ExtResource("1_r475m")
-
-[node name="SkySeaSprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
-position = Vector2(503.75, 207)
-scale = Vector2(3.55859, 1)
-texture = ExtResource("2_hr47i")
-
-[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
-position = Vector2(503, 303)
-scale = Vector2(42.75, 2.65625)
-texture = ExtResource("3_bx5ed")
 
 [node name="MainMenuLayer" type="CanvasLayer" parent="."]
 

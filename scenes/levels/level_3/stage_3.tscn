@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://cchdurl56vp0g"]
+[gd_scene load_steps=53 format=4 uid="uid://cchdurl56vp0g"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_ryjcr"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="3_4dlow"]
@@ -30,16 +30,6 @@
 [ext_resource type="Texture2D" uid="uid://dt1od2hyke60g" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_02.png" id="21_0ugou"]
 [ext_resource type="Texture2D" uid="uid://frimagh5yfit" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_03.png" id="22_4s0km"]
 [ext_resource type="Texture2D" uid="uid://cjcxdxoq8hp4l" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_04.png" id="23_360j8"]
-[ext_resource type="PackedScene" uid="uid://5pp64vwco2e1" path="res://scenes/npc/sign.tscn" id="24_48kfr"]
-[ext_resource type="PackedScene" uid="uid://g5mwh48q6r27" path="res://scenes/npc/sign2.tscn" id="25_m8q53"]
-[ext_resource type="PackedScene" uid="uid://buayv5wh1bl4u" path="res://scenes/npc/sign3.tscn" id="26_lavkq"]
-[ext_resource type="PackedScene" uid="uid://cv5kt0si2h1kg" path="res://scenes/npc/sign4.tscn" id="27_vh7yq"]
-[ext_resource type="PackedScene" uid="uid://dt8iucgnaxhj8" path="res://scenes/npc/sign5.tscn" id="28_k6tno"]
-[ext_resource type="PackedScene" uid="uid://bb8ah6yewvkgx" path="res://scenes/npc/sign6.tscn" id="29_gj5d3"]
-[ext_resource type="PackedScene" uid="uid://crgqefvompc8w" path="res://scenes/npc/sign7.tscn" id="30_xfqd5"]
-[ext_resource type="PackedScene" uid="uid://djsaw6o34gu6c" path="res://scenes/npc/sign_pelican.tscn" id="31_pe83s"]
-[ext_resource type="PackedScene" uid="uid://da0mswdg4suuk" path="res://scenes/npc/sign8.tscn" id="32_838u2"]
-[ext_resource type="PackedScene" uid="uid://dig0vp14ug647" path="res://scenes/npc/sign_win.tscn" id="33_u7e4e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3c5t6"]
 atlas = ExtResource("5_rpd7o")
@@ -536,39 +526,6 @@ centered = false
 position = Vector2(360.925, 188.14)
 sprite_frames = SubResource("SpriteFrames_c4j3j")
 centered = false
-
-[node name="Board" type="Node2D" parent="."]
-visible = false
-
-[node name="AD_SPACE" parent="Board" instance=ExtResource("24_48kfr")]
-position = Vector2(87, 239)
-
-[node name="CV" parent="Board" instance=ExtResource("25_m8q53")]
-position = Vector2(510, 239)
-
-[node name="GL" parent="Board" instance=ExtResource("26_lavkq")]
-position = Vector2(397, 143)
-
-[node name="Spike" parent="Board" instance=ExtResource("27_vh7yq")]
-position = Vector2(221, -49)
-
-[node name="Crab" parent="Board" instance=ExtResource("28_k6tno")]
-position = Vector2(511, -178)
-
-[node name="Starfish" parent="Board" instance=ExtResource("29_gj5d3")]
-position = Vector2(868, -177)
-
-[node name="Mushroom" parent="Board" instance=ExtResource("30_xfqd5")]
-position = Vector2(769, -49)
-
-[node name="Pelican" parent="Board" instance=ExtResource("31_pe83s")]
-position = Vector2(1031, 47)
-
-[node name="Turtle" parent="Board" instance=ExtResource("32_838u2")]
-position = Vector2(946, 238)
-
-[node name="Sign" parent="Board" instance=ExtResource("33_u7e4e")]
-position = Vector2(1274, 238)
 
 [editable path="World/AreaUnlockerEnemies"]
 [editable path="World/AreaUnlockerEnemies2"]

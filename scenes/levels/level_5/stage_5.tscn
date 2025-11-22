@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=4 uid="uid://b4he3cnf7cpbq"]
+[gd_scene load_steps=12 format=4 uid="uid://b4he3cnf7cpbq"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_3l2kx"]
 [ext_resource type="PackedScene" uid="uid://slg0p8vvevb8" path="res://scenes/levels/island/objects/door/Win_door.tscn" id="2_m7cq7"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_y8cxf"]
 [ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="3_m7cq7"]
+[ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="4_m7cq7"]
 [ext_resource type="PackedScene" uid="uid://crwb5kl1tn450" path="res://scenes/enemies/minions/shootables/pelicans/pelican.tscn" id="4_pjjcp"]
 [ext_resource type="PackedScene" uid="uid://psxbpmcbicmg" path="res://scenes/enemies/minions/melees/aborigines/aborigine.tscn" id="5_lyf21"]
 [ext_resource type="PackedScene" uid="uid://caj73aiw7tf22" path="res://scenes/enemies/minions/melees/aborigines/big_aborigine.tscn" id="6_njy1a"]
@@ -26,7 +27,12 @@ character_type = 2
 metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -35)
 zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="MainUI" parent="." instance=ExtResource("4_m7cq7")]
 
 [node name="Enemies" type="Node2D" parent="."]
 position = Vector2(-4, 2)
