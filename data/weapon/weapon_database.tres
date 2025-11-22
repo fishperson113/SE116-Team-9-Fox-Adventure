@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="WeaponDatabase" load_steps=13 format=3 uid="uid://17jrg15tqase"]
+
+[ext_resource type="Script" uid="uid://bg7o110gecbgs" path="res://scripts/crafting/weapon_material_data.gd" id="1_l62ef"]
+[ext_resource type="Resource" uid="uid://b7f1xt8sai4l1" path="res://data/weapon/materials/copper.tres" id="2_11ltr"]
+[ext_resource type="Script" uid="uid://b60t44i4hl225" path="res://scripts/crafting/weapon_part_data.gd" id="2_p7ge1"]
+[ext_resource type="Script" uid="uid://c15346etd4npl" path="res://scripts/crafting/weapon_database.gd" id="3_jqf8u"]
+[ext_resource type="Resource" uid="uid://b1qe5hffbbbqj" path="res://data/weapon/materials/gold.tres" id="3_nkfxx"]
+[ext_resource type="Resource" uid="uid://g5k57m8utwwn" path="res://data/weapon/materials/iron.tres" id="4_1deq3"]
+[ext_resource type="Resource" uid="uid://bxetbiic7pops" path="res://data/weapon/parts/blade_1.tres" id="6_bo1cm"]
+[ext_resource type="Resource" uid="uid://jfug5iaqu3gn" path="res://data/weapon/parts/crossguard_1.tres" id="7_64ji6"]
+[ext_resource type="Resource" uid="uid://b8tu5q4stpbdd" path="res://data/weapon/parts/crossguard_2.tres" id="8_d4va3"]
+[ext_resource type="Resource" uid="uid://bi58btctss7bm" path="res://data/weapon/parts/grip_wood_1.tres" id="9_stl3y"]
+[ext_resource type="Resource" uid="uid://4puqxbxsfi6b" path="res://data/weapon/parts/pommel_1.tres" id="10_klfxi"]
+[ext_resource type="Resource" uid="uid://bsgxihg6mbfmg" path="res://data/weapon/parts/pommel_2.tres" id="11_nkfxx"]
+
+[resource]
+script = ExtResource("3_jqf8u")
+parts = Array[ExtResource("2_p7ge1")]([ExtResource("6_bo1cm"), ExtResource("7_64ji6"), ExtResource("8_d4va3"), ExtResource("9_stl3y"), ExtResource("10_klfxi"), ExtResource("11_nkfxx")])
+materials = Array[ExtResource("1_l62ef")]([ExtResource("2_11ltr"), ExtResource("3_nkfxx"), ExtResource("4_1deq3")])
+metadata/_custom_type_script = "uid://c15346etd4npl"

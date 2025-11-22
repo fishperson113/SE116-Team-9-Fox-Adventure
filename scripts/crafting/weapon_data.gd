@@ -1,14 +1,27 @@
 extends Resource
 class_name WeaponData
 
-# Đường dẫn đến file icon .png đã render
-@export var icon_path: String
+@export var blade: WeaponPartData
+@export var crossguard: WeaponPartData
+@export var grip: WeaponPartData
+@export var pommel: WeaponPartData
 
-# Công thức để tái tạo lại vũ khí khi cần
-@export var parts_list: Array[Dictionary] = []
+@export var material: WeaponMaterialData
 
-# Chỉ số đã tính toán
-@export var stats: Dictionary = {}
+@export var png_path: String = ""
 
-# Tên vũ khí (có thể cho người dùng đặt)
-@export var display_name: String = "Crafted Weapon"
+# --- Final stats ---
+func get_damage() -> int:
+	return blade.damage if blade else 0
+
+func get_max_health() -> int:
+	return crossguard.max_health if crossguard else 0
+
+func get_attack_speed() -> float:
+	return grip.attack_speed if grip else 1.0
+
+func get_special_skill() -> String:
+	return pommel.special_skill if pommel else ""
+
+func get_color() -> Color:
+	return material.color if material else Color.WHITE

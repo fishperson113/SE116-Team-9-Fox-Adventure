@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bbh8h6o3fs2r3"]
+[gd_scene load_steps=12 format=3 uid="uid://bbh8h6o3fs2r3"]
 
 [ext_resource type="Texture2D" uid="uid://bnbxan1lc7bpx" path="res://assets/sprites/caldron/mold/422.png" id="1_eix47"]
 [ext_resource type="Texture2D" uid="uid://7qaokb7xej13" path="res://assets/sprites/caldron/mold/443.png" id="2_gp2fn"]
 [ext_resource type="Texture2D" uid="uid://c1xueye05fac5" path="res://assets/sprites/caldron/mold/4705.png" id="3_oak1q"]
 [ext_resource type="Script" uid="uid://c8suqtt4rmk52" path="res://scripts/crafting/weapon_assembler.gd" id="4_gp2fn"]
+[ext_resource type="Resource" uid="uid://17jrg15tqase" path="res://data/weapon/weapon_database.tres" id="5_0cft4"]
 [ext_resource type="Script" uid="uid://deob242sns3ow" path="res://scripts/crafting/assembler_handler.gd" id="5_oak1q"]
 
 [sub_resource type="GDScript" id="GDScript_gp2fn"]
@@ -15,7 +16,6 @@ signal assemble_done(export_path)
 
 var input_enabled := false
 var _incoming_part_id := \"\"
-var _incoming_quality := \"\"
 var _incoming_material := \"\"
 
 func _ready() -> void:
@@ -27,9 +27,8 @@ func _on_area_done(path):
 # =========================================================
 # PUBLIC API — CALLED BY MinigameUI
 # =========================================================
-func start_assemble(part_id: String, quality: String, material: String) -> void:
+func start_assemble(part_id: String, material: String) -> void:
 	_incoming_part_id = part_id
-	_incoming_quality = quality
 	_incoming_material = material
 
 	# Begin UI intro
@@ -42,7 +41,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 
 func _reveal_blade() -> void:
 	# Add the part that SmeltOre passed in
-	assembler.add_part(_incoming_part_id, _incoming_quality, _incoming_material)
+	assembler.add_part(_incoming_part_id, _incoming_material)
 
 	# Animate blade entering
 	anim.play(\"blade_move\")
@@ -52,6 +51,28 @@ func _reveal_blade() -> void:
 	t.finished.connect(func():
 		input_enabled = true
 	)
+	
+func reset_minigame():
+	# Reset internal flags
+	input_enabled = false
+	_incoming_part_id = \"\"
+	_incoming_material = \"\"
+
+	# Reset animation
+	if anim:
+		anim.stop()
+		anim.seek(0.0, true)
+		# optional: ensure all panels start hidden
+		if $MainLayout/AssembleArea/BladeSprite:
+			$MainLayout/AssembleArea/BladeSprite.visible = false
+
+	# Reset assembler (clear sprites)
+	if assembler and assembler.has_method(\"reset_assembler\"):
+		assembler.reset_assembler()
+
+	# Reset handler that manages drag & drop
+	if collection_area and collection_area.has_method(\"reset_handler\"):
+		collection_area.reset_handler()
 "
 
 [sub_resource type="Animation" id="Animation_gp2fn"]
@@ -464,6 +485,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_gp2fn")
+database = ExtResource("5_0cft4")
 
 [node name="BladeContainer" type="CenterContainer" parent="MainLayout/AssembleArea/WeaponAssembler"]
 custom_minimum_size = Vector2(200, 200)

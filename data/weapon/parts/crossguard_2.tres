@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponPartData" load_steps=3 format=3 uid="uid://b8tu5q4stpbdd"]
+
+[ext_resource type="Script" uid="uid://b60t44i4hl225" path="res://scripts/crafting/weapon_part_data.gd" id="1_xglqr"]
+[ext_resource type="Texture2D" uid="uid://cg13b3x65m0u" path="res://assets/sprites/weapon_parts/crossguard_2.png" id="2_xglqr"]
+
+[resource]
+script = ExtResource("1_xglqr")
+id = "crossguard_2"
+display_name = ""
+type = "crossguard"
+sprite = ExtResource("2_xglqr")
+height = 45
+uses_material = false
+damage = 0
+max_health = 0
+attack_speed = 0.0
+special_skill = ""
+metadata/_custom_type_script = "uid://b60t44i4hl225"

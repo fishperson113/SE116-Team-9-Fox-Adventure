@@ -68,7 +68,6 @@ z_index = 2
 position = Vector2(227, 104)
 
 [node name="MainUI" parent="Player" instance=ExtResource("3_4wjy1")]
-position = Vector2(-226, -106)
 
 [node name="Raft" parent="." instance=ExtResource("2_rhb77")]
 position = Vector2(234, 201)

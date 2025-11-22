@@ -31,11 +31,14 @@ var _next_animated_sprite: AnimatedSprite2D = null
 
 var maxHealth: float = 3
 var currentHealth: float = maxHealth
-
+var input_enabled := true
 func _ready() -> void:
 	set_animated_sprite($Direction/AnimatedSprite2D)
 
 func _physics_process(delta: float) -> void:
+	
+	if not input_enabled:
+		return
 	# Animation
 	_check_changed_animation()
 

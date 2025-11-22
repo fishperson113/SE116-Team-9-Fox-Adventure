@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponMaterialData" load_steps=3 format=3 uid="uid://b7f1xt8sai4l1"]
+
+[ext_resource type="Script" uid="uid://bg7o110gecbgs" path="res://scripts/crafting/weapon_material_data.gd" id="1_7d1kq"]
+[ext_resource type="Texture2D" uid="uid://j4ii1cxsg13q" path="res://assets/sprites/ore/3970.png" id="2_m2243"]
+
+[resource]
+script = ExtResource("1_7d1kq")
+id = "copper"
+display_name = ""
+color = Color(0.8, 0.5, 0.3, 1)
+icon = ExtResource("2_m2243")
+metadata/_custom_type_script = "uid://bg7o110gecbgs"

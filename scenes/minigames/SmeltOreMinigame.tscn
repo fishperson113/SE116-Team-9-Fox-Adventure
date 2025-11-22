@@ -81,7 +81,7 @@
 [sub_resource type="GDScript" id="GDScript_42gci"]
 script/source = "extends Panel
 
-signal smelting_done(part_id: String, quality: String, material: String)
+signal smelting_done()
 
 # -----------------------------
 # CONFIG
@@ -106,6 +106,8 @@ signal smelting_done(part_id: String, quality: String, material: String)
 @export var mold_full_lift_offset: float = 150.0
 @export var mold_full_lift_time: float = 0.6
 @export var fade_time: float = 0.4
+var original_head_y: float
+var original_mold_y: float
 
 # -------------------------------------
 # Internal State
@@ -125,6 +127,11 @@ func _ready():
 	_setup_tilt_animation()
 	_setup_fire()
 	_connect_signals()
+	if caldron_head_node:
+		original_head_y = caldron_head_node.position.y
+
+	if mold:
+		original_mold_y = mold.position.y
 
 
 func _validate_nodes():
@@ -268,14 +275,7 @@ func _lift_mold_finish():
 # Emit signal để MinigameUI nhận
 func _on_finish_complete():
 	_input_block_screen(false)
-
-	# TODO: trả về data thật sự bạn muốn
-	# hiện tại để demo:
-	var part_id := \"blade_1\"
-	var quality := \"high\"
-	var material := \"iron\"
-
-	emit_signal(\"smelting_done\", part_id, quality, material)
+	emit_signal(\"smelting_done\")
 
 
 # ============================================================
@@ -292,6 +292,50 @@ func _input_block_screen(enable: bool):
 		if _blocker:
 			_blocker.queue_free()
 			_blocker = null
+
+func reset_minigame():
+	# Reset flags
+	anim_duration = 0.0
+	is_head_popped = false
+	is_mold_raised_once = false
+
+	# Remove blocker if exists
+	if _blocker:
+		_blocker.queue_free()
+		_blocker = null
+
+	# Stop all tweens on this node
+	# (Godot cancels tweens automatically if node is freed, but we ensure no tween lingers)
+	for tween in get_tree().get_processed_tweens():
+		if tween.get_meta(\"owner\") == self:
+			tween.kill()
+
+	# Reset cauldron tilt animation
+	if cauldron_anim_player and cauldron_anim_player.has_animation(\"tilt\"):
+		cauldron_anim_player.play(\"tilt\")
+		cauldron_anim_player.seek(0.0, true)
+		cauldron_anim_player.pause()
+		anim_duration = cauldron_anim_player.get_animation(\"tilt\").length
+
+	# Reset fire animation
+	if fire_anim:
+		fire_anim.play(\"idle\")
+
+	# Reset head to original pos
+	if caldron_head_node:
+		caldron_head_node.position.y = original_head_y
+
+	# Reset mold to original pos
+	if mold:
+		mold.position.y = original_mold_y
+
+	# Reset fluid emitter
+	if fluid_emitter:
+		fluid_emitter.set_fluid_active(false)
+
+	# Reset lever if it has its own reset()
+	if pull_lever and pull_lever.has_method(\"reset_lever\"):
+		pull_lever.reset_lever()
 "
 
 [sub_resource type="Animation" id="Animation_ttluv"]

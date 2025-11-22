@@ -39,13 +39,13 @@ func populate_parts():
 
 	var required_type = STAGE_TYPES.get(current_stage, "")
 
-	for part_id in assembler.parts.keys():
-		var cfg = assembler.parts[part_id]
+	for part_id in assembler.part_map.keys():
+		var part:WeaponPartData = assembler.part_map[part_id]
 
-		if cfg.get("type", "") != required_type:
+		if part.type != required_type:
 			continue
-
-		var tex := load(assembler.parts_folder + part_id + ".png")
+			
+		var tex := part.sprite
 
 		var btn := Button.new()
 		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -110,7 +110,7 @@ func _drop_part():
 		return
 
 	# 2) Thêm part vào assembler
-	var part_data = assembler.add_part(dragging_part, "perfect", "steel")
+	var part_data = assembler.add_part(dragging_part, "copper")
 	var container: Control = part_data["container"]
 
 	# 3) Animate rơi
@@ -130,7 +130,7 @@ func can_drop_part(mouse_pos: Vector2) -> bool:
 
 	# Kiểm tra type part có đúng stage
 	var required_type = STAGE_TYPES[current_stage]
-	var part_type = assembler.parts[dragging_part]["type"]
+	var part_type = assembler.part_map[dragging_part].type
 
 	if part_type != required_type:
 		print("Drop failed → part type does not match stage")
@@ -168,8 +168,15 @@ func advance_stage(tw: Tween) -> void:
 	# nếu làm xong toàn bộ
 	if current_stage > MAX_STAGE:
 		await tw.finished
-		var path := await assembler.export_png()
-		emit_signal("assemble_done", path)
+		# 1) Export PNG
+		var png_path := await assembler.export_png()
+
+		# 2) Build WeaponData object
+		var weapon_data := assembler.export_weapon_data(png_path)
+
+		# 3) Save to .tres
+		var tres_path := assembler.save_weapon_tres(weapon_data)
+		emit_signal("assemble_done", tres_path)
 		return
 
 	# Ngược lại → cập nhật list parts cho stage mới
@@ -181,3 +188,12 @@ func _reset_drag():
 
 	dragging_icon = null
 	dragging_part = ""
+
+func reset_handler():
+	dragging_part = ""
+	if dragging_icon:
+		dragging_icon.queue_free()
+	dragging_icon = null
+
+	current_stage = 1
+	populate_parts()
