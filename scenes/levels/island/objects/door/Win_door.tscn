@@ -84,12 +84,12 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7l4jk"]
-size = Vector2(14, 32)
+size = Vector2(32, 47)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l7mgg"]
 size = Vector2(32, 47)
 
-[node name="Door" type="Node2D"]
+[node name="WinDoor" type="Node2D"]
 script = ExtResource("1_x6qlk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -103,7 +103,7 @@ collision_mask = 4
 script = ExtResource("4_l7mgg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractiveArea2D"]
-position = Vector2(0, -16)
+position = Vector2(0, -26.5)
 shape = SubResource("RectangleShape2D_7l4jk")
 
 [node name="DetectionArea2D" type="Area2D" parent="."]

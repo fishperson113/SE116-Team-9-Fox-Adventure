@@ -9,6 +9,23 @@
 [ext_resource type="Texture2D" uid="uid://rklpp03vtdqy" path="res://assets/sprites/objects/chest/chest_gold_open_05.png" id="6_078yc"]
 [ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="8_4joce"]
 
+[sub_resource type="Animation" id="Animation_omj4g"]
+resource_name = "Chest"
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_loma4"), ExtResource("3_37i6m"), ExtResource("4_euxcl"), ExtResource("5_8384t"), ExtResource("6_078yc")]
+}
+
 [sub_resource type="Animation" id="Animation_loma4"]
 resource_name = "GoldenChest"
 length = 1.00002
@@ -40,23 +57,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [null]
-}
-
-[sub_resource type="Animation" id="Animation_omj4g"]
-resource_name = "Chest"
-loop_mode = 1
-step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [ExtResource("2_loma4"), ExtResource("3_37i6m"), ExtResource("4_euxcl"), ExtResource("5_8384t"), ExtResource("6_078yc")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_euxcl"]

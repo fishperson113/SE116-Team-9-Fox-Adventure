@@ -503,7 +503,7 @@ shape = SubResource("RectangleShape2D_oycun")
 
 [node name="Player" parent="." instance=ExtResource("8_u56sg")]
 z_index = 2
-position = Vector2(244, 631)
+position = Vector2(17177, 586)
 character_type = 2
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

@@ -522,7 +522,7 @@ shape = SubResource("RectangleShape2D_bedff")
 
 [node name="Player" parent="." instance=ExtResource("2_dwsf3")]
 z_index = 2
-position = Vector2(1176, -7)
+position = Vector2(4341, -835)
 character_type = 2
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
