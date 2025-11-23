@@ -9,4 +9,7 @@ direction = 1
 force = 10.0
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-modulate = Color(0.247059, 1, 0.584314, 1)
+frame_progress = 0.143958
+
+[node name="CollisionShape2D" parent="." index="1"]
+disabled = false

@@ -1,7 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://ug4jwylkxhnb"]
+[gd_scene load_steps=15 format=3 uid="uid://ug4jwylkxhnb"]
 
 [ext_resource type="Script" uid="uid://bpboriryv7afi" path="res://scenes/levels/level_4/stalactite/stalactite.gd" id="1_5b6sq"]
-[ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="1_twahy"]
+[ext_resource type="Texture2D" uid="uid://k46etu25ybvn" path="res://assets/sprites/environment/obstacles/stalactite.png" id="2_qye83"]
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="3_1js2s"]
 [ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/states/enemy_state.gd" id="3_5b6sq"]
 [ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="3_htorf"]
@@ -16,12 +16,15 @@ size = Vector2(30, 19)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_twahy")
+"texture": ExtResource("2_qye83")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l6a6g"]
+size = Vector2(20, 28)
 
 [sub_resource type="Animation" id="Animation_l6a6g"]
 length = 0.001
@@ -82,8 +85,9 @@ collision_mask = 33
 script = ExtResource("3_htorf")
 metadata/_custom_type_script = "uid://dkb25vr64v37l"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitArea2D"]
-polygon = PackedVector2Array(-15, -15, 0, 15, 15, -15)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea2D"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_l6a6g")
 
 [node name="DropFactory" type="Marker2D" parent="."]
 position = Vector2(0, 16)

@@ -138,14 +138,13 @@ func update_fall(_delta: float) -> void:
 	if not _body:
 		return
 	
-	print(_body)
 	if _body.is_in_group("ground"):
 		fsm.change_state(fsm.states.dissolve)
 	pass
 
 func start_dissolve() -> void:
 	_anim_player.play("dissolving")
-	$HitArea2D/CollisionPolygon2D.disabled = true
+	$HitArea2D/CollisionShape2D.disabled = true
 	pass
 
 func end_dissolve() -> void:

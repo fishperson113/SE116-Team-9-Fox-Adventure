@@ -96,6 +96,10 @@ window/stretch/aspect="ignore"
 
 enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
 
+[filesystem]
+
+import/blender/enabled=false
+
 [global_group]
 
 melee=""

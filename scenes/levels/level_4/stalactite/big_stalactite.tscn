@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://csiy77spb8hht"]
 
-[ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="1_75x3j"]
 [ext_resource type="Script" uid="uid://d0ymcxp21dv27" path="res://scenes/levels/level_4/stalactite/big_stalactite.gd" id="1_gn5yh"]
+[ext_resource type="Texture2D" uid="uid://k46etu25ybvn" path="res://assets/sprites/environment/obstacles/stalactite.png" id="2_gn5yh"]
 [ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="2_qhbcy"]
 [ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/states/enemy_state.gd" id="5_2tjut"]
 [ext_resource type="Script" uid="uid://dqsvfa8bf42pr" path="res://scenes/levels/level_4/stalactite/shake.gd" id="7_1mdtm"]
@@ -13,7 +13,7 @@ size = Vector2(62, 60)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_75x3j")
+"texture": ExtResource("2_gn5yh")
 }],
 "loop": true,
 "name": &"default",

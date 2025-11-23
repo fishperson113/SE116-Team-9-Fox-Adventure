@@ -9,6 +9,11 @@ enum Direction { LEFT = -1, RIGHT = 1 }
 func _ready() -> void:
 	super._ready()
 	_type = "flowway"
+	_init_animation()
+
+func _init_animation() -> void:
+	var _anim := $AnimatedSprite2D
+	_anim.scale.x = -direction
 
 func calculate_force(_internal_force: Vector2, _impulse: Vector2, _current_force: Vector2) -> Vector2:
 	var external_force := Vector2.ZERO
