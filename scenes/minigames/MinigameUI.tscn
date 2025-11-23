@@ -67,6 +67,10 @@ func reset():
 		smelt.reset_minigame()
 	if assemble.has_method(\"reset_minigame\"):
 		assemble.reset_minigame()
+
+
+func _on_back_button_pressed() -> void:
+	close()
 "
 
 [node name="MinigameUI" type="Control"]
@@ -90,3 +94,5 @@ offset_right = 121.0
 offset_bottom = 120.0
 texture_normal = ExtResource("4_f2o30")
 stretch_mode = 5
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
