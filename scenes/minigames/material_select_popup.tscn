@@ -50,7 +50,7 @@ func _load_materials():
 		# --- ICON ---
 		var icon := TextureRect.new()
 		icon.texture = mat.icon
-		icon.custom_minimum_size = Vector2(40, 0)
+		icon.custom_minimum_size = Vector2(60, 0)
 		icon.expand_mode = TextureRect.EXPAND_KEEP_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_SCALE
 
@@ -73,7 +73,7 @@ func _load_materials():
 "
 
 [node name="MaterialSelectPopup" type="Panel"]
-offset_right = 150.0
+offset_right = 220.0
 offset_bottom = 100.0
 script = SubResource("GDScript_n82oa")
 material_list = Array[ExtResource("1_4ysgo")]([ExtResource("2_l2idu"), ExtResource("3_j10xm"), ExtResource("4_sporn")])

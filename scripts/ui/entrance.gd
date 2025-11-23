@@ -2,7 +2,6 @@ extends Node2D
 
 func _ready() -> void:
 	$MainMenuLayer/PlayNowRect/PlayNowButton.connect("button_down", Callable(self, "_on_button_pressed").bind("Lobby"))
-	$MainMenuLayer/QuitRect/QuitButton.connect("button_down", Callable(self, "_on_button_pressed").bind("Quit"))
 	$MainMenuLayer/SettingsButton.connect("button_down", Callable(self, "_on_settings_button_down"))
 
 func _on_button_pressed(button_name: String) -> void:

@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://w4bydp8fy3v3"]
+[gd_scene load_steps=6 format=3 uid="uid://w4bydp8fy3v3"]
 
 [ext_resource type="Script" uid="uid://m2p8q8rd5t01" path="res://scripts/ui/entrance.gd" id="1_f8nrn"]
 [ext_resource type="Texture2D" uid="uid://b5u76leuvijwt" path="res://assets/ui/panels/ButtonFrame1.png" id="4_7oapf"]
 [ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="5_5abgg"]
-[ext_resource type="Texture2D" uid="uid://de80pp3hymiw3" path="res://assets/ui/panels/20240707dragon9SlicesE.png" id="9_uw707"]
 [ext_resource type="Texture2D" uid="uid://bak1dc8urb02c" path="res://assets/ui/buttons/settings_button.png" id="11_thkx1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f8nrn"]
@@ -62,40 +61,3 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_f8nrn")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_f8nrn")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_f8nrn")
 text = "PLAY NOW"
-
-[node name="QuitRect" type="TextureRect" parent="MainMenuLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -110.0
-offset_top = 40.0
-offset_right = 110.0
-offset_bottom = 132.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("9_uw707")
-
-[node name="QuitButton" type="Button" parent="MainMenuLayer/QuitRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 8.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("5_5abgg")
-theme_override_font_sizes/font_size = 30
-theme_override_styles/focus = SubResource("StyleBoxEmpty_f8nrn")
-theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_f8nrn")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_f8nrn")
-theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_f8nrn")
-theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_f8nrn")
-theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_f8nrn")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_f8nrn")
-theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_f8nrn")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_f8nrn")
-theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_f8nrn")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_f8nrn")
-text = "QUIT"
