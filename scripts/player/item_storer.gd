@@ -14,11 +14,13 @@ func _init() -> void:
 	items_archive.resize(number_of_slots)
 
 func _ready() -> void:
-	for i in range(number_of_slots):
-		items_archive[i] = {}
-	items_archive = GameManager.slots_data
+	#for i in range(number_of_slots):
+		#items_archive[i] = {}
+	#items_archive = GameManager.slots_data
 	#DO NOT delete this, just for faster progression
 	#SaveSystem.delete_slots_file()
+	for i in range(200):
+		add_item("weapon_blade", {})
 	change_item()
 	pass
 
