@@ -1,14 +1,14 @@
 [gd_scene load_steps=7 format=3 uid="uid://bl5gpcj66qrf7"]
 
-[ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="1_468fo"]
 [ext_resource type="PackedScene" uid="uid://dewtqhftkhq2v" path="res://scenes/levels/level_4/abstracts/functional_tile.tscn" id="1_gx123"]
 [ext_resource type="Script" uid="uid://fkjuu0t8fuuw" path="res://scenes/levels/level_4/slippery_floor/slippery_floor.gd" id="2_exn15"]
+[ext_resource type="Texture2D" uid="uid://eu3uuksaju6r" path="res://assets/sprites/environment/obstacles/slippery_floor.png" id="3_exn15"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_exn15"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_468fo")
+"texture": ExtResource("3_exn15")
 }],
 "loop": true,
 "name": &"default",
@@ -29,7 +29,11 @@ friction = Vector2(0.99, 0.15)
 sprite_frames = SubResource("SpriteFrames_exn15")
 
 [node name="CollisionShape2D" parent="." index="1"]
+visible = false
 shape = SubResource("RectangleShape2D_k1uhr")
+
+[node name="TriggerArea2D" parent="." index="2"]
+visible = false
 
 [node name="CollisionShape2D" parent="TriggerArea2D" index="0"]
 position = Vector2(0, -16.5)

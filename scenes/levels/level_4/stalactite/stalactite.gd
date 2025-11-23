@@ -145,7 +145,7 @@ func update_fall(_delta: float) -> void:
 
 func start_dissolve() -> void:
 	_anim_player.play("dissolving")
-	$HitArea2D/CollisionPolygon2D.disabled = true
+	$HitArea2D/CollisionShape2D.disabled = true
 	pass
 
 func end_dissolve() -> void:
