@@ -332,11 +332,3 @@ group = "Enemies"
 [node name="FunctionalTiles" type="Node2D" parent="."]
 
 [node name="Bullets" type="Node2D" parent="."]
-
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/Checkpoint" to="TileMapLayers/FunctionalTileMapLayer/Checkpoint" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@223007" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@223007" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@223011" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@223011" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@223015" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@223015" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@223016" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@223016" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@223017" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@223017" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@223893" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@223893" method="_on_body_entered"]

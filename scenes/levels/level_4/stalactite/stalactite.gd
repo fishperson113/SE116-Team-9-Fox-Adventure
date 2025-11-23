@@ -138,7 +138,6 @@ func update_fall(_delta: float) -> void:
 	if not _body:
 		return
 	
-	print(_body)
 	if _body.is_in_group("ground"):
 		fsm.change_state(fsm.states.dissolve)
 	pass
