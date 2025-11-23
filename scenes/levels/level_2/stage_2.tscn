@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://ctnn4ampknjte"]
+[gd_scene load_steps=55 format=4 uid="uid://ctnn4ampknjte"]
 
 [ext_resource type="TileSet" uid="uid://xcv3crb1m8j3" path="res://assets/tileset/tileset_64.tres" id="1_d28cy"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_2qphj"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://d2wpy684uyjct" path="res://scenes/enemies/spawners/triggered_spawner.tscn" id="3_ljkq7"]
 [ext_resource type="PackedScene" uid="uid://slg0p8vvevb8" path="res://scenes/levels/island/objects/door/Win_door.tscn" id="4_4lvta"]
 [ext_resource type="Texture2D" uid="uid://ddyvyvrav5jnd" path="res://assets/sprites/mystery/Mystery Pack 76.png" id="4_lebvl"]
-[ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="8_4lvta"]
 [ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="8_n6lnb"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="8_u56sg"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="9_f3mxx"]
@@ -31,16 +30,6 @@
 [ext_resource type="Texture2D" uid="uid://dt1od2hyke60g" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_02.png" id="26_t0i4e"]
 [ext_resource type="Texture2D" uid="uid://frimagh5yfit" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_03.png" id="27_obdqt"]
 [ext_resource type="Texture2D" uid="uid://cjcxdxoq8hp4l" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_04.png" id="28_4gpaa"]
-[ext_resource type="PackedScene" uid="uid://5pp64vwco2e1" path="res://scenes/npc/sign.tscn" id="29_o6mej"]
-[ext_resource type="PackedScene" uid="uid://g5mwh48q6r27" path="res://scenes/npc/sign2.tscn" id="30_pql0u"]
-[ext_resource type="PackedScene" uid="uid://buayv5wh1bl4u" path="res://scenes/npc/sign3.tscn" id="31_flqtq"]
-[ext_resource type="PackedScene" uid="uid://cv5kt0si2h1kg" path="res://scenes/npc/sign4.tscn" id="32_yamun"]
-[ext_resource type="PackedScene" uid="uid://dt8iucgnaxhj8" path="res://scenes/npc/sign5.tscn" id="33_rwrcj"]
-[ext_resource type="PackedScene" uid="uid://bb8ah6yewvkgx" path="res://scenes/npc/sign6.tscn" id="34_4pfya"]
-[ext_resource type="PackedScene" uid="uid://crgqefvompc8w" path="res://scenes/npc/sign7.tscn" id="35_g8hxh"]
-[ext_resource type="PackedScene" uid="uid://djsaw6o34gu6c" path="res://scenes/npc/sign_pelican.tscn" id="36_xucvy"]
-[ext_resource type="PackedScene" uid="uid://da0mswdg4suuk" path="res://scenes/npc/sign8.tscn" id="37_3d5xf"]
-[ext_resource type="PackedScene" uid="uid://dig0vp14ug647" path="res://scenes/npc/sign_win.tscn" id="38_if5p8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n6lnb"]
 atlas = ExtResource("4_lebvl")
@@ -218,15 +207,6 @@ animations = [{
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="Turtle" parent="Enemies" instance=ExtResource("8_4lvta")]
-position = Vector2(8090, 528)
-
-[node name="Turtle2" parent="Enemies" instance=ExtResource("8_4lvta")]
-position = Vector2(11739, 676)
-
-[node name="Turtle3" parent="Enemies" instance=ExtResource("8_4lvta")]
-position = Vector2(11975, 670)
-
 [node name="World" type="Node2D" parent="."]
 
 [node name="TileMapLayer_64" type="TileMapLayer" parent="World"]
@@ -355,7 +335,8 @@ melee_spawn = 1
 range_spawn = 0
 trigger_size = Vector2(30, 800)
 trigger_position = Vector2(-550, -300)
-objects = Array[PackedScene]([ExtResource("8_4lvta")])
+objects = Array[PackedScene]([ExtResource("8_n6lnb"), ExtResource("9_ka18f")])
+spawn_count = 2
 group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner2" index="0"]
@@ -378,7 +359,8 @@ melee_spawn = 1
 range_spawn = 0
 trigger_size = Vector2(30, 800)
 trigger_position = Vector2(-500, -100)
-objects = Array[PackedScene]([ExtResource("8_4lvta")])
+objects = Array[PackedScene]([ExtResource("9_ka18f"), ExtResource("8_n6lnb")])
+spawn_count = 2
 group = "Enemies"
 
 [node name="DebugOx" parent="World/Spawner3" index="0"]
@@ -401,7 +383,7 @@ melee_spawn = 3
 range_spawn = 0
 trigger_size = Vector2(30, 800)
 trigger_position = Vector2(-500, -350)
-objects = Array[PackedScene]([ExtResource("9_ka18f"), ExtResource("8_4lvta"), ExtResource("8_n6lnb")])
+objects = Array[PackedScene]([ExtResource("9_ka18f"), ExtResource("8_n6lnb")])
 spawn_count = 2
 group = "Enemies"
 
@@ -471,7 +453,7 @@ melee_spawn = 4
 range_spawn = 0
 trigger_size = Vector2(30, 800)
 trigger_position = Vector2(-275, -450)
-objects = Array[PackedScene]([ExtResource("8_n6lnb"), ExtResource("9_ka18f"), ExtResource("8_4lvta")])
+objects = Array[PackedScene]([ExtResource("8_n6lnb"), ExtResource("9_ka18f")])
 spawn_count = 4
 group = "Enemies"
 
@@ -503,7 +485,7 @@ shape = SubResource("RectangleShape2D_oycun")
 
 [node name="Player" parent="." instance=ExtResource("8_u56sg")]
 z_index = 2
-position = Vector2(17177, 586)
+position = Vector2(182, 668)
 character_type = 2
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
@@ -608,39 +590,6 @@ centered = false
 position = Vector2(360.925, 188.14)
 sprite_frames = SubResource("SpriteFrames_c4j3j")
 centered = false
-
-[node name="Board" type="Node2D" parent="."]
-visible = false
-
-[node name="AD_SPACE" parent="Board" instance=ExtResource("29_o6mej")]
-position = Vector2(87, 239)
-
-[node name="CV" parent="Board" instance=ExtResource("30_pql0u")]
-position = Vector2(510, 239)
-
-[node name="GL" parent="Board" instance=ExtResource("31_flqtq")]
-position = Vector2(397, 143)
-
-[node name="Spike" parent="Board" instance=ExtResource("32_yamun")]
-position = Vector2(221, -49)
-
-[node name="Crab" parent="Board" instance=ExtResource("33_rwrcj")]
-position = Vector2(511, -178)
-
-[node name="Starfish" parent="Board" instance=ExtResource("34_4pfya")]
-position = Vector2(868, -177)
-
-[node name="Mushroom" parent="Board" instance=ExtResource("35_g8hxh")]
-position = Vector2(769, -49)
-
-[node name="Pelican" parent="Board" instance=ExtResource("36_xucvy")]
-position = Vector2(1031, 47)
-
-[node name="Turtle" parent="Board" instance=ExtResource("37_3d5xf")]
-position = Vector2(946, 238)
-
-[node name="Sign" parent="Board" instance=ExtResource("38_if5p8")]
-position = Vector2(1274, 238)
 
 [editable path="World/AreaUnlockerEnemies"]
 [editable path="World/AreaUnlockerEnemies2"]

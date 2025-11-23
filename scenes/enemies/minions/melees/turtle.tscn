@@ -125,7 +125,7 @@ max_tolerable_pct = 0.3
 normal_time = 3.0
 transition_time = 0.25
 hide_time = 3.0
-health = 200.0
+health = 100.0
 spike = 100.0
 movement_speed = 50.0
 
