@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://clfqragev0x8n"]
+[gd_scene load_steps=20 format=4 uid="uid://clfqragev0x8n"]
 
 [ext_resource type="Script" uid="uid://cpp12lpg4jtvk" path="res://scenes/levels/lobby/lobby.gd" id="1_lds41"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_xex7k"]
@@ -24,6 +24,9 @@ viewport_path = NodePath("SubViewports/Crafting")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_e8q5c"]
 viewport_path = NodePath("SubViewports/Attack")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_unxdh"]
+viewport_path = NodePath("SubViewports/Attack2")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_oivha"]
 viewport_path = NodePath("SubViewports/Interaction")
@@ -183,6 +186,23 @@ the mushroom"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Attack2" type="SubViewport" parent="SubViewports"]
+transparent_bg = true
+size = Vector2i(162, 512)
+
+[node name="Label" type="Label" parent="SubViewports/Attack2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+text = "Hold V and use your mouse
+to aim, and release V to
+throw the blade"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Crafting" type="SubViewport" parent="SubViewports"]
 transparent_bg = true
 size = Vector2i(267, 512)
@@ -233,20 +253,24 @@ position = Vector2(703, -77)
 texture = SubResource("ViewportTexture_c0qtq")
 
 [node name="Crafting" type="Sprite2D" parent="Tutorials"]
-position = Vector2(1046, -135)
+position = Vector2(937, -117)
 scale = Vector2(1, 0.898438)
 texture = SubResource("ViewportTexture_1ua0a")
 
 [node name="Attack" type="Sprite2D" parent="Tutorials"]
-position = Vector2(1557, -44)
+position = Vector2(1419, -59)
 texture = SubResource("ViewportTexture_e8q5c")
+
+[node name="Attack2" type="Sprite2D" parent="Tutorials"]
+position = Vector2(1621, -61)
+texture = SubResource("ViewportTexture_unxdh")
 
 [node name="Interaction" type="Sprite2D" parent="Tutorials"]
 position = Vector2(2077, -61)
 texture = SubResource("ViewportTexture_oivha")
 
 [node name="BladeInfo" type="Sprite2D" parent="Tutorials"]
-position = Vector2(1280, -139)
+position = Vector2(1158, -119)
 texture = SubResource("ViewportTexture_pnkv8")
 
 [node name="BladeInfo2" type="Sprite2D" parent="Tutorials"]

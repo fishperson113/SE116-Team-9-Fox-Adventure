@@ -30,10 +30,10 @@
 [ext_resource type="PackedScene" uid="uid://slg0p8vvevb8" path="res://scenes/levels/island/objects/door/Win_door.tscn" id="39_6vpxb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5o6pu"]
-size = Vector2(1023.19, 96)
+size = Vector2(2473, 431)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6vpxb"]
-size = Vector2(1216, 128)
+size = Vector2(1843, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w06il"]
 size = Vector2(542, 103)
@@ -215,7 +215,7 @@ position = Vector2(108, -181)
 scale = Vector2(8, 2)
 
 [node name="CollisionShape2D" parent="World/AreaUnlockerEnemies/EnemyTestArea" index="0"]
-position = Vector2(383.875, 65)
+position = Vector2(1172.5, 217.25)
 
 [node name="AreaUnlockerEnemies2" parent="World" instance=ExtResource("4_jxlqe")]
 position = Vector2(441, -597)
@@ -225,7 +225,7 @@ position = Vector2(-285, -32)
 scale = Vector2(14, 2)
 
 [node name="CollisionShape2D" parent="World/AreaUnlockerEnemies2/EnemyTestArea" index="0"]
-position = Vector2(211.406, 32)
+position = Vector2(830.5, 199.5)
 shape = SubResource("RectangleShape2D_5o6pu")
 
 [node name="AreaUnlockerEnemies3" parent="World" instance=ExtResource("4_jxlqe")]
@@ -236,7 +236,7 @@ position = Vector2(160, -8)
 scale = Vector2(76, 2)
 
 [node name="CollisionShape2D" parent="World/AreaUnlockerEnemies3/EnemyTestArea" index="0"]
-position = Vector2(160, 40)
+position = Vector2(-50.5, 40)
 shape = SubResource("RectangleShape2D_6vpxb")
 
 [node name="AreaUnlockerEnemies4" parent="World" instance=ExtResource("4_jxlqe")]
@@ -512,7 +512,7 @@ shape = SubResource("RectangleShape2D_bedff")
 
 [node name="Player" parent="." instance=ExtResource("2_dwsf3")]
 z_index = 2
-position = Vector2(3748, -598)
+position = Vector2(109, 197)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -35)
