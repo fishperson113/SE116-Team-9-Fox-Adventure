@@ -215,7 +215,7 @@ position = Vector2(108, -181)
 scale = Vector2(8, 2)
 
 [node name="CollisionShape2D" parent="World/AreaUnlockerEnemies/EnemyTestArea" index="0"]
-position = Vector2(1172.5, 217.25)
+position = Vector2(384, 65)
 
 [node name="AreaUnlockerEnemies2" parent="World" instance=ExtResource("4_jxlqe")]
 position = Vector2(441, -597)
