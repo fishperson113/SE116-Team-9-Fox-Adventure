@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://xmmhse6d6ge7"]
+[gd_scene load_steps=14 format=4 uid="uid://xmmhse6d6ge7"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_3uy1m"]
 [ext_resource type="PackedScene" uid="uid://d2wpy684uyjct" path="res://scenes/enemies/spawners/triggered_spawner.tscn" id="2_4f3hn"]
@@ -11,6 +11,15 @@
 [ext_resource type="PackedScene" uid="uid://crwb5kl1tn450" path="res://scenes/enemies/minions/shootables/pelicans/pelican.tscn" id="6_qpij7"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="10_c7rpm"]
 
+[sub_resource type="GDScript" id="GDScript_c7rpm"]
+script/source = "extends Node2D
+
+func _ready() -> void:
+
+	GameManager.respawn_at_checkpoint()
+	pass
+"
+
 [sub_resource type="Gradient" id="Gradient_c7rpm"]
 offsets = PackedFloat32Array(0.285714, 0.308571, 0.34, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.209223, 0.533987, 0.736964, 1, 0.262745, 0.670588, 0.92549, 1, 0.262745, 0.670588, 0.92549, 1)
@@ -22,6 +31,7 @@ height = 4000
 fill_to = Vector2(1, 0.025)
 
 [node name="Stage" type="Node2D"]
+script = SubResource("GDScript_c7rpm")
 
 [node name="Backgrounds" type="Node2D" parent="."]
 
@@ -30,16 +40,6 @@ z_index = -1
 position = Vector2(9938, 2133)
 scale = Vector2(1.262, 1.25375)
 texture = SubResource("GradientTexture2D_y1typ")
-
-[node name="Player" parent="." instance=ExtResource("3_bvs1t")]
-position = Vector2(50, -21)
-metadata/_edit_group_ = true
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(0, -35)
-zoom = Vector2(2, 2)
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
 
 [node name="TileMapLayers" type="Node2D" parent="."]
 
@@ -53,6 +53,16 @@ tile_set = ExtResource("1_3uy1m")
 
 [node name="WinDoor" parent="." instance=ExtResource("2_i8p8h")]
 position = Vector2(20093, 3360)
+
+[node name="Player" parent="." instance=ExtResource("3_bvs1t")]
+position = Vector2(50, -21)
+metadata/_edit_group_ = true
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -35)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
 [node name="Enemies" type="Node2D" parent="."]
 

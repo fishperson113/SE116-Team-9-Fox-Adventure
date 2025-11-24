@@ -143,3 +143,14 @@ func _apply_special_skill(skill: String):
 func _reset_weapon_stats():
 	jump_step = 2   
 	movement_speed=base_speed
+
+func save_state() -> Dictionary:
+	return {
+		"position": [global_position.x, global_position.y]
+	}
+	
+func load_state(data: Dictionary) -> void:
+	"""Load player state from checkpoint data"""
+	if data.has("position"):
+		var pos_array = data["position"]
+		global_position = Vector2(pos_array[0], pos_array[1])

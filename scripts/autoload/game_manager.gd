@@ -73,7 +73,7 @@ func save_checkpoint(checkpoint_id: String) -> void:
 	var player_state_dict: Dictionary = player.save_state()
 	checkpoint_data[checkpoint_id] = {
 		"player_state":player_state_dict,
-		"stage_path": current_stage.scene_file_path
+		"stage_path": current_level
 	}
 	print("Checkpoint saved: ", checkpoint_id)
 
@@ -94,9 +94,9 @@ func respawn_at_checkpoint() -> void:
 		return
 	
 	# Load the stage if different
-	var checkpoint_stage = checkpoint_info.get("stage_path", "")
+	var checkpoint_stage = checkpoint_info.get("stage_path")
 	
-	if current_stage.scene_file_path != checkpoint_stage and not checkpoint_stage.is_empty():
+	if current_level != checkpoint_stage:
 		return
 		
 	# Can change stage if different but not implemented yet to test
