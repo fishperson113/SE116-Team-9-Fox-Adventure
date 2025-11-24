@@ -432,7 +432,7 @@ shape = SubResource("RectangleShape2D_ctv1g")
 
 [node name="Player" parent="." instance=ExtResource("3_4dlow")]
 z_index = 2
-position = Vector2(4188, -4209)
+position = Vector2(252, 630)
 character_type = 2
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
