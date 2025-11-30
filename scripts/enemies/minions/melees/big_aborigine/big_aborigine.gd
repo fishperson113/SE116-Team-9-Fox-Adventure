@@ -1,4 +1,4 @@
-extends StatefulEnemy
+extends Minion
 
 #Mô tả:
 #Đứng im tại chỗ

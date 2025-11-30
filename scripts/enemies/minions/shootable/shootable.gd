@@ -1,5 +1,5 @@
 class_name ShootableEnemy
-extends StatefulEnemy
+extends Minion
 
 enum Direction { LEFT = -1, RIGHT = 1 }
 

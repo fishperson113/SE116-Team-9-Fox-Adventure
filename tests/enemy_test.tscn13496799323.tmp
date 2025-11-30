@@ -22,3 +22,24 @@ character_type = 3
 
 [node name="WarlordTurtle" parent="." instance=ExtResource("3_52dwj")]
 position = Vector2(809, 153)
+launch_time = 0.8
+stun_time = 2.0
+shot_speed = 600.0
+start_shot_frame = 3
+shot_frame_interval = 1
+bomb_falling_time = 2.0
+bomb_count = 5
+bomb_spread_percentage = 0.3
+rocket_falling_time = 2.0
+rocket_count = 4
+rocket_min_spread = -500.0
+rocket_max_spread = 500.0
+sight = 100.0
+movement_range = 500.0
+attack_damage = 50.0
+attack_speed = 50.0
+use_raycast_detection = false
+turn_chance = 0.001
+gravity = 700.0
+direction = 1
+character_type = 0

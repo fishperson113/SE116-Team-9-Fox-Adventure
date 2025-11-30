@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://bou6c8is307i8"]
+
+[ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="1_hncwy"]
+
+[sub_resource type="Gradient" id="Gradient_hncwy"]
+offsets = PackedFloat32Array(0, 0.293729, 0.90099, 0.993399)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.352941, 0, 1, 1, 0.685784, 0, 1, 0.992157, 1, 0.498039, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2nlgq"]
+gradient = SubResource("Gradient_hncwy")
+
+[sub_resource type="Curve" id="Curve_4mieo"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99998, 100), 0.0, 0.0, 0, 0, Vector2(0.99999, 64.5884), 0.0, 0.0, 0, 0, Vector2(1, 12.6513), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_gbn05"]
+curve = SubResource("Curve_4mieo")
+
+[sub_resource type="Curve" id="Curve_li201"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_y75wj"]
+curve = SubResource("Curve_li201")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hmyh5"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+gravity = Vector3(0, 0, 0)
+damping_max = 10.0
+damping_curve = SubResource("CurveTexture_gbn05")
+scale_min = 5.0
+scale_max = 15.0
+scale_curve = SubResource("CurveTexture_y75wj")
+color_ramp = SubResource("GradientTexture1D_2nlgq")
+
+[sub_resource type="GDScript" id="GDScript_hncwy"]
+script/source = "extends GPUParticles2D
+
+@onready var _hit_area := $HitArea2D
+
+func set_damage(_d: float):
+	_hit_area.set_dealt_damage(_d)
+
+func _on_finished() -> void:
+	queue_free()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g7g73"]
+radius = 37.054
+
+[node name="RocketExplosionEffect" type="GPUParticles2D"]
+emitting = false
+amount = 400
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_hmyh5")
+script = SubResource("GDScript_hncwy")
+
+[node name="HitArea2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("1_hncwy")
+metadata/_custom_type_script = "uid://dkb25vr64v37l"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea2D"]
+shape = SubResource("CircleShape2D_g7g73")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

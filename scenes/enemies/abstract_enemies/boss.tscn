@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://c40nxk7wmbjxm"]
+
+[ext_resource type="Script" uid="uid://13yux6010px0" path="res://scripts/enemies/abstracts/boss.gd" id="1_5af8u"]
+[ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="2_5af8u"]
+[ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="3_jv7x0"]
+[ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/states/enemy_state.gd" id="4_bqbrg"]
+[ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="5_5af8u"]
+
+[node name="Boss" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_5af8u")
+metadata/_custom_type_script = "uid://bp2wf2jejmiqr"
+
+[node name="Direction" type="Node2D" parent="."]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction"]
+
+[node name="HitArea2D" type="Area2D" parent="Direction"]
+collision_layer = 0
+collision_mask = 32
+script = ExtResource("2_5af8u")
+metadata/_custom_type_script = "uid://dkb25vr64v37l"
+
+[node name="NormalCollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D"]
+
+[node name="HurtArea2D" type="Area2D" parent="Direction"]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_jv7x0")
+metadata/_custom_type_script = "uid://cofkmvw2auxcs"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HurtArea2D"]
+
+[node name="NearSenseArea2D" type="Area2D" parent="Direction"]
+collision_layer = 0
+collision_mask = 36
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/NearSenseArea2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="States" type="Node" parent="."]
+script = ExtResource("4_bqbrg")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
+[node name="Normal" type="Node" parent="States"]
+script = ExtResource("4_bqbrg")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
+[node name="Dead" type="Node" parent="States"]
+script = ExtResource("5_5af8u")
+metadata/_custom_type_script = "uid://1oi8lur0a64f"

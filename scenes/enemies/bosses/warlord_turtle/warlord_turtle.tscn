@@ -1,8 +1,7 @@
-[gd_scene load_steps=36 format=3 uid="uid://ddc86ootpum2i"]
+[gd_scene load_steps=31 format=3 uid="uid://ddc86ootpum2i"]
 
+[ext_resource type="PackedScene" uid="uid://c40nxk7wmbjxm" path="res://scenes/enemies/abstract_enemies/boss.tscn" id="1_1gsf2"]
 [ext_resource type="Script" uid="uid://c28t2iakx47cc" path="res://scripts/enemies/bosses/warlord_turtle/warlord_turtle.gd" id="1_8yvna"]
-[ext_resource type="Texture2D" uid="uid://brmjb4s52rg7x" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle19.png" id="2_d1744"]
-[ext_resource type="Texture2D" uid="uid://bhbqte6bf3x4e" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle20.png" id="3_gmvus"]
 [ext_resource type="Texture2D" uid="uid://dtqtvtc83ffya" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle9.png" id="4_oj4m5"]
 [ext_resource type="Texture2D" uid="uid://c54q3ror5h4kp" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle10.png" id="5_dsagu"]
 [ext_resource type="Texture2D" uid="uid://b3tuv00eq5bpr" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle11.png" id="6_jm27j"]
@@ -21,19 +20,13 @@
 [ext_resource type="Texture2D" uid="uid://b767nhml2smxh" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle6.png" id="19_85n5f"]
 [ext_resource type="Texture2D" uid="uid://bd11owlleqwqp" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle7.png" id="20_vl3do"]
 [ext_resource type="Texture2D" uid="uid://cv1e56rgrcuvo" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle8.png" id="21_qbl8w"]
-[ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="22_gmvus"]
+[ext_resource type="PackedScene" uid="uid://cbr3bjld670mw" path="res://scenes/enemies/bosses/warlord_turtle/follow_rocket.tscn" id="23_63a1y"]
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="23_dsagu"]
-[ext_resource type="Script" uid="uid://dliarx6jpwlho" path="res://scripts/enemies/bosses/king_crab/normal.gd" id="23_gmvus"]
+[ext_resource type="PackedScene" uid="uid://dqrfrb8e5g4kh" path="res://scenes/enemies/bosses/warlord_turtle/rocket.tscn" id="23_o7e0g"]
 [ext_resource type="PackedScene" uid="uid://cllda15ck0g1a" path="res://scenes/enemies/bosses/warlord_turtle/bomb.tscn" id="24_jm27j"]
-[ext_resource type="Script" uid="uid://chqg2tcnsujj8" path="res://scripts/enemies/bosses/warlord_turtle/drop_bomb.gd" id="24_oj4m5"]
-[ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="25_eey5d"]
-[ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/states/hurt.gd" id="27_76xbk"]
 [ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="28_eey5d"]
-[ext_resource type="Script" uid="uid://bprruaqbtisbi" path="res://scripts/enemies/bosses/warlord_turtle/launch_rocket.gd" id="30_5rhnn"]
-[ext_resource type="Script" uid="uid://db8lo56hyva45" path="res://scripts/enemies/bosses/king_crab/stun.gd" id="31_8w8h5"]
-[ext_resource type="PackedScene" uid="uid://dqrfrb8e5g4kh" path="res://scenes/enemies/bosses/warlord_turtle/rocket.tscn" id="32_evixd"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_b7cjc"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_o7e0g"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -55,19 +48,25 @@ animations = [{
 "texture": ExtResource("19_85n5f")
 }],
 "loop": false,
-"name": &"drop_bomb",
+"name": &"bomb",
 "speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_d1744")
+"texture": ExtResource("20_vl3do")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_gmvus")
+"texture": ExtResource("21_qbl8w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_oj4m5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dsagu")
 }],
-"loop": false,
-"name": &"hurt",
-"speed": 10.0
+"loop": true,
+"name": &"normal",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -95,25 +94,8 @@ animations = [{
 "texture": ExtResource("13_xcmxk")
 }],
 "loop": false,
-"name": &"launch_rocket",
+"name": &"rocket",
 "speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("20_vl3do")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_qbl8w")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_oj4m5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_dsagu")
-}],
-"loop": true,
-"name": &"normal",
-"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -133,118 +115,119 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_evixd"]
-size = Vector2(62, 65)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1gsf2"]
+size = Vector2(62, 66)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8yvna"]
-size = Vector2(42, 62)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_63a1y"]
+size = Vector2(62, 66)
 
-[node name="WarlordTurtle" type="CharacterBody2D"]
-collision_layer = 0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ovaaf"]
+size = Vector2(800, 400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mirfw"]
+size = Vector2(62, 66)
+
+[node name="WarlordTurtle" instance=ExtResource("1_1gsf2")]
 script = ExtResource("1_8yvna")
-health = 1000.0
-spike = 70.0
-movement_speed = 50.0
-metadata/_custom_type_script = "uid://da4xpmamo1d7r"
+cooldown = 1.0
+rest_time = 2.0
+max_stamina = 4
+start_bomb_frame = 3
+bomb_frame_interval = 1
+start_rocket_frame = 4
+rocket_frame_interval = 1
+shot_speed = 600.0
+bomb_falling_time = 2.0
+bomb_count = 4
+bomb_spread_percentage = 0.3
+rocket_falling_time = 2.0
+rocket_count = 4
+rocket_spread_percentage = 0.6
+launch_count = 3
+health = 2000.0
+spike = 100.0
+movement_speed = 0.0
 
-[node name="Direction" type="Node2D" parent="."]
+[node name="AnimatedSprite2D" parent="Direction" index="0"]
+scale = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_o7e0g")
+animation = &"rocket"
+frame = 3
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction"]
-sprite_frames = SubResource("SpriteFrames_b7cjc")
-animation = &"normal"
-flip_h = true
-
-[node name="HitArea2D" type="Area2D" parent="Direction"]
+[node name="HitArea2D" parent="Direction" index="1"]
 visible = false
-collision_layer = 0
-collision_mask = 32
-script = ExtResource("22_gmvus")
-metadata/_custom_type_script = "uid://dkb25vr64v37l"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D"]
-position = Vector2(-1, 0.5)
-shape = SubResource("RectangleShape2D_evixd")
+[node name="NormalCollisionShape2D" parent="Direction/HitArea2D" index="0"]
+shape = SubResource("RectangleShape2D_1gsf2")
 
-[node name="LeftFactory" type="Marker2D" parent="Direction"]
+[node name="HurtArea2D" parent="Direction" index="2"]
 visible = false
-position = Vector2(1, -23)
+
+[node name="CollisionShape2D" parent="Direction/HurtArea2D" index="0"]
+shape = SubResource("RectangleShape2D_63a1y")
+
+[node name="CollisionShape2D" parent="Direction/NearSenseArea2D" index="0"]
+shape = SubResource("RectangleShape2D_ovaaf")
+
+[node name="BombFactories" type="Node2D" parent="Direction" index="4"]
+
+[node name="Factory1" type="Marker2D" parent="Direction/BombFactories" index="0"]
+position = Vector2(2, -23)
 script = ExtResource("23_dsagu")
 product_packed_scene = ExtResource("24_jm27j")
 target_container_name = &"Bullets"
 metadata/_custom_type_script = "uid://2dtm6jeegr43"
 
-[node name="RightFactory" type="Marker2D" parent="Direction"]
-visible = false
+[node name="Factory2" type="Marker2D" parent="Direction/BombFactories" index="1"]
 position = Vector2(31, -16)
 script = ExtResource("23_dsagu")
 product_packed_scene = ExtResource("24_jm27j")
 target_container_name = &"Bullets"
 metadata/_custom_type_script = "uid://2dtm6jeegr43"
 
-[node name="HurtArea2D" type="Area2D" parent="Direction"]
+[node name="RocketFactories" type="Node2D" parent="Direction" index="5"]
+
+[node name="FollowRocket" type="Node2D" parent="Direction/RocketFactories" index="0"]
+
+[node name="Factory1" type="Marker2D" parent="Direction/RocketFactories/FollowRocket" index="0"]
+position = Vector2(2, -23)
+script = ExtResource("23_dsagu")
+product_packed_scene = ExtResource("23_63a1y")
+target_container_name = &"Bullets"
+metadata/_custom_type_script = "uid://2dtm6jeegr43"
+
+[node name="SmokeRocket" type="Node2D" parent="Direction/RocketFactories" index="1"]
+
+[node name="Factory1" type="Marker2D" parent="Direction/RocketFactories/SmokeRocket" index="0"]
+position = Vector2(2, -23)
+script = ExtResource("23_dsagu")
+product_packed_scene = ExtResource("23_o7e0g")
+target_container_name = &"Bullets"
+metadata/_custom_type_script = "uid://2dtm6jeegr43"
+
+[node name="CollisionShape2D" parent="." index="1"]
 visible = false
-collision_layer = 16
-collision_mask = 0
-script = ExtResource("25_eey5d")
-metadata/_custom_type_script = "uid://cofkmvw2auxcs"
+shape = SubResource("RectangleShape2D_mirfw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HurtArea2D"]
-position = Vector2(-1, 0.5)
-shape = SubResource("RectangleShape2D_evixd")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-1, 2)
-shape = SubResource("RectangleShape2D_8yvna")
-
-[node name="States" type="Node" parent="."]
-
-[node name="Normal" type="Node" parent="States"]
-script = ExtResource("23_gmvus")
-
-[node name="DropBomb" type="Node" parent="States"]
-script = ExtResource("24_oj4m5")
-
-[node name="Hurt" type="Node" parent="States"]
-script = ExtResource("27_76xbk")
-
-[node name="Dead" type="Node" parent="States"]
+[node name="Normal" parent="States" index="0"]
 script = ExtResource("28_eey5d")
 
-[node name="LaunchRocket" type="Node" parent="States"]
-script = ExtResource("30_5rhnn")
+[node name="ShootBomb" type="Node" parent="States" index="2"]
+script = ExtResource("28_eey5d")
 
-[node name="Stun" type="Node" parent="States"]
-script = ExtResource("31_8w8h5")
+[node name="SpreadBomb" type="Node" parent="States" index="3"]
+script = ExtResource("28_eey5d")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
-[node name="DropTimer" type="Timer" parent="."]
+[node name="SpreadRocket" type="Node" parent="States" index="4"]
+script = ExtResource("28_eey5d")
+metadata/_custom_type_script = "uid://bq0h6rwr31w52"
 
-[node name="RocketPositions" type="Node2D" parent="."]
+[node name="ShootRocket" type="Node" parent="States" index="5"]
+script = ExtResource("28_eey5d")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
-[node name="RocketFactory1" type="Marker2D" parent="RocketPositions"]
-position = Vector2(150, 25)
-script = ExtResource("23_dsagu")
-product_packed_scene = ExtResource("32_evixd")
-target_container_name = &"Bullets"
-metadata/_custom_type_script = "uid://2dtm6jeegr43"
+[node name="Stun" type="Node" parent="States" index="6"]
+script = ExtResource("28_eey5d")
 
-[node name="RocketFactory2" type="Marker2D" parent="RocketPositions"]
-position = Vector2(75, 25)
-script = ExtResource("23_dsagu")
-product_packed_scene = ExtResource("32_evixd")
-target_container_name = &"Bullets"
-metadata/_custom_type_script = "uid://2dtm6jeegr43"
-
-[node name="RocketFactory3" type="Marker2D" parent="RocketPositions"]
-position = Vector2(-75, 25)
-script = ExtResource("23_dsagu")
-product_packed_scene = ExtResource("32_evixd")
-target_container_name = &"Bullets"
-metadata/_custom_type_script = "uid://2dtm6jeegr43"
-
-[node name="RocketFactory4" type="Marker2D" parent="RocketPositions"]
-position = Vector2(-150, 25)
-script = ExtResource("23_dsagu")
-product_packed_scene = ExtResource("32_evixd")
-target_container_name = &"Bullets"
-metadata/_custom_type_script = "uid://2dtm6jeegr43"
+[node name="Timer" type="Timer" parent="." index="3"]

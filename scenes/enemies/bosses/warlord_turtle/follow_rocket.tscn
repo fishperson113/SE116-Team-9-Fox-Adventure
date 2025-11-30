@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://cbr3bjld670mw"]
+
+[ext_resource type="PackedScene" uid="uid://dho3018dgfv6p" path="res://scenes/enemies/bullets/base_bullet.tscn" id="1_858q0"]
+[ext_resource type="Script" uid="uid://hwjyu0p0kxhn" path="res://scripts/enemies/bosses/warlord_turtle/follow_rocket.gd" id="2_4r6op"]
+[ext_resource type="Texture2D" uid="uid://bqqkluxpnvgqo" path="res://assets/sprites/enemies/bosses/war_lord_bullet/bullet_rocket.png" id="2_vhc8y"]
+[ext_resource type="PackedScene" uid="uid://bou6c8is307i8" path="res://scenes/enemies/bosses/warlord_turtle/rocket_explosion_effect.tscn" id="3_8dclk"]
+[ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/states/enemy_state.gd" id="4_4r6op"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4r6op"]
+size = Vector2(12, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8dclk"]
+size = Vector2(12, 24)
+
+[node name="FollowRocket" instance=ExtResource("1_858q0")]
+script = ExtResource("2_4r6op")
+tolerance = Vector2(10, 5)
+min_setup_time = 0.5
+max_setup_time = 1.0
+explosion_effect = ExtResource("3_8dclk")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_vhc8y")
+
+[node name="CollisionShape2D" parent="." index="1"]
+visible = false
+shape = SubResource("RectangleShape2D_4r6op")
+disabled = true
+
+[node name="HitArea2D" parent="." index="2"]
+visible = false
+
+[node name="CollisionShape2D" parent="HitArea2D" index="0"]
+shape = SubResource("RectangleShape2D_8dclk")
+
+[node name="States" type="Node" parent="." index="3"]
+
+[node name="Prepare" type="Node" parent="States" index="0"]
+script = ExtResource("4_4r6op")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
+[node name="Detect" type="Node" parent="States" index="1"]
+script = ExtResource("4_4r6op")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
+[node name="Attack" type="Node" parent="States" index="2"]
+script = ExtResource("4_4r6op")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"

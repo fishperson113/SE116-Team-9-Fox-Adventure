@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://e1eva17h0g0g"]
+
+[sub_resource type="Gradient" id="Gradient_b4w8e"]
+offsets = PackedFloat32Array(0, 0.470588, 0.921569, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.490196, 0, 1, 1, 0.882353, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_shssu"]
+gradient = SubResource("Gradient_b4w8e")
+
+[sub_resource type="Curve" id="Curve_68tdk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2e83q"]
+curve = SubResource("Curve_68tdk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qo6py"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 300.0
+initial_velocity_max = 550.0
+gravity = Vector3(0, 0, 0)
+scale_min = 5.0
+scale_max = 15.0
+scale_curve = SubResource("CurveTexture_2e83q")
+color_ramp = SubResource("GradientTexture1D_shssu")
+
+[sub_resource type="GDScript" id="GDScript_b4w8e"]
+script/source = "extends GPUParticles2D
+
+func _on_finished() -> void:
+	queue_free()
+"
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+emitting = false
+amount = 50
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_qo6py")
+script = SubResource("GDScript_b4w8e")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
