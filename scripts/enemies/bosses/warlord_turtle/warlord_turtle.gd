@@ -16,10 +16,6 @@ extends Boss
 #	Sau khi sử dụng Skill 2 sẽ rơi vào trạng thái mệt mỏi 2 giây.
 #Boss Warlord Turtle sẽ sử dụng Skill 1 và Skill 2 đan xen nhau
 
-@export var cooldown: float = 1.0
-@export var rest_time: float = 2.0
-@export var max_stamina: int = 4
-
 @export_group("Bomb frame")
 @export var start_bomb_frame: int = 3
 @export var bomb_frame_interval: int = 1
@@ -44,8 +40,6 @@ extends Boss
 @export_group("Rocket launch skill")
 @export var launch_count: int = 3
 
-var _skill_set = []
-
 var start_bomb_period: float = 0.0
 var bomb_interval: float = 0.0
 
@@ -58,16 +52,13 @@ var _follow_rocket_factories: Node2D = null
 var _has_spread: bool = false
 var _has_rocket_rain: bool = false
 var _has_launched_rocket: bool = false
-var _stamina: int = 0
 
 func _ready() -> void:
 	super._ready()
-	_init_skill_set()
 	_init_shoot_bomb_state()
 	_init_spread_bomb_state()
 	_init_shoot_rocket_state()
 	_init_spread_rocket_state()
-	_init_stun_state()
 	_init_bomb_factories()
 	_init_rocket_factories()
 
@@ -81,13 +72,6 @@ func _init_bomb_factories():
 	if has_node("Direction/BombFactories"):
 		_bomb_factories = get_node("Direction/BombFactories")
 		_bomb_fac_cursor = 0
-
-func _init_stun_state() -> void:
-	if has_node("States/Stun"):
-		var state : EnemyState = get_node("States/Stun")
-		state.enter.connect(start_stun)
-		state.exit.connect(end_stun)
-		state.update.connect(update_stun)
 
 func _init_spread_rocket_state() -> void:
 	if has_node("States/SpreadRocket"):
@@ -121,32 +105,9 @@ func _init_shoot_bomb_state() -> void:
 		start_bomb_period = start_bomb_frame / anim_speed
 		bomb_interval = bomb_frame_interval / anim_speed
 
-func _on_near_sense_body_exited(_body) -> void:
-	if _body is Player:
-		found_player = null
-	pass
-
 func _init_skill_set():
+	super._init_skill_set()
 	_skill_set = [fsm.states.shootbomb, fsm.states.spreadbomb, fsm.states.shootrocket, fsm.states.spreadrocket]
-	rest()
-
-func get_skill():
-	return _skill_set.pick_random()
-
-func start_normal() -> void:
-	_movement_speed = 0
-	change_animation("normal")
-	fsm.current_state.timer = cooldown
-
-func update_normal(_delta: float) -> void:
-	if not found_player:
-		return
-	target(found_player.position)
-	if is_exhausted():
-		fsm.change_state(fsm.states.stun)
-	if fsm.current_state.update_timer(_delta):
-		_stamina += 1
-		fsm.change_state(get_skill())
 
 func start_spread_bomb() -> void:
 	fsm.current_state.timer = start_bomb_period
@@ -185,12 +146,6 @@ func spread(_factories: Array[Node], _count: int, _time_to_fall: float, _spread_
 		var bullet = _factories.pick_random().create() as BaseBullet
 		bullet.apply_velocity(speed)
 		bullet.set_damage(spike)
-
-func compute_speed(_t: float, _dis: Vector2, _gra: float):
-	var speed := Vector2.ZERO
-	speed.x = _dis.x / _t
-	speed.y = -1 * (0.5 * _t * _gra + _dis.y / _t)
-	return speed
 
 func start_shoot_bomb() -> void:
 	fsm.current_state.timer = start_bomb_period
@@ -234,12 +189,7 @@ func shoot(_factory: Node2DFactory) -> void:
 	bomb.set_damage(spike)
 	bomb.set_gravity(0)
 
-func compute_shot_speed(from: Vector2, to: Vector2, strength: float):
-	var normalized := (to - from).normalized()
-	return normalized * strength
-
 func start_spread_rocket() -> void:
-	#print(found_player.get_node("Camera2D"))
 	_has_rocket_rain = false
 	fsm.current_state.timer = start_bomb_period
 	change_animation("rocket")
@@ -248,7 +198,6 @@ func start_spread_rocket() -> void:
 
 func end_spread_rocket() -> void:
 	animated_sprite.animation_finished.disconnect(_return_to_normal)
-	#_change_skill()
 	pass
 
 func update_spread_rocket(_delta) -> void:
@@ -264,20 +213,6 @@ func spread_rocket() -> void:
 	_has_rocket_rain = true
 	spread(_smoke_rocket_factories.get_children(), rocket_count, rocket_falling_time, rocket_spread_percentage)
 
-func start_stun() -> void:
-	change_animation("stun")
-	fsm.current_state.timer = rest_time
-
-func end_stun() -> void:
-	rest()
-
-func update_stun(_delta) -> void:
-	if fsm.current_state.update_timer(_delta):
-		_return_to_normal()
-
-func _return_to_normal():
-	fsm.change_state(fsm.states.normal)
-
 func start_shoot_rocket() -> void:
 	_has_launched_rocket = false
 	fsm.current_state.timer = start_bomb_period
@@ -287,7 +222,6 @@ func start_shoot_rocket() -> void:
 
 func end_shoot_rocket() -> void:
 	animated_sprite.animation_finished.disconnect(_return_to_normal)
-	#_change_skill()
 	pass
 
 func update_shoot_rocket(_delta) -> void:
@@ -313,9 +247,3 @@ func launch_rocket() -> void:
 		bullet.set_damage(spike)
 		bullet.set_gravity(0)
 	pass
-
-func is_exhausted() -> bool:
-	return _stamina >= max_stamina
-
-func rest() -> void:
-	_stamina = 0

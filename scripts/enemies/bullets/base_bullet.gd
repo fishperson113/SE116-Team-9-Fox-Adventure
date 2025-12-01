@@ -46,6 +46,9 @@ func explosion() -> void:
 	queue_free()
 
 func create_effect():
+	if not explosion_effect:
+		return
+	
 	var created_effect = create(explosion_effect, global_position)
 	created_effect.z_index = 1
 	if created_effect is GPUParticles2D:

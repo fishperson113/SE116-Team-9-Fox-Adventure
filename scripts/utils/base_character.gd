@@ -136,7 +136,9 @@ func _check_changed_direction() -> void:
 # On changed direction
 func _on_changed_direction() -> void:
 	pass
+
 func take_damage(amount: int):
+	print("Health after taking damage: ", currentHealth)
 	currentHealth -= amount
 	healthChanged.emit()  
 	
