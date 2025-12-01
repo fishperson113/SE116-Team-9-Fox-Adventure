@@ -26,7 +26,7 @@ radius = 16.0312
 size = Vector2(0, 0)
 
 [node name="Claw" type="CharacterBody2D"]
-collision_layer = 8
+collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_hkb6n")
 
@@ -49,6 +49,3 @@ shape = SubResource("CircleShape2D_thy4w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_hkb6n")
-
-[connection signal="body_entered" from="Direction/HitArea2D" to="." method="_on_hit_area_2d_body_entered"]
-[connection signal="hitted" from="Direction/HitArea2D" to="." method="_on_hit_area_2d_hitted"]

@@ -73,6 +73,10 @@ size = Vector2(20, 17)
 [node name="Seahorse" groups=["range"] instance=ExtResource("1_ekoui")]
 script = ExtResource("2_xssdx")
 shoot_time = 1.5
+initial_state = 0
+hurt_time = 0.4
+awake_time = 2.0
+idle_chance = 0.001
 movement_speed = 0.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]

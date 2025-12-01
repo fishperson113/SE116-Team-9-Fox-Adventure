@@ -1,4 +1,4 @@
-extends StatefulEnemy
+extends Boss
 
 #Hành Vi:
 #Boss Warlord Turtle sẽ đứng cố định giữa màn hình và không di chuyển
@@ -16,113 +16,234 @@ extends StatefulEnemy
 #	Sau khi sử dụng Skill 2 sẽ rơi vào trạng thái mệt mỏi 2 giây.
 #Boss Warlord Turtle sẽ sử dụng Skill 1 và Skill 2 đan xen nhau
 
-@export var idle_time: float = 2.0
+@export_group("Bomb frame")
+@export var start_bomb_frame: int = 3
+@export var bomb_frame_interval: int = 1
 
-@export var drop_bomb_time: float = 0.6
-@export var drop_period: float = 0.5
+@export_group("Rocket frame")
+@export var start_rocket_frame: int = 4
+@export var rocket_frame_interval: int = 1
 
-@export var launch_time: float = 0.8
-@export var stun_time: float = 2.0
+@export_group("Shoot bomb skill")
+@export var shot_speed: float = 600
 
-var _skill_set = []
-var _skill_cursor = 0
+@export_group("Spread bomb skill")
+@export var bomb_falling_time: float = 2.0
+@export var bomb_count: int = 4
+@export var bomb_spread_percentage: float = 0.3
 
-@onready var _drop_timer := $DropTimer
-@onready var _left_factory := $Direction/LeftFactory
-@onready var _right_factory := $Direction/RightFactory
-@onready var _rocket_factories := [$RocketPositions/RocketFactory1, $RocketPositions/RocketFactory2, $RocketPositions/RocketFactory3, $RocketPositions/RocketFactory4]
+@export_group("Rocket rain skill")
+@export var rocket_falling_time: float = 2.0
+@export var rocket_count: int = 4
+@export var rocket_spread_percentage: float = 0.6
+
+@export_group("Rocket launch skill")
+@export var launch_count: int = 3
+
+var start_bomb_period: float = 0.0
+var bomb_interval: float = 0.0
+
+var _bomb_factories: Node2D = null
+var _bomb_fac_cursor: int = 0
+
+var _smoke_rocket_factories: Node2D = null
+var _follow_rocket_factories: Node2D = null
+
+var _has_spread: bool = false
+var _has_rocket_rain: bool = false
+var _has_launched_rocket: bool = false
 
 func _ready() -> void:
 	super._ready()
-	_init_hit_area()
-	_init_skill_set()
-	_init_drop_bomb_state()
-	_init_launch_rocket_state()
-	_init_stun_state() 
+	_init_shoot_bomb_state()
+	_init_spread_bomb_state()
+	_init_shoot_rocket_state()
+	_init_spread_rocket_state()
+	_init_bomb_factories()
+	_init_rocket_factories()
 
-func _init_stun_state() -> void:
-	if has_node("States/Stun"):
-		var state : EnemyState = get_node("States/Stun")
-		state.enter.connect(start_stun)
+func _init_rocket_factories():
+	if has_node("Direction/RocketFactories/SmokeRocket"):
+		_smoke_rocket_factories = get_node("Direction/RocketFactories/SmokeRocket")
+	if has_node("Direction/RocketFactories/FollowRocket"):
+		_follow_rocket_factories = get_node("Direction/RocketFactories/FollowRocket")
 
-func _init_launch_rocket_state() -> void:
-	if has_node("States/LaunchRocket"):
-		var state : EnemyState = get_node("States/LaunchRocket")
-		state.enter.connect(start_launch_rocket)
-		state.exit.connect(end_launch_rocket)
-		state.update.connect(update_launch_rocket)
+func _init_bomb_factories():
+	if has_node("Direction/BombFactories"):
+		_bomb_factories = get_node("Direction/BombFactories")
+		_bomb_fac_cursor = 0
 
-func _init_drop_bomb_state() -> void:
-	if has_node("States/DropBomb"):
-		var state : EnemyState = get_node("States/DropBomb")
-		state.enter.connect(start_drop_bomb)
-		state.exit.connect(end_drop_bomb)
-		state.update.connect(update_drop_bomb)
+func _init_spread_rocket_state() -> void:
+	if has_node("States/SpreadRocket"):
+		var state : EnemyState = get_node("States/SpreadRocket")
+		state.enter.connect(start_spread_rocket)
+		state.exit.connect(end_spread_rocket)
+		state.update.connect(update_spread_rocket)
 
-func _init_hit_area() -> void:
-	var hit_area := $Direction/HitArea2D
-	hit_area.set_dealt_damage(spike)
+func _init_shoot_rocket_state() -> void:
+	if has_node("States/ShootRocket"):
+		var state : EnemyState = get_node("States/ShootRocket")
+		state.enter.connect(start_shoot_rocket)
+		state.exit.connect(end_shoot_rocket)
+		state.update.connect(update_shoot_rocket)
+
+func _init_spread_bomb_state() -> void:
+	if has_node("States/SpreadBomb"):
+		var state : EnemyState = get_node("States/SpreadBomb")
+		state.enter.connect(start_spread_bomb)
+		state.exit.connect(end_spread_bomb)
+		state.update.connect(update_spread_bomb)
+
+func _init_shoot_bomb_state() -> void:
+	if has_node("States/ShootBomb"):
+		var state : EnemyState = get_node("States/ShootBomb")
+		state.enter.connect(start_shoot_bomb)
+		state.exit.connect(end_shoot_bomb)
+		state.update.connect(update_shoot_bomb)
+		
+		var anim_speed = animated_sprite.sprite_frames.get_animation_speed("bomb")
+		start_bomb_period = start_bomb_frame / anim_speed
+		bomb_interval = bomb_frame_interval / anim_speed
 
 func _init_skill_set():
-	_skill_set = [fsm.states.dropbomb, fsm.states.launchrocket]
-	_skill_cursor = 0
+	super._init_skill_set()
+	_skill_set = [fsm.states.shootbomb, fsm.states.spreadbomb, fsm.states.shootrocket, fsm.states.spreadrocket]
 
-func get_current_skill():
-	return _skill_set[_skill_cursor]
-
-func _change_skill():
-	_skill_cursor = (_skill_cursor + 1) % _skill_set.size()
-
-func start_normal() -> void:
-	_movement_speed = 0
-	change_animation("normal")
-
-func start_drop_bomb() -> void:
-	_drop_timer.wait_time = drop_period
-	_drop_timer.timeout.connect(drop)
-	_drop_timer.start()
-	change_animation("drop_bomb")
+func start_spread_bomb() -> void:
+	fsm.current_state.timer = start_bomb_period
+	_has_spread = false
+	change_animation("bomb")
+	animated_sprite.animation_finished.connect(_return_to_normal)
 	pass
 
-func end_drop_bomb() -> void:
-	_drop_timer.timeout.disconnect(drop)
-	_change_skill()
+func end_spread_bomb() -> void:
+	animated_sprite.animation_finished.disconnect(_return_to_normal)
+	#_change_skill()
 	pass
 
-func update_drop_bomb(_delta) -> void:
+func update_spread_bomb(_delta) -> void:
+	if fsm.current_state.update_timer(_delta):
+		spread_bomb()
+	if not found_player:
+		_return_to_normal()
 	pass
 
-func drop() -> void:
-	#var left_bomb := _left_factory.create() as RigidBody2D
-	#var right_bomb := _right_factory.create() as RigidBody2D
-	#left_bomb.apply_central_impulse(Vector2(movement_speed * _direction_controller.get_direction() * -1, 0.0))
-	#right_bomb.apply_central_impulse(Vector2(movement_speed * _direction_controller.get_direction(), 0.0))
+func spread_bomb() -> void:
+	if _has_spread:
+		return
+	_has_spread = true
+	spread(_bomb_factories.get_children(), bomb_count, bomb_falling_time, bomb_spread_percentage)
+
+func spread(_factories: Array[Node], _count: int, _time_to_fall: float, _spread_pct: float) -> void:
+	if _factories.is_empty():
+		return
+		
+	var _computed_speed = compute_speed(_time_to_fall, found_player.position - self.position, gravity)
+	var _rand_speed_x = RandomSpec.new(_computed_speed.x * (1 - _spread_pct) , _computed_speed.x * (1 + _spread_pct))
+	var _rand_speed_y = RandomSpec.new(_computed_speed.y * (1 - _spread_pct) , _computed_speed.y * (1 + _spread_pct))
+	for i in _count:
+		var speed := Vector2(_rand_speed_x.get_random(), _rand_speed_y.get_random())
+		var bullet = _factories.pick_random().create() as BaseBullet
+		bullet.apply_velocity(speed)
+		bullet.set_damage(spike)
+
+func start_shoot_bomb() -> void:
+	fsm.current_state.timer = start_bomb_period
+	reload_bomb()
+	change_animation("bomb")
+	animated_sprite.animation_finished.connect(_return_to_normal)
+	pass
+
+func end_shoot_bomb() -> void:
+	animated_sprite.animation_finished.disconnect(_return_to_normal)
+	#_change_skill()
+	pass
+
+func update_shoot_bomb(_delta) -> void:
+	if fsm.current_state.update_timer(_delta):
+		shoot_bomb()
+		if not is_out_of_bombs():
+			fsm.current_state.timer += bomb_interval
+	if not found_player:
+		_return_to_normal()
+	pass
+
+func shoot_bomb() -> void:
+	if is_out_of_bombs():
+		return
+	shoot(_bomb_factories.get_children()[_bomb_fac_cursor])
+	_bomb_fac_cursor += 1
+
+func reload_bomb() -> void:
+	_bomb_fac_cursor = 0
+
+func is_out_of_bombs() -> bool:
+	return _bomb_fac_cursor >= _bomb_factories.get_child_count()
 	
-	var left_bomb := _left_factory.create() as Bullet
-	var right_bomb := _right_factory.create() as Bullet
-	left_bomb.set_damage(spike)
-	right_bomb.set_damage(spike)
-	left_bomb.apply_velocity(Vector2(movement_speed * direction * -1, 0.0))
-	right_bomb.apply_velocity(Vector2(movement_speed * direction, 0.0))
+func shoot(_factory: Node2DFactory) -> void:
+	if not found_player:
+		return
+	
+	var bomb = _factory.create() as BaseBullet
+	bomb.apply_velocity(compute_shot_speed(_factory.global_position, found_player.position, shot_speed))
+	bomb.set_damage(spike)
+	bomb.set_gravity(0)
 
-func start_launch_rocket() -> void:
-	change_animation("launch_rocket")
+func start_spread_rocket() -> void:
+	_has_rocket_rain = false
+	fsm.current_state.timer = start_bomb_period
+	change_animation("rocket")
+	animated_sprite.animation_finished.connect(_return_to_normal)
 	pass
 
-func end_launch_rocket() -> void:
-	_change_skill()
+func end_spread_rocket() -> void:
+	animated_sprite.animation_finished.disconnect(_return_to_normal)
 	pass
 
-func update_launch_rocket(_delta) -> void:
+func update_spread_rocket(_delta) -> void:
+	if fsm.current_state.update_timer(_delta):
+		spread_rocket()
+	if not found_player:
+		_return_to_normal()
 	pass
 
-func start_stun() -> void:
-	rocket_rain()
-	change_animation("stun")
+func spread_rocket() -> void:
+	if _has_rocket_rain:
+		return
+	_has_rocket_rain = true
+	spread(_smoke_rocket_factories.get_children(), rocket_count, rocket_falling_time, rocket_spread_percentage)
+
+func start_shoot_rocket() -> void:
+	_has_launched_rocket = false
+	fsm.current_state.timer = start_bomb_period
+	change_animation("rocket")
+	animated_sprite.animation_finished.connect(_return_to_normal)
 	pass
 
-func rocket_rain() -> void:
-	for factory in _rocket_factories:
-		var rocket = factory.create() as Bomb
-		rocket.set_damage(attack_damage)
-		rocket.position.y = 0
+func end_shoot_rocket() -> void:
+	animated_sprite.animation_finished.disconnect(_return_to_normal)
+	pass
+
+func update_shoot_rocket(_delta) -> void:
+	if fsm.current_state.update_timer(_delta):
+		launch_rocket()
+	if not found_player:
+		_return_to_normal()
+	pass
+
+func launch_rocket() -> void:
+	if _has_launched_rocket:
+		return
+	_has_launched_rocket = true
+	
+	if not found_player:
+		return
+
+	for i in range(launch_count):
+		var bullet = _follow_rocket_factories.get_children().pick_random().create() as FollowRocket
+		bullet.set_launcher(self)
+		bullet.set_target(found_player)
+		bullet.apply_velocity(Vector2(600, 600))
+		bullet.set_damage(spike)
+		bullet.set_gravity(0)
+	pass

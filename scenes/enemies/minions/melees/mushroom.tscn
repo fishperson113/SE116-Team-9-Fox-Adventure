@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1ojnmhr1sm5l"]
+[gd_scene load_steps=12 format=3 uid="uid://c1ojnmhr1sm5l"]
 
 [ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_cq6ry"]
+[ext_resource type="Script" uid="uid://b2dyf0uvypchb" path="res://scripts/enemies/abstracts/minion.gd" id="2_65vyy"]
 [ext_resource type="Texture2D" uid="uid://dpjw5jtxsvr5g" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_hit_01.png" id="2_i4ej6"]
 [ext_resource type="Texture2D" uid="uid://ctcs8ewl0dmuf" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_hit_02.png" id="3_dkmdw"]
 [ext_resource type="Texture2D" uid="uid://dyvocg73qr6qa" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_hit_03.png" id="4_e2346"]
@@ -46,6 +47,11 @@ size = Vector2(20, 23)
 size = Vector2(12, 23)
 
 [node name="Mushroom" groups=["melee"] instance=ExtResource("1_cq6ry")]
+script = ExtResource("2_65vyy")
+initial_state = 0
+hurt_time = 0.4
+awake_time = 2.0
+idle_chance = 0.001
 health = 50.0
 spike = 80.0
 movement_speed = 50.0
@@ -54,7 +60,7 @@ movement_speed = 50.0
 sprite_frames = SubResource("SpriteFrames_qdbxi")
 animation = &"normal"
 
-[node name="HurtArea2D" parent="Direction" index="1"]
+[node name="HurtArea2D" parent="Direction" index="2"]
 visible = false
 
 [node name="CollisionShape2D" parent="Direction/HurtArea2D" index="0"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6k6kx0i213q4"]
+[gd_scene load_steps=14 format=3 uid="uid://c6k6kx0i213q4"]
 
 [ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_pccfa"]
 [ext_resource type="Script" uid="uid://mfhb57posmxm" path="res://scripts/enemies/minions/melees/crab/crab.gd" id="2_31gao"]
@@ -59,6 +59,10 @@ size = Vector2(20, 16)
 
 [node name="Crab" groups=["melee"] instance=ExtResource("1_pccfa")]
 script = ExtResource("2_31gao")
+initial_state = 0
+hurt_time = 0.4
+awake_time = 2.0
+idle_chance = 0.001
 health = 50.0
 spike = 50.0
 movement_speed = 50.0
@@ -99,10 +103,6 @@ visible = false
 [node name="CollisionShape2D" parent="Direction/NearSenseArea2D" index="0"]
 shape = SubResource("CircleShape2D_0pepb")
 
-[node name="CollisionShape2D" parent="." index="1"]
-visible = false
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_fecqf")
 [node name="CollisionShape2D" parent="." index="1"]
 visible = false
 position = Vector2(0, 1)

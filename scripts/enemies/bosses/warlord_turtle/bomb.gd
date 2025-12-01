@@ -1,38 +1,50 @@
-extends Bullet
+extends BaseBullet
 
-@export var gravity: float = 700
-@export var impulse: Vector2 = Vector2(150, 400)
+@export var explosion_radius: float = 100.0
+@export var tile_effect: PackedScene = null
+@export var duration: float = 3.0
 
-@onready var _particles_factory := $ParticlesFactory
+func _on_body_entered(_area: Variant) -> void:
+	super._on_body_entered(_area)
+	if _area is TileMapLayer:
+		call_deferred("create_effect_tiles", get_nearest_filled_tiles(_area, global_position, explosion_radius), duration)
 
-func _physics_process(_delta: float) -> void:
-	if is_on_wall():
-		explosion()
+func create_effect_tiles(_positions: Array[Vector2], _duration: float):
+	var tiles: Array
+	for pos in _positions:
+		tiles.append(create(tile_effect, pos))
 
-func _process(delta: float) -> void:
-	velocity.y += gravity * delta
-	super._process(delta)
+	get_tree().create_timer(_duration).timeout.connect(
+		func():
+			for tile in tiles:
+				if is_instance_valid(tile):
+					tile.queue_free()
+	)
 
-func _on_hit_area_2d_hitted(_area: Variant) -> void:
-	explosion()
+func get_nearest_filled_tiles(_tile_map: TileMapLayer, _position: Vector2, _radius: float):
+	# start traversing at the leftmost cell and end at the rightmost cell by radius
+	var start_point = _tile_map.local_to_map(_tile_map.to_local(_position - Vector2(_radius, _radius)))
+	var end_point = _tile_map.local_to_map(_tile_map.to_local(_position + Vector2(_radius, _radius)))
+	
+	var nearest_pos: Array[Vector2]
+	for row in range(start_point.x, end_point.x):
+		for col in range(start_point.y, end_point.y):
+			# skip if the cell does not exist
+			var cell_map_coord := Vector2i(row, col)
+			if _tile_map.get_cell_source_id(cell_map_coord) == -1:
+				continue
+			# skip if the above cell exists
+			var above_map_coord := Vector2i(cell_map_coord.x, cell_map_coord.y - 1)
+			if _tile_map.get_cell_source_id(above_map_coord) != -1:
+				continue
+			# skip if the cell is out range
+			var cell_global_coord := _tile_map.to_global(_tile_map.map_to_local(cell_map_coord))
+			if cell_global_coord.distance_to(_position) > _radius:
+				continue
+			
+			nearest_pos.append(cell_global_coord)
+	
+	return nearest_pos
 
-func explosion() -> void:
-	create_particles()
-	queue_free()
-
-func create_particles() -> void:
-	call_deferred("_create_particles_safe")
-
-func _create_particles_safe() -> void:
-	var top_left = _particles_factory.create() as RigidBody2D
-	var top_right = _particles_factory.create() as RigidBody2D
-	var bot_left = _particles_factory.create() as RigidBody2D
-	var bot_right = _particles_factory.create() as RigidBody2D
-
-	top_left.apply_impulse(Vector2(-impulse.x, -impulse.y))
-	top_right.apply_impulse(Vector2(impulse.x, -impulse.y))
-	bot_left.apply_impulse(Vector2(-impulse.x, -impulse.y / 2))
-	bot_right.apply_impulse(Vector2(impulse.x, -impulse.y / 2))
-
-func _on_hurt_area_2d_hurt(direction: Vector2, _damage: float) -> void:
-	velocity = direction * abs(velocity)
+func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
+	velocity = _direction * abs(velocity)

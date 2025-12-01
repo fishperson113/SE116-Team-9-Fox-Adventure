@@ -1,4 +1,4 @@
-extends StatefulEnemy
+extends Minion
 
 #Mô tả:
 #Đi qua đi lại trong 1 phạm vi nhất định

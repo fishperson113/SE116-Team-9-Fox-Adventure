@@ -46,6 +46,7 @@ var _hit_area: HitArea2D = null
 
 func _ready() -> void:
 	super._ready()
+	_init_animated_sprite()
 	_init_ray_cast()
 	_init_detect_player_area()
 	_init_near_sense_area()
@@ -57,6 +58,10 @@ func _ready() -> void:
 	_jump_speed = jump_speed
 	currentHealth = health
 	pass
+
+func _init_animated_sprite():
+	if has_node("Direction/AnimatedSprite2D"):
+		animated_sprite = $Direction/AnimatedSprite2D
 
 #init ray cast to check wall and fall
 func _init_ray_cast():

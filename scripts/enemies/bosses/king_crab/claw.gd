@@ -1,38 +1,66 @@
 class_name Claw
-extends Bullet
+extends BaseBullet
 
-@onready var _direction_controller = DirectionController.new($Direction)
-@onready var _animation := $Direction/AnimatedSprite2D
+var _launcher: Enemy = null
+var _is_returning: bool = false
+
 @onready var _patrol_controller = PatrolController.new(100)
 
 func _ready() -> void:
 	super._ready()
-	_animation.play()
+	_init_animated_sprite()
 	_patrol_controller.set_start_position(position.x)
+	_is_returning = false
 
-func _process(delta: float) -> void:
+func _init_animated_sprite():
+	animated_sprite = $Direction/AnimatedSprite2D
+	animated_sprite.play()
+
+func _process(_delta: float) -> void:
 	update_velocity()
 	move_and_slide()
 	
-	if _patrol_controller.track_patrol(position.x, _direction_controller.get_direction()):
-		_direction_controller.turn_around()
+	if _patrol_controller.track_patrol(position.x, direction):
+		claw_return()
 	
-	_direction_controller._update(delta)
-
-func _on_hit_area_2d_hitted(_area: Variant) -> void:	
-	_direction_controller.turn_around()
+	_check_changed_direction()
 
 func update_velocity() -> void:
-	velocity.x = abs(velocity.x) * _direction_controller.get_direction()
-
-func set_direction(direction: int) -> void:
-	_direction_controller.change_direction(direction)
+	velocity.x = abs(velocity.x) * direction
 
 func attach() -> void:
 	queue_free()
 
-func _on_hit_area_2d_body_entered(_body: Node2D) -> void:
-	_direction_controller.turn_around()
+func claw_return() -> void:
+	if not _launcher:
+		print("No launcher found")
+		return
+	
+	if _is_returning:
+		return
+	
+	_is_returning = true
+	if _launcher.position.x < position.x:
+		turn_left()
+	else:
+		turn_right()
 
 func set_range(_range: float) -> void:
 	_patrol_controller.set_movement_range(_range)
+
+func set_direction(_direction: int) -> void:
+	change_direction(_direction)
+
+func set_launcher(_l: Enemy) -> void:
+	_launcher = _l
+
+func is_returning() -> bool:
+	return _is_returning
+
+func _on_body_entered(_body):
+	# Do nothing
+	pass
+
+func _on_hitted(_area):
+	claw_return()
+	pass
