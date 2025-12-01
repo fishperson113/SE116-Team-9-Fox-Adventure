@@ -3,7 +3,7 @@ extends ProgressBar
 ## HealthBar tự động cập nhật từ BaseCharacter parent
 ## Ẩn ban đầu, chỉ hiện khi bị damage lần đầu
 
-var tracked_character: BaseCharacter = null
+var tracked_character: StatefulEnemy = null
 var is_first_damage: bool = true  # Theo dõi lần damage đầu tiên
 
 func _ready() -> void:
@@ -22,9 +22,9 @@ func _ready() -> void:
 		print("   - Đã kết nối signal healthChanged")
 		
 		# Thiết lập giá trị ban đầu (nhưng vẫn ẩn)
-		max_value = tracked_character.maxHealth
+		max_value = tracked_character.health
 		min_value = 0
-		value = tracked_character.currentHealth
+		value = tracked_character.health
 		print("   - HealthBar value: ", value, "/", max_value)
 	else:
 		push_warning("❌ HealthBar: Không tìm thấy BaseCharacter parent!")
@@ -49,14 +49,14 @@ func _on_health_changed():
 		print("   - Health mới: ", tracked_character.currentHealth, "/", tracked_character.maxHealth)
 		
 		# Hiện healthbar lần đầu tiên bị damage
-		if is_first_damage and tracked_character.currentHealth < tracked_character.maxHealth:
+		if is_first_damage and tracked_character.currentHealth < tracked_character.health:
 			show()
 			is_first_damage = false
 			print("   - Hiện HealthBar lần đầu")
 		
 		# Cập nhật max value nếu thay đổi
-		if max_value != tracked_character.maxHealth:
-			max_value = tracked_character.maxHealth
+		if max_value != tracked_character.health:
+			max_value = tracked_character.health
 		
 		# Cập nhật giá trị hiện tại
 		value = tracked_character.currentHealth
