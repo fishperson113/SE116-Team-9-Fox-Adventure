@@ -8,6 +8,9 @@ signal coinsChanged
 @export var jump_step: int = 2
 @export var current_jump: int = 0
 
+@export var max_dash: int = 1
+@export var current_dash: int = 0
+
 var weapon_thrower: WeaponThrower
 
 @onready var inventory: Inventory = $Inventory
@@ -22,7 +25,12 @@ var weapon_manager: WeaponEquipmentManager= null
 var attack_damage
 var attack_speed
 var base_speed
-var is_equipped:bool = false
+var is_equipped: bool = false
+var is_dash: bool = false
+
+var dash_color: Color = Color8(168, 208, 255, 255)
+var normal_color: Color = Color8(255, 255, 255, 255)
+
 func _ready() -> void:
 	get_node("Direction/HitArea2D/CollisionShape2D").disabled = true
 	fsm = FSM.new(self, $States, $States/Idle)
@@ -40,13 +48,11 @@ func _ready() -> void:
 	equip_weapon(GameManager.equipped_weapon_path)
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("change_form"):
-		var new_type: int
-		if character_type == 3:
-			new_type = 0
-		else:
-			new_type = character_type + 1
-		change_player_type(new_type)
+	if current_dash == max_dash:
+		animated_sprite.modulate = dash_color
+	else:
+		animated_sprite.modulate = normal_color
+	pass
 		
 func change_player_type(char_type: int) -> void:
 	var base_anim = current_animation if current_animation != null else "idle"
@@ -137,12 +143,15 @@ func _apply_special_skill(skill: String):
 			jump_step = 3
 		"speed_up":
 			movement_speed = base_speed * 2
+		"dash":
+			is_dash = true
 		_:
 			_reset_weapon_stats()
 
 func _reset_weapon_stats():
 	jump_step = 2   
 	movement_speed=base_speed
+	is_dash = false
 
 func save_state() -> Dictionary:
 	return {

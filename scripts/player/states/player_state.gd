@@ -23,9 +23,17 @@ func control_moving() -> bool:
 		obj.internal_force.x = obj.movement_speed * dir
 		if obj.is_on_floor():
 			change_state(fsm.states.walk)
+			obj.current_dash = 0
 		return true
 	else:
 		obj.internal_force.x = 0
+	return false
+
+func control_dash() -> bool:
+	var is_dash_pressed = Input.is_action_just_pressed("dash")
+	if is_dash_pressed and obj.is_dash and obj.current_dash < obj.max_dash:
+		change_state(fsm.states.dash)
+		return true
 	return false
 
 #Control jumping

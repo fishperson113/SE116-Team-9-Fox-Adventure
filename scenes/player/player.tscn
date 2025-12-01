@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://chcs4qer8dybe"]
+[gd_scene load_steps=93 format=3 uid="uid://chcs4qer8dybe"]
 
 [ext_resource type="Script" uid="uid://d00o3jgu015v4" path="res://scripts/player/player.gd" id="1_ugbui"]
 [ext_resource type="Texture2D" uid="uid://cwgjo8l0lmemi" path="res://assets/sprites/characters/foxy/fox/fox_idle_1.png" id="2_5gtgg"]
@@ -82,6 +82,7 @@
 [ext_resource type="Script" uid="uid://w3w0sbvoe5al" path="res://scripts/player/states/launch.gd" id="76_4sw5w"]
 [ext_resource type="Texture2D" uid="uid://b2ys0lkughw88" path="res://assets/sprites/trajectory/dotted_line.png" id="77_0y4ya"]
 [ext_resource type="AudioStream" uid="uid://irnmtldt0n5y" path="res://assets/audio/sfx/jump.mp3" id="79_trum3"]
+[ext_resource type="Script" uid="uid://c8sscfh3560ce" path="res://scripts/player/states/dash.gd" id="79_wuxn4"]
 [ext_resource type="Script" uid="uid://dn5leb78h1w57" path="res://scripts/player/item_storer.gd" id="80_4sw5w"]
 [ext_resource type="AudioStream" uid="uid://bhf82m72nk0or" path="res://assets/audio/sfx/defeat.mp3" id="80_v8cnd"]
 [ext_resource type="AudioStream" uid="uid://mc3en83ij8df" path="res://assets/audio/sfx/hit.mp3" id="81_wuxn4"]
@@ -463,6 +464,7 @@ animation = &"hat_blade_attack"
 frame = 1
 
 [node name="HitArea2D" type="Area2D" parent="Direction"]
+visible = false
 collision_mask = 24
 script = ExtResource("67_s4k4a")
 metadata/_custom_type_script = "uid://dkb25vr64v37l"
@@ -472,6 +474,7 @@ position = Vector2(16.5, 1)
 shape = SubResource("RectangleShape2D_vkc6f")
 
 [node name="HurtArea2D" type="Area2D" parent="Direction"]
+visible = false
 collision_layer = 33
 collision_mask = 33
 script = ExtResource("68_21yht")
@@ -481,6 +484,7 @@ metadata/_custom_type_script = "uid://cofkmvw2auxcs"
 shape = SubResource("CapsuleShape2D_trum3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CapsuleShape2D_uf5tr")
 
 [node name="States" type="Node" parent="."]
@@ -512,6 +516,9 @@ script = ExtResource("75_s050l")
 
 [node name="Launch" type="Node" parent="States"]
 script = ExtResource("76_4sw5w")
+
+[node name="Dash" type="Node" parent="States"]
+script = ExtResource("79_wuxn4")
 
 [node name="SFX" type="Node" parent="."]
 
@@ -549,7 +556,12 @@ item_storer = NodePath("../ItemStorer")
 
 [node name="InvulnerabilityTimer" type="Timer" parent="."]
 
+[node name="DashabilityTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
 [connection signal="animation_finished" from="Direction/AnimatedSprite2D" to="States/Attack" method="_on_attack_animation_finished"]
 [connection signal="animation_finished" from="Direction/AnimatedSprite2D" to="States/Hit" method="_on_hit_animation_finished"]
 [connection signal="hurt" from="Direction/HurtArea2D" to="." method="_on_hurt_area_2d_hurt"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]
+[connection signal="timeout" from="DashabilityTimer" to="States/Dash" method="_on_dashability_timer_timeout"]

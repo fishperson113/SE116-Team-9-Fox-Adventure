@@ -7,6 +7,7 @@ func _enter() -> void:
 
 func _update(_delta: float) -> void:
 	#Control jump
+	control_dash()
 	control_jump()
 	control_moving()
 	control_attack()
