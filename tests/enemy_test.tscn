@@ -1,7 +1,17 @@
+<<<<<<< HEAD
 [gd_scene load_steps=4 format=4 uid="uid://2myew2spjl4b"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
 [ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="3_52dwj"]
+=======
+[gd_scene load_steps=7 format=4 uid="uid://2myew2spjl4b"]
+
+[ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
+[ext_resource type="PackedScene" uid="uid://ug4jwylkxhnb" path="res://scenes/levels/level_4/stalactite/stalactite.tscn" id="3_52dwj"]
+[ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="4_e1c60"]
+[ext_resource type="PackedScene" uid="uid://c1ojnmhr1sm5l" path="res://scenes/enemies/minions/melees/mushroom.tscn" id="5_1bdp4"]
+[ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="6_bed0j"]
+>>>>>>> 513c5e2 (refactor health_bar)
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="10_ycpif"]
 
 [node name="Stage" type="Node2D"]
@@ -20,5 +30,16 @@ character_type = 3
 
 [node name="Obstacles" type="Node2D" parent="."]
 
+<<<<<<< HEAD
 [node name="KingCrab" parent="." instance=ExtResource("3_52dwj")]
 position = Vector2(899, 138)
+=======
+[node name="KingCrab" parent="." instance=ExtResource("4_e1c60")]
+position = Vector2(410, 142)
+
+[node name="Mushroom" parent="." instance=ExtResource("5_1bdp4")]
+position = Vector2(289, 179)
+
+[node name="Starfish" parent="." instance=ExtResource("6_bed0j")]
+position = Vector2(242, 177)
+>>>>>>> 513c5e2 (refactor health_bar)

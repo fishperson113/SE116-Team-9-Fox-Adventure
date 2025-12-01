@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://bhohtlj321per"]
 
-[ext_resource type="Script" uid="uid://c7x67gfa3mird" path="res://scenes/chests/chest.gd" id="1_xxwql"]
+[ext_resource type="Script" uid="uid://c7x67gfa3mird" path="res://scripts/chests/chest.gd" id="1_xxwql"]
 [ext_resource type="Texture2D" uid="uid://bidl5brkimhxo" path="res://assets/sprites/objects/chest/chest_close_01.png" id="2_jslgy"]
 [ext_resource type="Texture2D" uid="uid://bjcqjfm23puad" path="res://assets/sprites/objects/chest/chest_close_02.png" id="3_13qt1"]
 [ext_resource type="Texture2D" uid="uid://dqrogefu4p788" path="res://assets/sprites/objects/chest/chest_close_03.png" id="4_70u57"]
@@ -9,9 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://br8hwwry0gxvd" path="res://assets/sprites/objects/chest/chest_open_03.png" id="7_ud3fc"]
 [ext_resource type="Texture2D" uid="uid://b67b2vn864ieo" path="res://assets/sprites/objects/chest/chest_open_04.png" id="8_eo3wh"]
 [ext_resource type="Texture2D" uid="uid://bwcclik4ny1ry" path="res://assets/sprites/objects/chest/chest_open_05.png" id="9_oprcr"]
-[ext_resource type="Script" uid="uid://b2kvd8gekjjpm" path="res://scenes/chests/states/closed.gd" id="10_13qt1"]
+[ext_resource type="Script" uid="uid://b2kvd8gekjjpm" path="res://scripts/chests/states/closed.gd" id="10_13qt1"]
 [ext_resource type="Script" uid="uid://3u7i3d58hkla" path="res://scripts/utils/interactive_area_2d.gd" id="10_70u57"]
-[ext_resource type="Script" uid="uid://cnf7unwj5fral" path="res://scenes/chests/states/open.gd" id="11_70u57"]
+[ext_resource type="Script" uid="uid://cnf7unwj5fral" path="res://scripts/chests/states/open.gd" id="11_70u57"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_utdpp"]
 size = Vector2(32, 27)

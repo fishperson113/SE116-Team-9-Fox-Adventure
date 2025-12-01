@@ -71,3 +71,6 @@ shape = SubResource("RectangleShape2D_rl72c")
 visible = false
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_bhuc4")
+
+[node name="EnermyHealthBar" parent="." index="3"]
+visible = false
