@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dk3cjc74xm8k0"]
+[gd_scene load_steps=40 format=3 uid="uid://dk3cjc74xm8k0"]
 
 [ext_resource type="PackedScene" uid="uid://c40nxk7wmbjxm" path="res://scenes/enemies/abstract_enemies/boss.tscn" id="1_l046a"]
 [ext_resource type="Script" uid="uid://bdxnp2lgdqy4y" path="res://scripts/enemies/bosses/king_crab/king_crab.gd" id="1_ta3rv"]
@@ -32,7 +32,6 @@
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="31_ih4yw"]
 [ext_resource type="PackedScene" uid="uid://cg4dofch48b6t" path="res://scenes/enemies/bosses/king_crab/claw.tscn" id="32_5tar6"]
 [ext_resource type="Script" uid="uid://b788rlt8r54r8" path="res://scripts/enemies/states/boss_state.gd" id="32_set4q"]
-[ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/states/enemy_state.gd" id="33_2tyas"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xn0de"]
 animations = [{
@@ -198,20 +197,31 @@ size = Vector2(100, 54)
 
 [node name="KingCrab" instance=ExtResource("1_l046a")]
 script = ExtResource("1_ta3rv")
-stun_time = 2.0
-detect_distance_tolerance = 16.0
-roll_accelerator = 100.0
-roll_decelerator = 100.0
-prepare_meteor_time = 1.75
-meteor_slide_speed = 1000.0
-slash_frame = 3
-claw_frame = 3
-claw_range = 600.0
-claw_speed = 400.0
+stun_time = null
+detect_distance_tolerance = null
+roll_accelerator = null
+roll_decelerator = null
+prepare_meteor_time = null
+meteor_slide_speed = null
+slash_frame = null
+claw_frame = null
+claw_range = null
+claw_speed = null
+max_stamina = null
+cooldown = null
+rest_time = null
 health = 1000.0
 spike = 50.0
+sight = null
+movement_range = null
+attack_damage = null
+attack_speed = null
+use_raycast_detection = null
 turn_chance = 0.0
 movement_speed = 50.0
+gravity = null
+direction = null
+character_type = null
 
 [node name="AnimatedSprite2D" parent="Direction" index="0"]
 scale = Vector2(-1, 1)
@@ -302,7 +312,7 @@ script = ExtResource("32_set4q")
 metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="PrepareSlash" type="Node" parent="States" index="9"]
-script = ExtResource("33_2tyas")
+script = ExtResource("32_set4q")
 metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="DeathSlash" type="Node" parent="States" index="10"]

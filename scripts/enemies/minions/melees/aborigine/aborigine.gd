@@ -17,7 +17,6 @@ enum DistanceFeel { FAR, NEAR, FINE }
 @onready var _left_factory := $Direction/LeftFactory
 @onready var _right_factory := $Direction/RightFactory
 
-var _turn_chance: float = 0.0
 var _is_detected: bool = false
 var _is_sensed: bool = false
 

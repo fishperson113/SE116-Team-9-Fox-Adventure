@@ -46,5 +46,5 @@ func get_nearest_filled_tiles(_tile_map: TileMapLayer, _position: Vector2, _radi
 	
 	return nearest_pos
 
-func _on_hurt_area_2d_hurt(attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
+func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
 	velocity = _direction * abs(velocity)

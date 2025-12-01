@@ -66,6 +66,9 @@ func update_rest(_delta) -> void:
 func _return_to_normal():
 	fsm.change_state(fsm.states.normal)
 
+func _return_to_rest():
+	fsm.change_state(fsm.states.rest)
+
 func _on_near_sense_body_exited(_body) -> void:
 	if _body is Player:
 		found_player = null

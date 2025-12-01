@@ -122,7 +122,7 @@ size = Vector2(62, 66)
 size = Vector2(62, 66)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ovaaf"]
-size = Vector2(800, 400)
+size = Vector2(1200, 800)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mirfw"]
 size = Vector2(62, 66)

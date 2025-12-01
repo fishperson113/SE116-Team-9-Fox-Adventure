@@ -204,10 +204,10 @@ func update_shoot(_delta: float) -> void:
 func start_recall() -> void:
 	_movement_speed = 0
 	change_animation("recall")
-	animated_sprite.animation_finished.connect(_return_to_stun)
+	animated_sprite.animation_finished.connect(_return_to_rest)
 	
 func end_recall() -> void:
-	animated_sprite.animation_finished.disconnect(_return_to_stun)
+	animated_sprite.animation_finished.disconnect(_return_to_rest)
 	pass
 
 func start_stun() -> void:
@@ -324,9 +324,6 @@ func death_slash():
 	_has_slashed = true
 	_slash_box.disabled = false
 	pass
-
-func _return_to_stun():
-	fsm.change_state(fsm.states.stun)
 
 func hold_range():
 	if not found_player:

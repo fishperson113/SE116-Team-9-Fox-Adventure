@@ -15,6 +15,7 @@ collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_7177j")
 tile_effect = ExtResource("3_g6uas")
+duration = 10.0
 explosion_effect = ExtResource("2_e0qjq")
 metadata/_custom_type_script = "uid://2jpuxlemniop"
 
