@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponPartData" load_steps=3 format=3 uid="uid://2lqh35l074t4"]
 
 [ext_resource type="Script" uid="uid://b60t44i4hl225" path="res://scripts/crafting/weapon_part_data.gd" id="1_gkxw7"]
-[ext_resource type="Texture2D" uid="uid://7v0wbfekwbfa" path="res://assets/sprites/weapon_parts/sword/handle/5755.png" id="2_gkxw7"]
+[ext_resource type="Texture2D" uid="uid://b83lq8vvg7vjy" path="res://assets/sprites/weapon_parts/sword/handle/5753.png" id="2_gkxw7"]
 
 [resource]
 script = ExtResource("1_gkxw7")

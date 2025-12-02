@@ -11,6 +11,7 @@ func _update(_delta: float) -> void:
 	control_dash()
 	control_jump()
 	control_attack()
+	control_wide_attack()
 	control_throwing(_delta)
 	control_unequip()
 	#If on floor change to idle if not moving and not jumping

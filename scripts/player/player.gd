@@ -11,12 +11,18 @@ signal coinsChanged
 @export var max_dash: int = 1
 @export var current_dash: int = 0
 
+@export var max_wide_attack: int = 0
+@export var current_wide_attack: int = 0
+
 var weapon_thrower: WeaponThrower
 
 @onready var inventory: Inventory = $Inventory
 @onready var item_storer: ItemStorer = $ItemStorer
 var is_invulnerable: bool = false
 @onready var invulnerability_timer: Timer = $InvulnerabilityTimer
+
+@onready var wide_attack_timer: Timer = $WideAttackTimer
+@onready var wide_attack_resolve_timer: Timer = $WideAttackResolveTimer
 
 # This will be used to accept reflect damage
 @onready var hit_area: HitArea2D = $Direction/HitArea2D
@@ -30,6 +36,7 @@ var is_dash: bool = false
 
 func _ready() -> void:
 	get_node("Direction/HitArea2D/CollisionShape2D").disabled = true
+	get_node("Direction/WideHitArea2D/CollisionShape2D").disabled = true
 	fsm = FSM.new(self, $States, $States/Idle)
 	weapon_thrower = $WeaponThrower
 	decorator_manager= DecoratorManager.new()
@@ -45,8 +52,6 @@ func _ready() -> void:
 	equip_weapon(GameManager.equipped_weapon_path)
 
 func _process(delta: float) -> void:
-	print(current_dash)
-	
 	if current_dash == max_dash:
 		animated_sprite.modulate = ColorManager.dash_color
 	else:
@@ -98,6 +103,12 @@ func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, direction: Vector2, damage:
 func _on_invulnerability_timer_timeout() -> void:
 	is_invulnerable = false
 
+func _on_wide_attack_resolve_timer_timeout() -> void:
+	current_wide_attack -= 1
+	if current_wide_attack > 0:
+		wide_attack_resolve_timer.start()
+	pass # Replace with function body.
+
 func set_empty_health() -> void:
 	fsm.current_state.take_damage(currentHealth)
 	pass
@@ -144,6 +155,8 @@ func _apply_special_skill(skill: String):
 			movement_speed = base_speed * 2
 		"dash":
 			is_dash = true
+		"wide_attack":
+			max_wide_attack = 5
 		_:
 			_reset_weapon_stats()
 
@@ -151,6 +164,7 @@ func _reset_weapon_stats():
 	jump_step = 2   
 	movement_speed=base_speed
 	is_dash = false
+	max_wide_attack = 0
 
 func save_state() -> Dictionary:
 	return {

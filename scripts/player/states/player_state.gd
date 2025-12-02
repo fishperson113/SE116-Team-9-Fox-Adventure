@@ -73,6 +73,13 @@ func control_throwing(delta: float) -> bool:
 		obj.weapon_thrower.stop_find_throw_direction()
 	return false
 
+func control_wide_attack() -> bool:
+	if obj.current_wide_attack < obj.max_wide_attack:
+		if Input.is_action_just_pressed("wide_attack"):
+			change_state(fsm.states.wideattack)
+			return true
+	return false
+
 func take_damage(damage) -> void:
 	#Player take damage
 	#Player die if health is 0 and change to dead state
