@@ -14,6 +14,7 @@ func _update(_delta: float) -> void:
 	up_dir = sign(up_dir)
 	obj.velocity.y = obj.movement_speed * up_dir * dash_multiplier_ver
 	obj.move_and_slide()
+	
 	control_unequip()
 	pass
 

@@ -28,9 +28,6 @@ var base_speed
 var is_equipped: bool = false
 var is_dash: bool = false
 
-var dash_color: Color = Color8(168, 208, 255, 255)
-var normal_color: Color = Color8(255, 255, 255, 255)
-
 func _ready() -> void:
 	get_node("Direction/HitArea2D/CollisionShape2D").disabled = true
 	fsm = FSM.new(self, $States, $States/Idle)
@@ -48,10 +45,12 @@ func _ready() -> void:
 	equip_weapon(GameManager.equipped_weapon_path)
 
 func _process(delta: float) -> void:
+	print(current_dash)
+	
 	if current_dash == max_dash:
-		animated_sprite.modulate = dash_color
+		animated_sprite.modulate = ColorManager.dash_color
 	else:
-		animated_sprite.modulate = normal_color
+		animated_sprite.modulate = ColorManager.normal_color
 	pass
 		
 func change_player_type(char_type: int) -> void:
