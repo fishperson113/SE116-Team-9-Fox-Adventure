@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://j0as0g1spbxj" path="res://assets/sprites/enemies/monsters/crab/crab_01.png" id="4_v317b"]
 [ext_resource type="Texture2D" uid="uid://bqeqftjughwfv" path="res://assets/sprites/enemies/monsters/crab/crab_02.png" id="5_f7eix"]
 [ext_resource type="Texture2D" uid="uid://cdmgxy782yuqb" path="res://assets/sprites/enemies/monsters/crab/crab_03.png" id="6_vsxk6"]
+[ext_resource type="PackedScene" uid="uid://bclb52owsoiju" path="res://scenes/ui/EnermyHealthBar.tscn" id="8_31gao"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8ad5u"]
 animations = [{
@@ -106,12 +107,9 @@ shape = SubResource("CircleShape2D_0pepb")
 visible = false
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_fecqf")
-<<<<<<< HEAD
 
 [node name="EnermyHealthBar" parent="." index="3" instance=ExtResource("8_31gao")]
 offset_left = -14.0
 offset_top = -20.0
 offset_right = 15.0
 offset_bottom = -17.0
-=======
->>>>>>> 513c5e2 (refactor health_bar)
