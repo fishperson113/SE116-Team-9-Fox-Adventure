@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://c40nxk7wmbjxm"]
+[gd_scene load_steps=7 format=3 uid="uid://c40nxk7wmbjxm"]
 
 [ext_resource type="Script" uid="uid://13yux6010px0" path="res://scripts/enemies/abstracts/boss.gd" id="1_5af8u"]
 [ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="2_5af8u"]
 [ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="3_jv7x0"]
 [ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/states/enemy_state.gd" id="4_bqbrg"]
 [ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="5_5af8u"]
+[ext_resource type="PackedScene" uid="uid://bclb52owsoiju" path="res://scenes/ui/EnermyHealthBar.tscn" id="6_jv7x0"]
 
 [node name="Boss" type="CharacterBody2D"]
 collision_layer = 0
@@ -50,3 +51,9 @@ metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 [node name="Dead" type="Node" parent="States"]
 script = ExtResource("5_5af8u")
 metadata/_custom_type_script = "uid://1oi8lur0a64f"
+
+[node name="EnermyHealthBar" parent="." instance=ExtResource("6_jv7x0")]
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 34.0
+offset_bottom = -16.0

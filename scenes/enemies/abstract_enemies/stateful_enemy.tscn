@@ -99,7 +99,7 @@ script = ExtResource("7_30nii")
 metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="EnermyHealthBar" parent="." instance=ExtResource("8_ugute")]
-offset_left = -11.0
-offset_top = -18.0
-offset_right = 11.0
+offset_left = -10.0
+offset_top = -15.0
+offset_right = 8.0
 offset_bottom = -12.0

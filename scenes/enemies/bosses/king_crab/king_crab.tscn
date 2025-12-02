@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 [gd_scene load_steps=40 format=3 uid="uid://dk3cjc74xm8k0"]
-=======
-[gd_scene load_steps=47 format=3 uid="uid://dk3cjc74xm8k0"]
->>>>>>> 513c5e2 (refactor health_bar)
 
 [ext_resource type="PackedScene" uid="uid://c40nxk7wmbjxm" path="res://scenes/enemies/abstract_enemies/boss.tscn" id="1_l046a"]
 [ext_resource type="Script" uid="uid://bdxnp2lgdqy4y" path="res://scripts/enemies/bosses/king_crab/king_crab.gd" id="1_ta3rv"]
@@ -35,21 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://mpwhmsqtvt4j" path="res://assets/sprites/enemies/bosses/King_Crab/King_Crab_24.png" id="31_0rtcq"]
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="31_ih4yw"]
 [ext_resource type="PackedScene" uid="uid://cg4dofch48b6t" path="res://scenes/enemies/bosses/king_crab/claw.tscn" id="32_5tar6"]
-<<<<<<< HEAD
 [ext_resource type="Script" uid="uid://b788rlt8r54r8" path="res://scripts/enemies/states/boss_state.gd" id="32_set4q"]
-=======
-[ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="32_xn2er"]
-[ext_resource type="Script" uid="uid://dliarx6jpwlho" path="res://scripts/enemies/bosses/king_crab/normal.gd" id="32_ybdky"]
-[ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="33_0kveh"]
-[ext_resource type="Script" uid="uid://bf7u0p2m2xilm" path="res://scripts/enemies/bosses/king_crab/roll.gd" id="33_ybdky"]
-[ext_resource type="Script" uid="uid://b7vuy4jnk7w3b" path="res://scripts/enemies/bosses/king_crab/stop_roll.gd" id="35_1gcnt"]
-[ext_resource type="Script" uid="uid://cbxxptwf8p0" path="res://scripts/enemies/bosses/king_crab/recall.gd" id="35_bdue4"]
-[ext_resource type="Script" uid="uid://cttge5vyv66k2" path="res://scripts/enemies/bosses/king_crab/shoot.gd" id="36_bdue4"]
-[ext_resource type="Script" uid="uid://db8lo56hyva45" path="res://scripts/enemies/bosses/king_crab/stun.gd" id="37_ih4yw"]
-[ext_resource type="Script" uid="uid://b17bmh3pe38d6" path="res://scripts/enemies/bosses/king_crab/hurt.gd" id="40_4yrvs"]
-[ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="41_4yrvs"]
-[ext_resource type="PackedScene" uid="uid://bclb52owsoiju" path="res://scenes/ui/EnermyHealthBar.tscn" id="42_uijwm"]
->>>>>>> 513c5e2 (refactor health_bar)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xn0de"]
 animations = [{
@@ -337,19 +319,6 @@ metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 script = ExtResource("32_set4q")
 metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
-<<<<<<< HEAD
 [node name="Rest" type="Node" parent="States" index="11"]
 script = ExtResource("32_set4q")
 metadata/_custom_type_script = "uid://cuat5txuhbdg5"
-=======
-[node name="ActionTimer" type="Timer" parent="."]
-one_shot = true
-
-[node name="EnermyHealthBar" parent="." instance=ExtResource("42_uijwm")]
-offset_left = -45.0
-offset_top = -42.0
-offset_right = 51.0
-offset_bottom = -33.0
-
-[connection signal="body_entered" from="Direction/RecallArea2D" to="." method="_on_recall_area_2d_body_entered"]
->>>>>>> 513c5e2 (refactor health_bar)

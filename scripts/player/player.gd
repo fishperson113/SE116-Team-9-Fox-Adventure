@@ -35,7 +35,7 @@ func _ready() -> void:
 	super._ready()
 	GameManager.player = self
 	base_speed=movement_speed
-	maxHealth=1000
+	maxHealth=1000000
 	currentHealth=maxHealth
 	equip_weapon(GameManager.equipped_weapon_path)
 
