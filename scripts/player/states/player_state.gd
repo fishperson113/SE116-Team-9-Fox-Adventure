@@ -23,9 +23,17 @@ func control_moving() -> bool:
 		obj.internal_force.x = obj.movement_speed * dir
 		if obj.is_on_floor():
 			change_state(fsm.states.walk)
+			obj.current_dash = 0
 		return true
 	else:
 		obj.internal_force.x = 0
+	return false
+
+func control_dash() -> bool:
+	var is_dash_pressed = Input.is_action_just_pressed("dash")
+	if is_dash_pressed and obj.is_dash and obj.current_dash < obj.max_dash:
+		change_state(fsm.states.dash)
+		return true
 	return false
 
 #Control jumping
@@ -63,6 +71,13 @@ func control_throwing(delta: float) -> bool:
 		return true
 	elif Input.is_action_just_released("throw"):
 		obj.weapon_thrower.stop_find_throw_direction()
+	return false
+
+func control_wide_attack() -> bool:
+	if obj.current_wide_attack < obj.max_wide_attack:
+		if Input.is_action_just_pressed("wide_attack"):
+			change_state(fsm.states.wideattack)
+			return true
 	return false
 
 func take_damage(damage) -> void:

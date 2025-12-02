@@ -6,8 +6,10 @@ func _enter() -> void:
 
 func _update(delta: float):
 	#Control jump
+	control_dash()
 	control_jump()
 	control_attack()
+	control_wide_attack()
 	control_unequip()
 	#Control moving and if not moving change to idle
 	if !control_moving():

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponPartData" load_steps=3 format=3 uid="uid://cvm8jtvhx71ni"]
+
+[ext_resource type="Script" uid="uid://b60t44i4hl225" path="res://scripts/crafting/weapon_part_data.gd" id="1_ak4su"]
+[ext_resource type="Texture2D" uid="uid://ciw3ldausq2ge" path="res://assets/sprites/weapon_parts/sword/handle/5761.png" id="2_ak4su"]
+
+[resource]
+script = ExtResource("1_ak4su")
+id = "pommel_5"
+display_name = ""
+type = "pommel"
+sprite = ExtResource("2_ak4su")
+height = 20
+uses_material = false
+damage = 0
+max_health = 0
+attack_speed = 0.0
+special_skill = "increase_invulnerable"
+metadata/_custom_type_script = "uid://b60t44i4hl225"

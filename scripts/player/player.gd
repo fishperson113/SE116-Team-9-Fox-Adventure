@@ -8,12 +8,22 @@ signal coinsChanged
 @export var jump_step: int = 2
 @export var current_jump: int = 0
 
+@export var max_dash: int = 1
+@export var current_dash: int = 0
+
+@export var max_wide_attack: int = 0
+@export var current_wide_attack: int = 0
+
 var weapon_thrower: WeaponThrower
 
 @onready var inventory: Inventory = $Inventory
 @onready var item_storer: ItemStorer = $ItemStorer
 var is_invulnerable: bool = false
 @onready var invulnerability_timer: Timer = $InvulnerabilityTimer
+var invulnerability_wait_time: float = 1.0
+
+@onready var wide_attack_timer: Timer = $WideAttackTimer
+@onready var wide_attack_resolve_timer: Timer = $WideAttackResolveTimer
 
 # This will be used to accept reflect damage
 @onready var hit_area: HitArea2D = $Direction/HitArea2D
@@ -22,9 +32,12 @@ var weapon_manager: WeaponEquipmentManager= null
 var attack_damage
 var attack_speed
 var base_speed
-var is_equipped:bool = false
+var is_equipped: bool = false
+var is_dash: bool = false
+
 func _ready() -> void:
 	get_node("Direction/HitArea2D/CollisionShape2D").disabled = true
+	get_node("Direction/WideHitArea2D/CollisionShape2D").disabled = true
 	fsm = FSM.new(self, $States, $States/Idle)
 	weapon_thrower = $WeaponThrower
 	decorator_manager= DecoratorManager.new()
@@ -40,13 +53,11 @@ func _ready() -> void:
 	equip_weapon(GameManager.equipped_weapon_path)
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("change_form"):
-		var new_type: int
-		if character_type == 3:
-			new_type = 0
-		else:
-			new_type = character_type + 1
-		change_player_type(new_type)
+	if current_dash == max_dash:
+		animated_sprite.modulate = ColorManager.dash_color
+	else:
+		animated_sprite.modulate = ColorManager.normal_color
+	pass
 		
 func change_player_type(char_type: int) -> void:
 	var base_anim = current_animation if current_animation != null else "idle"
@@ -88,10 +99,16 @@ func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, direction: Vector2, damage:
 		return
 	fsm.current_state.take_damage(damage)
 	is_invulnerable = true
-	invulnerability_timer.start(1.0)
+	invulnerability_timer.start(invulnerability_wait_time)
 
 func _on_invulnerability_timer_timeout() -> void:
 	is_invulnerable = false
+
+func _on_wide_attack_resolve_timer_timeout() -> void:
+	current_wide_attack -= 1
+	if current_wide_attack > 0:
+		wide_attack_resolve_timer.start()
+	pass # Replace with function body.
 
 func set_empty_health() -> void:
 	fsm.current_state.take_damage(currentHealth)
@@ -137,12 +154,21 @@ func _apply_special_skill(skill: String):
 			jump_step = 3
 		"speed_up":
 			movement_speed = base_speed * 2
+		"dash":
+			is_dash = true
+		"wide_attack":
+			max_wide_attack = 5
+		"increase_invulnerable":
+			invulnerability_wait_time = 3.0
 		_:
 			_reset_weapon_stats()
 
 func _reset_weapon_stats():
 	jump_step = 2   
 	movement_speed=base_speed
+	is_dash = false
+	max_wide_attack = 0
+	invulnerability_wait_time = 1.0
 
 func save_state() -> Dictionary:
 	return {

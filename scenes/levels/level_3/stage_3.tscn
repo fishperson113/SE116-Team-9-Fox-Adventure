@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=4 uid="uid://cchdurl56vp0g"]
+[gd_scene load_steps=54 format=4 uid="uid://cchdurl56vp0g"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_ryjcr"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="3_4dlow"]
@@ -78,6 +78,9 @@ size = Vector2(30, 128)
 size = Vector2(30, 192)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ctv1g"]
+size = Vector2(30, 192)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fha76"]
 size = Vector2(30, 192)
 
 [sub_resource type="GDScript" id="GDScript_1vm6v"]
@@ -217,9 +220,6 @@ position = Vector2(4010, -3732)
 
 [node name="Mushroom4" parent="Enemies" instance=ExtResource("3_ryjcr")]
 position = Vector2(842, -1525)
-
-[node name="KingCrab" parent="Enemies" instance=ExtResource("31_a2u48")]
-position = Vector2(4625, -4084)
 
 [node name="Crab" parent="Enemies" instance=ExtResource("9_goifi")]
 position = Vector2(5369, -4056)
@@ -430,6 +430,27 @@ position = Vector2(-156, 274)
 [node name="CollisionShape2D" parent="World/Spawner7/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_ctv1g")
 
+[node name="Spawner8" parent="World" instance=ExtResource("4_4dlow")]
+position = Vector2(4572, -4055)
+width = 450.0
+height = 20.0
+trigger_size = Vector2(30, 192)
+trigger_position = Vector2(-380, -150)
+objects = Array[PackedScene]([ExtResource("31_a2u48")])
+group = "Enemies"
+
+[node name="DebugOx" parent="World/Spawner8" index="0"]
+target_position = Vector2(450, 0)
+
+[node name="DebugOy" parent="World/Spawner8" index="1"]
+target_position = Vector2(0, -30)
+
+[node name="Area2D" parent="World/Spawner8" index="2"]
+position = Vector2(-380, -150)
+
+[node name="CollisionShape2D" parent="World/Spawner8/Area2D" index="0"]
+shape = SubResource("RectangleShape2D_fha76")
+
 [node name="Player" parent="." instance=ExtResource("3_4dlow")]
 z_index = 2
 position = Vector2(252, 630)
@@ -549,3 +570,4 @@ centered = false
 [editable path="World/Spawner5"]
 [editable path="World/Spawner6"]
 [editable path="World/Spawner7"]
+[editable path="World/Spawner8"]
