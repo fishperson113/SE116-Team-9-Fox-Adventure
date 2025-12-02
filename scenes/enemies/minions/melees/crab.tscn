@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c6k6kx0i213q4"]
+[gd_scene load_steps=13 format=3 uid="uid://c6k6kx0i213q4"]
 
 [ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_pccfa"]
 [ext_resource type="Script" uid="uid://mfhb57posmxm" path="res://scripts/enemies/minions/melees/crab/crab.gd" id="2_31gao"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://j0as0g1spbxj" path="res://assets/sprites/enemies/monsters/crab/crab_01.png" id="4_v317b"]
 [ext_resource type="Texture2D" uid="uid://bqeqftjughwfv" path="res://assets/sprites/enemies/monsters/crab/crab_02.png" id="5_f7eix"]
 [ext_resource type="Texture2D" uid="uid://cdmgxy782yuqb" path="res://assets/sprites/enemies/monsters/crab/crab_03.png" id="6_vsxk6"]
-[ext_resource type="PackedScene" uid="uid://bclb52owsoiju" path="res://scenes/ui/EnermyHealthBar.tscn" id="8_31gao"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8ad5u"]
 animations = [{
@@ -107,9 +106,3 @@ shape = SubResource("CircleShape2D_0pepb")
 visible = false
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_fecqf")
-
-[node name="EnermyHealthBar" parent="." index="3" instance=ExtResource("8_31gao")]
-offset_left = -14.0
-offset_top = -20.0
-offset_right = 15.0
-offset_bottom = -17.0
