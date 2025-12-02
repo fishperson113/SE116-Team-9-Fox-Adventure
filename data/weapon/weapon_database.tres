@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="WeaponDatabase" load_steps=15 format=3 uid="uid://17jrg15tqase"]
+[gd_resource type="Resource" script_class="WeaponDatabase" load_steps=16 format=3 uid="uid://17jrg15tqase"]
 
 [ext_resource type="Script" uid="uid://bg7o110gecbgs" path="res://scripts/crafting/weapon_material_data.gd" id="1_l62ef"]
 [ext_resource type="Resource" uid="uid://b7f1xt8sai4l1" path="res://data/weapon/materials/copper.tres" id="2_11ltr"]
@@ -14,9 +14,10 @@
 [ext_resource type="Resource" uid="uid://bsgxihg6mbfmg" path="res://data/weapon/parts/pommel_2.tres" id="11_nkfxx"]
 [ext_resource type="Resource" uid="uid://2lqh35l074t4" path="res://data/weapon/parts/pommel_3.tres" id="12_1deq3"]
 [ext_resource type="Resource" uid="uid://buk1uh7vndcbr" path="res://data/weapon/parts/pommel_4.tres" id="13_bo1cm"]
+[ext_resource type="Resource" uid="uid://cvm8jtvhx71ni" path="res://data/weapon/parts/pommel_5.tres" id="14_64ji6"]
 
 [resource]
 script = ExtResource("3_jqf8u")
-parts = Array[ExtResource("2_p7ge1")]([ExtResource("6_bo1cm"), ExtResource("7_64ji6"), ExtResource("8_d4va3"), ExtResource("9_stl3y"), ExtResource("10_klfxi"), ExtResource("11_nkfxx"), ExtResource("12_1deq3"), ExtResource("13_bo1cm")])
+parts = Array[ExtResource("2_p7ge1")]([ExtResource("6_bo1cm"), ExtResource("7_64ji6"), ExtResource("8_d4va3"), ExtResource("9_stl3y"), ExtResource("10_klfxi"), ExtResource("11_nkfxx"), ExtResource("12_1deq3"), ExtResource("13_bo1cm"), ExtResource("14_64ji6")])
 materials = Array[ExtResource("1_l62ef")]([ExtResource("2_11ltr"), ExtResource("3_nkfxx"), ExtResource("4_1deq3")])
 metadata/_custom_type_script = "uid://c15346etd4npl"

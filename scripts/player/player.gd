@@ -20,6 +20,7 @@ var weapon_thrower: WeaponThrower
 @onready var item_storer: ItemStorer = $ItemStorer
 var is_invulnerable: bool = false
 @onready var invulnerability_timer: Timer = $InvulnerabilityTimer
+var invulnerability_wait_time: float = 1.0
 
 @onready var wide_attack_timer: Timer = $WideAttackTimer
 @onready var wide_attack_resolve_timer: Timer = $WideAttackResolveTimer
@@ -98,7 +99,7 @@ func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, direction: Vector2, damage:
 		return
 	fsm.current_state.take_damage(damage)
 	is_invulnerable = true
-	invulnerability_timer.start(1.0)
+	invulnerability_timer.start(invulnerability_wait_time)
 
 func _on_invulnerability_timer_timeout() -> void:
 	is_invulnerable = false
@@ -157,6 +158,8 @@ func _apply_special_skill(skill: String):
 			is_dash = true
 		"wide_attack":
 			max_wide_attack = 5
+		"increase_invulnerable":
+			invulnerability_wait_time = 3.0
 		_:
 			_reset_weapon_stats()
 
@@ -165,6 +168,7 @@ func _reset_weapon_stats():
 	movement_speed=base_speed
 	is_dash = false
 	max_wide_attack = 0
+	invulnerability_wait_time = 1.0
 
 func save_state() -> Dictionary:
 	return {
