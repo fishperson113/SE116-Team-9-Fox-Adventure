@@ -24,7 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://cbr3bjld670mw" path="res://scripts/enemies/bullets/follow_rocket.tscn" id="23_63a1y"]
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="23_dsagu"]
 [ext_resource type="PackedScene" uid="uid://djcueig2anvio" path="res://scripts/enemies/bullets/smoke_rocket.tscn" id="24_o7e0g"]
-[ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="28_eey5d"]
+[ext_resource type="Script" uid="uid://b788rlt8r54r8" path="res://scripts/enemies/states/boss_state.gd" id="25_1gsf2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o7e0g"]
 animations = [{
@@ -133,16 +133,16 @@ start_bomb_frame = 3
 bomb_frame_interval = 1
 start_rocket_frame = 4
 rocket_frame_interval = 1
-shot_speed = 600.0
-bomb_falling_time = 2.0
+shot_speed = 300.0
+bomb_falling_time = 1.5
 bomb_count = 4
 bomb_spread_percentage = 0.3
-rocket_falling_time = 2.0
-rocket_count = 4
+rocket_falling_time = 1.5
+rocket_count = 3
 rocket_spread_percentage = 0.6
-launch_count = 1
-launch_speed = 3600.0
-max_stamina = 10000
+launch_count = 3
+launch_speed = 300.0
+skill_cooldown = 1.5
 health = 2000.0
 spike = 100.0
 movement_speed = 0.0
@@ -208,22 +208,22 @@ visible = false
 shape = SubResource("RectangleShape2D_mirfw")
 
 [node name="Normal" parent="States" index="0"]
-script = ExtResource("28_eey5d")
+script = ExtResource("25_1gsf2")
 
 [node name="ShootBomb" type="Node" parent="States" index="2"]
-script = ExtResource("28_eey5d")
+script = ExtResource("25_1gsf2")
 
 [node name="SpreadBomb" type="Node" parent="States" index="3"]
-script = ExtResource("28_eey5d")
+script = ExtResource("25_1gsf2")
 metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="SpreadRocket" type="Node" parent="States" index="4"]
-script = ExtResource("28_eey5d")
+script = ExtResource("25_1gsf2")
 metadata/_custom_type_script = "uid://bq0h6rwr31w52"
 
 [node name="ShootRocket" type="Node" parent="States" index="5"]
-script = ExtResource("28_eey5d")
+script = ExtResource("25_1gsf2")
 metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="Rest" type="Node" parent="States" index="6"]
-script = ExtResource("28_eey5d")
+script = ExtResource("25_1gsf2")

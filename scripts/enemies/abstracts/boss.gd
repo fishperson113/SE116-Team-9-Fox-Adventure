@@ -1,12 +1,18 @@
 class_name Boss
 extends StatefulEnemy
 
+@export_group("Skill setting")
 @export var max_stamina: int = 4
-@export var cooldown: float = 1.0
-@export var rest_time: float = 2.0
+@export var rest_time: float = 3.0
+@export var skill_cooldown: float = 2.0
+
+@export_group("Intelligence setting")
+@export var close_range: float = 300.0
+@export var misbehave_chance: float = 0.25
 
 var _stamina
-var _skill_set = []
+var _short_range_skills: Array = []
+var _far_range_skills: Array = []
 
 func _ready() -> void:
 	super._ready();
@@ -24,7 +30,13 @@ func _init_skill_set():
 	rest()
 
 func get_skill():
-	return _skill_set.pick_random()
+	var is_close = is_player_close()
+	if randf() <= misbehave_chance:
+		is_close = not is_close
+		
+	if is_close:
+		return _short_range_skills.pick_random()
+	return _far_range_skills.pick_random()
 
 func use_stamina() -> void:
 	_stamina += 1
@@ -38,7 +50,7 @@ func rest() -> void:
 func start_normal() -> void:
 	_movement_speed = movement_speed
 	change_animation("normal")
-	fsm.current_state.timer = cooldown
+	fsm.current_state.timer = skill_cooldown
 
 func update_normal(_delta: float) -> void:
 	if not found_player:
@@ -83,3 +95,8 @@ func compute_speed(_t: float, _dis: Vector2, _gra: float):
 func compute_shot_speed(from: Vector2, to: Vector2, strength: float):
 	var normalized := (to - from).normalized()
 	return normalized * strength
+
+func is_player_close() -> bool:
+	if not found_player:
+		return false
+	return found_player.position.distance_to(position) <= close_range

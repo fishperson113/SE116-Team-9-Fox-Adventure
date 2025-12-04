@@ -39,7 +39,7 @@ extends Boss
 
 @export_group("Rocket launch skill")
 @export var launch_count: int = 3
-@export var launch_speed: float = 3600
+@export var launch_speed: float = 600
 
 var start_bomb_period: float = 0.0
 var bomb_interval: float = 0.0
@@ -108,8 +108,8 @@ func _init_shoot_bomb_state() -> void:
 
 func _init_skill_set():
 	super._init_skill_set()
-	#_skill_set = [fsm.states.shootbomb, fsm.states.spreadbomb, fsm.states.shootrocket, fsm.states.spreadrocket]
-	_skill_set = [fsm.states.shootrocket]
+	_short_range_skills = [fsm.states.shootrocket, fsm.states.spreadrocket]
+	_far_range_skills = [fsm.states.shootbomb, fsm.states.spreadbomb]
 
 func start_spread_bomb() -> void:
 	fsm.current_state.timer = start_bomb_period
@@ -120,7 +120,6 @@ func start_spread_bomb() -> void:
 
 func end_spread_bomb() -> void:
 	animated_sprite.animation_finished.disconnect(_return_to_normal)
-	#_change_skill()
 	pass
 
 func update_spread_bomb(_delta) -> void:
@@ -158,7 +157,6 @@ func start_shoot_bomb() -> void:
 
 func end_shoot_bomb() -> void:
 	animated_sprite.animation_finished.disconnect(_return_to_normal)
-	#_change_skill()
 	pass
 
 func update_shoot_bomb(_delta) -> void:

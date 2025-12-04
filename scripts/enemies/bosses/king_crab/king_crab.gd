@@ -12,7 +12,6 @@ extends Boss
 #	Sau khi sử dụng Skill 2 sẽ vào trạng thái mệt mỏi trong 2 giây.
 #Boss King Crab sẽ sử dụng Skill 1 và Skill 2 đan xen nhau
 
-@export var stun_time: float = 2.0
 @export var detect_distance_tolerance: float = 16.0
 
 @export_group("Rolling skill")
@@ -46,7 +45,6 @@ func _ready() -> void:
 	_init_stop_roll_state()
 	_init_shoot_state()
 	_init_recall_state()
-	_init_stun_state()
 	_init_prepare_meteor_state()
 	_init_meteor_slide_state()
 	_init_prepare_slash_state()
@@ -85,13 +83,6 @@ func _init_prepare_meteor_state():
 		state.exit.connect(end_prepare_meteor)
 		state.update.connect(update_prepare_meteor)
 
-func _init_stun_state() -> void:
-	if has_node("States/Stun"):
-		var state : EnemyState = get_node("States/Stun")
-		state.enter.connect(start_stun)
-		state.exit.connect(end_stun)
-		state.update.connect(update_stun)
-
 func _init_recall_state() -> void:
 	if has_node("States/Recall"):
 		var state : EnemyState = get_node("States/Recall")
@@ -127,7 +118,8 @@ func _init_stop_roll_state() -> void:
 
 func _init_skill_set():
 	super._init_skill_set()
-	_skill_set = [fsm.states.roll, fsm.states.shoot, fsm.states.preparemeteor, fsm.states.prepareslash]
+	_short_range_skills = [fsm.states.roll, fsm.states.prepareslash]
+	_far_range_skills = [fsm.states.roll, fsm.states.shoot, fsm.states.preparemeteor]
 
 func update_normal(_delta: float):
 	try_patrol_turn(_delta)
@@ -204,23 +196,10 @@ func update_shoot(_delta: float) -> void:
 func start_recall() -> void:
 	_movement_speed = 0
 	change_animation("recall")
-	animated_sprite.animation_finished.connect(_return_to_rest)
+	animated_sprite.animation_finished.connect(_return_to_normal)
 	
 func end_recall() -> void:
-	animated_sprite.animation_finished.disconnect(_return_to_rest)
-	pass
-
-func start_stun() -> void:
-	_movement_speed = 0
-	change_animation("stun")
-	fsm.current_state.timer = stun_time
-
-func update_stun(_delta: float) -> void:
-	if fsm.current_state.update_timer(_delta):
-		_return_to_normal()
-	pass
-
-func end_stun() -> void:
+	animated_sprite.animation_finished.disconnect(_return_to_normal)
 	pass
 
 func shoot() -> void:

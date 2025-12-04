@@ -197,31 +197,23 @@ size = Vector2(100, 54)
 
 [node name="KingCrab" instance=ExtResource("1_l046a")]
 script = ExtResource("1_ta3rv")
-stun_time = null
-detect_distance_tolerance = null
-roll_accelerator = null
-roll_decelerator = null
-prepare_meteor_time = null
-meteor_slide_speed = null
-slash_frame = null
-claw_frame = null
-claw_range = null
-claw_speed = null
-max_stamina = null
-cooldown = null
-rest_time = null
+detect_distance_tolerance = 16.0
+roll_accelerator = 100.0
+roll_decelerator = 100.0
+prepare_meteor_time = 1.75
+meteor_slide_speed = 1000.0
+slash_frame = 3
+claw_frame = 3
+claw_range = 600.0
+claw_speed = 400.0
+max_stamina = 5
+rest_time = 2.0
+skill_cooldown = 1.0
+close_range = 150.0
 health = 1000.0
 spike = 50.0
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
 turn_chance = 0.0
 movement_speed = 50.0
-gravity = null
-direction = null
-character_type = null
 
 [node name="AnimatedSprite2D" parent="Direction" index="0"]
 scale = Vector2(-1, 1)
