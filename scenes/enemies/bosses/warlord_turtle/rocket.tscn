@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dqrfrb8e5g4kh"]
 
-[ext_resource type="Script" uid="uid://bvlo7i1lfme07" path="res://scripts/enemies/bosses/warlord_turtle/smoke_rocket.gd" id="1_0mir8"]
+[ext_resource type="Script" uid="uid://bvlo7i1lfme07" path="res://scripts/enemies/bullets/smoke_rocket.gd" id="1_0mir8"]
 [ext_resource type="Texture2D" uid="uid://bqqkluxpnvgqo" path="res://assets/sprites/enemies/bosses/war_lord_bullet/bullet_rocket.png" id="1_pnicj"]
 [ext_resource type="PackedScene" uid="uid://8q1vq51ga6ye" path="res://scenes/enemies/bosses/warlord_turtle/smoke_effect.tscn" id="2_ciu7s"]
 [ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="2_mx2dt"]

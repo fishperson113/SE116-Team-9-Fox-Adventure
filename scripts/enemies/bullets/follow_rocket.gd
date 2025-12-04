@@ -52,9 +52,6 @@ func apply_velocity(fire_velocity: Vector2) -> void:
 	velocity *= _speed
 
 func _process(_delta: float) -> void:
-	if fsm:
-		fsm._update(_delta)
-	super._process(_delta)
 	rotation = velocity.angle() + PI / 2
 
 func prepare_vertical_attack():

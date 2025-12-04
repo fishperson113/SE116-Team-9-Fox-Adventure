@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cllda15ck0g1a"]
 
-[ext_resource type="Script" uid="uid://c1ttc5pwxrijv" path="res://scripts/enemies/bosses/warlord_turtle/bomb.gd" id="1_7177j"]
+[ext_resource type="Script" uid="uid://c1ttc5pwxrijv" path="res://scripts/enemies/bullets/warlord_bomb.gd" id="1_7177j"]
 [ext_resource type="Texture2D" uid="uid://1o0wojqnpg0d" path="res://assets/sprites/enemies/bosses/war_lord_bullet/bullet_cannon.png" id="2_35a51"]
 [ext_resource type="PackedScene" uid="uid://e1eva17h0g0g" path="res://scenes/enemies/bosses/warlord_turtle/explosion_effect.tscn" id="2_e0qjq"]
 [ext_resource type="PackedScene" uid="uid://btechtxx2sskd" path="res://scenes/levels/level_5/mud/mud.tscn" id="3_g6uas"]

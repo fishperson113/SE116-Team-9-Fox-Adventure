@@ -1,0 +1,57 @@
+[gd_scene load_steps=11 format=3 uid="uid://csgfa541ialou"]
+
+[ext_resource type="PackedScene" uid="uid://cfj2byhlf7862" path="res://scripts/enemies/bullets/base_bomb.tscn" id="1_h2lhd"]
+[ext_resource type="Script" uid="uid://c1ttc5pwxrijv" path="res://scripts/enemies/bullets/warlord_bomb.gd" id="2_65ul8"]
+[ext_resource type="Texture2D" uid="uid://1o0wojqnpg0d" path="res://assets/sprites/enemies/bosses/war_lord_bullet/bullet_cannon.png" id="2_syseg"]
+[ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="3_65ul8"]
+[ext_resource type="PackedScene" uid="uid://btechtxx2sskd" path="res://scenes/levels/level_5/mud/mud.tscn" id="3_gb4br"]
+[ext_resource type="PackedScene" uid="uid://e1eva17h0g0g" path="res://scenes/enemies/bosses/warlord_turtle/explosion_effect.tscn" id="4_jvp2c"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gb4br"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_syseg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jvp2c"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_suue1"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8nfmn"]
+radius = 9.0
+
+[node name="NormalCannon" instance=ExtResource("1_h2lhd")]
+script = ExtResource("2_65ul8")
+explosion_radius = 100.0
+tile_effect = ExtResource("3_gb4br")
+duration = 3.0
+explosion_effect = ExtResource("4_jvp2c")
+
+[node name="AnimatedSprite2D" parent="Direction" index="0"]
+sprite_frames = SubResource("SpriteFrames_gb4br")
+
+[node name="HitArea2D" parent="Direction" index="1"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D" index="0"]
+shape = SubResource("CircleShape2D_jvp2c")
+
+[node name="HurtArea2D" type="Area2D" parent="Direction" index="2"]
+visible = false
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("3_65ul8")
+metadata/_custom_type_script = "uid://cofkmvw2auxcs"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HurtArea2D" index="0"]
+shape = SubResource("CircleShape2D_suue1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_8nfmn")

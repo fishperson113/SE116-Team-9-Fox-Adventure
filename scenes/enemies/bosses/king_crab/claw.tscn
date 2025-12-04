@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cg4dofch48b6t"]
 
-[ext_resource type="Script" uid="uid://bxmg4wk2lrhxb" path="res://scripts/enemies/bosses/king_crab/claw.gd" id="1_hkb6n"]
+[ext_resource type="Script" uid="uid://bxmg4wk2lrhxb" path="res://scripts/enemies/bullets/claw.gd" id="1_hkb6n"]
 [ext_resource type="Texture2D" uid="uid://cbboh6hu3w0ls" path="res://assets/sprites/enemies/bosses/King_Crab/King_Crab_31.png" id="1_thy4w"]
 [ext_resource type="Texture2D" uid="uid://nudrqfwtbqwq" path="res://assets/sprites/enemies/bosses/King_Crab/King_Crab_32.png" id="2_4k4ac"]
 [ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="3_4k4ac"]

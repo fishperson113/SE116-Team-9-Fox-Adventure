@@ -20,10 +20,10 @@
 [ext_resource type="Texture2D" uid="uid://b767nhml2smxh" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle6.png" id="19_85n5f"]
 [ext_resource type="Texture2D" uid="uid://bd11owlleqwqp" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle7.png" id="20_vl3do"]
 [ext_resource type="Texture2D" uid="uid://cv1e56rgrcuvo" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle8.png" id="21_qbl8w"]
+[ext_resource type="PackedScene" uid="uid://csgfa541ialou" path="res://scripts/enemies/bullets/normal_cannon.tscn" id="22_1gsf2"]
 [ext_resource type="PackedScene" uid="uid://cbr3bjld670mw" path="res://scenes/enemies/bosses/warlord_turtle/follow_rocket.tscn" id="23_63a1y"]
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="23_dsagu"]
-[ext_resource type="PackedScene" uid="uid://dqrfrb8e5g4kh" path="res://scenes/enemies/bosses/warlord_turtle/rocket.tscn" id="23_o7e0g"]
-[ext_resource type="PackedScene" uid="uid://cllda15ck0g1a" path="res://scenes/enemies/bosses/warlord_turtle/bomb.tscn" id="24_jm27j"]
+[ext_resource type="PackedScene" uid="uid://djcueig2anvio" path="res://scripts/enemies/bullets/smoke_rocket.tscn" id="24_o7e0g"]
 [ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="28_eey5d"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o7e0g"]
@@ -170,14 +170,14 @@ shape = SubResource("RectangleShape2D_ovaaf")
 [node name="Factory1" type="Marker2D" parent="Direction/BombFactories" index="0"]
 position = Vector2(2, -23)
 script = ExtResource("23_dsagu")
-product_packed_scene = ExtResource("24_jm27j")
+product_packed_scene = ExtResource("22_1gsf2")
 target_container_name = &"Bullets"
 metadata/_custom_type_script = "uid://2dtm6jeegr43"
 
 [node name="Factory2" type="Marker2D" parent="Direction/BombFactories" index="1"]
 position = Vector2(31, -16)
 script = ExtResource("23_dsagu")
-product_packed_scene = ExtResource("24_jm27j")
+product_packed_scene = ExtResource("22_1gsf2")
 target_container_name = &"Bullets"
 metadata/_custom_type_script = "uid://2dtm6jeegr43"
 
@@ -197,7 +197,7 @@ metadata/_custom_type_script = "uid://2dtm6jeegr43"
 [node name="Factory1" type="Marker2D" parent="Direction/RocketFactories/SmokeRocket" index="0"]
 position = Vector2(2, -23)
 script = ExtResource("23_dsagu")
-product_packed_scene = ExtResource("23_o7e0g")
+product_packed_scene = ExtResource("24_o7e0g")
 target_container_name = &"Bullets"
 metadata/_custom_type_script = "uid://2dtm6jeegr43"
 

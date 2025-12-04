@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://djcueig2anvio"]
+
+[ext_resource type="PackedScene" uid="uid://c0f0ajqnyis1a" path="res://scripts/enemies/bullets/base_rocket.tscn" id="1_s1a63"]
+[ext_resource type="PackedScene" uid="uid://8q1vq51ga6ye" path="res://scenes/enemies/bosses/warlord_turtle/smoke_effect.tscn" id="2_ngl1y"]
+[ext_resource type="Script" uid="uid://bvlo7i1lfme07" path="res://scripts/enemies/bullets/smoke_rocket.gd" id="2_s1a63"]
+[ext_resource type="Texture2D" uid="uid://bqqkluxpnvgqo" path="res://assets/sprites/enemies/bosses/war_lord_bullet/bullet_rocket.png" id="3_mful6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uip6d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_mful6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pcgyq"]
+size = Vector2(14, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wy4iy"]
+size = Vector2(14, 24)
+
+[node name="SmokeRocket" instance=ExtResource("1_s1a63")]
+script = ExtResource("2_s1a63")
+explosion_effect = ExtResource("2_ngl1y")
+
+[node name="AnimatedSprite2D" parent="Direction" index="0"]
+sprite_frames = SubResource("SpriteFrames_uip6d")
+
+[node name="HitArea2D" parent="Direction" index="1"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D" index="0"]
+shape = SubResource("RectangleShape2D_pcgyq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_wy4iy")

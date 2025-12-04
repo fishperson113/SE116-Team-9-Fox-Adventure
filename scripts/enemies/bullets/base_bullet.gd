@@ -2,26 +2,37 @@ class_name BaseBullet
 extends BaseCharacter
 
 @export var explosion_effect: PackedScene = null
+@export var container_name: String = "Bullets"
 
 var _hit_area: HitArea2D = null
+var _effect_factory: PackedSceneFactory = null
 
+# These attributes can be changed
 var _gravity: float = gravity
 
 func _ready() -> void:
+	super._ready()
+	_effect_factory = PackedSceneFactory.new(self)
 	_init_hit_area()
 
 func _init_hit_area():
 	if has_node("Direction/HitArea2D"):
 		_hit_area = $Direction/HitArea2D
-	elif has_node("HitArea2D"):
-		_hit_area = $HitArea2D
-	_hit_area.body_entered.connect(_on_body_entered)
-	_hit_area.hitted.connect(_on_hitted)
+		_hit_area.body_entered.connect(_on_body_entered)
+		_hit_area.hitted.connect(_on_hitted)
 
-func _physics_process(_delta: float) -> void:
-	pass
+func _physics_process(delta: float) -> void:
+	# Animation
+	_check_changed_animation()
+	
+	if fsm != null:
+		fsm._update(delta)
+	# Movement
+	_update_movement(delta)
+	# Direction
+	_check_changed_direction()
 
-func _process(_delta: float) -> void:
+func _update_movement(_delta: float) -> void:
 	velocity.y += _gravity * _delta
 	move_and_slide()
 
@@ -31,8 +42,8 @@ func set_damage(damage: float) -> void:
 func apply_velocity(fire_velocity: Vector2) -> void:
 	velocity = fire_velocity
 
-func set_gravity(_g: float):
-	_gravity = _g
+func set_gravity(_new_gravity: float):
+	_gravity = _new_gravity
 
 func _on_body_entered(_body):
 	explosion()
@@ -49,7 +60,7 @@ func create_effect():
 	if not explosion_effect:
 		return
 	
-	var created_effect = create(explosion_effect, global_position)
+	var created_effect = _effect_factory.create(explosion_effect, container_name, global_position)
 	created_effect.z_index = 1
 	if created_effect is GPUParticles2D:
 		created_effect.emitting = true
