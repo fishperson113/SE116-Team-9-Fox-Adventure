@@ -39,6 +39,7 @@ extends Boss
 
 @export_group("Rocket launch skill")
 @export var launch_count: int = 3
+@export var launch_speed: float = 3600
 
 var start_bomb_period: float = 0.0
 var bomb_interval: float = 0.0
@@ -107,7 +108,8 @@ func _init_shoot_bomb_state() -> void:
 
 func _init_skill_set():
 	super._init_skill_set()
-	_skill_set = [fsm.states.shootbomb, fsm.states.spreadbomb, fsm.states.shootrocket, fsm.states.spreadrocket]
+	#_skill_set = [fsm.states.shootbomb, fsm.states.spreadbomb, fsm.states.shootrocket, fsm.states.spreadrocket]
+	_skill_set = [fsm.states.shootrocket]
 
 func start_spread_bomb() -> void:
 	fsm.current_state.timer = start_bomb_period
@@ -243,7 +245,7 @@ func launch_rocket() -> void:
 		var bullet = _follow_rocket_factories.get_children().pick_random().create() as FollowRocket
 		bullet.set_launcher(self)
 		bullet.set_target(found_player)
-		bullet.apply_velocity(Vector2(600, 600))
+		bullet.apply_velocity(Vector2(launch_speed, launch_speed))
 		bullet.set_damage(spike)
 		bullet.set_gravity(0)
 	pass

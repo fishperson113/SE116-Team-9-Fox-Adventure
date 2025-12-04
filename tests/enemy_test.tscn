@@ -21,4 +21,5 @@ character_type = 3
 [node name="Obstacles" type="Node2D" parent="."]
 
 [node name="WarlordTurtle" parent="." instance=ExtResource("3_52dwj")]
-position = Vector2(394, 156)
+position = Vector2(690, 152)
+launch_speed = 600.0

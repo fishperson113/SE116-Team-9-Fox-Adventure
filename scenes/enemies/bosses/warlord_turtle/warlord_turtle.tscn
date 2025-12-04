@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://bd11owlleqwqp" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle7.png" id="20_vl3do"]
 [ext_resource type="Texture2D" uid="uid://cv1e56rgrcuvo" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle8.png" id="21_qbl8w"]
 [ext_resource type="PackedScene" uid="uid://csgfa541ialou" path="res://scripts/enemies/bullets/normal_cannon.tscn" id="22_1gsf2"]
-[ext_resource type="PackedScene" uid="uid://cbr3bjld670mw" path="res://scenes/enemies/bosses/warlord_turtle/follow_rocket.tscn" id="23_63a1y"]
+[ext_resource type="PackedScene" uid="uid://cbr3bjld670mw" path="res://scripts/enemies/bullets/follow_rocket.tscn" id="23_63a1y"]
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="23_dsagu"]
 [ext_resource type="PackedScene" uid="uid://djcueig2anvio" path="res://scripts/enemies/bullets/smoke_rocket.tscn" id="24_o7e0g"]
 [ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="28_eey5d"]
@@ -140,7 +140,9 @@ bomb_spread_percentage = 0.3
 rocket_falling_time = 2.0
 rocket_count = 4
 rocket_spread_percentage = 0.6
-launch_count = 3
+launch_count = 1
+launch_speed = 3600.0
+max_stamina = 10000
 health = 2000.0
 spike = 100.0
 movement_speed = 0.0

@@ -398,6 +398,7 @@ movement_speed = 20.0
 
 [node name="WarlordTurtle" parent="Enemies" instance=ExtResource("7_txxkb")]
 position = Vector2(8987, 8859)
+launch_speed = 3600.0
 health = 300.0
 
 [node name="Bullets" type="Node2D" parent="."]

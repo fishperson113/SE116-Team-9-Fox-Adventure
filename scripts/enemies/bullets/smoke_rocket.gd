@@ -1,4 +1,2 @@
-extends BaseBullet
-
-func _process(delta: float) -> void:
-	rotation = velocity.angle() + PI / 2
+class_name SmokeRocket
+extends BaseRocket

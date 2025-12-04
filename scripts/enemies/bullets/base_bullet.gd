@@ -50,6 +50,7 @@ func _on_body_entered(_body):
 	pass
 
 func _on_hitted(_area):
+	explosion()
 	pass
 
 func explosion() -> void:
@@ -66,13 +67,3 @@ func create_effect():
 		created_effect.emitting = true
 	if created_effect.has_method("set_damage"):
 		created_effect.set_damage(_hit_area._dealt_damage)
-
-func create(_packed_scene: PackedScene, _position: Vector2):
-	if not _packed_scene:
-		return
-	
-	var scene: Node2D = _packed_scene.instantiate()
-	scene.global_position = _position
-	
-	get_tree().current_scene.add_child(scene)
-	return scene

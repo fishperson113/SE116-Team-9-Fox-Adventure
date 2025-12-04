@@ -1,3 +1,4 @@
+class_name NormalCannon
 extends BaseBullet
 
 @export var explosion_radius: float = 100.0
@@ -12,7 +13,7 @@ func _on_body_entered(_area: Variant) -> void:
 func create_effect_tiles(_positions: Array[Vector2], _duration: float):
 	var tiles: Array
 	for pos in _positions:
-		tiles.append(create(tile_effect, pos))
+		tiles.append(_effect_factory.create(tile_effect, container_name, pos))
 
 	get_tree().create_timer(_duration).timeout.connect(
 		func():

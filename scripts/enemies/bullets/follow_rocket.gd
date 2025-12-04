@@ -1,45 +1,16 @@
 class_name FollowRocket
-extends BaseBullet
+extends BaseRocket
 
-@export var tolerance := Vector2(10, 5)
-@export var min_setup_time: float = 0.5
-@export var max_setup_time: float = 1.0
+@export var turn_angle: float = PI / 2
+@export var turn_chance: float = 0.1
 
 var _launcher: Enemy = null
-var _speed := Vector2.ZERO
-
+var _speed := Vector2(1, 1)
 var _target: BaseCharacter = null
-var _step: Array[Vector2]
-var _step_cursor: int = 0
 
 func _ready() -> void:
 	super._ready()
-	fsm = FSM.new(self, $States, $States/Prepare)
-	_init_prepare_state()
-	_init_detect_state()
-	_init_attack_state()
-	prepare_vertical_attack()
-
-func _init_attack_state():
-	if has_node("States/Attack"):
-		var state = get_node("States/Attack")
-		state.enter.connect(start_attack)
-		state.exit.connect(end_attack)
-		state.update.connect(update_attack)
-
-func _init_detect_state():
-	if has_node("States/Detect"):
-		var state = get_node("States/Detect")
-		state.enter.connect(start_detect)
-		state.exit.connect(end_detect)
-		state.update.connect(update_detect)
-
-func _init_prepare_state():
-	if has_node("States/Prepare"):
-		var state = get_node("States/Prepare")
-		state.enter.connect(start_prepare)
-		state.exit.connect(end_prepare)
-		state.update.connect(update_prepare)
+	set_up_attack()
 
 func set_launcher(_l: Enemy):
 	self._launcher = _l
@@ -49,63 +20,36 @@ func set_target(_t: BaseCharacter):
 
 func apply_velocity(fire_velocity: Vector2) -> void:
 	_speed = fire_velocity.abs()
-	velocity *= _speed
+	velocity = velocity.normalized() * _speed
 
-func _process(_delta: float) -> void:
-	rotation = velocity.angle() + PI / 2
+func set_up_attack():
+	var direction = Vector2.from_angle(randf_range(-turn_angle / 2, turn_angle / 2) - PI / 2)
+	velocity = direction
 
-func prepare_vertical_attack():
-	_step = [Vector2.UP]
-	
-func start_prepare() -> void:
-	_step_cursor = 0
-	fsm.current_state.timer = randf_range(min_setup_time, max_setup_time)
-	pass
+func _process(delta: float) -> void:
+	super._process(delta)
+	redirect(delta)
 
-func end_prepare() -> void:
-	pass
+func redirect(delta: float):
+	var _distance = _target.position - position
+	var _current_angle = abs(_distance.angle_to(velocity))
+	if _current_angle <= turn_angle:
+		var _accepted_angle = _compute_angular_sweep(_distance, delta)
+		_try_rushing(_current_angle, _accepted_angle, _distance)
+	else:
+		_try_turn_toward_target(_distance)
 
-func update_prepare(_delta: float) -> void:
-	if fsm.current_state.update_timer(_delta):
-		_step_cursor += 1
-		fsm.current_state.timer = randf_range(min_setup_time, max_setup_time)
-	if _step_cursor >= _step.size():
-		fsm.change_state(fsm.states.detect)
-		return
-	velocity = _step[_step_cursor] * _speed
-	pass
+func _try_rushing(_current_angle: float, _accepted_angle: float, _distance: Vector2):
+	if turn_angle - _current_angle <= _accepted_angle:
+		velocity = _distance.normalized() * velocity.length()
 
-func start_detect() -> void:
-	velocity = turn(velocity)
-	pass
+func _compute_angular_sweep(_distance: Vector2, _delta: float):
+	var _half_step = velocity * _delta / 2
+	var _upper_bound = _distance + _half_step
+	var _lower_bound = _distance - _half_step
+	return absf(_upper_bound.angle_to(_lower_bound))
 
-func end_detect() -> void:
-	pass
-
-func update_detect(_delta: float) -> void:
-	if not _target:
-		return
-		
-	var dis = _target.position - position
-	velocity = (dis * velocity.abs()).normalized() * _speed
-	if abs(dis.x) <= tolerance.x or abs(dis.y) <= tolerance.y:
-		fsm.change_state(fsm.states.attack)
-
-func start_attack() -> void:
-	if not _target:
-		return
-
-	var dis = _target.position - position
-	velocity = turn(velocity)
-	velocity = (dis * velocity.abs()).normalized() * _speed
-
-func end_attack() -> void:
-	pass
-
-func update_attack(_delta: float) -> void:
-	pass
-
-func turn(_t: Vector2):
-	if _t.dot(Vector2.LEFT) == 0:
-		return Vector2.LEFT
-	return Vector2.UP
+func _try_turn_toward_target(_distance: Vector2):
+	if randf() <= turn_chance:
+		var rotated_angle = randf_range(0, turn_angle)
+		velocity = velocity.rotated(rotated_angle * sign(_distance.x))
