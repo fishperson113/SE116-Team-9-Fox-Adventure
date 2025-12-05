@@ -19,6 +19,7 @@ extends Minion
 
 var _sight: float = 0
 var _player_pos: Vector2 = Vector2.ZERO
+var _is_hitted: bool = false
 
 func _ready() -> void:
 	super._ready()
@@ -57,14 +58,19 @@ func _init_stun_state() -> void:
 		state.update.connect(update_stun)
 
 func _on_hit_area_2d_hitted(_body) -> void:
-	fsm.change_state(fsm.states.stun)
+	_is_hitted = true
+	pass
 
 func get_stun_time() -> float:
 	return stun_time
 
-func can_attack() -> bool:
-	return found_player != null
+# Normal
+func update_normal(_delta: float) -> void:
+	super.update_normal(_delta)
+	if is_player_visible():
+		fsm.change_state(fsm.states.prepare)
 
+# Attack state
 func start_attack() -> void:
 	_movement_speed = movement_speed * attack_speed_multiplier
 	_front_ray_cast.position.x = _sight * attack_speed_multiplier
@@ -83,23 +89,38 @@ func end_attack() -> void:
 	pass
 
 func update_attack(_delta: float) -> void:
-	if not try_jump() and is_on_wall() and is_on_floor():
-		fsm.change_state(fsm.states.stun)
+	try_jump()
+	if is_player_visible():
+		remember_player_position()
+		return
+	if not is_close(_player_pos, 5) and is_on_direction(_player_pos):
+		return
+	fsm.change_state(fsm.states.stun)
+	#if _is_hitted or not try_jump() and is_on_wall() and is_on_floor():
+		#_is_hitted = false
+		#fsm.change_state(fsm.states.stun)
 	pass
 
+# Prepare state
 func start_prepare() -> void:
 	_movement_speed = movement_speed / attack_speed_multiplier
 	change_animation("prepare")
+	fsm.current_state.timer = prepare_time
 	pass
 
 func end_prepare() -> void:
 	pass
 	
 func update_prepare(_delta: float) -> void:
+	remember_player_position()
+	if fsm.current_state.update_timer(_delta):
+		fsm.change_state(fsm.states.attack)
 	pass
 
+# Eager state
 func start_eager() -> void:
 	start_attack()
+	fsm.current_state.timer = eager_time
 	pass
 
 func end_eager() -> void:
@@ -108,22 +129,37 @@ func end_eager() -> void:
 	
 func update_eager(_delta: float) -> void:
 	update_attack(_delta)
-	if can_attack() and _compute_target_direction(found_player.position) != direction:
-		fsm.change_state(fsm.states.stun)
+	#if can_attack() and _compute_target_direction(found_player.position) != direction:
+		#fsm.change_state(fsm.states.stun)
+	#if can_attack():
+		#fsm.current_state.timer = eager_time
+	#elif fsm.current_state.update_timer(_delta):
+		#fsm.change_state(fsm.states.stun)
 	pass
 
+# Stun state
 func start_stun() -> void:
 	_movement_speed = movement_speed / attack_speed_multiplier
 	change_animation("stun")
+	fsm.current_state.timer = stun_time
 	pass
 
 func end_stun() -> void:
-	target(_player_pos)
+	#target(_player_pos)
+	turn_around()
 	pass
 	
 func update_stun(_delta: float) -> void:
+	if fsm.current_state.update_timer(_delta):
+		fsm.change_state(fsm.states.normal)
 	pass
 
-func _on_body_entered(_body: CharacterBody2D) -> void:
-	super._on_body_entered(_body)
-	_player_pos = _body.position
+func is_close(_target_position: Vector2, _tolerance: float) -> bool:
+	return position.x <= _target_position.x + _tolerance and position.x >= _target_position.x - _tolerance
+
+func is_on_direction(_target_position: Vector2) -> bool:
+	return (_target_position - position).x * direction >= 0
+
+func remember_player_position() -> void:
+	if found_player:
+		_player_pos = found_player.position

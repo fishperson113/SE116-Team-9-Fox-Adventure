@@ -29,11 +29,13 @@ var _movement_speed: float = movement_speed
 var _jump_speed: float = jump_speed
 
 var _patrol_controller: PatrolController = null
+var _player_detection_count: int = 0
 
 var _front_ray_cast: RayCast2D = null
 var _down_ray_cast: RayCast2D = null
 var _jump_raycast: RayCast2D = null
 var player_detection_raycast: RayCast2D = null
+var _detect_obstacle_raycast: RayCast2D = null
 
 var _collision_shape: CollisionShape2D = null
 var _hit_area_shape: CollisionShape2D = null
@@ -76,6 +78,8 @@ func _init_ray_cast():
 		_jump_raycast = $Direction/JumpRayCast2D
 		_jump_raycast.target_position.y = -25
 		_jump_raycast.target_position.x = -16
+	if has_node("DetectObstacleRayCast2D"):
+		_detect_obstacle_raycast = $DetectObstacleRayCast2D
 
 #init detect player area
 func _init_detect_player_area():
@@ -110,6 +114,10 @@ func _init_collision_shape():
 	if has_node("CollisionShape2D"):
 		_collision_shape = $CollisionShape2D
 
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	aim_raycast_at_player()
+
 func _update_movement(delta: float) -> void:
 	velocity.x = _movement_speed * direction
 	velocity.y += gravity * delta
@@ -137,10 +145,15 @@ func try_jump() -> bool:
 	_jump_raycast.global_position.x -= direction * _jump_raycast.target_position.x / 2
 	_jump_raycast.global_position.y -= 2
 	_jump_raycast.force_raycast_update()
-	if not _jump_raycast.is_colliding() or _jump_raycast.get_collider() is Player:
+	# Jump if there are no obstacles above
+	if not _jump_raycast.is_colliding():
 		jump()
 		return true
-
+	# Jump onto player
+	if _jump_raycast.get_collider() is Player:
+		jump()
+		return true
+	
 	return false
 
 func jump() -> void:
@@ -157,21 +170,19 @@ func is_can_fall() -> bool:
 		return not _down_ray_cast.is_colliding() and is_on_floor()
 	return false
 
-func _on_body_entered(_body: CharacterBody2D) -> void:
-	found_player = _body
+func _on_body_entered(_body: CharacterBody2D) -> void:	
+	remember_player(_body)
 	_on_player_in_sight(_body.global_position)
 
 func _on_body_exited(_body: CharacterBody2D) -> void:
-	found_player = null
+	forget_player()
 	_on_player_not_in_sight()
 
 func _on_near_sense_body_entered(_body) -> void:
-	if _body is Player:
-		found_player = _body
+	remember_player(_body)
 
 func _on_near_sense_body_exited(_body) -> void:
-	#if _body is Player:
-		#found_player = null
+	forget_player()
 	pass
 
 func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
@@ -227,3 +238,35 @@ func resolve_damage(_attacker: BaseCharacter, _damage: float):
 
 func bounce_off(_direction: Vector2) -> void:
 	_movement_speed = movement_speed * _direction.x * direction * 1.25
+
+func remember_player(_player: Player) -> void:
+	_player_detection_count += 1
+	if found_player:
+		return
+	found_player = _player
+
+func forget_player() -> void:
+	_player_detection_count = max(_player_detection_count - 1, 0)
+	if _player_detection_count > 0:
+		return
+	found_player = null
+
+func aim_raycast_at_player() -> void:
+	if not _detect_obstacle_raycast:
+		return
+	if not found_player:
+		unaim()
+		return
+	_detect_obstacle_raycast.target_position = found_player.position - position
+
+func unaim() -> void:
+	if not _detect_obstacle_raycast:
+		return
+	_detect_obstacle_raycast.target_position = Vector2.ZERO
+
+func is_player_visible() -> bool:
+	if not _detect_obstacle_raycast:
+		return false
+	if not found_player:
+		return false
+	return _detect_obstacle_raycast.get_collider() is Player

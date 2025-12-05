@@ -52,6 +52,10 @@ hit_from_inside = true
 position = Vector2(12, 0)
 target_position = Vector2(0, 21)
 
+[node name="JumpRayCast2D" type="RayCast2D" parent="Direction"]
+target_position = Vector2(0, 0)
+hit_from_inside = true
+
 [node name="DetectPlayerArea2D" type="Area2D" parent="Direction"]
 collision_layer = 0
 collision_mask = 36
@@ -59,10 +63,6 @@ collision_mask = 36
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Direction/DetectPlayerArea2D"]
 position = Vector2(1, 0)
 polygon = PackedVector2Array(0, 0, 200, -100, 200, 100)
-
-[node name="JumpRayCast2D" type="RayCast2D" parent="Direction"]
-target_position = Vector2(0, 0)
-hit_from_inside = true
 
 [node name="NearSenseArea2D" type="Area2D" parent="Direction"]
 collision_layer = 0
@@ -75,6 +75,9 @@ shape = SubResource("CircleShape2D_c0p0d")
 position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_kyxrq")
 
+[node name="DetectObstacleRayCast2D" type="RayCast2D" parent="."]
+collision_mask = 5
+
 [node name="States" type="Node" parent="."]
 
 [node name="Idle" type="Node" parent="States"]
@@ -83,6 +86,7 @@ metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="Normal" type="Node" parent="States"]
 script = ExtResource("3_5ne8s")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="Hurt" type="Node" parent="States"]
 script = ExtResource("4_r5dy0")

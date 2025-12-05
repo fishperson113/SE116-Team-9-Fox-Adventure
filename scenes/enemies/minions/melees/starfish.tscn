@@ -1,11 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://bxdgdv2dbs6tb"]
+[gd_scene load_steps=22 format=3 uid="uid://bxdgdv2dbs6tb"]
 
 [ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_aiyma"]
 [ext_resource type="Script" uid="uid://bbrlj6fy2to4d" path="res://scripts/enemies/minions/melees/starfish/starfish.gd" id="2_ms5pe"]
 [ext_resource type="Texture2D" uid="uid://blpjqqa5urugs" path="res://assets/sprites/enemies/monsters/starfish/starfish_atk_01.png" id="3_qnhfo"]
 [ext_resource type="Texture2D" uid="uid://wkme5fl2xn52" path="res://assets/sprites/enemies/monsters/starfish/starfish_atk_02.png" id="4_vqr1f"]
-[ext_resource type="Script" uid="uid://ccv3j6ublijcd" path="res://scripts/enemies/minions/melees/starfish/attack.gd" id="4_wpdss"]
-[ext_resource type="Script" uid="uid://ckkh2ua2sgfxb" path="res://scripts/enemies/minions/melees/starfish/stun.gd" id="5_3sr0h"]
 [ext_resource type="Texture2D" uid="uid://ht3053iw6478" path="res://assets/sprites/enemies/monsters/starfish/starfish_atk_03.png" id="5_ay3vc"]
 [ext_resource type="Texture2D" uid="uid://cycyloeqli8sd" path="res://assets/sprites/enemies/monsters/starfish/starfish_atk_04.png" id="6_ki8ly"]
 [ext_resource type="Texture2D" uid="uid://f6njsgxajaoi" path="res://assets/sprites/enemies/monsters/starfish/starfish_atk_05.png" id="7_jq4de"]
@@ -15,9 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://dcvguxbpsvbbh" path="res://assets/sprites/enemies/monsters/starfish/starfish_01.png" id="11_cpedg"]
 [ext_resource type="Texture2D" uid="uid://2ig8m6lpwkw0" path="res://assets/sprites/enemies/monsters/starfish/starfish_02.png" id="12_8b0tx"]
 [ext_resource type="Texture2D" uid="uid://c2pflaeyavb4c" path="res://assets/sprites/enemies/monsters/starfish/starfish_03.png" id="13_4bdsv"]
-[ext_resource type="Script" uid="uid://l4u6ul371coy" path="res://scripts/enemies/minions/melees/starfish/prepare.gd" id="15_23kvq"]
+[ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/states/enemy_state.gd" id="15_87oaq"]
 [ext_resource type="Script" uid="uid://ycom5xm05cmh" path="res://scripts/enemies/minions/melees/starfish/normal.gd" id="15_vqr1f"]
-[ext_resource type="Script" uid="uid://6ob2ki2e8jqk" path="res://scripts/enemies/minions/melees/starfish/eager.gd" id="18_gq6fc"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vuubp"]
 animations = [{
@@ -160,18 +157,18 @@ shape = SubResource("RectangleShape2D_qnhfo")
 [node name="Idle" parent="States" index="0"]
 script = ExtResource("15_vqr1f")
 
-[node name="Normal" parent="States" index="1"]
-script = ExtResource("15_vqr1f")
-
 [node name="Prepare" type="Node" parent="States" index="3"]
-script = ExtResource("15_23kvq")
+script = ExtResource("15_87oaq")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="Attack" type="Node" parent="States" index="4"]
-script = ExtResource("4_wpdss")
+script = ExtResource("15_87oaq")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="Eager" type="Node" parent="States" index="5"]
-script = ExtResource("18_gq6fc")
+script = ExtResource("15_87oaq")
 metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="Stun" type="Node" parent="States" index="6"]
-script = ExtResource("5_3sr0h")
+script = ExtResource("15_87oaq")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
