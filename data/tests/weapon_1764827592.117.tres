@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=7 format=3]
+
+[ext_resource type="Resource" path="res://data/weapon/parts/blade_1.tres" id="1_aq016"]
+[ext_resource type="Resource" path="res://data/weapon/parts/crossguard_2.tres" id="2_1xuhd"]
+[ext_resource type="Resource" path="res://data/weapon/parts/grip_wood_1.tres" id="3_5sbaq"]
+[ext_resource type="Resource" path="res://data/weapon/materials/copper.tres" id="4_656o2"]
+[ext_resource type="Resource" path="res://data/weapon/parts/pommel_3.tres" id="5_1spxd"]
+[ext_resource type="Script" path="res://scripts/crafting/weapon_data.gd" id="6_lnu1y"]
+
+[resource]
+script = ExtResource("6_lnu1y")
+blade = ExtResource("1_aq016")
+crossguard = ExtResource("2_1xuhd")
+grip = ExtResource("3_5sbaq")
+pommel = ExtResource("5_1spxd")
+material = ExtResource("4_656o2")
+png_path = "user://generated_weapons/weapon_1764827592.103.png"

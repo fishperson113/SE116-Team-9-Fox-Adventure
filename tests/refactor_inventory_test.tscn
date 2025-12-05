@@ -1,0 +1,145 @@
+[gd_scene load_steps=7 format=3 uid="uid://by7m7stbq6bec"]
+
+[ext_resource type="Script" uid="uid://dbnywb46siqhm" path="res://scripts/level/level_1/stage.gd" id="1_35gqx"]
+[ext_resource type="Texture2D" uid="uid://cxakiw7e7eaom" path="res://icon.svg" id="2_fcqkr"]
+[ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="3_t81ib"]
+[ext_resource type="Script" uid="uid://ddm6bjtgp8rv3" path="res://scripts/player/inventory_check.gd" id="4_ch1y4"]
+[ext_resource type="PackedScene" uid="uid://c1ojnmhr1sm5l" path="res://scenes/enemies/minions/melees/mushroom.tscn" id="5_ej70h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_03kx2"]
+size = Vector2(128, 128)
+
+[node name="QuestTest" type="Node2D"]
+script = ExtResource("1_35gqx")
+
+[node name="Floor" type="Sprite2D" parent="."]
+position = Vector2(240, 236)
+scale = Vector2(5, 0.06)
+texture = ExtResource("2_fcqkr")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor/StaticBody2D"]
+shape = SubResource("RectangleShape2D_03kx2")
+
+[node name="Floor2" type="Sprite2D" parent="."]
+position = Vector2(240, 56)
+scale = Vector2(5, 0.06)
+texture = ExtResource("2_fcqkr")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor2/StaticBody2D"]
+shape = SubResource("RectangleShape2D_03kx2")
+
+[node name="Floor3" type="Sprite2D" parent="."]
+position = Vector2(445, 206)
+rotation = 1.5708
+scale = Vector2(5, 0.06)
+texture = ExtResource("2_fcqkr")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor3/StaticBody2D"]
+shape = SubResource("RectangleShape2D_03kx2")
+
+[node name="Floor4" type="Sprite2D" parent="."]
+position = Vector2(16, 209)
+rotation = 1.5708
+scale = Vector2(5, 0.06)
+texture = ExtResource("2_fcqkr")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Floor4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor4/StaticBody2D"]
+shape = SubResource("RectangleShape2D_03kx2")
+
+[node name="Player" parent="." instance=ExtResource("3_t81ib")]
+position = Vector2(67, 211)
+
+[node name="Inventory Buttons" type="Node" parent="."]
+script = ExtResource("4_ch1y4")
+
+[node name="ShowInventory" type="Button" parent="Inventory Buttons"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 137.0
+offset_bottom = 39.0
+text = "Show Inventory"
+
+[node name="AddWeapon11" type="Button" parent="Inventory Buttons"]
+offset_left = 225.0
+offset_top = 8.0
+offset_right = 263.0
+offset_bottom = 39.0
+text = "W-1-1"
+
+[node name="AddWeapon12" type="Button" parent="Inventory Buttons"]
+offset_left = 282.0
+offset_top = 8.0
+offset_right = 334.0
+offset_bottom = 39.0
+text = "W-1-2"
+
+[node name="AddWeapon21" type="Button" parent="Inventory Buttons"]
+offset_left = 338.0
+offset_top = 8.0
+offset_right = 390.0
+offset_bottom = 39.0
+text = "W-2-1"
+
+[node name="AddSlotWeapon11" type="Button" parent="Inventory Buttons"]
+offset_left = 562.0
+offset_top = 6.0
+offset_right = 614.0
+offset_bottom = 37.0
+text = "W-1-1"
+
+[node name="AddSlotWeapon12" type="Button" parent="Inventory Buttons"]
+offset_left = 619.0
+offset_top = 6.0
+offset_right = 671.0
+offset_bottom = 37.0
+text = "W-1-2"
+
+[node name="AddSlotWeapon21" type="Button" parent="Inventory Buttons"]
+offset_left = 675.0
+offset_top = 6.0
+offset_right = 727.0
+offset_bottom = 37.0
+text = "W-2-1"
+
+[node name="ReturnItem" type="Button" parent="Inventory Buttons"]
+offset_left = 837.0
+offset_top = 6.0
+offset_right = 938.0
+offset_bottom = 37.0
+text = "Return Item"
+
+[node name="ShowSlotsButton" type="Button" parent="Inventory Buttons"]
+offset_left = 737.0
+offset_top = 4.0
+offset_right = 829.0
+offset_bottom = 35.0
+text = "Show Slots"
+
+[node name="SaveInventoryAndSlots" type="Button" parent="Inventory Buttons"]
+offset_left = 894.0
+offset_top = 44.0
+offset_right = 938.0
+offset_bottom = 75.0
+text = "Save"
+
+[node name="Mushroom" parent="." instance=ExtResource("5_ej70h")]
+position = Vector2(368, 209)
+
+[connection signal="pressed" from="Inventory Buttons/ShowInventory" to="Inventory Buttons" method="_on_show_inventory_pressed"]
+[connection signal="pressed" from="Inventory Buttons/AddWeapon11" to="Inventory Buttons" method="_on_add_weapon_11_pressed"]
+[connection signal="pressed" from="Inventory Buttons/AddWeapon12" to="Inventory Buttons" method="_on_add_weapon_12_pressed"]
+[connection signal="pressed" from="Inventory Buttons/AddWeapon21" to="Inventory Buttons" method="_on_add_weapon_21_pressed"]
+[connection signal="pressed" from="Inventory Buttons/AddSlotWeapon11" to="Inventory Buttons" method="_on_add_slot_weapon_11_pressed"]
+[connection signal="pressed" from="Inventory Buttons/AddSlotWeapon12" to="Inventory Buttons" method="_on_add_slot_weapon_12_pressed"]
+[connection signal="pressed" from="Inventory Buttons/AddSlotWeapon21" to="Inventory Buttons" method="_on_add_slot_weapon_21_pressed"]
+[connection signal="pressed" from="Inventory Buttons/ReturnItem" to="Inventory Buttons" method="_on_return_item_pressed"]
+[connection signal="pressed" from="Inventory Buttons/ShowSlotsButton" to="Inventory Buttons" method="_on_show_slots_button_pressed"]
+[connection signal="pressed" from="Inventory Buttons/SaveInventoryAndSlots" to="Inventory Buttons" method="_on_save_inventory_and_slots_pressed"]

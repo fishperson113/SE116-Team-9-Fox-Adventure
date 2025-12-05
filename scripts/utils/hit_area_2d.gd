@@ -2,7 +2,7 @@ extends Area2D
 class_name HitArea2D
 
 # damage of hit
-var _dealt_damage: float = 15
+var _dealt_damage: float
 var _attacker: BaseCharacter = null
 
 # signal when hit area

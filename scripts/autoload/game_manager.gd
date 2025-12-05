@@ -141,11 +141,30 @@ func clear_checkpoint_data() -> void:
 	print("All checkpoint data cleared")
 
 func save_slots_data() -> void:
+	for i in range(slots_data.size()):
+		if not slots_data[i].has("item_type"):
+			continue
+		
+		if not slots_data[i]["item_type"].begins_with("weapon_"):
+			continue
+		
+		for j in range(slots_data[i]["item_detail"].size()):
+			slots_data[i]["item_detail"][j] = slots_data[i]["item_detail"][j].resource_path
+			
 	SaveSystem.save_slots_data(slots_data)
 
 func load_slots_data() -> void:
 	var slots = SaveSystem.load_slots_data()
 	if not slots.is_empty():
+		for i in range(slots.size()):
+			if not slots[i].has("item_type"):
+				continue
+			
+			if not slots[i]["item_type"].begins_with("weapon_"):
+				continue
+			
+			for j in range(slots[i]["item_detail"].size()):
+				slots[i]["item_detail"][j] = load(slots[i]["item_detail"][j])
 		slots_data = slots;
 		print("Slots data loaded from inventory file")
 
@@ -155,11 +174,25 @@ func clear_slots_data() -> void:
 	print("All inventory data cleared")
 
 func save_inventory_data() -> void:
+	for i in range(inventory_data.size()):
+		if not inventory_data[i]["item_type"].begins_with("weapon_"):
+			continue
+			
+		for j in range(inventory_data[i]["item_detail"].size()):
+			inventory_data[i]["item_detail"][j] = inventory_data[i]["item_detail"][j].resource_path
+	
 	SaveSystem.save_inventory_data(inventory_data)
 
 func load_inventory_data() -> void:
 	var inventory = SaveSystem.load_inventory_data()
 	if not inventory.is_empty():
+		for i in range(inventory.size()):
+			if not inventory[i]["item_type"].begins_with("weapon_"):
+				continue
+				
+			for j in range(inventory[i]["item_detail"].size()):
+				inventory[i]["item_detail"][j] = load(inventory[i]["item_detail"][j])
+		
 		inventory_data = inventory;
 		print("Inventory data loaded from inventory file")
 
@@ -174,6 +207,23 @@ func converted_empty_slots() -> Array[Dictionary]:
 	for i in range(slots_size):
 		empty_slots[i] = {}
 	return empty_slots
+
+func check_object_type(item_one, item_two) -> bool:
+	if item_one is WeaponData and item_two is WeaponData:
+		if item_one.blade.id != item_two.blade.id:
+			return false
+		if item_one.crossguard.id != item_two.crossguard.id:
+			return false
+		if item_one.grip.id != item_two.grip.id:
+			return false
+		if item_one.pommel.id != item_two.pommel.id:
+			return false
+		if item_one.material.id != item_two.material.id:
+			return false
+	else:
+		return false
+	
+	return true
 
 # Level progress functions
 func unlock_level() -> void:
