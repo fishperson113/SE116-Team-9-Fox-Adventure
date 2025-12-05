@@ -5,8 +5,8 @@ var item_archive: Array[Dictionary]
 @export var item_storer: ItemStorer
 
 func _ready() -> void:
-	item_archive = GameManager.inventory_data
 	#DO NOT delete this, just for faster progression
+	item_archive = GameManager.inventory_data
 	#SaveSystem.delete_inventory_file()
 	pass
 
@@ -20,23 +20,18 @@ func show_item_archive() -> void:
 	print("\n")
 	pass
 
-func is_item_type_available(item_type: String) -> bool:
-	if len(item_archive) == 0:
-		print("No item in inventory")
-		return false
-	
-	for i in len(item_archive):
-		if item_archive[i]["item_type"] == item_type:
-			return true
-	return false
-
-func insert_item(item_type: String, item_detail: Dictionary) -> void:
+func insert_item(item_type: String, item_detail) -> void:
 	for i in range(len(item_archive)):
-		if item_archive[i]["item_type"] == item_type:
-			item_archive[i]["item_detail"].append(item_detail)
-			print("Added existing item")
-			show_item_archive()
-			return
+		if item_archive[i]["item_type"] != item_type:
+			continue
+		
+		if not GameManager.check_object_type(item_archive[i]["item_detail"][0], item_detail):
+			continue
+		
+		item_archive[i]["item_detail"].append(item_detail)
+		print("Added existing item")
+		show_item_archive()
+		return
 	
 	var item = {
 		"item_type" = item_type,
@@ -48,21 +43,23 @@ func insert_item(item_type: String, item_detail: Dictionary) -> void:
 	show_item_archive()
 	pass
 
-func find_exact_item(item_type: String, item_data: Dictionary) -> Dictionary:
+func find_exact_item(item_type: String, item_detail) -> Variant:
+	var final_item_index: int = -1
 	for item_index in len(item_archive):
 		if item_archive[item_index]["item_type"] == item_type:
-			for detail_index in len(item_archive[item_index]["item_detail"]):
-				if same_dict(item_data, item_archive[item_index]["item_detail"][detail_index]):
-					return item_archive[item_index]["item_detail"][detail_index]
-			return {}
-	return {}
-
-func add_to_store_item(item_type: String, item_detail: Dictionary) -> void:
-	if item_type == "item_key":
-		print("Keys can't be added to slots")
-		return
+			final_item_index = item_index
+			break
 	
-	if find_exact_item(item_type, item_detail) == {}:
+	if final_item_index == -1:
+		return null
+
+	if not GameManager.check_object_type(item_archive[final_item_index]["item_detail"][0], item_detail):
+		return null
+		
+	return item_archive[final_item_index]["item_detail"][0]
+
+func add_to_store_item(item_type: String, item_detail) -> void:
+	if find_exact_item(item_type, item_detail) == null:
 		print("Item is not available in inventory")
 		return
 	
@@ -71,34 +68,24 @@ func add_to_store_item(item_type: String, item_detail: Dictionary) -> void:
 	print("Successfully added item to slot")
 	pass
 
-func remove_item(item_type: String, item_detail: Dictionary) -> void:
+func remove_item(item_type: String, item_detail) -> void:
+	var final_item_index: int = -1
 	for item_index in len(item_archive):
 		if item_archive[item_index]["item_type"] == item_type:
-			for detail_index in len(item_archive[item_index]["item_detail"]):
-				if same_dict(item_detail, item_archive[item_index]["item_detail"][detail_index]):
-					item_archive[item_index]["item_detail"].remove_at(detail_index)
-					if len(item_archive[item_index]["item_detail"]) == 0:
-						item_archive.remove_at(item_index);
-					return
-			return
+			final_item_index = item_index
+			break
+	
+	if final_item_index == -1:
+		return
+	
+	if GameManager.check_object_type(item_detail, item_archive[final_item_index]["item_detail"][0]):
+		item_archive[final_item_index]["item_detail"].remove_at(0)
+		if len(item_archive[final_item_index]["item_detail"]) == 0:
+			item_archive.remove_at(final_item_index);
+		return
 	pass
 	
-func is_key_available() -> bool:
-	for i in range(len(item_archive)):
-		if item_archive[i]["item_type"] == "item_key":
-			return true
-	return false
-
-func same_dict(a: Dictionary, b: Dictionary) -> bool:
-	if a.size() != b.size():
-		return false
-	for key in a.keys():
-		if not b.has(key):
-			return false
-		if a[key] != b[key]:
-			return false
-	return true
 
 func save_inventory() -> void:
-	GameManager.inventory_data = item_archive
+	GameManager.inventory_data = item_archive.duplicate(true)
 	GameManager.save_inventory_data()

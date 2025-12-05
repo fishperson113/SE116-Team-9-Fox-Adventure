@@ -4,7 +4,7 @@ extends Node
 @onready var item_storer: ItemStorer = $"../ItemStorer"
 @export var projectile_type: int = 0
 var weapon_type: String
-var weapon_detail: Dictionary
+var weapon_detail: Resource
 var weapon: PackedScene
 
 @export var dir_vector: Vector2
@@ -34,17 +34,23 @@ func _input(event: InputEvent) -> void:
 		mouse_dir_vector = Vector2(event.relative.x, event.relative.y)
 		mouse_still_time = 0
 
-func change_weapon(weapon_type: String, weapon_detail: Dictionary) -> void:
+func change_weapon(weapon_type: String, weapon_detail) -> void:
+	if weapon_detail is Dictionary:
+		weapon_type = "none"
+		return
+	
 	self.weapon_type = weapon_type
 	self.weapon_detail = weapon_detail
 	if weapon_type == "none": 
 		weapon = null
 		return
-	if weapon_type == "weapon_blade": weapon = preload("res://scenes/items/weapons/weapon_blade.tscn")
+	if weapon_type == "weapon_blade":
+		weapon = preload("res://scenes/items/weapons/weapon_blade.tscn")
 	var weapon_temp = weapon.instantiate()
 	#weapon_temp.add_general_weapon_properties(weapon_detail)
 	speed = weapon_temp.speed
 	gravity = weapon_temp.gravity
+	
 
 func find_throw_direction(delta: float) -> void:
 	if !item_storer.is_slot_available(): return
@@ -89,5 +95,6 @@ func throw_projectile() -> void:
 		weapon_thrown.dir = dir_vector
 		weapon_thrown.speed = speed
 		weapon_thrown.gravity = gravity
+		weapon_thrown.set_dealt_damage(weapon_detail.get_damage())
 		self.get_parent().get_parent().add_child(weapon_thrown)
 	pass

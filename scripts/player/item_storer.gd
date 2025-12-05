@@ -14,21 +14,25 @@ func _init() -> void:
 	items_archive.resize(number_of_slots)
 
 func _ready() -> void:
-	#for i in range(number_of_slots):
-		#items_archive[i] = {}
-	#items_archive = GameManager.slots_data
+	for i in range(number_of_slots):
+		items_archive[i] = {}
+	items_archive = GameManager.slots_data
+	change_item()
+	
 	#DO NOT delete this, just for faster progression
 	#SaveSystem.delete_slots_file()
-	for i in range(200):
-		add_item("weapon_blade", {})
-	change_item()
+	
+	#This might be useful for demos, DO NOT delete this either
+	#for i in range(200):
+	#	add_item("weapon_blade", {})
+	#change_item()
 	pass
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("switch_item"):
 		switch_item_slot()
 
-func add_item(item_type: String, item_detail: Dictionary) -> bool:
+func add_item(item_type: String, item_detail) -> bool:
 	if not items_archive[item_slot].has("item_type"):
 		items_archive[item_slot] = {
 			"item_type" = item_type,
@@ -75,20 +79,19 @@ func is_slot_weapon() -> bool:
 func get_item_type() -> String:
 	return items_archive[item_slot]["item_type"]
 
-func remove_item(item_type: String, item_detail: Dictionary) -> void:
+func remove_item(item_type: String, item_detail) -> void:
 	if items_archive[item_slot]["item_type"] != item_type:
 		print("Can't remove a different type of item")
 		return
 	
-	for detail_index in len(items_archive[item_slot]["item_detail"]):
-		if same_dict(item_detail, items_archive[item_slot]["item_detail"][detail_index]):
-			items_archive[item_slot]["item_detail"].remove_at(detail_index)
-			if len(items_archive[item_slot]["item_detail"]) == 0:
-				items_archive[item_slot] = {}
-			change_item()
-			return
+	if GameManager.check_object_type(items_archive[item_slot]["item_detail"][0], item_detail):
+		items_archive[item_slot]["item_detail"].remove_at(0)
+		if len(items_archive[item_slot]["item_detail"]) == 0:
+			items_archive[item_slot] = {}
+		change_item()
+		return
 
-func return_item(item_type: String, item_detail: Dictionary) -> void:
+func return_item(item_type: String, item_detail) -> void:
 	if items_archive[item_slot] == {}:
 		print("Slot is empty. Can't return item to inventory")
 		return
@@ -97,15 +100,14 @@ func return_item(item_type: String, item_detail: Dictionary) -> void:
 		print("Can't return a different type of object to the inventory")
 		return
 	
-	for detail_index in len(items_archive[item_slot]["item_detail"]):
-		if same_dict(item_detail, items_archive[item_slot]["item_detail"][detail_index]):
-			inventory.insert_item(
-				items_archive[item_slot]["item_type"],
-				items_archive[item_slot]["item_detail"][detail_index]
-				)
-			remove_item(items_archive[item_slot]["item_type"], items_archive[item_slot]["item_detail"][detail_index])
-			change_item()
-			return
+	if GameManager.check_object_type(items_archive[item_slot]["item_detail"][0], item_detail):
+		inventory.insert_item(
+			items_archive[item_slot]["item_type"],
+			items_archive[item_slot]["item_detail"][0]
+			)
+		remove_item(items_archive[item_slot]["item_type"], items_archive[item_slot]["item_detail"][0])
+		change_item()
+		return
 	pass
 
 func show_slots() -> void:
@@ -114,16 +116,6 @@ func show_slots() -> void:
 		print(item_index, ": ", items_archive[item_index])
 	print("\n")
 
-func same_dict(a: Dictionary, b: Dictionary) -> bool:
-	if a.size() != b.size():
-		return false
-	for key in a.keys():
-		if not b.has(key):
-			return false
-		if a[key] != b[key]:
-			return false
-	return true
-
 func save_slots() -> void:
-	GameManager.slots_data = items_archive
+	GameManager.slots_data = items_archive.duplicate(true)
 	GameManager.save_slots_data()

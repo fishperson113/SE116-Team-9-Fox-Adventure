@@ -25,6 +25,7 @@ func _exit_tree() -> void:
 
 func _on_quit_pressed() -> void:
 	get_tree().paused = false
+	GameManager.save_inventory_data()
 	get_tree().change_scene_to_file("res://scenes/ui/Entrance.tscn") 
 	queue_free()
 
@@ -34,6 +35,7 @@ func _on_resume_pressed() -> void:
 
 func _on_retry_pressed() -> void:
 	get_tree().paused = false
+	GameManager.save_inventory_data()
 	get_tree().reload_current_scene()
 	queue_free()
 
