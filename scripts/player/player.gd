@@ -27,6 +27,7 @@ var invulnerability_wait_time: float = 1.0
 
 # This will be used to accept reflect damage
 @onready var hit_area: HitArea2D = $Direction/HitArea2D
+@onready var wide_hit_area: HitArea2D = $Direction/WideHitArea2D
 var decorator_manager: DecoratorManager = null
 var weapon_manager: WeaponEquipmentManager= null
 var attack_damage
@@ -125,6 +126,8 @@ func equip_weapon(tres_path: String):
 	# Update stats
 	if w.blade:
 		attack_damage = w.blade.damage
+		hit_area.set_dealt_damage(attack_damage)
+		wide_hit_area.set_dealt_damage(attack_damage)
 
 	if w.crossguard:
 		maxHealth += w.crossguard.max_health
