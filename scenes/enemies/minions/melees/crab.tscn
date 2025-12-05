@@ -93,12 +93,6 @@ target_position = Vector2(0, 30)
 position = Vector2(16, 0)
 target_position = Vector2(0, 48)
 
-[node name="DetectPlayerArea2D" parent="Direction" index="5"]
-visible = false
-
-[node name="NearSenseArea2D" parent="Direction" index="7"]
-visible = false
-
 [node name="CollisionShape2D" parent="Direction/NearSenseArea2D" index="0"]
 shape = SubResource("CircleShape2D_0pepb")
 

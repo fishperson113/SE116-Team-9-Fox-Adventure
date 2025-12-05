@@ -1,6 +1,8 @@
 class_name Enemy
 extends BaseCharacter
 
+const BLOCK_SIZE: int = 32
+
 ## Base character class that provides common functionality for all characters
 #Health: Lượng máu mà nhân vật đó có. Tính theo đơn vị HP.
 @export var health: float = 0
@@ -30,6 +32,7 @@ var _jump_speed: float = jump_speed
 
 var _patrol_controller: PatrolController = null
 var _player_detection_count: int = 0
+var _has_touched_player: bool = false
 
 var _front_ray_cast: RayCast2D = null
 var _down_ray_cast: RayCast2D = null
@@ -59,6 +62,9 @@ func _ready() -> void:
 	jump_speed = 235
 	_jump_speed = jump_speed
 	currentHealth = health
+	_jump_raycast.target_position = Vector2.ONE * -BLOCK_SIZE
+	_jump_raycast.position.x = BLOCK_SIZE / 2 + get_size().x / 2
+	_jump_raycast.position.y = -(BLOCK_SIZE - get_size().y / 2)
 	pass
 
 func _init_animated_sprite():
@@ -101,6 +107,8 @@ func _init_hit_area():
 		_hit_area.set_dealt_damage(spike)
 		_hit_area.set_attacker(self)
 		_hit_area.hitted.connect(_on_hit_area_2d_hitted)
+		_hit_area.area_entered.connect(_on_hit_area_2d_area_entered)
+		_hit_area.area_exited.connect(_on_hit_area_2d_area_exited)
 		_hit_area_shape = _hit_area.get_node("NormalCollisionShape2D")
 
 # init hurt area
@@ -141,10 +149,10 @@ func try_jump() -> bool:
 	if not is_touch_wall():
 		return false
 	
-	_jump_raycast.global_position = _front_ray_cast.get_collision_point()
-	_jump_raycast.global_position.x -= direction * _jump_raycast.target_position.x / 2
-	_jump_raycast.global_position.y -= 2
-	_jump_raycast.force_raycast_update()
+	#_jump_raycast.global_position = _front_ray_cast.get_collision_point()
+	#_jump_raycast.global_position.x -= direction * _jump_raycast.target_position.x / 2
+	#_jump_raycast.global_position.y -= 2
+	#_jump_raycast.force_raycast_update()
 	# Jump if there are no obstacles above
 	if not _jump_raycast.is_colliding():
 		jump()
@@ -190,7 +198,15 @@ func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, _direction: Vector2, _damag
 
 func _on_hit_area_2d_hitted(_body) -> void:
 	pass
-	
+
+func _on_hit_area_2d_area_entered(_area: Area2D):
+	_has_touched_player = true
+	pass
+
+func _on_hit_area_2d_area_exited(_area: Area2D):
+	_has_touched_player = false
+	pass
+
 # called when player is in sight
 func _on_player_in_sight(_player_pos: Vector2):
 	pass
@@ -270,3 +286,40 @@ func is_player_visible() -> bool:
 	if not found_player:
 		return false
 	return _detect_obstacle_raycast.get_collider() is Player
+
+func is_close(_target_position: Vector2, _tolerance: float) -> bool:
+	return position.x <= _target_position.x + _tolerance and position.x >= _target_position.x - _tolerance
+
+func hold_distance(_target_position: Vector2, _tolerance: float) -> void:
+	if is_close(_target_position, _tolerance):
+		move_backward()
+	else:
+		move_forward()
+
+func move_forward() -> void:
+	_movement_speed = absf(_movement_speed)
+
+func move_backward() -> void:
+	_movement_speed = -absf(_movement_speed)
+
+func hold_distance_from_player() -> void:
+	if not _collision_shape or not found_player:
+		move_forward()
+		return
+		
+	var _area = _collision_shape.shape
+	if _hit_area_shape:
+		_area = _hit_area_shape.shape
+	elif _hurt_area_shape:
+		_area = _hurt_area_shape.shape
+	
+	hold_distance(found_player.position, _area.size.x / 2)
+
+func manage_attack_spacing() -> void:
+	if _has_touched_player:
+		move_backward()
+	else:
+		move_forward()
+
+func is_on_direction(_target_position: Vector2) -> bool:
+	return (_target_position - position).x * direction >= 0

@@ -61,6 +61,7 @@ func _init_hurt_state() -> void:
 
 func update_normal(_delta: float) -> void:
 	try_patrol_turn(_delta)
+	manage_attack_spacing()
 	if found_player:
 		target(found_player.position)
 	#if try_patrol_turn(_delta) or randf() < idle_chance:

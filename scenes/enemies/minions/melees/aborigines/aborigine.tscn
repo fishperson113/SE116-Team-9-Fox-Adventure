@@ -195,10 +195,10 @@ visible = false
 position = Vector2(-16, 17)
 target_position = Vector2(0, 48)
 
-[node name="DetectPlayerArea2D" parent="Direction" index="8"]
+[node name="JumpRayCast2D" parent="Direction" index="8"]
 visible = false
 
-[node name="JumpRayCast2D" parent="Direction" index="9"]
+[node name="DetectPlayerArea2D" parent="Direction" index="9"]
 visible = false
 
 [node name="NearSenseArea2D" parent="Direction" index="10"]
@@ -212,8 +212,8 @@ shape = SubResource("CircleShape2D_yegg3")
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_kqvr2")
 
-[node name="Shoot" type="Node" parent="States" index="3"]
-script = ExtResource("20_kqvr2")
-
 [node name="ShootTimer" type="Timer" parent="." index="3"]
 one_shot = true
+
+[node name="Shoot" type="Node" parent="States" index="3"]
+script = ExtResource("20_kqvr2")

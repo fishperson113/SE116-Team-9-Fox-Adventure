@@ -73,7 +73,6 @@ func update_normal(_delta: float) -> void:
 # Attack state
 func start_attack() -> void:
 	_movement_speed = movement_speed * attack_speed_multiplier
-	_front_ray_cast.position.x = _sight * attack_speed_multiplier
 	
 	_normal_box.disabled = true
 	_roll_box.disabled = false
@@ -82,7 +81,6 @@ func start_attack() -> void:
 
 func end_attack() -> void:
 	_movement_speed = movement_speed
-	_front_ray_cast.position.x = _sight
 	
 	_roll_box.disabled = true
 	_normal_box.disabled = false
@@ -146,19 +144,14 @@ func start_stun() -> void:
 
 func end_stun() -> void:
 	#target(_player_pos)
-	turn_around()
+	if not found_player:
+		turn_around()
 	pass
 	
 func update_stun(_delta: float) -> void:
 	if fsm.current_state.update_timer(_delta):
 		fsm.change_state(fsm.states.normal)
 	pass
-
-func is_close(_target_position: Vector2, _tolerance: float) -> bool:
-	return position.x <= _target_position.x + _tolerance and position.x >= _target_position.x - _tolerance
-
-func is_on_direction(_target_position: Vector2) -> bool:
-	return (_target_position - position).x * direction >= 0
 
 func remember_player_position() -> void:
 	if found_player:
