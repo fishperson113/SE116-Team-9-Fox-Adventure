@@ -48,6 +48,7 @@ var _detect_area_shape: CollisionPolygon2D = null
 var _detect_player_area: Area2D = null
 var _near_sense_area: Area2D = null
 var _hit_area: HitArea2D = null
+var _hurt_area: HurtArea2D = null
 
 func _ready() -> void:
 	super._ready()
@@ -114,10 +115,10 @@ func _init_hit_area():
 # init hurt area
 func _init_hurt_area():
 	if has_node("Direction/HurtArea2D"):
-		var hurt_area = $Direction/HurtArea2D
-		_hurt_area_shape = hurt_area.get_node("CollisionShape2D")
-		hurt_area.hurt.connect(_on_hurt_area_2d_hurt)
-		
+		_hurt_area = $Direction/HurtArea2D
+		_hurt_area_shape = _hurt_area.get_node("CollisionShape2D")
+		_hurt_area.hurt.connect(_on_hurt_area_2d_hurt)
+
 func _init_collision_shape():
 	if has_node("CollisionShape2D"):
 		_collision_shape = $CollisionShape2D
@@ -323,3 +324,11 @@ func manage_attack_spacing() -> void:
 
 func is_on_direction(_target_position: Vector2) -> bool:
 	return (_target_position - position).x * direction >= 0
+
+func set_combat_collision(flag: bool) -> void:
+	_hurt_area_shape.disabled = not flag
+	_hit_area_shape.disabled = not flag
+
+func clear_area_collision(_area: Area2D) -> void:
+	_area.collision_layer = 0
+	_area.collision_mask = 0

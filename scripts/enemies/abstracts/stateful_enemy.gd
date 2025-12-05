@@ -37,6 +37,10 @@ func update_normal(_delta: float) -> void:
 	pass
 
 func start_dead() -> void:
+	clear_area_collision(_hit_area)
+	clear_area_collision(_hurt_area)
+	clear_area_collision(_detect_player_area)
+	clear_area_collision(_near_sense_area)
 	queue_free()
 
 func end_dead() -> void:

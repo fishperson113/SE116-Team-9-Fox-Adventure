@@ -69,22 +69,14 @@ func update_normal(_delta: float) -> void:
 	pass
 
 func start_hurt() -> void:
-	#_movement_speed = 0.0
+	set_combat_collision(false)
 	change_animation("hurt")
 
 func end_hurt() -> void:
+	set_combat_collision(true)
 	pass
 
 func update_hurt(_delta: float) -> void:
-	pass
-
-func start_dead() -> void:
-	queue_free()
-
-func end_dead() -> void:
-	pass
-
-func update_dead(_delta: float) -> void:
 	pass
 
 func start_sleep() -> void:
