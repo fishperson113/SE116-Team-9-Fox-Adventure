@@ -12,7 +12,6 @@ extends Minion
 
 var _stab_period: float = 0.0
 
-var _stab_time: float = 0.0
 var _is_player_near: bool = false
 var _is_stab_ready: bool = false
 
@@ -22,11 +21,11 @@ var _attack_timer: Timer = null
 
 func _ready() -> void:
 	super._ready()
-	_init_hit_area()
 	_init_defend_area()
 	_init_attack_timer()
-	_init_stab_state()
-	_init_defend_state()
+	_init_state("Stab", start_stab, end_stab, update_stab, _on_normal_react)
+	_init_state("Defend", start_defend, end_defend, update_defend, _on_normal_react)
+	_setup_stab_time()
 
 func _init_defend_area():
 	_defend_box = $Direction/Shield/CollisionShape2D
@@ -39,29 +38,15 @@ func _init_attack_timer() -> void:
 	_attack_timer.timeout.connect(_on_attack_timer_timeout)
 
 func _init_hit_area() -> void:
-	var hit_area := $Direction/HitArea2D
-	_attack_box = $Direction/HitArea2D/AttackCollisionShape2D
-	hit_area.set_dealt_damage(attack_damage)
+	super._init_hit_area()
+	if _hit_area:
+		_hit_area.set_dealt_damage(attack_damage)
+		_attack_box = $Direction/HitArea2D/AttackCollisionShape2D
 
-func _init_stab_state() -> void:
-	if has_node("States/Stab"):
-		var state : EnemyState = get_node("States/Stab")
-		state.enter.connect(start_stab)
-		state.exit.connect(end_stab)
-		state.update.connect(update_stab)
-		
-		_stab_period = stab_time * 0.75
+func _setup_stab_time():
+	_stab_period = stab_time * 0.75
 
-func _init_defend_state() -> void:
-	if has_node("States/Defend"):
-		var state : EnemyState = get_node("States/Defend")
-		state.enter.connect(start_defend)
-		state.update.connect(update_defend)
-		state.exit.connect(end_defend)
-
-func can_defend() -> bool:
-	return found_player != null
-	
+# Defend state
 func start_defend():
 	_movement_speed = 0.0
 	_defend_box.apply_scale(Vector2(defend_multiplier, defend_multiplier))
@@ -77,58 +62,61 @@ func update_defend(_delta: float):
 	pass
 
 func end_defend() -> void:
-	_defend_box.apply_scale(Vector2(1/defend_multiplier, 1/defend_multiplier))
+	_defend_box.apply_scale(Vector2.ONE / defend_multiplier)
 	pass
 
-func _on_attack_timer_timeout() -> void:
-	_is_stab_ready = true
-
+# Stab state
 func start_stab() -> void:
-	_stab_time = _stab_period
+	fsm.current_state.timer = _stab_period
 	change_animation("stab")
+	if not animated_sprite.animation_finished.is_connected(_return_to_normal):
+		animated_sprite.animation_finished.connect(_return_to_normal)
 
 func end_stab() -> void:
 	_attack_box.disabled = true
 	_attack_timer.start()
+	if animated_sprite.animation_finished.is_connected(_return_to_normal):
+		animated_sprite.animation_finished.disconnect(_return_to_normal)
 	pass
 
 func update_stab(_delta: float) -> void:
-	_stab_time -= _delta
-	if _stab_time <= 0:
+	if fsm.current_state.update_timer(_delta):
 		_attack_box.disabled = false
 	pass
 
+# Normal state
 func update_normal(_delta: float) -> void:
 	try_patrol_turn(_delta)
 	try_defend()
 	pass
+
+# Reaction
+func _on_body_entered(_body: CharacterBody2D) -> void:
+	super._on_body_entered(_body)
+	_is_player_near = true
+	pass
+
+func _on_body_exited(_body: CharacterBody2D) -> void:
+	super._on_body_exited(_body)
+	_is_player_near = false
+	pass
+
+# Unique constraint
+func can_attack() -> bool:
+	return _is_player_near and _is_stab_ready and is_player_visible()
+
+func try_attack() -> void:
+	if can_attack():
+		_is_stab_ready = false
+		fsm.change_state(fsm.states.stab)
+
+func _on_attack_timer_timeout() -> void:
+	_is_stab_ready = true
 
 func try_defend() -> void:
 	if can_defend():
 		target(found_player.position)
 		fsm.change_state(fsm.states.defend)
 
-func _physics_process(delta: float) -> void:
-	super._physics_process(delta)
-	#print(fsm.current_state)
-
-func _on_body_entered(_body: CharacterBody2D) -> void:
-	_is_player_near = true
-	pass
-
-func _on_body_exited(_body: CharacterBody2D) -> void:
-	_is_player_near = false
-	pass
-
-func _on_near_sense_body_exited(_body) -> void:
-	if _body is Player:
-		found_player = null
-	pass
-
-func can_attack() -> bool:
-	return _is_player_near and _is_stab_ready
-
-func try_attack() -> void:
-	if can_attack():
-		_is_stab_ready = false
-		fsm.change_state(fsm.states.stab)
+func can_defend() -> bool:
+	return is_player_visible()

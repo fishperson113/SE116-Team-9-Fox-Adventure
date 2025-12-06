@@ -1,12 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://boiifphcf1mge"]
+[gd_scene load_steps=9 format=3 uid="uid://boiifphcf1mge"]
 
 [ext_resource type="Script" uid="uid://bp2wf2jejmiqr" path="res://scripts/enemies/abstracts/stateful_enemy.gd" id="1_kv5n8"]
 [ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="2_c0p0d"]
 [ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="2_gyce8"]
 [ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/states/enemy_state.gd" id="3_5ne8s"]
-[ext_resource type="Script" uid="uid://bq0h6rwr31w52" path="res://scripts/enemies/states/hurt.gd" id="4_r5dy0"]
-[ext_resource type="Script" uid="uid://1oi8lur0a64f" path="res://scripts/enemies/states/dead.gd" id="5_es8ap"]
-[ext_resource type="Script" uid="uid://cnveref5agh2j" path="res://scripts/enemies/states/awaking.gd" id="7_30nii"]
 [ext_resource type="PackedScene" uid="uid://bclb52owsoiju" path="res://scenes/ui/EnermyHealthBar.tscn" id="8_ugute"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0p0d"]
@@ -81,26 +78,24 @@ collision_mask = 5
 
 [node name="States" type="Node" parent="."]
 
-[node name="Idle" type="Node" parent="States"]
-script = ExtResource("3_5ne8s")
-metadata/_custom_type_script = "uid://cuat5txuhbdg5"
-
 [node name="Normal" type="Node" parent="States"]
 script = ExtResource("3_5ne8s")
 metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="Hurt" type="Node" parent="States"]
-script = ExtResource("4_r5dy0")
+script = ExtResource("3_5ne8s")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="Dead" type="Node" parent="States"]
-script = ExtResource("5_es8ap")
+script = ExtResource("3_5ne8s")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="Sleep" type="Node" parent="States"]
 script = ExtResource("3_5ne8s")
 metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="Awaking" type="Node" parent="States"]
-script = ExtResource("7_30nii")
+script = ExtResource("3_5ne8s")
 metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="EnermyHealthBar" parent="." instance=ExtResource("8_ugute")]

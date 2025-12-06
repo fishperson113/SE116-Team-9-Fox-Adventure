@@ -33,6 +33,7 @@ var _jump_speed: float = jump_speed
 var _patrol_controller: PatrolController = null
 var _player_detection_count: int = 0
 var _has_touched_player: bool = false
+var _is_hitted: bool = false
 
 var _front_ray_cast: RayCast2D = null
 var _down_ray_cast: RayCast2D = null
@@ -58,6 +59,8 @@ func _ready() -> void:
 	_init_behaviors()
 	
 	_setup_jump_raycast()
+	_setup_front_raycast()
+	_setup_down_raycast()
 
 func _init_components() -> void:
 	_init_animated_sprite()
@@ -70,17 +73,39 @@ func _init_components() -> void:
 
 func _init_stats() -> void:
 	jump_speed = 235
-	_jump_speed = jump_speed
 	currentHealth = health
+	var r = get_size().y / BLOCK_SIZE
+	_jump_speed = r * jump_speed
 
 func _init_behaviors() -> void:
 	_patrol_controller = PatrolController.new(movement_range)
 
+func _setup_front_raycast() -> void:
+	if _front_ray_cast:
+		_front_ray_cast.target_position.x = 0.0
+		_front_ray_cast.target_position.y = get_size().y
+		_front_ray_cast.position.x = get_size().x / 2 + 1
+		_front_ray_cast.position.y = - get_size().y / 2
+
+func _setup_down_raycast() -> void:
+	if _down_ray_cast:
+		_down_ray_cast.target_position.x = 0.0
+		_down_ray_cast.target_position.y = get_size().y
+		_down_ray_cast.position.x = get_size().x / 2
+		_down_ray_cast.position.y = get_size().y / 2
+
 func _setup_jump_raycast():
 	if _jump_raycast:
-		_jump_raycast.target_position = Vector2.ONE * -BLOCK_SIZE
-		_jump_raycast.position.x = BLOCK_SIZE / 2 + get_size().x / 2
-		_jump_raycast.position.y = -(BLOCK_SIZE - get_size().y / 2)
+		var t = jump_speed / gravity
+		var sy = - gravity * t * t / 2 + jump_speed * t
+		var sx = movement_speed * t
+		_jump_raycast.target_position = Vector2(-sx, -sy)
+		_jump_raycast.position.x = sx
+		_jump_raycast.position.y = - get_size().y / 2
+		#_jump_raycast.target_position = Vector2.ONE * -BLOCK_SIZE
+		#_jump_raycast.position.x = BLOCK_SIZE / 2 + get_size().x / 2
+		#var r = ceilf(get_size().y / BLOCK_SIZE)
+		#_jump_raycast.position.y = -(BLOCK_SIZE * r - get_size().y / 2)
 	pass
 
 func _init_animated_sprite():
@@ -98,8 +123,6 @@ func _init_ray_cast():
 		player_detection_raycast = $Direction/PlayerDetectionRayCast
 	if has_node("Direction/JumpRayCast2D"):
 		_jump_raycast = $Direction/JumpRayCast2D
-		_jump_raycast.target_position.y = -25
-		_jump_raycast.target_position.x = -16
 	if has_node("DetectObstacleRayCast2D"):
 		_detect_obstacle_raycast = $DetectObstacleRayCast2D
 
@@ -149,7 +172,6 @@ func _update_movement(delta: float) -> void:
 	pass
 	
 func try_patrol_turn(_delta: float) -> bool:
-	#var is_reach_limit = _patrol_controller.track_patrol(position.x, direction)
 	if try_jump():
 		return false
 	if is_touch_wall() or is_can_fall() or want_to_turn():
@@ -158,17 +180,12 @@ func try_patrol_turn(_delta: float) -> bool:
 	return false
 
 func turn() -> void:
-	_patrol_controller.set_start_position(position.x)
 	turn_around()
 
 func try_jump() -> bool:
-	if not is_touch_wall():
+	if not is_touch_wall() or not is_on_floor():
 		return false
 	
-	#_jump_raycast.global_position = _front_ray_cast.get_collision_point()
-	#_jump_raycast.global_position.x -= direction * _jump_raycast.target_position.x / 2
-	#_jump_raycast.global_position.y -= 2
-	#_jump_raycast.force_raycast_update()
 	# Jump if there are no obstacles above
 	if not _jump_raycast.is_colliding():
 		jump()
@@ -210,9 +227,11 @@ func _on_near_sense_body_exited(_body) -> void:
 	pass
 
 func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
-	fsm.current_state.take_damage(_attacker, _direction, _damage)
+	var _context = HurtBehaviorInput.new(_attacker, _direction, _damage)
+	fsm.current_state._react(_context)
 
 func _on_hit_area_2d_hitted(_body) -> void:
+	_is_hitted = true
 	pass
 
 func _on_hit_area_2d_area_entered(_area: Area2D):
@@ -265,11 +284,14 @@ func get_size() -> Vector2:
 func want_to_turn() -> bool:
 	return randf() < turn_chance
 
-func resolve_damage(_attacker: BaseCharacter, _damage: float):
+func take_damage_behavior(_attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
 	take_damage(int(_damage))
+	bounce_off(_direction)
+	target(_attacker.position)
+	fsm.change_state(fsm.states.hurt)
 
 func bounce_off(_direction: Vector2) -> void:
-	_movement_speed = movement_speed * _direction.x * direction * 1.25
+	_movement_speed = movement_speed * _direction.x * direction
 
 func remember_player(_player: Player) -> void:
 	_player_detection_count += 1
@@ -303,25 +325,31 @@ func is_player_visible() -> bool:
 		return false
 	return _detect_obstacle_raycast.get_collider() is Player
 
-func is_close(_target_position: Vector2, _tolerance: float) -> bool:
-	return position.x <= _target_position.x + _tolerance and position.x >= _target_position.x - _tolerance
+func is_close(target: Vector2, tolerance: float) -> bool:
+	return target.distance_to(position) <= tolerance
 
-func hold_distance(_target_position: Vector2, _tolerance: float) -> void:
-	if is_close(_target_position, _tolerance):
+func hold_distance(_target_position: Vector2, _safe_distance: float, _tolerance: float) -> void:
+	var distance = _target_position.distance_to(position)
+	if distance >= _safe_distance + _tolerance:
+		move_forward()
+	elif distance <= _safe_distance - _tolerance:
 		move_backward()
 	else:
-		move_forward()
+		stop_move()
 
 func move_forward() -> void:
-	_movement_speed = absf(_movement_speed)
+	_movement_speed = movement_speed
 
 func move_backward() -> void:
-	_movement_speed = -absf(_movement_speed)
+	_movement_speed = -movement_speed
 
-func hold_distance_from_player() -> void:
+func stop_move() -> void:
+	_movement_speed = 0.0
+
+func hold_distance_from_player() -> bool:
 	if not _collision_shape or not found_player:
 		move_forward()
-		return
+		return false
 		
 	var _area = _collision_shape.shape
 	if _hit_area_shape:
@@ -329,7 +357,8 @@ func hold_distance_from_player() -> void:
 	elif _hurt_area_shape:
 		_area = _hurt_area_shape.shape
 	
-	hold_distance(found_player.position, _area.size.x / 2)
+	hold_distance(found_player.position, _area.size.x / 2, 5)
+	return true
 
 func manage_attack_spacing() -> void:
 	if _has_touched_player:
@@ -357,3 +386,17 @@ func _compute_target_direction(_position: Vector2) -> int:
 	if _position.x > position.x:
 		target_direction = 1
 	return target_direction
+
+func try_recover() -> bool:
+	if is_alive():
+		fsm.change_state(fsm.states.normal)
+		return true
+	fsm.change_state(fsm.states.dead)
+	return false
+
+func _compute_anim_speed(_anim_name: String, duration: float) -> float:
+	if not animated_sprite:
+		print("Animation srpite has not existed, ", animated_sprite)
+		return 0.0
+	var frame_count = animated_sprite.sprite_frames.get_frame_count(_anim_name)
+	return frame_count / duration

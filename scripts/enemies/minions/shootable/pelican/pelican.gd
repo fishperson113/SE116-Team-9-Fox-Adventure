@@ -16,18 +16,13 @@ func _ready() -> void:
 	super._ready()
 	player_detection_raycast.target_position.y = sight
 
-func fire():
-	var bullet = _bullet_factory.create() as Bomb
-	bullet.set_damage(spike)
-	var _bullet_impulse = bullet_impulse
-	_bullet_impulse.x *= direction
-	bullet.apply_impulse(_bullet_impulse)
-
+# Shoot state
 func start_shoot() -> void:
 	super.start_shoot()
 	_movement_speed = 0
 	aim()
 
+# Unique constraint
 func try_patrol_turn(_delta: float) -> bool:
 	if is_touch_wall() or has_reached_bounds() or want_to_turn():
 		turn()
@@ -42,3 +37,10 @@ func has_reached_bounds() -> bool:
 func aim() -> void:
 	if found_player.velocity.x * self.direction < 0:
 		turn()
+
+func fire():
+	var bullet = _bullet_factory.create() as BaseBullet
+	bullet.set_damage(spike)
+	var _bullet_impulse = bullet_impulse
+	_bullet_impulse.x *= direction
+	bullet.apply_velocity(_bullet_impulse)

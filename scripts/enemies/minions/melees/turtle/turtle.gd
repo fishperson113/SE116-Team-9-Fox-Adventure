@@ -14,62 +14,72 @@ extends Minion
 @export var transition_time: float = 0.25
 @export var hide_time: float = 3.0
 
-var _is_hitted: bool = false
 # This will be random whenever hide state ends
 var _low_health_threshold: int = 0
 
-var _anim: AnimatedSprite2D = null
-
 func _ready() -> void:
 	super._ready()
-	_init_hiding_state()
-	_init_hide_state()
-	_init_emerging_state()
-	_init_anim()
+	_init_state("Hiding", start_hiding, end_hiding, update_hiding, _on_normal_react)
+	_init_state("Hide", start_hide, end_hide, update_hide, _on_hide_react)
+	_init_state("Emerging", start_emerging, end_emerging, update_emerging, _on_normal_react)
+	_setup_health_threshold()
+	_setup_animation_speed()
 	pass
 
-func _init_anim():
-	_anim = $Direction/AnimatedSprite2D
-	_compute_anim_speed("hiding", transition_time)
-	_compute_anim_speed("emerging", transition_time)
+func _setup_health_threshold() -> void:
+	_low_health_threshold = _compute_low_health_threshold()
 
-func _init_hiding_state() -> void:
-	if has_node("States/Hiding"):
-		var state : EnemyState = get_node("States/Hiding")
-		state.enter.connect(start_hiding)
+func _setup_animation_speed():
+	animated_sprite.sprite_frames.set_animation_speed("hiding", _compute_anim_speed("hiding", transition_time))
+	animated_sprite.sprite_frames.set_animation_speed("emerging", _compute_anim_speed("emerging", transition_time))
 
-func _init_hide_state() -> void:
-	if has_node("States/Hide"):
-		var state : EnemyState = get_node("States/Hide")
-		state.enter.connect(start_hide)
-		state.exit.connect(end_hide)
-		_low_health_threshold = _compute_low_health_threshold()
+# Hiding state
+func start_hiding():
+	_movement_speed = 0
+	change_animation("hiding")
+	fsm.current_state.timer = transition_time
+	pass
 
-func _init_emerging_state() -> void:
-	if has_node("States/Emerging"):
-		var state : EnemyState = get_node("States/Emerging")
-		state.enter.connect(start_emerging)
+func end_hiding():
+	pass
 
+func update_hiding(_delta: float):
+	if fsm.current_state.update_timer(_delta):
+		fsm.change_state(fsm.states.hide)
+	pass
+
+# Hide state
 func start_hide():
 	change_animation("hide")
+	fsm.current_state.timer = hide_time
 	pass
 
 func end_hide():
 	_low_health_threshold = _compute_low_health_threshold()
 	pass
 
-func start_hiding():
-	_movement_speed = 0
-	change_animation("hiding")
+func update_hide(_delta: float):
+	if fsm.current_state.update_timer(_delta):
+		fsm.change_state(fsm.states.emerging)
 	pass
 
+# Emerging state
 func start_emerging():
 	change_animation("emerging")
+	fsm.current_state.timer = transition_time
 	pass
 
+func end_emerging():
+	pass
+
+func update_emerging(_delta: float):
+	if fsm.current_state.update_timer(_delta):
+		fsm.change_state(fsm.states.normal)
+	pass
+
+# Sleep state
 func start_sleep() -> void:
-	_movement_speed = 0
-	_detect_area_shape.disabled = true
+	super.start_sleep()
 	change_animation("sleep")
 	pass
 
@@ -79,11 +89,19 @@ func update_sleep(_delta: float) -> void:
 		fsm.change_state(fsm.states.awaking)
 	pass
 
-func _on_hit_area_2d_hitted(body):
-	super._on_hit_area_2d_hitted(body)
-	_is_hitted = true
-	pass
+# Hurt state
+func start_hurt() -> void:
+	if is_alive() and is_health_warning():
+		fsm.change_state(fsm.states.hiding)
+		return
+	super.start_hurt()
 
+# Reaction
+func _on_hide_react(input: BehaviorInput) -> void:
+	if input is HurtBehaviorInput:
+		reflect_damage(input.attacker, input.direction, input.damage_taken)
+
+# Unique constraint
 func reflect_damage(_attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
 	if _attacker.has_method("_on_hurt_area_2d_hurt"):
 		_attacker._on_hurt_area_2d_hurt(self, _direction * -1, int(_compute_reflect_damage(_damage)))
@@ -99,14 +117,3 @@ func _compute_low_health_threshold() -> int:
 
 func is_health_warning() -> bool:
 	return currentHealth <= _low_health_threshold
-
-func _compute_anim_speed(_anim_name: String, duration: float) -> void:
-	if _anim:
-		var frame_count = _anim.sprite_frames.get_frame_count(_anim_name)
-		_anim.sprite_frames.set_animation_speed(_anim_name, frame_count / duration)
-
-func start_hurt() -> void:
-	if is_health_warning():
-		fsm.change_state(fsm.states.hiding)
-		return
-	super.start_hurt()

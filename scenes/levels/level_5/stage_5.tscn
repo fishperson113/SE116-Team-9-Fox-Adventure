@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://b4he3cnf7cpbq"]
+[gd_scene load_steps=19 format=4 uid="uid://b4he3cnf7cpbq"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_3l2kx"]
 [ext_resource type="PackedScene" uid="uid://bu0ebjvtvbb4j" path="res://scenes/levels/area_unlockers/area_unlocker_enemies.tscn" id="2_lyf21"]
@@ -6,9 +6,11 @@
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_y8cxf"]
 [ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="3_m7cq7"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="4_m7cq7"]
-[ext_resource type="PackedScene" uid="uid://crwb5kl1tn450" path="res://scenes/enemies/minions/shootables/pelicans/pelican.tscn" id="4_pjjcp"]
-[ext_resource type="PackedScene" uid="uid://psxbpmcbicmg" path="res://scenes/enemies/minions/melees/aborigines/aborigine.tscn" id="5_lyf21"]
-[ext_resource type="PackedScene" uid="uid://caj73aiw7tf22" path="res://scenes/enemies/minions/melees/aborigines/big_aborigine.tscn" id="6_njy1a"]
+[ext_resource type="PackedScene" uid="uid://crwb5kl1tn450" path="res://scenes/enemies/minions/shootables/pelican.tscn" id="4_pjjcp"]
+[ext_resource type="PackedScene" uid="uid://psxbpmcbicmg" path="res://scenes/enemies/minions/melees/aborigine.tscn" id="5_lyf21"]
+[ext_resource type="PackedScene" uid="uid://caj73aiw7tf22" path="res://scenes/enemies/minions/melees/big_aborigine.tscn" id="6_njy1a"]
+[ext_resource type="Script" uid="uid://dpd1hu8tkk1y4" path="res://scripts/utils/threat_indicator_area_2d.gd" id="6_txxkb"]
+[ext_resource type="PackedScene" uid="uid://cvdklsb743i1l" path="res://scenes/ui/markers/threat_marker.tscn" id="7_e1o38"]
 [ext_resource type="PackedScene" uid="uid://ddc86ootpum2i" path="res://scenes/enemies/bosses/warlord_turtle/warlord_turtle.tscn" id="7_txxkb"]
 [ext_resource type="PackedScene" uid="uid://cv7h7e7s07r0m" path="res://scenes/enemies/spawners/time_spawner.tscn" id="8_e1o38"]
 [ext_resource type="PackedScene" uid="uid://dboyhgacrhohs" path="res://scenes/levels/level_5/Rock/rock.tscn" id="9_am3rg"]
@@ -25,6 +27,9 @@ func _ready() -> void:
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_njy1a"]
 size = Vector2(1254, 467)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_am3rg"]
+size = Vector2(1240, 960)
 
 [node name="Stage" type="Node2D"]
 script = SubResource("GDScript_pjjcp")
@@ -63,7 +68,7 @@ tile_set = ExtResource("1_3l2kx")
 position = Vector2(9874, 8480)
 
 [node name="Player" parent="." instance=ExtResource("2_y8cxf")]
-position = Vector2(8460, 8806)
+position = Vector2(39, -15)
 character_type = 2
 metadata/_edit_group_ = true
 
@@ -72,6 +77,16 @@ position = Vector2(0, -35)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
+
+[node name="ThreadIndicatorArea2D" type="Area2D" parent="Player"]
+collision_layer = 0
+collision_mask = 128
+script = ExtResource("6_txxkb")
+marker = ExtResource("7_e1o38")
+metadata/_custom_type_script = "uid://dpd1hu8tkk1y4"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/ThreadIndicatorArea2D"]
+shape = SubResource("RectangleShape2D_am3rg")
 
 [node name="MainUI" parent="." instance=ExtResource("4_m7cq7")]
 

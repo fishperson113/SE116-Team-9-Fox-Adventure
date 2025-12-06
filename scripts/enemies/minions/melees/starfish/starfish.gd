@@ -9,9 +9,7 @@ extends Minion
 #Không có khả năng tấn công
 
 @export var attack_speed_multiplier: float = 1.5
-
 @export var prepare_time: float = 0.4
-@export var eager_time: float = 1
 @export var stun_time: float = 0.5
 
 @onready var _roll_box: CollisionShape2D = $Direction/HitArea2D/RollCollisionShape2D
@@ -19,52 +17,15 @@ extends Minion
 
 var _sight: float = 0
 var _player_pos: Vector2 = Vector2.ZERO
-var _is_hitted: bool = false
 
 func _ready() -> void:
 	super._ready()
-	_init_prepare_state()
-	_init_attack_state()
-	_init_eager_state()
-	_init_stun_state()
+	_init_state("Prepare", start_prepare, end_prepare, update_prepare, _on_normal_react)
+	_init_state("Attack", start_attack, end_attack, update_attack, _on_normal_react)
+	_init_state("Stun", start_stun, end_stun, update_stun, _on_normal_react)
 	_sight = _front_ray_cast.position.x
 
-func _init_eager_state() -> void:
-	if has_node("States/Eager"):
-		var state : EnemyState = get_node("States/Eager")
-		state.enter.connect(start_eager)
-		state.exit.connect(end_eager)
-		state.update.connect(update_eager)
-
-func _init_attack_state() -> void:
-	if has_node("States/Attack"):
-		var state : EnemyState = get_node("States/Attack")
-		state.enter.connect(start_attack)
-		state.exit.connect(end_attack)
-		state.update.connect(update_attack)
-
-func _init_prepare_state() -> void:
-	if has_node("States/Prepare"):
-		var state : EnemyState = get_node("States/Prepare")
-		state.enter.connect(start_prepare)
-		state.exit.connect(end_prepare)
-		state.update.connect(update_prepare)
-
-func _init_stun_state() -> void:
-	if has_node("States/Stun"):
-		var state : EnemyState = get_node("States/Stun")
-		state.enter.connect(start_stun)
-		state.exit.connect(end_stun)
-		state.update.connect(update_stun)
-
-func _on_hit_area_2d_hitted(_body) -> void:
-	_is_hitted = true
-	pass
-
-func get_stun_time() -> float:
-	return stun_time
-
-# Normal
+# Normal state
 func update_normal(_delta: float) -> void:
 	super.update_normal(_delta)
 	if is_player_visible():
@@ -87,16 +48,17 @@ func end_attack() -> void:
 	pass
 
 func update_attack(_delta: float) -> void:
-	try_jump()
+	if _is_hitted:
+		_is_hitted = false
+		fsm.change_state(fsm.states.stun)
+	if not try_jump() and is_on_wall() and is_on_floor():
+		fsm.change_state(fsm.states.stun)
 	if is_player_visible():
 		remember_player_position()
 		return
 	if not is_close(_player_pos, 5) and is_on_direction(_player_pos):
 		return
 	fsm.change_state(fsm.states.stun)
-	#if _is_hitted or not try_jump() and is_on_wall() and is_on_floor():
-		#_is_hitted = false
-		#fsm.change_state(fsm.states.stun)
 	pass
 
 # Prepare state
@@ -113,26 +75,6 @@ func update_prepare(_delta: float) -> void:
 	remember_player_position()
 	if fsm.current_state.update_timer(_delta):
 		fsm.change_state(fsm.states.attack)
-	pass
-
-# Eager state
-func start_eager() -> void:
-	start_attack()
-	fsm.current_state.timer = eager_time
-	pass
-
-func end_eager() -> void:
-	end_attack()
-	pass
-	
-func update_eager(_delta: float) -> void:
-	update_attack(_delta)
-	#if can_attack() and _compute_target_direction(found_player.position) != direction:
-		#fsm.change_state(fsm.states.stun)
-	#if can_attack():
-		#fsm.current_state.timer = eager_time
-	#elif fsm.current_state.update_timer(_delta):
-		#fsm.change_state(fsm.states.stun)
 	pass
 
 # Stun state
@@ -156,3 +98,6 @@ func update_stun(_delta: float) -> void:
 func remember_player_position() -> void:
 	if found_player:
 		_player_pos = found_player.position
+
+func is_close(target: Vector2, tolerance: float) -> bool:
+	return absf(target.x - global_position.x) <= tolerance

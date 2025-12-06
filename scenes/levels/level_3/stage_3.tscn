@@ -211,15 +211,63 @@ animations = [{
 
 [node name="Mushroom" parent="Enemies" instance=ExtResource("3_ryjcr")]
 position = Vector2(2270, -1242)
+initial_state = 0
+hurt_time = 0.4
+awake_time = 2.0
+sight = 100.0
+movement_range = 500.0
+attack_damage = 50.0
+attack_speed = 50.0
+use_raycast_detection = false
+turn_chance = 0.001
+gravity = 700.0
+direction = 1
+character_type = 0
 
 [node name="Mushroom2" parent="Enemies" instance=ExtResource("3_ryjcr")]
 position = Vector2(3385, -3222)
+initial_state = 0
+hurt_time = 0.4
+awake_time = 2.0
+sight = 100.0
+movement_range = 500.0
+attack_damage = 50.0
+attack_speed = 50.0
+use_raycast_detection = false
+turn_chance = 0.001
+gravity = 700.0
+direction = 1
+character_type = 0
 
 [node name="Mushroom3" parent="Enemies" instance=ExtResource("3_ryjcr")]
 position = Vector2(4010, -3732)
+initial_state = 0
+hurt_time = 0.4
+awake_time = 2.0
+sight = 100.0
+movement_range = 500.0
+attack_damage = 50.0
+attack_speed = 50.0
+use_raycast_detection = false
+turn_chance = 0.001
+gravity = 700.0
+direction = 1
+character_type = 0
 
 [node name="Mushroom4" parent="Enemies" instance=ExtResource("3_ryjcr")]
 position = Vector2(842, -1525)
+initial_state = 0
+hurt_time = 0.4
+awake_time = 2.0
+sight = 100.0
+movement_range = 500.0
+attack_damage = 50.0
+attack_speed = 50.0
+use_raycast_detection = false
+turn_chance = 0.001
+gravity = 700.0
+direction = 1
+character_type = 0
 
 [node name="Crab" parent="Enemies" instance=ExtResource("9_goifi")]
 position = Vector2(5369, -4056)

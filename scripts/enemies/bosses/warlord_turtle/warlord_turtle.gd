@@ -56,12 +56,13 @@ var _has_launched_rocket: bool = false
 
 func _ready() -> void:
 	super._ready()
-	_init_shoot_bomb_state()
-	_init_spread_bomb_state()
-	_init_shoot_rocket_state()
-	_init_spread_rocket_state()
+	_init_state("ShootBomb", start_shoot_bomb, end_shoot_bomb, update_shoot_bomb, _on_normal_react)
+	_init_state("SpreadBomb", start_spread_bomb, end_spread_bomb, update_spread_bomb, _on_normal_react)
+	_init_state("ShootRocket", start_shoot_rocket, end_shoot_rocket, update_shoot_rocket, _on_normal_react)
+	_init_state("SpreadRocket", start_spread_rocket, end_spread_rocket, update_spread_rocket, _on_normal_react)
 	_init_bomb_factories()
 	_init_rocket_factories()
+	_init_bomb_timing()
 
 func _init_rocket_factories():
 	if has_node("Direction/RocketFactories/SmokeRocket"):
@@ -74,43 +75,17 @@ func _init_bomb_factories():
 		_bomb_factories = get_node("Direction/BombFactories")
 		_bomb_fac_cursor = 0
 
-func _init_spread_rocket_state() -> void:
-	if has_node("States/SpreadRocket"):
-		var state : EnemyState = get_node("States/SpreadRocket")
-		state.enter.connect(start_spread_rocket)
-		state.exit.connect(end_spread_rocket)
-		state.update.connect(update_spread_rocket)
-
-func _init_shoot_rocket_state() -> void:
-	if has_node("States/ShootRocket"):
-		var state : EnemyState = get_node("States/ShootRocket")
-		state.enter.connect(start_shoot_rocket)
-		state.exit.connect(end_shoot_rocket)
-		state.update.connect(update_shoot_rocket)
-
-func _init_spread_bomb_state() -> void:
-	if has_node("States/SpreadBomb"):
-		var state : EnemyState = get_node("States/SpreadBomb")
-		state.enter.connect(start_spread_bomb)
-		state.exit.connect(end_spread_bomb)
-		state.update.connect(update_spread_bomb)
-
-func _init_shoot_bomb_state() -> void:
-	if has_node("States/ShootBomb"):
-		var state : EnemyState = get_node("States/ShootBomb")
-		state.enter.connect(start_shoot_bomb)
-		state.exit.connect(end_shoot_bomb)
-		state.update.connect(update_shoot_bomb)
-		
-		var anim_speed = animated_sprite.sprite_frames.get_animation_speed("bomb")
-		start_bomb_period = start_bomb_frame / anim_speed
-		bomb_interval = bomb_frame_interval / anim_speed
+func _init_bomb_timing():
+	var anim_speed = animated_sprite.sprite_frames.get_animation_speed("bomb")
+	start_bomb_period = start_bomb_frame / anim_speed
+	bomb_interval = bomb_frame_interval / anim_speed
 
 func _init_skill_set():
 	super._init_skill_set()
 	_short_range_skills = [fsm.states.shootrocket, fsm.states.spreadrocket]
 	_far_range_skills = [fsm.states.shootbomb, fsm.states.spreadbomb]
 
+# Spread bomb state
 func start_spread_bomb() -> void:
 	fsm.current_state.timer = start_bomb_period
 	_has_spread = false
@@ -148,6 +123,7 @@ func spread(_factories: Array[Node], _count: int, _time_to_fall: float, _spread_
 		bullet.apply_velocity(speed)
 		bullet.set_damage(spike)
 
+# Shoot bomb state
 func start_shoot_bomb() -> void:
 	fsm.current_state.timer = start_bomb_period
 	reload_bomb()
@@ -189,6 +165,7 @@ func shoot(_factory: Node2DFactory) -> void:
 	bomb.set_damage(spike)
 	bomb.set_gravity(0)
 
+# Spread rocket state
 func start_spread_rocket() -> void:
 	_has_rocket_rain = false
 	fsm.current_state.timer = start_bomb_period
@@ -213,6 +190,7 @@ func spread_rocket() -> void:
 	_has_rocket_rain = true
 	spread(_smoke_rocket_factories.get_children(), rocket_count, rocket_falling_time, rocket_spread_percentage)
 
+# Shoot rocket state
 func start_shoot_rocket() -> void:
 	_has_launched_rocket = false
 	fsm.current_state.timer = start_bomb_period

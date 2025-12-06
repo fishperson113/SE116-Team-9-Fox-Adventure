@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://ddc86ootpum2i"]
+[gd_scene load_steps=32 format=3 uid="uid://ddc86ootpum2i"]
 
 [ext_resource type="PackedScene" uid="uid://c40nxk7wmbjxm" path="res://scenes/enemies/abstract_enemies/boss.tscn" id="1_1gsf2"]
 [ext_resource type="Script" uid="uid://c28t2iakx47cc" path="res://scripts/enemies/bosses/warlord_turtle/warlord_turtle.gd" id="1_8yvna"]
@@ -20,10 +20,10 @@
 [ext_resource type="Texture2D" uid="uid://b767nhml2smxh" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle6.png" id="19_85n5f"]
 [ext_resource type="Texture2D" uid="uid://bd11owlleqwqp" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle7.png" id="20_vl3do"]
 [ext_resource type="Texture2D" uid="uid://cv1e56rgrcuvo" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle8.png" id="21_qbl8w"]
-[ext_resource type="PackedScene" uid="uid://csgfa541ialou" path="res://scripts/enemies/bullets/normal_cannon.tscn" id="22_1gsf2"]
-[ext_resource type="PackedScene" uid="uid://cbr3bjld670mw" path="res://scripts/enemies/bullets/follow_rocket.tscn" id="23_63a1y"]
+[ext_resource type="PackedScene" uid="uid://csgfa541ialou" path="res://scenes/enemies/bullets/normal_cannon.tscn" id="22_1gsf2"]
+[ext_resource type="PackedScene" uid="uid://cbr3bjld670mw" path="res://scenes/enemies/bullets/follow_rocket.tscn" id="23_63a1y"]
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="23_dsagu"]
-[ext_resource type="PackedScene" uid="uid://djcueig2anvio" path="res://scripts/enemies/bullets/smoke_rocket.tscn" id="24_o7e0g"]
+[ext_resource type="PackedScene" uid="uid://djcueig2anvio" path="res://scenes/enemies/bullets/smoke_rocket.tscn" id="24_o7e0g"]
 [ext_resource type="Script" uid="uid://b788rlt8r54r8" path="res://scripts/enemies/states/boss_state.gd" id="25_1gsf2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o7e0g"]
@@ -127,6 +127,14 @@ size = Vector2(1200, 800)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mirfw"]
 size = Vector2(62, 66)
 
+[sub_resource type="GDScript" id="GDScript_1gsf2"]
+script/source = "class_name EnemyDeadState
+extends EnemyState
+
+func take_damage(_attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
+	pass
+"
+
 [node name="WarlordTurtle" instance=ExtResource("1_1gsf2")]
 script = ExtResource("1_8yvna")
 start_bomb_frame = 3
@@ -210,6 +218,9 @@ shape = SubResource("RectangleShape2D_mirfw")
 [node name="Normal" parent="States" index="0"]
 script = ExtResource("25_1gsf2")
 
+[node name="Dead" parent="States" index="1"]
+script = SubResource("GDScript_1gsf2")
+
 [node name="ShootBomb" type="Node" parent="States" index="2"]
 script = ExtResource("25_1gsf2")
 
@@ -219,7 +230,6 @@ metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="SpreadRocket" type="Node" parent="States" index="4"]
 script = ExtResource("25_1gsf2")
-metadata/_custom_type_script = "uid://bq0h6rwr31w52"
 
 [node name="ShootRocket" type="Node" parent="States" index="5"]
 script = ExtResource("25_1gsf2")

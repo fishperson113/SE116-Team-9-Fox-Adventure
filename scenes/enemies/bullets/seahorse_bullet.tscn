@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://du7fbtiiymelr"]
+
+[ext_resource type="PackedScene" uid="uid://d6n4xfsaxrdw" path="res://scenes/enemies/bullets/base_bullet.tscn" id="1_rdw86"]
+[ext_resource type="Texture2D" uid="uid://cscwxxtwha7qk" path="res://assets/sprites/enemies/monsters/barrel/barrel_bullet.png" id="2_rtseu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bohtv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_rtseu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m57ih"]
+size = Vector2(7, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5260l"]
+size = Vector2(7, 6)
+
+[node name="SeahorseBullet" instance=ExtResource("1_rdw86")]
+
+[node name="AnimatedSprite2D" parent="Direction" index="0"]
+sprite_frames = SubResource("SpriteFrames_bohtv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D" index="0"]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_m57ih")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_5260l")

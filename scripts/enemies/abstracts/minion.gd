@@ -8,14 +8,11 @@ enum InitialState { NORMAL, SLEEP }
 @export var hurt_time: float = 0.4
 @export var awake_time: float = 2
 
-@export var idle_chance: float = 0.001
-
 func _ready() -> void:
 	super._ready()
-	_init_idle_state()
-	_init_hurt_state()
-	_init_sleep_state()
-	_init_awaking_state()
+	_init_state("Hurt", start_hurt, end_hurt, update_hurt, _on_hurt_react)
+	_init_state("Sleep", start_sleep, end_sleep, update_sleep, _on_normal_react)
+	_init_state("Awaking", start_awaking, end_awaking, update_awaking, _on_normal_react)
 	_init_initial_state()
 	pass
 
@@ -31,54 +28,30 @@ func _init_initial_state() -> void:
 	
 	fsm = FSM.new(self, $States, state_node)
 
-func _init_idle_state() -> void:
-	if has_node("States/Idle"):
-		var state : EnemyState = get_node("States/Idle")
-		state.enter.connect(start_idle)
-		state.exit.connect(end_idle)
-		state.update.connect(update_idle)
-
-func _init_awaking_state() -> void:
-	if has_node("States/Awaking"):
-		var state : EnemyState = get_node("States/Awaking")
-		state.enter.connect(start_awaking)
-		state.exit.connect(end_awaking)
-		state.update.connect(update_awaking)
-
-func _init_sleep_state() -> void:
-	if has_node("States/Sleep"):
-		var state : EnemyState = get_node("States/Sleep")
-		state.enter.connect(start_sleep)
-		state.exit.connect(end_sleep)
-		state.update.connect(update_sleep)
-
-func _init_hurt_state() -> void:
-	if has_node("States/Hurt"):
-		var state : EnemyState = get_node("States/Hurt")
-		state.enter.connect(start_hurt)
-		state.exit.connect(end_hurt)
-		state.update.connect(update_hurt)
-
 func update_normal(_delta: float) -> void:
 	try_patrol_turn(_delta)
 	manage_attack_spacing()
 	if found_player:
 		target(found_player.position)
-	#if try_patrol_turn(_delta) or randf() < idle_chance:
-		#fsm.change_state(fsm.states.idle)
 	pass
 
+# Hurt state
 func start_hurt() -> void:
 	set_combat_collision(false)
 	change_animation("hurt")
+	if not animated_sprite.animation_finished.is_connected(try_recover):
+		animated_sprite.animation_finished.connect(try_recover)
 
 func end_hurt() -> void:
 	set_combat_collision(true)
+	if animated_sprite.animation_finished.is_connected(try_recover):
+		animated_sprite.animation_finished.disconnect(try_recover)
 	pass
 
 func update_hurt(_delta: float) -> void:
 	pass
 
+# Sleep state
 func start_sleep() -> void:
 	_movement_speed = 0
 	_hit_area_shape.disabled = true
@@ -93,7 +66,9 @@ func update_sleep(_delta: float) -> void:
 		fsm.change_state(fsm.states.awaking)
 	pass
 
+# Awaking state
 func start_awaking() -> void:
+	fsm.current_state.timer = awake_time
 	pass
 
 func end_awaking() -> void:
@@ -102,17 +77,6 @@ func end_awaking() -> void:
 	pass
 
 func update_awaking(_delta: float) -> void:
-	pass
-
-func start_idle() -> void:
-	_movement_speed = 0.0
-	change_animation("idle")
-	pass
-
-func end_idle() -> void:
-	pass
-
-func update_idle(_delta: float) -> void:
-	if randf() < idle_chance:
+	if fsm.current_staet.update_timer(_delta):
 		fsm.change_state(fsm.states.normal)
 	pass

@@ -17,14 +17,7 @@ var _far_range_skills: Array = []
 func _ready() -> void:
 	super._ready();
 	_init_skill_set()
-	_init_rest_state()
-
-func _init_rest_state() -> void:
-	if has_node("States/Rest"):
-		var state : EnemyState = get_node("States/Rest")
-		state.enter.connect(start_rest)
-		state.exit.connect(end_rest)
-		state.update.connect(update_rest)
+	_init_state("Rest", start_rest, end_rest, update_rest, _on_normal_react)
 
 func _init_skill_set():
 	rest()
@@ -75,9 +68,6 @@ func update_rest(_delta) -> void:
 	if fsm.current_state.update_timer(_delta):
 		_return_to_normal()
 
-func _return_to_normal():
-	fsm.change_state(fsm.states.normal)
-
 func _return_to_rest():
 	fsm.change_state(fsm.states.rest)
 
@@ -99,4 +89,10 @@ func compute_shot_speed(from: Vector2, to: Vector2, strength: float):
 func is_player_close() -> bool:
 	if not found_player:
 		return false
-	return found_player.position.distance_to(position) <= close_range
+	return is_close(found_player.position, close_range)
+
+# Reaction
+func _on_normal_react(input: BehaviorInput) -> void:
+	if input is HurtBehaviorInput:
+		take_damage(input.damage_taken)
+	pass

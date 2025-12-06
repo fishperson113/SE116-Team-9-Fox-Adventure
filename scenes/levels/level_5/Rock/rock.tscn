@@ -47,6 +47,7 @@ _data = {
 }
 
 [node name="Rock" type="CharacterBody2D"]
+collision_layer = 129
 script = ExtResource("1_233se")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
