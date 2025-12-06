@@ -57,7 +57,7 @@ func _on_assemble_done(path):
 	GameManager.player.inventory.insert_item(\"weapon_blade\",weapon)
 	GameManager.player.inventory.save_inventory()
 	GameManager.player.item_storer.add_item(\"weapon_blade\",weapon)
-	
+	GameManager.player.item_storer.save_slots()
 	#GameManager.player.equip_weapon(path)
 	#GameManager.equipped_weapon_path=path
 
