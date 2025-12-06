@@ -1,4 +1,4 @@
-extends GridContainer
+extends VBoxContainer
 
 @onready var num_gem = $NumGems
 @onready var num_key = $NumKey

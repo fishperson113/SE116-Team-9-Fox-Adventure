@@ -1,15 +1,10 @@
 extends Control
 class_name InvUI
 
-@export var inventory: Inventory
 @onready var slots := $Panel/MarginContainer/GridContainer.get_children()
 
 func update_inventory_ui():
-	if inventory == null:
-		print("❌ InvUI: inventory chưa được assign")
-		return
-	
-	var archive = inventory.item_archive
+	var archive = GameManager.player.inventory.item_archive
 
 	# Reset toàn bộ slot trước
 	for slot in slots:

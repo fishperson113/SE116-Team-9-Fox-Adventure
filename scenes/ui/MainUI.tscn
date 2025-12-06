@@ -1,9 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://djoolf474qo2p"]
 
-[ext_resource type="Script" uid="uid://bj1vha74m6rd2" path="res://scenes/ui/main_ui.gd" id="1_7s5y6"]
+[ext_resource type="Script" uid="uid://bj1vha74m6rd2" path="res://scripts/ui/main_ui.gd" id="1_7s5y6"]
 [ext_resource type="Texture2D" uid="uid://vj2xvbhnt45o" path="res://assets/ui/panels/health_bar.png" id="1_kdubu"]
-[ext_resource type="Texture2D" uid="uid://bm66ag0j7y3qi" path="res://assets/ui/panels/popup.png" id="2_d21ai"]
-[ext_resource type="Script" uid="uid://csc4qnp65a8rl" path="res://scenes/ui/items.gd" id="3_jv1lx"]
+[ext_resource type="Script" uid="uid://csc4qnp65a8rl" path="res://scripts/ui/items.gd" id="3_jv1lx"]
 [ext_resource type="Texture2D" uid="uid://cj8i62eqo1cv0" path="res://assets/sprites/items/gems/GemIcon.png" id="3_rj586"]
 [ext_resource type="Texture2D" uid="uid://bldlesja38ka7" path="res://assets/sprites/items/key/key_1.png" id="4_4d7sh"]
 [ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="4_qg6rx"]
@@ -13,89 +12,82 @@
 [ext_resource type="Texture2D" uid="uid://ci25u8dfvvsna" path="res://assets/sprites/items/Keyboard/Space.png" id="8_hqns4"]
 [ext_resource type="Texture2D" uid="uid://d086j8jvm50hp" path="res://assets/sprites/items/Keyboard/D.png" id="9_x0ka3"]
 [ext_resource type="Texture2D" uid="uid://dos6hwpl7kq7l" path="res://assets/ui/panels/progress.png" id="12_mjmcw"]
-[ext_resource type="Script" uid="uid://c2xtf1ss4k7gw" path="res://scenes/ui/texture_progress_bar.gd" id="14_rpv8g"]
+[ext_resource type="PackedScene" uid="uid://bquisodmhmkdk" path="res://scenes/ui/inventory/Inv_ui.tscn" id="14_jv1lx"]
+[ext_resource type="Script" uid="uid://c2xtf1ss4k7gw" path="res://scripts/ui/texture_progress_bar.gd" id="14_rpv8g"]
 
 [node name="MainUI" type="CanvasLayer"]
 script = ExtResource("1_7s5y6")
 
+[node name="InvUi" parent="." instance=ExtResource("14_jv1lx")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_top = -219.0
+offset_bottom = -219.0
+grow_vertical = 0
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(240, 136)
 
-[node name="Slots" type="HBoxContainer" parent="."]
-visible = false
-offset_left = 141.0
-offset_top = 216.0
-offset_right = 462.0
-offset_bottom = 320.0
-scale = Vector2(0.35, 0.35)
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="Slot1" type="Sprite2D" parent="Slots"]
-position = Vector2(59, 56)
-texture = ExtResource("2_d21ai")
-
-[node name="Slot2" type="Sprite2D" parent="Slots"]
-position = Vector2(160, 56)
-texture = ExtResource("2_d21ai")
-
-[node name="Slot3" type="Sprite2D" parent="Slots"]
-position = Vector2(260, 56)
-texture = ExtResource("2_d21ai")
-
-[node name="Slot4" type="Sprite2D" parent="Slots"]
-position = Vector2(362, 56)
-texture = ExtResource("2_d21ai")
-
-[node name="Slot5" type="Sprite2D" parent="Slots"]
-position = Vector2(464, 57)
-texture = ExtResource("2_d21ai")
-
-[node name="Slot6" type="Sprite2D" parent="Slots"]
-position = Vector2(567, 56)
-texture = ExtResource("2_d21ai")
-
-[node name="Items" type="GridContainer" parent="."]
-visible = false
+[node name="Items" type="VBoxContainer" parent="."]
 offset_left = 19.0
-offset_top = 28.0
+offset_top = 71.0
 offset_right = 111.0
-offset_bottom = 132.0
+offset_bottom = 183.0
 scale = Vector2(0.5, 0.5)
-columns = 2
 script = ExtResource("3_jv1lx")
 
-[node name="GemIcon" type="TextureRect" parent="Items"]
+[node name="1" type="HBoxContainer" parent="Items"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="GemIcon" type="TextureRect" parent="Items/1"]
 layout_mode = 2
 texture = ExtResource("3_rj586")
-expand_mode = 4
+expand_mode = 2
 
-[node name="NumGems" type="Label" parent="Items"]
+[node name="NumGems" type="Label" parent="Items/1"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_qg6rx")
+theme_override_font_sizes/font_size = 30
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Key" type="TextureRect" parent="Items"]
+[node name="2" type="HBoxContainer" parent="Items"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Key" type="TextureRect" parent="Items/2"]
 layout_mode = 2
 texture = ExtResource("4_4d7sh")
+expand_mode = 2
 
-[node name="NumKey" type="Label" parent="Items"]
+[node name="NumKey" type="Label" parent="Items/2"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_qg6rx")
+theme_override_font_sizes/font_size = 30
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Coin" type="TextureRect" parent="Items"]
+[node name="3" type="HBoxContainer" parent="Items"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Coin" type="TextureRect" parent="Items/3"]
 layout_mode = 2
 texture = ExtResource("5_ir8iy")
-expand_mode = 4
+expand_mode = 2
 
-[node name="NumCoin" type="Label" parent="Items"]
+[node name="NumCoin" type="Label" parent="Items/3"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_qg6rx")
+theme_override_font_sizes/font_size = 30
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
