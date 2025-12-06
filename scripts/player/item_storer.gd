@@ -1,5 +1,6 @@
 extends Node
 class_name ItemStorer
+signal slot_changed(new_slot_index)
 
 var number_of_slots: int
 var items_archive: Array[Dictionary]
@@ -13,20 +14,21 @@ func _init() -> void:
 	number_of_slots = GameManager.slots_size
 	items_archive.resize(number_of_slots)
 
-func _ready() -> void:
-	for i in range(number_of_slots):
-		items_archive[i] = {}
-	items_archive = GameManager.slots_data
-	change_item()
-	
-	#DO NOT delete this, just for faster progression
-	#SaveSystem.delete_slots_file()
-	
-	#This might be useful for demos, DO NOT delete this either
-	#for i in range(200):
-	#	add_item("weapon_blade", {})
+#func _ready() -> void:
+	#for i in range(number_of_slots):
+		#items_archive[i] = {}
+	#items_archive = GameManager.slots_data
 	#change_item()
-	pass
+	##_equip_current_slot_weapon()
+	##emit_signal("slot_changed", item_slot)
+	##DO NOT delete this, just for faster progression
+	##SaveSystem.delete_slots_file()
+	#
+	##This might be useful for demos, DO NOT delete this either
+	##for i in range(200):
+	##	add_item("weapon_blade", {})
+	##change_item()
+	#pass
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("switch_item"):
@@ -64,6 +66,7 @@ func switch_item_slot() -> void:
 		item_slot += 1
 	change_item()
 	_equip_current_slot_weapon()
+	emit_signal("slot_changed", item_slot)
 	print("Switched to slot ", item_slot, "\n", items_archive[item_slot])
 
 
@@ -140,3 +143,21 @@ func show_slots() -> void:
 func save_slots() -> void:
 	GameManager.slots_data = items_archive.duplicate(true)
 	GameManager.save_slots_data()
+
+func initialize_slots():
+	# Load từ GameManager
+	items_archive = GameManager.slots_data.duplicate(true)
+
+	# Nếu file rỗng → tạo slot trống
+	if items_archive.is_empty():
+		items_archive.resize(number_of_slots)
+		for i in range(number_of_slots):
+			items_archive[i] = {}
+
+	# Equip slot đầu tiên
+	change_item()
+	_equip_current_slot_weapon()
+
+	emit_signal("slot_changed", item_slot)
+
+	print("ItemStorer initialized:", items_archive)

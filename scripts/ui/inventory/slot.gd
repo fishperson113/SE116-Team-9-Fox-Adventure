@@ -78,3 +78,31 @@ func _drop_data(at_position, data):
 		src.clear_slot()
 	else:
 		src.set_item(cur_tex, cur_type, cur_detail, cur_count)
+		
+func highlight(active: bool):
+	var style := StyleBoxFlat.new()
+
+	style.corner_radius_top_left = 8
+	style.corner_radius_top_right = 8
+	style.corner_radius_bottom_left = 8
+	style.corner_radius_bottom_right = 8
+
+	style.border_width_left = 0
+	style.border_width_right = 0
+	style.border_width_top = 0
+	style.border_width_bottom = 0
+
+	if active:
+		style.border_color = Color.hex(0xBBCB64)
+		style.border_width_left = 3
+		style.border_width_right = 3
+		style.border_width_top = 3
+		style.border_width_bottom = 3
+
+		# Glow neon
+		style.shadow_color = Color.hex(0xBBCB64)
+		style.shadow_size = 10
+	else:
+		style.shadow_size = 0
+
+	add_theme_stylebox_override("panel", style)

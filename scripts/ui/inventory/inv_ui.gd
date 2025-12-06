@@ -3,6 +3,8 @@ class_name InvUI
 
 @onready var slots := $Panel/MarginContainer/GridContainer.get_children()
 func _ready() -> void:
+	GameManager.player.inventory.inventory_changed.connect(update_inventory_ui)
+	GameManager.player.inventory.item_storer.slot_changed.connect(_on_slot_changed)
 	update_inventory_ui()
 	
 func update_inventory_ui():
@@ -61,3 +63,13 @@ func load_icon(item_type: String, item_detail_list := []) -> Texture2D:
 
 	printerr("⚠ Default icon not found for item_type: ", item_type)
 	return null
+
+var current_hotbar_slot := -1
+
+func highlight_slot(index: int):
+	for i in range(slots.size()):
+		slots[i].highlight(i == index)
+
+func _on_slot_changed(new_slot: int):
+	current_hotbar_slot = new_slot
+	highlight_slot(new_slot)

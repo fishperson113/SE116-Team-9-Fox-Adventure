@@ -30,8 +30,13 @@ func _ready() -> void:
 	load_inventory_data()
 	load_slots_data()
 	load_level_progress()
+	initialize_systems()
 	pass
+func initialize_systems():
+	await get_tree().process_frame
 
+	if player and player.item_storer:
+		player.item_storer.initialize_slots()
 func collect_blade():
 	if player_has_blade:
 		return
