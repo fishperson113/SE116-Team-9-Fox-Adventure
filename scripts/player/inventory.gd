@@ -17,37 +17,52 @@ func show_item_archive() -> void:
 		return
 	
 	for i in range(len(item_archive)):
-		print(i, ": ", item_archive[i])
+		if is_item_weapon(i):
+			print(i, ": ", item_archive[i])
+		elif item_archive[i].is_empty():
+			print(i, ": ", item_archive[i])
+		else:
+			print(i, ": ",
+			item_archive[i]["item_type"],
+			": size: ", item_archive[i]["item_detail"].size())
 	print("\n")
 	pass
+	
+func is_item_weapon(item_index: int) -> bool:
+	if item_archive[item_index]["item_type"].begins_with("weapon_"):
+		return true
+	return false
 
 func insert_item(item_type: String, item_detail) -> void:
-	for i in range(len(item_archive)):
-		if item_archive[i]["item_type"] != item_type:
-			continue
-		
-		if not GameManager.check_object_type(item_archive[i]["item_detail"][0], item_detail):
-			continue
-		
-		# --- Update existing stack ---
-		item_archive[i]["item_detail"].append(item_detail)
-		print("Added existing item")
+	#If the item is a weapon
+	if item_type.begins_with("weapon_"):
+		var item = {
+			"item_type" = item_type,
+			"item_detail" = []
+		}
+		item["item_detail"].append(item_detail)
+		item_archive.append(item)
+		print("Added new item")
 		show_item_archive()
-
-		emit_signal("inventory_changed")
 		return
 	
-	# --- Create new stack ---
+	#If the array has the item and the item is not a weapon
+	for i in range(len(item_archive)):
+		if item_archive[i]["item_type"] == item_type:
+			item_archive[i]["item_detail"].append(item_detail)
+			print("Added existing item")
+			show_item_archive()
+			return
+	
+	#If the item does not exist in the array
 	var item = {
 		"item_type": item_type,
-		"item_detail": [item_detail]
+		"item_detail": []
 	}
+	item["item_detail"].append(item_detail)
 	item_archive.append(item)
-
-	print("Added new item")
+	print("Added new non-weapon item")
 	show_item_archive()
-
-	emit_signal("inventory_changed")
 	pass
 
 func find_exact_item(item_type: String, item_detail) -> Variant:

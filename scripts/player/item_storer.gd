@@ -31,26 +31,28 @@ func _init() -> void:
 	#pass
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("switch_item"):
-		switch_item_slot()
+	if Input.is_action_just_pressed("change_slot_left"):
+		switch_item_slot(-1)
+	elif Input.is_action_just_pressed("change_slot_right"):
+		switch_item_slot(1)
 
 func add_item(item_type: String, item_detail) -> bool:
-	if not items_archive[item_slot].has("item_type"):
-		items_archive[item_slot] = {
-			"item_type" = item_type,
-			"item_detail" = []
-		}
-		items_archive[item_slot]["item_detail"].append(item_detail)
-		print("Successfully added an object from inventory")
-		change_item()
-		return true
-	
-	if items_archive[item_slot]["item_type"] != item_type:
-		print("Can't add a different type of existing object to the same slot")
-		return false
-	
-	items_archive[item_slot]["item_detail"].append(item_detail)
-	print("Successfully added an object from inventory")
+	for i in range(number_of_slots):
+		if not items_archive[i].has("item_type"):
+			items_archive[i] = {
+				"item_type" = item_type,
+				"item_detail" = []
+			}
+			items_archive[i]["item_detail"].append(item_detail)
+			print("Successfully added an object from inventory")
+			change_item()
+			return true
+		elif not is_slot_weapon(i) and items_archive[i]["item_type"] == item_type:
+			items_archive[i]["item_detail"].append(item_detail)
+			print("Successfully added an object from inventory")
+			return true
+
+	inventory.insert_item(item_type, item_detail)
 	return true
 
 func change_item(index_in_slot: int = 0) -> void:
@@ -59,16 +61,17 @@ func change_item(index_in_slot: int = 0) -> void:
 	else:
 		weapon_thrower.change_weapon("none", {})
 
-func switch_item_slot() -> void:
-	if item_slot + 1 >= number_of_slots:
+func switch_item_slot(offset: int) -> void:
+	if item_slot + offset < 0:
 		item_slot = 0
+	elif item_slot + offset >= number_of_slots:
+		item_slot = number_of_slots - 1
 	else:
-		item_slot += 1
+		item_slot += offset
 	change_item()
 	_equip_current_slot_weapon()
 	emit_signal("slot_changed", item_slot)
 	print("Switched to slot ", item_slot, "\n", items_archive[item_slot])
-
 
 func _equip_current_slot_weapon():
 	if not is_slot_available():
@@ -89,14 +92,20 @@ func _equip_current_slot_weapon():
 	GameManager.player.equip_weapon(weapon)
 	
 
-func is_slot_available() -> bool:
-	if items_archive[item_slot] == {}:
+func is_slot_available(slot_index: int = item_slot) -> bool:
+	if items_archive[slot_index] == {}:
 		return false
 	return true
 
-func is_slot_weapon() -> bool:
-	if items_archive[item_slot].has("item_type"):
-		if items_archive[item_slot]["item_type"].begins_with("weapon_"):
+func is_item_storer_full() -> bool:
+	for i in range(number_of_slots):
+		if not is_slot_available(i):
+			return false
+	return true
+
+func is_slot_weapon(item_index: int = item_slot) -> bool:
+	if items_archive[item_index].has("item_type"):
+		if items_archive[item_index]["item_type"].begins_with("weapon_"):
 			return true
 	return false
 
@@ -137,7 +146,14 @@ func return_item(item_type: String, item_detail) -> void:
 func show_slots() -> void:
 	print("List of slots:")
 	for item_index in len(items_archive):
-		print(item_index, ": ", items_archive[item_index])
+		if is_slot_weapon(item_index):
+			print(item_index, ": ", items_archive[item_index])
+		elif items_archive[item_index].is_empty():
+			print(item_index, ": ", items_archive[item_index])
+		else:
+			print(item_index, ": ",
+			items_archive[item_index]["item_type"],
+			": size: ", items_archive[item_index]["item_detail"].size())
 	print("\n")
 
 func save_slots() -> void:
