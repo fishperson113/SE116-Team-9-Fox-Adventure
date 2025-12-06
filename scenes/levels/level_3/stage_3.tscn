@@ -226,21 +226,6 @@ position = Vector2(5369, -4056)
 
 [node name="Starfish" parent="Enemies" instance=ExtResource("8_ctv1g")]
 position = Vector2(4271, -4067)
-eager_time = 1.0
-stun_time = 0.5
-initial_state = 0
-hurt_time = 0.4
-awake_time = 2.0
-idle_chance = 0.001
-sight = 100.0
-movement_range = 500.0
-attack_damage = 50.0
-attack_speed = 50.0
-use_raycast_detection = false
-turn_chance = 0.001
-gravity = 700.0
-direction = 1
-character_type = 0
 
 [node name="World" type="Node2D" parent="."]
 

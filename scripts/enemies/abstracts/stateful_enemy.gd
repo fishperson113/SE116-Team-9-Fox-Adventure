@@ -26,6 +26,7 @@ func _init_dead_state() -> void:
 		state.exit.connect(end_dead)
 		state.update.connect(update_dead)
 
+# Normal state
 func start_normal() -> void:
 	_movement_speed = movement_speed
 	change_animation("normal")
@@ -36,6 +37,7 @@ func end_normal() -> void:
 func update_normal(_delta: float) -> void:
 	pass
 
+# Dead state
 func start_dead() -> void:
 	clear_area_collision(_hit_area)
 	clear_area_collision(_hurt_area)
@@ -48,13 +50,3 @@ func end_dead() -> void:
 
 func update_dead(_delta: float) -> void:
 	pass
-
-func target(_position: Vector2) -> void:
-	if _compute_target_direction(_position) != direction:
-		turn()
-
-func _compute_target_direction(_position: Vector2) -> int:
-	var target_direction = -1
-	if _position.x > position.x:
-		target_direction = 1
-	return target_direction

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://s1i5rs0wwho6"]
+
+[ext_resource type="Script" uid="uid://dpd1hu8tkk1y4" path="res://scenes/ui/markers/threat_indicator_area_2d.gd" id="1_e45ql"]
+[ext_resource type="PackedScene" uid="uid://cvdklsb743i1l" path="res://scenes/ui/markers/threat_marker.tscn" id="2_jeyu0"]
+
+[node name="ThreatIndicatorArea2D" type="Area2D"]
+collision_layer = 0
+collision_mask = 128
+script = ExtResource("1_e45ql")
+marker = ExtResource("2_jeyu0")

@@ -3,3 +3,4 @@
 [ext_resource type="PackedScene" uid="uid://d6n4xfsaxrdw" path="res://scripts/enemies/bullets/base_bullet.tscn" id="1_3c1yk"]
 
 [node name="BaseBomb" instance=ExtResource("1_3c1yk")]
+collision_layer = 128

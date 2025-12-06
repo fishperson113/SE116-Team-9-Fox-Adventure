@@ -52,6 +52,14 @@ var _hurt_area: HurtArea2D = null
 
 func _ready() -> void:
 	super._ready()
+	
+	_init_components()
+	_init_stats()
+	_init_behaviors()
+	
+	_setup_jump_raycast()
+
+func _init_components() -> void:
 	_init_animated_sprite()
 	_init_ray_cast()
 	_init_detect_player_area()
@@ -59,13 +67,20 @@ func _ready() -> void:
 	_init_hurt_area()
 	_init_hit_area()
 	_init_collision_shape()
-	_patrol_controller = PatrolController.new(movement_range)
+
+func _init_stats() -> void:
 	jump_speed = 235
 	_jump_speed = jump_speed
 	currentHealth = health
-	_jump_raycast.target_position = Vector2.ONE * -BLOCK_SIZE
-	_jump_raycast.position.x = BLOCK_SIZE / 2 + get_size().x / 2
-	_jump_raycast.position.y = -(BLOCK_SIZE - get_size().y / 2)
+
+func _init_behaviors() -> void:
+	_patrol_controller = PatrolController.new(movement_range)
+
+func _setup_jump_raycast():
+	if _jump_raycast:
+		_jump_raycast.target_position = Vector2.ONE * -BLOCK_SIZE
+		_jump_raycast.position.x = BLOCK_SIZE / 2 + get_size().x / 2
+		_jump_raycast.position.y = -(BLOCK_SIZE - get_size().y / 2)
 	pass
 
 func _init_animated_sprite():
@@ -332,3 +347,13 @@ func set_combat_collision(flag: bool) -> void:
 func clear_area_collision(_area: Area2D) -> void:
 	_area.collision_layer = 0
 	_area.collision_mask = 0
+
+func target(_position: Vector2) -> void:
+	if _compute_target_direction(_position) != direction:
+		turn()
+
+func _compute_target_direction(_position: Vector2) -> int:
+	var target_direction = -1
+	if _position.x > position.x:
+		target_direction = 1
+	return target_direction
