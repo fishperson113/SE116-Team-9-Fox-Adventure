@@ -4,6 +4,7 @@ extends FSMState
 signal enter
 signal update(delta: float)
 signal exit
+signal react(input: BehaviorInput)
 
 func _enter() -> void:
 	enter.emit()
@@ -23,17 +24,5 @@ func update_timer(delta: float) -> bool:
 		return true
 	return false
 
-func try_attack() -> void:
-	if obj.can_attack():
-		fsm.change_state(fsm.states.prepare)
-
-func try_recover() -> void:
-	if obj.is_alive():
-		fsm.change_state(fsm.states.normal)
-		return
-	fsm.change_state(fsm.states.dead)
-
-func take_damage(_attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
-	obj.take_damage(_damage)
-	obj.bounce_off(_direction)
-	change_state(fsm.states.hurt)
+func _react(input: BehaviorInput) -> void:
+	react.emit(input)

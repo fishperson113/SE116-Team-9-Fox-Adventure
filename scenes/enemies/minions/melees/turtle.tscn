@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bfht0850wn42w"]
+[gd_scene load_steps=16 format=3 uid="uid://bfht0850wn42w"]
 
 [ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_lwot8"]
 [ext_resource type="Texture2D" uid="uid://caslj3ghwybo" path="res://assets/sprites/enemies/monsters/turtle/turtle_blue_01.png" id="2_m4af1"]
@@ -9,9 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ry6e1sdb44oc" path="res://assets/sprites/enemies/monsters/turtle/turtle_blue_05.png" id="6_3fhif"]
 [ext_resource type="Texture2D" uid="uid://dxaoc07kcpaaf" path="res://assets/sprites/enemies/monsters/turtle/turtle_blue_walk_01.png" id="7_4xcq7"]
 [ext_resource type="Texture2D" uid="uid://cm8w8u007136u" path="res://assets/sprites/enemies/monsters/turtle/turtle_blue_walk_02.png" id="8_b0caf"]
-[ext_resource type="Script" uid="uid://cm17uvcigyehq" path="res://scripts/enemies/minions/melees/turtle/hiding.gd" id="9_qnqwk"]
-[ext_resource type="Script" uid="uid://2skgk0s5nt5l" path="res://scripts/enemies/minions/melees/turtle/hide.gd" id="10_sinc7"]
-[ext_resource type="Script" uid="uid://c4macjfajsxwx" path="res://scripts/enemies/minions/melees/turtle/emerging.gd" id="11_q2vek"]
+[ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/states/enemy_state.gd" id="10_8ndmx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_40mr0"]
 animations = [{
@@ -66,10 +64,16 @@ animations = [{
 "name": &"hiding",
 "speed": 5.0
 }, {
-"frames": [],
-"loop": true,
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_3fhif")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3fhif")
+}],
+"loop": false,
 "name": &"hurt",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -118,7 +122,8 @@ radius = 40.0
 size = Vector2(24, 20)
 
 [node name="Turtle" groups=["melee"] instance=ExtResource("1_lwot8")]
-collision_layer = 9
+collision_layer = 8388608
+collision_mask = 8388609
 script = ExtResource("2_riaft")
 reflect_percentage = 0.5
 max_tolerable_pct = 0.3
@@ -128,14 +133,13 @@ hide_time = 3.0
 initial_state = 0
 hurt_time = 0.4
 awake_time = 2.0
-idle_chance = 0.001
 health = 100.0
 spike = 100.0
 movement_speed = 50.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]
 sprite_frames = SubResource("SpriteFrames_40mr0")
-animation = &"emerging"
+animation = &"hurt"
 
 [node name="HitArea2D" parent="Direction" index="1"]
 collision_mask = 32
@@ -154,12 +158,13 @@ shape = SubResource("RectangleShape2D_hqg2b")
 [node name="FrontRayCast2D" parent="Direction" index="3"]
 position = Vector2(16, -17)
 target_position = Vector2(0, 32)
+collision_mask = 8388609
 
 [node name="DownRayCast2D" parent="Direction" index="4"]
 position = Vector2(16, 0)
 target_position = Vector2(0, 48)
 
-[node name="DetectPlayerArea2D" parent="Direction" index="5"]
+[node name="DetectPlayerArea2D" parent="Direction" index="6"]
 visible = false
 
 [node name="NearSenseArea2D" parent="Direction" index="7"]
@@ -173,10 +178,13 @@ position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_n2i8s")
 
 [node name="Hiding" type="Node" parent="States" index="3"]
-script = ExtResource("9_qnqwk")
+script = ExtResource("10_8ndmx")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="Hide" type="Node" parent="States" index="4"]
-script = ExtResource("10_sinc7")
+script = ExtResource("10_8ndmx")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 
 [node name="Emerging" type="Node" parent="States" index="5"]
-script = ExtResource("11_q2vek")
+script = ExtResource("10_8ndmx")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"

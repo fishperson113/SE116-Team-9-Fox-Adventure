@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvmdnwdsnp73e"]
+
+[ext_resource type="PackedScene" uid="uid://d6n4xfsaxrdw" path="res://scenes/enemies/bullets/base_bullet.tscn" id="1_il3ik"]
+[ext_resource type="Texture2D" uid="uid://c11p6ikywh5gi" path="res://assets/sprites/enemies/bosses/war_lord_bullet/bullet_rocket_particle.png" id="2_il3ik"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0fu6o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_il3ik")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2gq6s"]
+size = Vector2(10, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q41eh"]
+size = Vector2(10, 10)
+
+[node name="Coconut" instance=ExtResource("1_il3ik")]
+
+[node name="AnimatedSprite2D" parent="Direction" index="0"]
+sprite_frames = SubResource("SpriteFrames_0fu6o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D" index="0"]
+shape = SubResource("RectangleShape2D_2gq6s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_q41eh")

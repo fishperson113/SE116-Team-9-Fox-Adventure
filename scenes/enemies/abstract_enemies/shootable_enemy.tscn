@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dn2myx6njpjy5"]
+[gd_scene load_steps=5 format=3 uid="uid://dn2myx6njpjy5"]
 
 [ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_sl7t0"]
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="2_n4b4j"]
-[ext_resource type="Script" uid="uid://biuwi0mtdrexp" path="res://scripts/enemies/minions/shootable/shootable.gd" id="2_pt6y0"]
-[ext_resource type="PackedScene" uid="uid://cvqfjx8p5pi7e" path="res://scenes/enemies/minions/shootables/seahorses/bullet.tscn" id="3_ftfhf"]
-[ext_resource type="Script" uid="uid://uifmm33yctg8" path="res://scripts/enemies/minions/shootable/seahorse/attack.gd" id="4_6o0dt"]
+[ext_resource type="Script" uid="uid://biuwi0mtdrexp" path="res://scripts/enemies/abstracts/shootable.gd" id="2_pt6y0"]
+[ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/states/enemy_state.gd" id="5_pt6y0"]
 
 [node name="ShootableEnemy" instance=ExtResource("1_sl7t0")]
 script = ExtResource("2_pt6y0")
@@ -15,7 +14,6 @@ shoot_cooldown = 3.0
 initial_state = 0
 hurt_time = 0.4
 awake_time = 2.0
-idle_chance = 0.001
 
 [node name="PlayerDetectionRayCast" type="RayCast2D" parent="Direction" index="3"]
 position = Vector2(0, 6)
@@ -26,12 +24,12 @@ collide_with_areas = true
 [node name="BulletFactory" type="Marker2D" parent="Direction" index="4"]
 position = Vector2(15, 1)
 script = ExtResource("2_n4b4j")
-product_packed_scene = ExtResource("3_ftfhf")
 target_container_name = &"Bullets"
 metadata/_custom_type_script = "uid://2dtm6jeegr43"
 
-[node name="Shoot" type="Node" parent="States" index="3"]
-script = ExtResource("4_6o0dt")
-
 [node name="ShootTimer" type="Timer" parent="." index="3"]
 one_shot = true
+
+[node name="Shoot" type="Node" parent="States" index="3"]
+script = ExtResource("5_pt6y0")
+metadata/_custom_type_script = "uid://cuat5txuhbdg5"

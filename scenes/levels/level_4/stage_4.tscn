@@ -7,8 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="2_vp5ds"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="3_bvs1t"]
 [ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="3_l583c"]
-[ext_resource type="PackedScene" uid="uid://cf30thpmo45yj" path="res://scenes/enemies/minions/shootables/seahorses/seahorse.tscn" id="5_n84ud"]
-[ext_resource type="PackedScene" uid="uid://crwb5kl1tn450" path="res://scenes/enemies/minions/shootables/pelicans/pelican.tscn" id="6_qpij7"]
+[ext_resource type="PackedScene" uid="uid://cf30thpmo45yj" path="res://scenes/enemies/minions/shootables/seahorse.tscn" id="5_n84ud"]
+[ext_resource type="PackedScene" uid="uid://crwb5kl1tn450" path="res://scenes/enemies/minions/shootables/pelican.tscn" id="6_qpij7"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="10_c7rpm"]
 
 [sub_resource type="GDScript" id="GDScript_c7rpm"]
@@ -328,7 +328,7 @@ sight = 1200.0
 position = Vector2(353, 94)
 width = 400.0
 height = 25.0
-melee_spawn = 4
+melee_spawn = 1
 range_spawn = 0
 trigger_size = Vector2(32, 288)
 trigger_position = Vector2(528, 210)
@@ -342,3 +342,11 @@ group = "Enemies"
 [node name="FunctionalTiles" type="Node2D" parent="."]
 
 [node name="Bullets" type="Node2D" parent="."]
+
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/Checkpoint" to="TileMapLayers/FunctionalTileMapLayer/Checkpoint" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@75605" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@75605" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@75606" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@75606" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@75607" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@75607" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@75608" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@75608" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@75609" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@75609" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@75610" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@75610" method="_on_body_entered"]

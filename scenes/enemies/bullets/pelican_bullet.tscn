@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://ckx5i0s4hgwq7"]
+
+[ext_resource type="PackedScene" uid="uid://d6n4xfsaxrdw" path="res://scenes/enemies/bullets/base_bullet.tscn" id="1_qsp4b"]
+[ext_resource type="PackedScene" uid="uid://e1eva17h0g0g" path="res://scenes/enemies/bosses/warlord_turtle/explosion_effect.tscn" id="2_13m8e"]
+[ext_resource type="Texture2D" uid="uid://dws8ejbhk0a2q" path="res://assets/sprites/enemies/monsters/pelican/pelican_bullet.png" id="2_xmqkk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vtl82"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xmqkk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_72yr2"]
+size = Vector2(20, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qsp4b"]
+size = Vector2(20, 18)
+
+[node name="PelicanBullet" instance=ExtResource("1_qsp4b")]
+explosion_effect = ExtResource("2_13m8e")
+
+[node name="AnimatedSprite2D" parent="Direction" index="0"]
+sprite_frames = SubResource("SpriteFrames_vtl82")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D" index="0"]
+shape = SubResource("RectangleShape2D_72yr2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_qsp4b")

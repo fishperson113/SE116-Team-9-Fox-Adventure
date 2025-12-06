@@ -211,15 +211,63 @@ animations = [{
 
 [node name="Mushroom" parent="Enemies" instance=ExtResource("3_ryjcr")]
 position = Vector2(2270, -1242)
+initial_state = 0
+hurt_time = 0.4
+awake_time = 2.0
+sight = 100.0
+movement_range = 500.0
+attack_damage = 50.0
+attack_speed = 50.0
+use_raycast_detection = false
+turn_chance = 0.001
+gravity = 700.0
+direction = 1
+character_type = 0
 
 [node name="Mushroom2" parent="Enemies" instance=ExtResource("3_ryjcr")]
 position = Vector2(3385, -3222)
+initial_state = 0
+hurt_time = 0.4
+awake_time = 2.0
+sight = 100.0
+movement_range = 500.0
+attack_damage = 50.0
+attack_speed = 50.0
+use_raycast_detection = false
+turn_chance = 0.001
+gravity = 700.0
+direction = 1
+character_type = 0
 
 [node name="Mushroom3" parent="Enemies" instance=ExtResource("3_ryjcr")]
 position = Vector2(4010, -3732)
+initial_state = 0
+hurt_time = 0.4
+awake_time = 2.0
+sight = 100.0
+movement_range = 500.0
+attack_damage = 50.0
+attack_speed = 50.0
+use_raycast_detection = false
+turn_chance = 0.001
+gravity = 700.0
+direction = 1
+character_type = 0
 
 [node name="Mushroom4" parent="Enemies" instance=ExtResource("3_ryjcr")]
 position = Vector2(842, -1525)
+initial_state = 0
+hurt_time = 0.4
+awake_time = 2.0
+sight = 100.0
+movement_range = 500.0
+attack_damage = 50.0
+attack_speed = 50.0
+use_raycast_detection = false
+turn_chance = 0.001
+gravity = 700.0
+direction = 1
+character_type = 0
 
 [node name="Crab" parent="Enemies" instance=ExtResource("9_goifi")]
 position = Vector2(5369, -4056)
@@ -434,6 +482,8 @@ shape = SubResource("RectangleShape2D_ctv1g")
 position = Vector2(4572, -4055)
 width = 450.0
 height = 20.0
+melee_spawn = 1
+range_spawn = 0
 trigger_size = Vector2(30, 192)
 trigger_position = Vector2(-380, -150)
 objects = Array[PackedScene]([ExtResource("31_a2u48")])
@@ -453,7 +503,7 @@ shape = SubResource("RectangleShape2D_fha76")
 
 [node name="Player" parent="." instance=ExtResource("3_4dlow")]
 z_index = 2
-position = Vector2(252, 630)
+position = Vector2(4000, -4158)
 character_type = 2
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

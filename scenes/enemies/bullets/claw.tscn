@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://8edg35u74km4"]
+
+[ext_resource type="PackedScene" uid="uid://d6n4xfsaxrdw" path="res://scenes/enemies/bullets/base_bullet.tscn" id="1_lyc2f"]
+[ext_resource type="Script" uid="uid://bxmg4wk2lrhxb" path="res://scripts/enemies/bullets/claw.gd" id="2_4gp4q"]
+[ext_resource type="Texture2D" uid="uid://cbboh6hu3w0ls" path="res://assets/sprites/enemies/bosses/King_Crab/King_Crab_31.png" id="2_d4u5w"]
+[ext_resource type="Texture2D" uid="uid://nudrqfwtbqwq" path="res://assets/sprites/enemies/bosses/King_Crab/King_Crab_32.png" id="3_4gp4q"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cx6gy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_d4u5w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4gp4q")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6a7br"]
+size = Vector2(4, 4)
+
+[node name="Claw" instance=ExtResource("1_lyc2f")]
+collision_layer = 130
+script = ExtResource("2_4gp4q")
+
+[node name="AnimatedSprite2D" parent="Direction" index="0"]
+scale = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_cx6gy")
+frame = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Direction/HitArea2D" index="0"]
+polygon = PackedVector2Array(-19, -6, -6, -12, 9, -16, 25, -4, 25, -4, 24, 4, 12, 10, 2, 10, -19, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_6a7br")

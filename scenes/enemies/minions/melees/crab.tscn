@@ -61,7 +61,6 @@ script = ExtResource("2_31gao")
 initial_state = 0
 hurt_time = 0.4
 awake_time = 2.0
-idle_chance = 0.001
 health = 50.0
 spike = 50.0
 movement_speed = 50.0
@@ -69,7 +68,7 @@ movement_speed = 50.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_8ad5u")
-animation = &"idle"
+animation = &"hurt"
 
 [node name="HitArea2D" parent="Direction" index="1"]
 visible = false
@@ -92,12 +91,6 @@ target_position = Vector2(0, 30)
 [node name="DownRayCast2D" parent="Direction" index="4"]
 position = Vector2(16, 0)
 target_position = Vector2(0, 48)
-
-[node name="DetectPlayerArea2D" parent="Direction" index="5"]
-visible = false
-
-[node name="NearSenseArea2D" parent="Direction" index="7"]
-visible = false
 
 [node name="CollisionShape2D" parent="Direction/NearSenseArea2D" index="0"]
 shape = SubResource("CircleShape2D_0pepb")

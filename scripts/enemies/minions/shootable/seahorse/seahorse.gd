@@ -10,10 +10,14 @@ func _ready() -> void:
 	super._ready()
 	player_detection_raycast.target_position.x = sight
 
+# Normal state
+func update_normal(_delta: float) -> void:
+	try_attack()
+	pass
+
+# Unique constraint
 func fire():
-	var bullet = _bullet_factory.create() as Bullet
+	var bullet = _bullet_factory.create() as BaseBullet
 	bullet.set_damage(attack_damage)
 	bullet.apply_velocity(Vector2(attack_speed * direction, 0.0))
-
-func update_normal(_delta: float) -> void:
-	pass
+	bullet.set_gravity(0.0)

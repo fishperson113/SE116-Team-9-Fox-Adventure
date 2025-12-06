@@ -1,30 +1,35 @@
 class_name Boss
 extends StatefulEnemy
 
+@export_group("Skill setting")
 @export var max_stamina: int = 4
-@export var cooldown: float = 1.0
-@export var rest_time: float = 2.0
+@export var rest_time: float = 3.0
+@export var skill_cooldown: float = 2.0
+
+@export_group("Intelligence setting")
+@export var close_range: float = 300.0
+@export var misbehave_chance: float = 0.25
 
 var _stamina
-var _skill_set = []
+var _short_range_skills: Array = []
+var _far_range_skills: Array = []
 
 func _ready() -> void:
 	super._ready();
 	_init_skill_set()
-	_init_rest_state()
-
-func _init_rest_state() -> void:
-	if has_node("States/Rest"):
-		var state : EnemyState = get_node("States/Rest")
-		state.enter.connect(start_rest)
-		state.exit.connect(end_rest)
-		state.update.connect(update_rest)
+	_init_state("Rest", start_rest, end_rest, update_rest, _on_normal_react)
 
 func _init_skill_set():
 	rest()
 
 func get_skill():
-	return _skill_set.pick_random()
+	var is_close = is_player_close()
+	if randf() <= misbehave_chance:
+		is_close = not is_close
+		
+	if is_close:
+		return _short_range_skills.pick_random()
+	return _far_range_skills.pick_random()
 
 func use_stamina() -> void:
 	_stamina += 1
@@ -38,7 +43,7 @@ func rest() -> void:
 func start_normal() -> void:
 	_movement_speed = movement_speed
 	change_animation("normal")
-	fsm.current_state.timer = cooldown
+	fsm.current_state.timer = skill_cooldown
 
 func update_normal(_delta: float) -> void:
 	if not found_player:
@@ -63,9 +68,6 @@ func update_rest(_delta) -> void:
 	if fsm.current_state.update_timer(_delta):
 		_return_to_normal()
 
-func _return_to_normal():
-	fsm.change_state(fsm.states.normal)
-
 func _return_to_rest():
 	fsm.change_state(fsm.states.rest)
 
@@ -83,3 +85,14 @@ func compute_speed(_t: float, _dis: Vector2, _gra: float):
 func compute_shot_speed(from: Vector2, to: Vector2, strength: float):
 	var normalized := (to - from).normalized()
 	return normalized * strength
+
+func is_player_close() -> bool:
+	if not found_player:
+		return false
+	return is_close(found_player.position, close_range)
+
+# Reaction
+func _on_normal_react(input: BehaviorInput) -> void:
+	if input is HurtBehaviorInput:
+		take_damage(input.damage_taken)
+	pass
