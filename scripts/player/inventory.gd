@@ -27,6 +27,11 @@ func show_item_archive() -> void:
 			": size: ", item_archive[i]["item_detail"].size())
 	print("\n")
 	pass
+	
+func is_item_weapon(item_index: int) -> bool:
+	if item_archive[item_index]["item_type"].begins_with("weapon_"):
+		return true
+	return false
 
 func insert_item(item_type: String, item_detail) -> void:
 	#If the item is a weapon
@@ -58,18 +63,6 @@ func insert_item(item_type: String, item_detail) -> void:
 	item_archive.append(item)
 	print("Added new non-weapon item")
 	show_item_archive()
-	
-	# --- Create new stack ---
-	var item = {
-		"item_type": item_type,
-		"item_detail": [item_detail]
-	}
-	item_archive.append(item)
-
-	print("Added new item")
-	show_item_archive()
-
-	emit_signal("inventory_changed")
 	pass
 
 func find_exact_item(item_type: String, item_detail) -> Variant:
