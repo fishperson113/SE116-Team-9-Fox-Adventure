@@ -33,18 +33,33 @@ func _on_add_weapon_21_pressed() -> void:
 	pass # Replace with function body.
 
 func _on_add_slot_weapon_11_pressed() -> void:
-	player.inventory.add_to_store_item("weapon_blade", weapon_1_1)
+	player.item_storer.add_item("weapon_blade", weapon_1_1)
 	pass # Replace with function body.
 
 func _on_add_slot_weapon_12_pressed() -> void:
-	player.inventory.add_to_store_item("weapon_blade", weapon_1_2)
+	player.item_storer.add_item("weapon_blade", weapon_1_2)
 	pass # Replace with function body.
 
 func _on_add_slot_weapon_21_pressed() -> void:
-	player.inventory.add_to_store_item("weapon_blade", weapon_2_1)
+	player.item_storer.add_item("weapon_blade", weapon_2_1)
 	pass # Replace with function body.
 
 func _on_save_inventory_and_slots_pressed() -> void:
 	player.inventory.save_inventory()
 	player.item_storer.save_slots()
+	pass # Replace with function body.
+
+func _on_move_to_slot_11_pressed() -> void:
+	if not player.inventory.item_archive.is_empty():
+		player.inventory.add_to_store_item("weapon_blade", player.inventory.item_archive[0]["item_detail"][0])
+	pass # Replace with function body.
+
+func _on_move_to_slot_12_pressed() -> void:
+	if not player.inventory.item_archive.is_empty():
+		player.inventory.add_to_store_item("weapon_blade", player.inventory.item_archive[0]["item_detail"][0])
+	pass # Replace with function body.
+
+func _on_move_to_slot_21_pressed() -> void:
+	if not player.inventory.item_archive.is_empty():
+		player.inventory.add_to_store_item("weapon_blade", player.inventory.item_archive[0]["item_detail"][0])
 	pass # Replace with function body.

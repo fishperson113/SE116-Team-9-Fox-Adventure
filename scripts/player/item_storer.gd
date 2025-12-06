@@ -35,22 +35,22 @@ func _process(delta: float) -> void:
 		switch_item_slot()
 
 func add_item(item_type: String, item_detail) -> bool:
-	if not items_archive[item_slot].has("item_type"):
-		items_archive[item_slot] = {
-			"item_type" = item_type,
-			"item_detail" = []
-		}
-		items_archive[item_slot]["item_detail"].append(item_detail)
-		print("Successfully added an object from inventory")
-		change_item()
-		return true
+	for i in range(number_of_slots):
+		if not items_archive[i].has("item_type"):
+			items_archive[i] = {
+				"item_type" = item_type,
+				"item_detail" = []
+			}
+			items_archive[i]["item_detail"].append(item_detail)
+			print("Successfully added an object from inventory")
+			change_item()
+			return true
+		elif not is_slot_weapon(i):
+			items_archive[i]["item_detail"].append(item_detail)
+			print("Successfully added an object from inventory")
+			return true
 	
-	if items_archive[item_slot]["item_type"] != item_type:
-		print("Can't add a different type of existing object to the same slot")
-		return false
-	
-	items_archive[item_slot]["item_detail"].append(item_detail)
-	print("Successfully added an object from inventory")
+	inventory.insert_item(item_type, item_detail)
 	return true
 
 func change_item(index_in_slot: int = 0) -> void:
@@ -89,14 +89,20 @@ func _equip_current_slot_weapon():
 	GameManager.player.equip_weapon(weapon)
 	
 
-func is_slot_available() -> bool:
-	if items_archive[item_slot] == {}:
+func is_slot_available(slot_index: int = item_slot) -> bool:
+	if items_archive[slot_index] == {}:
 		return false
 	return true
 
-func is_slot_weapon() -> bool:
-	if items_archive[item_slot].has("item_type"):
-		if items_archive[item_slot]["item_type"].begins_with("weapon_"):
+func is_item_storer_full() -> bool:
+	for i in range(number_of_slots):
+		if not is_slot_available(i):
+			return false
+	return true
+
+func is_slot_weapon(item_index: int = item_slot) -> bool:
+	if items_archive[item_index].has("item_type"):
+		if items_archive[item_index]["item_type"].begins_with("weapon_"):
 			return true
 	return false
 
