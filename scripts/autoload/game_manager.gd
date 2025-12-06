@@ -215,6 +215,8 @@ func converted_empty_slots() -> Array[Dictionary]:
 func check_object_type(item_one, item_two) -> bool:
 	if item_one is WeaponData and item_two is WeaponData:
 		return item_one.resource_path == item_two.resource_path
+	elif item_one is WeaponMaterialData and item_two is WeaponMaterialData:
+		return item_one.id == item_two.id
 	else:
 		return false
 	

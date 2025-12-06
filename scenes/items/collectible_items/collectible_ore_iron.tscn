@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfle38llc20qi"]
+
+[ext_resource type="PackedScene" uid="uid://d3htq6cyenbsi" path="res://scenes/items/collectible_items/collectible_ore.tscn" id="1_82yfc"]
+[ext_resource type="Script" uid="uid://c5u4mtxml68ni" path="res://scripts/items/collectibles/collectible_ore_iron.gd" id="2_ff2om"]
+[ext_resource type="Texture2D" uid="uid://tmw8g14r3l7" path="res://assets/sprites/ore/3974.png" id="3_oimyc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fvn8a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_oimyc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Iron" instance=ExtResource("1_82yfc")]
+script = ExtResource("2_ff2om")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_fvn8a")

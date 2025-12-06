@@ -47,11 +47,11 @@ func add_item(item_type: String, item_detail) -> bool:
 			print("Successfully added an object from inventory")
 			change_item()
 			return true
-		elif not is_slot_weapon(i):
+		elif not is_slot_weapon(i) and items_archive[i]["item_type"] == item_type:
 			items_archive[i]["item_detail"].append(item_detail)
 			print("Successfully added an object from inventory")
 			return true
-	
+
 	inventory.insert_item(item_type, item_detail)
 	return true
 
@@ -146,7 +146,14 @@ func return_item(item_type: String, item_detail) -> void:
 func show_slots() -> void:
 	print("List of slots:")
 	for item_index in len(items_archive):
-		print(item_index, ": ", items_archive[item_index])
+		if is_slot_weapon(item_index):
+			print(item_index, ": ", items_archive[item_index])
+		elif items_archive[item_index].is_empty():
+			print(item_index, ": ", items_archive[item_index])
+		else:
+			print(item_index, ": ",
+			items_archive[item_index]["item_type"],
+			": size: ", items_archive[item_index]["item_detail"].size())
 	print("\n")
 
 func save_slots() -> void:
