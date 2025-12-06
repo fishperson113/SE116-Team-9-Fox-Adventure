@@ -7,7 +7,8 @@ class_name WeaponAssembler
 var part_map := {}
 var material_map := {}
 var assembled_parts: Array = []
-var texture_cache := {}    # vẫn giữ nếu bạn cần export png nhanh
+var texture_cache := {}
+var current_weapon_id: String = ""   # dùng chung cho PNG & TRES
 
 func _ready() -> void:
 	_build_lookup_tables()
@@ -42,15 +43,11 @@ func add_part(part_id: String, material_id: String) -> Dictionary:
 		push_error("Missing container: " + str(part.type))
 		return {}
 
-	# Create TextureRect child
 	var sprite := TextureRect.new()
 	sprite.texture = part.sprite
 	sprite.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	sprite.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-
 	sprite.custom_minimum_size = part.sprite.get_size()
-
-	# Center via anchors
 	sprite.set_anchors_preset(Control.PRESET_CENTER)
 	sprite.position = Vector2.ZERO
 
@@ -75,14 +72,16 @@ func add_part(part_id: String, material_id: String) -> Dictionary:
 
 
 # ---------------------------------------------------------
-#  EXPORT PNG (unchanged, only switching to Resource sprite)
+#  EXPORT PNG — now saves to user://weapons
 # ---------------------------------------------------------
 func export_png() -> String:
+	current_weapon_id = short_id(4)
+
 	var root := Node2D.new()
 	var current_y := 0.0
 
 	for p in assembled_parts:
-		var part:WeaponPartData = p["part"]
+		var part: WeaponPartData = p["part"]
 
 		var sp := Sprite2D.new()
 		sp.texture = part.sprite
@@ -109,18 +108,18 @@ func export_png() -> String:
 
 	await RenderingServer.frame_post_draw
 
-	var folder := "user://generated_weapons"
+	# ---- SAVE TO SAME FOLDER AS TRES ----
+	var folder := "user://weapons"
 	var dir := DirAccess.open("user://")
-	if not dir.dir_exists("generated_weapons"):
-		dir.make_dir("generated_weapons")
+	if not dir.dir_exists("weapons"):
+		dir.make_dir("weapons")
 
-	var timestamp := Time.get_unix_time_from_system()
-	var path := "%s/weapon_%s.png" % [folder, timestamp]
+	var path := "%s/weapon_%s.png" % [folder, current_weapon_id]
 
 	var img := vp.get_texture().get_image()
 	img.save_png(path)
 
-	print("Saved crafted weapon to:", path)
+	print("Saved crafted weapon PNG:", path)
 
 	vp.queue_free()
 
@@ -136,16 +135,20 @@ func get_container_for_type(p_type: String) -> Node:
 		return get_node(node_name)
 	return null
 
+
 func reset_assembler():
 	assembled_parts.clear()
 
-	# Clear all part containers
 	for c in ["BladeContainer", "CrossguardContainer", "GripContainer", "PommelContainer"]:
 		if has_node(c):
 			var node = get_node(c)
 			for child in node.get_children():
 				child.queue_free()
 
+
+# ---------------------------------------------------------
+#  EXPORT FINAL WEAPON DATA
+# ---------------------------------------------------------
 func export_weapon_data(png_path: String) -> WeaponData:
 	var w := WeaponData.new()
 
@@ -165,18 +168,35 @@ func export_weapon_data(png_path: String) -> WeaponData:
 	w.png_path = png_path
 
 	return w
-	
+
+
+# ---------------------------------------------------------
+#  SAVE .TRES USING SAME ID AS PNG
+# ---------------------------------------------------------
 func save_weapon_tres(weapon: WeaponData) -> String:
 	var folder = "user://weapons"
 	var dir := DirAccess.open("user://")
+
 	if not dir.dir_exists("weapons"):
 		dir.make_dir("weapons")
 
-	var timestamp := Time.get_unix_time_from_system()
-	var path := "%s/weapon_%s.tres" % [folder, timestamp]
+	var path := "%s/weapon_%s.tres" % [folder, current_weapon_id]
 
 	var ok := ResourceSaver.save(weapon, path)
 	if ok != OK:
 		push_error("Failed to save WeaponData: %s" % path)
 
+	print("Saved crafted weapon TRES:", path)
+
 	return path
+
+
+# ---------------------------------------------------------
+#  Short ID GENERATOR (4 chars)
+# ---------------------------------------------------------
+func short_id(len := 4) -> String:
+	var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+	var id := ""
+	for i in len:
+		id += chars[randi() % chars.length()]
+	return id
