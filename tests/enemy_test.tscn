@@ -1,15 +1,9 @@
-[gd_scene load_steps=14 format=4 uid="uid://2myew2spjl4b"]
+[gd_scene load_steps=8 format=4 uid="uid://2myew2spjl4b"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
 [ext_resource type="Script" uid="uid://dpd1hu8tkk1y4" path="res://scripts/utils/threat_indicator_area_2d.gd" id="3_e1c60"]
 [ext_resource type="PackedScene" uid="uid://cvdklsb743i1l" path="res://scenes/ui/markers/threat_marker.tscn" id="4_vb1hh"]
-[ext_resource type="PackedScene" uid="uid://c1ojnmhr1sm5l" path="res://scenes/enemies/minions/melees/mushroom.tscn" id="5_vb1hh"]
-[ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="6_bed0j"]
-[ext_resource type="PackedScene" uid="uid://crwb5kl1tn450" path="res://scenes/enemies/minions/shootables/pelican.tscn" id="7_bed0j"]
-[ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="7_xl7d7"]
-[ext_resource type="PackedScene" uid="uid://cf30thpmo45yj" path="res://scenes/enemies/minions/shootables/seahorse.tscn" id="8_xl7d7"]
-[ext_resource type="PackedScene" uid="uid://psxbpmcbicmg" path="res://scenes/enemies/minions/melees/aborigine.tscn" id="9_msjuq"]
-[ext_resource type="PackedScene" uid="uid://caj73aiw7tf22" path="res://scenes/enemies/minions/melees/big_aborigine.tscn" id="10_d63eo"]
+[ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="6_1bdp4"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="10_ycpif"]
 [ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="12_a6v5w"]
 
@@ -45,31 +39,8 @@ shape = SubResource("RectangleShape2D_vb1hh")
 
 [node name="Obstacles" type="Node2D" parent="."]
 
-[node name="Turtle" parent="." instance=ExtResource("7_xl7d7")]
-position = Vector2(119, 178)
-
-[node name="Turtle2" parent="." instance=ExtResource("7_xl7d7")]
-position = Vector2(206, 175)
-
-[node name="Starfish" parent="." instance=ExtResource("6_bed0j")]
-position = Vector2(159, 170)
-
-[node name="Pelican" parent="." instance=ExtResource("7_bed0j")]
-position = Vector2(122, 19)
-left_bound = 100.0
-right_bound = 200.0
-
-[node name="Seahorse" parent="." instance=ExtResource("8_xl7d7")]
-position = Vector2(619, 170)
-
-[node name="Aborigine" parent="." instance=ExtResource("9_msjuq")]
-position = Vector2(827, 166)
-
-[node name="BigAborigine" parent="." instance=ExtResource("10_d63eo")]
-position = Vector2(896, 170)
-
-[node name="Mushroom" parent="." instance=ExtResource("5_vb1hh")]
-position = Vector2(751, 174)
-
 [node name="Crab" parent="." instance=ExtResource("12_a6v5w")]
 position = Vector2(535, 174)
+
+[node name="KingCrab" parent="." instance=ExtResource("6_1bdp4")]
+position = Vector2(148, 158)
