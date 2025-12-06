@@ -31,8 +31,10 @@ func _init() -> void:
 	#pass
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("switch_item"):
-		switch_item_slot()
+	if Input.is_action_just_pressed("change_slot_left"):
+		switch_item_slot(-1)
+	elif Input.is_action_just_pressed("change_slot_right"):
+		switch_item_slot(1)
 
 func add_item(item_type: String, item_detail) -> bool:
 	for i in range(number_of_slots):
@@ -59,16 +61,17 @@ func change_item(index_in_slot: int = 0) -> void:
 	else:
 		weapon_thrower.change_weapon("none", {})
 
-func switch_item_slot() -> void:
-	if item_slot + 1 >= number_of_slots:
+func switch_item_slot(offset: int) -> void:
+	if item_slot + offset < 0:
 		item_slot = 0
+	elif item_slot + offset >= number_of_slots:
+		item_slot = number_of_slots - 1
 	else:
-		item_slot += 1
+		item_slot += offset
 	change_item()
 	_equip_current_slot_weapon()
 	emit_signal("slot_changed", item_slot)
 	print("Switched to slot ", item_slot, "\n", items_archive[item_slot])
-
 
 func _equip_current_slot_weapon():
 	if not is_slot_available():
