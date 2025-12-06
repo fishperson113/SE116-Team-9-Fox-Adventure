@@ -22,7 +22,6 @@ var slots_size = 6
 var slots_data: Array[Dictionary] = converted_empty_slots()
 #Inventory that stores items and weapons overall
 var inventory_data: Array[Dictionary] = []
-var equipped_weapon_path: String = ""
 
 func _ready() -> void:
 	# Load checkpoint data when game starts

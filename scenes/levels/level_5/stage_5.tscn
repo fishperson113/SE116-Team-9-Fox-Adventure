@@ -423,10 +423,4 @@ objects = Array[PackedScene]([ExtResource("9_am3rg")])
 
 [node name="Obstacles" type="Node2D" parent="."]
 
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/Checkpoint" to="TileMapLayers/FunctionalTileMapLayer/Checkpoint" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@75025" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@75025" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@75154" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@75154" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@75155" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@75155" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@75156" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@75156" method="_on_body_entered"]
-
 [editable path="AreaUnlockerEnemies"]

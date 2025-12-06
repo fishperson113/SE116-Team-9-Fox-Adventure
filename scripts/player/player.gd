@@ -51,7 +51,6 @@ func _ready() -> void:
 	base_speed=movement_speed
 	maxHealth=1000000
 	currentHealth=maxHealth
-	equip_weapon(GameManager.equipped_weapon_path)
 
 func _process(delta: float) -> void:
 	if current_dash == max_dash:
@@ -114,36 +113,28 @@ func _on_wide_attack_resolve_timer_timeout() -> void:
 func set_empty_health() -> void:
 	fsm.current_state.take_damage(currentHealth)
 	pass
-func equip_weapon(tres_path: String):
-	if tres_path =="":
+func equip_weapon(weapon: WeaponData):
+	if weapon==null:
+		unequip_weapon()
 		return
-	is_equipped=true
-	var w := load(tres_path) as WeaponData
-	if w == null:
-		push_error("WeaponData load failed: " + tres_path)
-		return
-
 	# Update stats
-	if w.blade:
-		attack_damage = w.blade.damage
+	if weapon.blade:
+		attack_damage = weapon.blade.damage
 		hit_area.set_dealt_damage(attack_damage)
 		wide_hit_area.set_dealt_damage(attack_damage)
 
-	if w.crossguard:
-		maxHealth += w.crossguard.max_health
+	if weapon.crossguard:
+		maxHealth += weapon.crossguard.max_health
 
-	if w.grip:
-		attack_speed = w.grip.attack_speed
+	if weapon.grip:
+		attack_speed = weapon.grip.attack_speed
 
-	if w.pommel:
-		_apply_special_skill(w.pommel.special_skill)
+	if weapon.pommel:
+		_apply_special_skill(weapon.pommel.special_skill)
 
 	change_player_type(2)
 	print("Player equipped craft weapon successfully!")
 func unequip_weapon():
-	if !is_equipped:
-		return
-	is_equipped=false
 	_reset_weapon_stats()
 	if character_type == 3:
 		change_player_type(1) # còn hat

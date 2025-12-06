@@ -63,7 +63,28 @@ func switch_item_slot() -> void:
 	else:
 		item_slot += 1
 	change_item()
+	_equip_current_slot_weapon()
 	print("Switched to slot ", item_slot, "\n", items_archive[item_slot])
+
+
+func _equip_current_slot_weapon():
+	if not is_slot_available():
+		GameManager.player.unequip_weapon()
+		return
+
+	var item = items_archive[item_slot]
+
+	if not item.has("item_detail"):
+		GameManager.player.unequip_weapon()
+		return
+
+	if item["item_detail"].is_empty():
+		GameManager.player.unequip_weapon()
+		return
+
+	var weapon: WeaponData = item["item_detail"][0]
+	GameManager.player.equip_weapon(weapon)
+	
 
 func is_slot_available() -> bool:
 	if items_archive[item_slot] == {}:
