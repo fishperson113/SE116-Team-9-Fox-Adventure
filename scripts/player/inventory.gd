@@ -44,6 +44,7 @@ func insert_item(item_type: String, item_detail) -> void:
 		item_archive.append(item)
 		print("Added new item")
 		show_item_archive()
+		emit_signal("inventory_changed")
 		return
 	
 	#If the array has the item and the item is not a weapon
@@ -52,6 +53,7 @@ func insert_item(item_type: String, item_detail) -> void:
 			item_archive[i]["item_detail"].append(item_detail)
 			print("Added existing item")
 			show_item_archive()
+			emit_signal("inventory_changed")
 			return
 	
 	#If the item does not exist in the array
@@ -63,6 +65,8 @@ func insert_item(item_type: String, item_detail) -> void:
 	item_archive.append(item)
 	print("Added new non-weapon item")
 	show_item_archive()
+	
+	emit_signal("inventory_changed")
 	pass
 
 func find_exact_item(item_type: String, item_detail) -> Variant:
