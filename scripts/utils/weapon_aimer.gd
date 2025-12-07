@@ -87,6 +87,7 @@ func throw_projectile() -> void:
 		weapon_thrown.dir = dir_vector
 		weapon_thrown.speed = weapon_detail.throw_speed
 		weapon_thrown.gravity = weapon_detail.throw_gravity
+		weapon_thrown.spin_speed = weapon_detail.spin_speed
 		weapon_thrown.set_dealt_damage(weapon_detail.damage)
 		weapon_thrown.set_attacker()
 		get_tree().current_scene.add_child(weapon_thrown)
