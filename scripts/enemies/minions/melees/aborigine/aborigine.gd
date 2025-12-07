@@ -9,8 +9,6 @@ extends ShootableEnemy
 #Quả dừa sẽ tự biến mất khi tiếp xúc với mặt đất
 #Nếu người chơi chạm vào quả dừa thì sẽ bị mất máu theo Attack Damage
 
-enum DistanceFeel { FAR, NEAR, FINE }
-
 @export var safe_distance: float = 75
 @export var bullet_up_impulse: float = -300.0
 
@@ -48,7 +46,7 @@ func update_normal(_delta: float) -> void:
 	if is_player_visible():
 		stay_focus()
 		target(found_player.position)
-		avoid_player(found_player.position)
+		hold_distance(found_player.position)
 		try_attack()
 	else:
 		lose_focus()
@@ -69,21 +67,21 @@ func try_attack() -> void:
 	if can_attack():
 		fsm.change_state(fsm.states.shoot)
 
-func avoid_player(target_position: Vector2) -> int:
-	var distance = absf(target_position.x - position.x)
-	const tolerance = 5
-	if distance >= safe_distance + tolerance:
-		_movement_speed = movement_speed
-		change_animation("normal")
-		return DistanceFeel.FAR
-	elif distance <= safe_distance - tolerance and not can_fall_behind():
-		_movement_speed = -movement_speed
-		change_animation("normal")
-		return DistanceFeel.NEAR
-	else:
-		_movement_speed = 0.0
-		change_animation("defend")
-		return DistanceFeel.FINE
+func hold_distance(target_position: Vector2) -> void:
+	var horizontal_distance = target_position.x - position.x
+	var tolerance = 5
+	var attack_range = safe_distance + tolerance
+	var horizontal_distance_feel = evaluate_distance(horizontal_distance, safe_distance, attack_range)
+	match horizontal_distance_feel:
+		DistanceFeel.FAR:
+			move_forward()
+			change_animation("normal")
+		DistanceFeel.NEAR:
+			move_backward()
+			change_animation("normal")
+		_:
+			stop_move()
+			change_animation("defend")
 
 func stay_focus() -> void:
 	turn_chance = 0

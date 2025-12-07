@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://mpwhmsqtvt4j" path="res://assets/sprites/enemies/bosses/King_Crab/King_Crab_24.png" id="31_0rtcq"]
 [ext_resource type="PackedScene" uid="uid://8edg35u74km4" path="res://scenes/enemies/bullets/claw.tscn" id="31_a6eud"]
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="31_ih4yw"]
+[ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="32_2tyas"]
 [ext_resource type="Script" uid="uid://b788rlt8r54r8" path="res://scripts/enemies/states/boss_state.gd" id="32_set4q"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xn0de"]
@@ -178,48 +179,16 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x7qun"]
-size = Vector2(94, 44)
+size = Vector2(89, 44)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppg4x"]
-size = Vector2(92, 33)
+size = Vector2(88, 42.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l046a"]
 size = Vector2(800, 800)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_48w1g"]
 size = Vector2(50, 37)
-
-[sub_resource type="GDScript" id="GDScript_a6eud"]
-script/source = "extends Area2D
-class_name HitArea2D
-
-# damage of hit
-var _dealt_damage: float = 15
-var _attacker: BaseCharacter = null
-
-# signal when hit area
-signal hitted(area)
-
-func _init() -> void:
-	area_entered.connect(_on_area_entered)
-
-# called when hit area
-func hit(hurt_area):
-	if(hurt_area.has_method(\"take_damage\")):
-		var hit_dir:Vector2 = hurt_area.global_position - global_position
-		hurt_area.take_damage(_attacker, hit_dir.normalized(), _dealt_damage)
-
-# called when area entered
-func _on_area_entered(area):
-	hit(area)
-	hitted.emit(area)
-
-func set_dealt_damage(dealt_damage: float) -> void:
-	_dealt_damage = dealt_damage
-
-func set_attacker(attacker: BaseCharacter) -> void:
-	_attacker = attacker
-"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xn0de"]
 size = Vector2(62.25, 77)
@@ -245,6 +214,7 @@ roll_accelerator = 100.0
 roll_decelerator = 100.0
 prepare_meteor_time = 1.75
 meteor_slide_speed = 1000.0
+chase_time = 2.0
 slash_frame = 3
 claw_frame = 3
 claw_range = 600.0
@@ -267,14 +237,14 @@ animation = &"shoot"
 visible = false
 
 [node name="NormalCollisionShape2D" parent="Direction/HitArea2D" index="0"]
-position = Vector2(-3, 5)
+position = Vector2(1.5, 5)
 shape = SubResource("RectangleShape2D_x7qun")
 
 [node name="HurtArea2D" parent="Direction" index="2"]
 visible = false
 
 [node name="CollisionShape2D" parent="Direction/HurtArea2D" index="0"]
-position = Vector2(-3, 8.5)
+position = Vector2(2, 2.25)
 shape = SubResource("RectangleShape2D_ppg4x")
 
 [node name="NearSenseArea2D" parent="Direction" index="3"]
@@ -314,7 +284,7 @@ target_position = Vector2(0, 0)
 hit_from_inside = true
 
 [node name="SlashHitArea2D" type="Area2D" parent="Direction" index="9"]
-script = SubResource("GDScript_a6eud")
+script = ExtResource("32_2tyas")
 metadata/_custom_type_script = "uid://dkb25vr64v37l"
 
 [node name="SlashCollisionShape2D" type="CollisionShape2D" parent="Direction/SlashHitArea2D" index="0"]
@@ -323,11 +293,11 @@ shape = SubResource("RectangleShape2D_xn0de")
 disabled = true
 
 [node name="RollHitArea2D" type="Area2D" parent="Direction" index="10"]
-script = SubResource("GDScript_a6eud")
+visible = false
+script = ExtResource("32_2tyas")
 metadata/_custom_type_script = "uid://dkb25vr64v37l"
 
 [node name="RollCollisionShape2D" type="CollisionShape2D" parent="Direction/RollHitArea2D" index="0"]
-visible = false
 position = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_2tyas")
 

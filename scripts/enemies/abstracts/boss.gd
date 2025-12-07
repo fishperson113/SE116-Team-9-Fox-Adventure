@@ -46,7 +46,7 @@ func start_normal() -> void:
 	fsm.current_state.timer = skill_cooldown
 
 func update_normal(_delta: float) -> void:
-	if not found_player:
+	if not is_player_visible():
 		return
 	target(found_player.position)
 	if is_exhausted():

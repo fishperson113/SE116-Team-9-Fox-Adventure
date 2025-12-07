@@ -1,7 +1,8 @@
 class_name Enemy
 extends BaseCharacter
 
-const BLOCK_SIZE: int = 32
+enum DistanceFeel { VERY_FAR, FAR, NEAR, FINE, CONFUSED }
+const BLOCK_SIZE: float = 32.0
 
 ## Base character class that provides common functionality for all characters
 #Health: Lượng máu mà nhân vật đó có. Tính theo đơn vị HP.
@@ -25,16 +26,19 @@ const BLOCK_SIZE: int = 32
 var jump_height: float = pow(jump_speed, 2.0) / (gravity * 2)
 #Air Time: Thời gian trên không, tính bằng công thức (Air Time = Jump Speed / Gravity)
 var air_time: float = jump_speed / gravity
-var found_player: Player = null
 
+# Self state
 var _movement_speed: float = movement_speed
 var _jump_speed: float = jump_speed
 
-var _patrol_controller: PatrolController = null
+# Player memory
+var found_player: Player = null
 var _player_detection_count: int = 0
 var _has_touched_player: bool = false
 var _is_hitted: bool = false
+var _memorized_player_position: Vector2 = Vector2(INF, INF)
 
+# Component references
 var _front_ray_cast: RayCast2D = null
 var _down_ray_cast: RayCast2D = null
 var _jump_raycast: RayCast2D = null
@@ -56,30 +60,12 @@ func _ready() -> void:
 	
 	_init_components()
 	_init_stats()
-	_init_behaviors()
 	
 	_setup_jump_raycast()
 	_setup_front_raycast()
 	_setup_down_raycast()
 
-func _init_components() -> void:
-	_init_animated_sprite()
-	_init_ray_cast()
-	_init_detect_player_area()
-	_init_near_sense_area()
-	_init_hurt_area()
-	_init_hit_area()
-	_init_collision_shape()
-
-func _init_stats() -> void:
-	jump_speed = 235
-	currentHealth = health
-	var r = get_size().y / BLOCK_SIZE
-	_jump_speed = r * jump_speed
-
-func _init_behaviors() -> void:
-	_patrol_controller = PatrolController.new(movement_range)
-
+# Setup
 func _setup_front_raycast() -> void:
 	if _front_ray_cast:
 		_front_ray_cast.target_position.x = 0.0
@@ -90,29 +76,36 @@ func _setup_front_raycast() -> void:
 func _setup_down_raycast() -> void:
 	if _down_ray_cast:
 		_down_ray_cast.target_position.x = 0.0
-		_down_ray_cast.target_position.y = get_size().y
+		_down_ray_cast.target_position.y = get_size().y + BLOCK_SIZE
 		_down_ray_cast.position.x = get_size().x / 2
 		_down_ray_cast.position.y = get_size().y / 2
 
 func _setup_jump_raycast():
 	if _jump_raycast:
-		var t = jump_speed / gravity
-		var sy = - gravity * t * t / 2 + jump_speed * t
-		var sx = movement_speed * t
-		_jump_raycast.target_position = Vector2(-sx, -sy)
-		_jump_raycast.position.x = sx
-		_jump_raycast.position.y = - get_size().y / 2
-		#_jump_raycast.target_position = Vector2.ONE * -BLOCK_SIZE
-		#_jump_raycast.position.x = BLOCK_SIZE / 2 + get_size().x / 2
-		#var r = ceilf(get_size().y / BLOCK_SIZE)
-		#_jump_raycast.position.y = -(BLOCK_SIZE * r - get_size().y / 2)
+		_jump_raycast.target_position = Vector2(0.0, - get_size().y)
+		_jump_raycast.position.x = get_size().x / 2 + BLOCK_SIZE / 2
+		_jump_raycast.position.y = - compute_jump_height(_jump_speed) + get_size().y / 2
 	pass
+
+# Initializers
+func _init_stats() -> void:
+	jump_speed = 235
+	currentHealth = health
+	_jump_speed = jump_speed
+
+func _init_components() -> void:
+	_init_animated_sprite()
+	_init_ray_cast()
+	_init_detect_player_area()
+	_init_near_sense_area()
+	_init_hurt_area()
+	_init_hit_area()
+	_init_collision_shape()
 
 func _init_animated_sprite():
 	if has_node("Direction/AnimatedSprite2D"):
 		animated_sprite = $Direction/AnimatedSprite2D
 
-#init ray cast to check wall and fall
 func _init_ray_cast():
 	if has_node("Direction/FrontRayCast2D"):
 		_front_ray_cast = $Direction/FrontRayCast2D
@@ -126,7 +119,6 @@ func _init_ray_cast():
 	if has_node("DetectObstacleRayCast2D"):
 		_detect_obstacle_raycast = $DetectObstacleRayCast2D
 
-#init detect player area
 func _init_detect_player_area():
 	if has_node("Direction/DetectPlayerArea2D"):
 		_detect_player_area = $Direction/DetectPlayerArea2D
@@ -150,7 +142,6 @@ func _init_hit_area():
 		_hit_area.area_exited.connect(_on_hit_area_2d_area_exited)
 		_hit_area_shape = _hit_area.get_node("NormalCollisionShape2D")
 
-# init hurt area
 func _init_hurt_area():
 	if has_node("Direction/HurtArea2D"):
 		_hurt_area = $Direction/HurtArea2D
@@ -161,6 +152,7 @@ func _init_collision_shape():
 	if has_node("CollisionShape2D"):
 		_collision_shape = $CollisionShape2D
 
+# Main handler
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
 	aim_raycast_at_player()
@@ -170,47 +162,8 @@ func _update_movement(delta: float) -> void:
 	velocity.y += gravity * delta
 	move_and_slide()
 	pass
-	
-func try_patrol_turn(_delta: float) -> bool:
-	if try_jump():
-		return false
-	if is_touch_wall() or is_can_fall() or want_to_turn():
-		turn()
-		return true
-	return false
 
-func turn() -> void:
-	turn_around()
-
-func try_jump() -> bool:
-	if not is_touch_wall() or not is_on_floor():
-		return false
-	
-	# Jump if there are no obstacles above
-	if not _jump_raycast.is_colliding():
-		jump()
-		return true
-	# Jump onto player
-	if _jump_raycast.get_collider() is Player:
-		jump()
-		return true
-	
-	return false
-
-func jump() -> void:
-	if is_on_floor():
-		velocity.y = -_jump_speed
-
-func is_touch_wall() -> bool:
-	if _front_ray_cast and _front_ray_cast.enabled:
-		return _front_ray_cast.is_colliding()
-	return false
-
-func is_can_fall() -> bool:
-	if _down_ray_cast and _down_ray_cast.enabled:
-		return not _down_ray_cast.is_colliding() and is_on_floor()
-	return false
-
+# Signals
 func _on_body_entered(_body: CharacterBody2D) -> void:	
 	remember_player(_body)
 	_on_player_in_sight(_body.global_position)
@@ -264,6 +217,7 @@ func is_player_in_sight_by_raycast() -> bool:
 		found_player = null
 		return false
 
+# component reference utilities
 #+ Thêm các hàm bật/tắt vùng dò tìm từ Code 2
 func enable_check_player_in_sight() -> void:
 	if(_detect_player_area != null):
@@ -273,26 +227,149 @@ func disable_check_player_in_sight() -> void:
 	if(_detect_player_area != null):
 		_detect_player_area.get_node("CollisionShape2D").disabled = true
 
-func is_alive() -> bool:
-	return currentHealth > 0.0
-
 func get_size() -> Vector2:
 	if _collision_shape:
 		return _collision_shape.shape.size
 	return Vector2.ZERO
 
+func set_combat_collision(flag: bool) -> void:
+	_hurt_area_shape.disabled = not flag
+	_hit_area_shape.disabled = not flag
+
+func clear_area_collision(_area: Area2D) -> void:
+	_area.collision_layer = 0
+	_area.collision_mask = 0
+
+# AI utilities: moving, turning
+func is_alive() -> bool:
+	return currentHealth > 0.0
+
 func want_to_turn() -> bool:
 	return randf() < turn_chance
 
+func turn() -> void:
+	turn_around()
+
+func move_forward() -> void:
+	_movement_speed = movement_speed
+
+func move_backward() -> void:
+	_movement_speed = -movement_speed
+
+func stop_move() -> void:
+	_movement_speed = 0.0
+
+func bounce_off(_direction: Vector2) -> void:
+	_movement_speed = movement_speed * _direction.x * direction
+
+func is_close(_target: Vector2, tolerance: float) -> bool:
+	return _target.distance_to(position) <= tolerance
+
+func is_on_direction(_target_position: Vector2, _tolerance: float = 10) -> bool:
+	var dx = _target_position.x - global_position.x
+
+	if absf(dx) < _tolerance:
+		return true
+	
+	return dx * direction >= 0
+
+func evaluate_distance(distance: float, hurt_range: float, attack_range: float, max_evaluate_range: float = 300) -> int:
+	distance = absf(distance)
+	if hurt_range >= attack_range:
+		return DistanceFeel.CONFUSED
+	if distance >= max_evaluate_range:
+		return DistanceFeel.VERY_FAR
+	elif distance >= attack_range:
+		return DistanceFeel.FAR
+	elif distance <= hurt_range:
+		return DistanceFeel.NEAR
+	else:
+		return DistanceFeel.FINE
+
+func is_touch_wall() -> bool:
+	if _front_ray_cast and _front_ray_cast.enabled:
+		return _front_ray_cast.is_colliding()
+	return false
+
+func is_can_fall() -> bool:
+	if _down_ray_cast and _down_ray_cast.enabled:
+		return not _down_ray_cast.is_colliding() and is_on_floor()
+	return false
+
+func target(_position: Vector2) -> void:
+	if not is_on_direction(_position):
+		turn()
+
+# Movement / Spacing behavior
+func try_patrol_turn(_delta: float) -> bool:
+	if try_jump():
+		return false
+	if is_touch_wall() or is_can_fall() or want_to_turn():
+		turn()
+		return true
+	return false
+
+func try_jump() -> bool:
+	if not is_touch_wall():
+		return false
+	
+	# Jump if there are no obstacles above
+	if not _jump_raycast.is_colliding():
+		jump()
+		return true
+	# Jump onto player
+	if _jump_raycast.get_collider() is Player:
+		jump()
+		return true
+	
+	return false
+
+func jump() -> void:
+	if is_on_floor():
+		velocity.y = -_jump_speed
+
+func hold_distance(_target_position: Vector2) -> void:
+	var horizontal_hurt_range = _hurt_area_shape.shape.size.x / 2 + _hurt_area_shape.position.x
+	var horizontal_attack_range = horizontal_hurt_range + BLOCK_SIZE
+	var horizontal_distance_feeling = evaluate_distance(global_position.x - _target_position.x, horizontal_hurt_range, horizontal_attack_range)
+	var vertical_distance = _target_position.y - global_position.y
+	var vertical_hurt_range = _hurt_area_shape.shape.size.y / 2
+	var vertical_attack_range = vertical_hurt_range + compute_jump_height(_jump_speed)
+	var vertical_distance_feeling = evaluate_distance(vertical_distance, vertical_hurt_range, vertical_attack_range, 100)
+	
+	if horizontal_distance_feeling == DistanceFeel.FAR \
+		or (vertical_distance_feeling != DistanceFeel.NEAR and vertical_distance_feeling != DistanceFeel.VERY_FAR and vertical_distance > 0):
+		move_forward()
+	elif horizontal_distance_feeling == DistanceFeel.NEAR:
+		move_backward()
+	else:
+		stop_move()
+	
+	if not try_jump():
+		if vertical_distance_feeling == DistanceFeel.FAR and vertical_distance < 0:
+			jump()
+
+func manage_attack_spacing() -> void:
+	if _has_touched_player:
+		move_backward()
+	else:
+		move_forward()
+
+# Health / Damage
 func take_damage_behavior(_attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
 	take_damage(int(_damage))
 	bounce_off(_direction)
 	target(_attacker.position)
 	fsm.change_state(fsm.states.hurt)
 
-func bounce_off(_direction: Vector2) -> void:
-	_movement_speed = movement_speed * _direction.x * direction
+func try_recover() -> bool:
+	if is_alive():
+		fsm.change_state(fsm.states.normal)
+		return true
+	fsm.change_state(fsm.states.dead)
+	return false
 
+# Player memory behaviors
 func remember_player(_player: Player) -> void:
 	_player_detection_count += 1
 	if found_player:
@@ -325,74 +402,13 @@ func is_player_visible() -> bool:
 		return false
 	return _detect_obstacle_raycast.get_collider() is Player
 
-func is_close(target: Vector2, tolerance: float) -> bool:
-	return target.distance_to(position) <= tolerance
+func perceive_player_position():
+	if is_player_visible():
+		_memorized_player_position = found_player.global_position
 
-func hold_distance(_target_position: Vector2, _safe_distance: float, _tolerance: float) -> void:
-	var distance = _target_position.distance_to(position)
-	if distance >= _safe_distance + _tolerance:
-		move_forward()
-	elif distance <= _safe_distance - _tolerance:
-		move_backward()
-	else:
-		stop_move()
-
-func move_forward() -> void:
-	_movement_speed = movement_speed
-
-func move_backward() -> void:
-	_movement_speed = -movement_speed
-
-func stop_move() -> void:
-	_movement_speed = 0.0
-
-func hold_distance_from_player() -> bool:
-	if not _collision_shape or not found_player:
-		move_forward()
-		return false
-		
-	var _area = _collision_shape.shape
-	if _hit_area_shape:
-		_area = _hit_area_shape.shape
-	elif _hurt_area_shape:
-		_area = _hurt_area_shape.shape
-	
-	hold_distance(found_player.position, _area.size.x / 2, 5)
-	return true
-
-func manage_attack_spacing() -> void:
-	if _has_touched_player:
-		move_backward()
-	else:
-		move_forward()
-
-func is_on_direction(_target_position: Vector2) -> bool:
-	return (_target_position - position).x * direction >= 0
-
-func set_combat_collision(flag: bool) -> void:
-	_hurt_area_shape.disabled = not flag
-	_hit_area_shape.disabled = not flag
-
-func clear_area_collision(_area: Area2D) -> void:
-	_area.collision_layer = 0
-	_area.collision_mask = 0
-
-func target(_position: Vector2) -> void:
-	if _compute_target_direction(_position) != direction:
-		turn()
-
-func _compute_target_direction(_position: Vector2) -> int:
-	var target_direction = -1
-	if _position.x > position.x:
-		target_direction = 1
-	return target_direction
-
-func try_recover() -> bool:
-	if is_alive():
-		fsm.change_state(fsm.states.normal)
-		return true
-	fsm.change_state(fsm.states.dead)
-	return false
+# Computing / Math
+func compute_jump_height(_speed: float) -> float:
+	return _speed * _speed / (2.0 * gravity)
 
 func _compute_anim_speed(_anim_name: String, duration: float) -> float:
 	if not animated_sprite:
