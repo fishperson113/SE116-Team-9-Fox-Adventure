@@ -316,60 +316,18 @@ movement_speed = 90.0
 
 [node name="Aborigine" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(2426, 2991)
-bullet_up_impulse = null
-initial_direction = null
-shoot_time = null
+shoot_time = 0.5
 shoot_cooldown = 2.0
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine2" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(2496, 2990)
-bullet_up_impulse = null
-initial_direction = null
-shoot_time = null
+shoot_time = 0.5
 shoot_cooldown = 2.0
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine3" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(2579, 2990)
-bullet_up_impulse = null
-initial_direction = null
-shoot_time = null
+shoot_time = 0.5
 shoot_cooldown = 2.0
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
-gravity = null
-direction = null
-character_type = null
 
 [node name="BigAborigine" parent="Enemies/Aborigines" instance=ExtResource("6_njy1a")]
 position = Vector2(3247, 6440)
@@ -382,249 +340,60 @@ position = Vector2(3001, 6440)
 
 [node name="Aborigine4" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(3246, 6445)
-bullet_up_impulse = null
-initial_direction = null
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine5" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(3263, 6444)
-bullet_up_impulse = null
-initial_direction = null
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine6" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(3278, 6445)
-bullet_up_impulse = null
-initial_direction = null
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine7" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(2946, 6443)
-bullet_up_impulse = null
 initial_direction = 1
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine8" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(2933, 6443)
-bullet_up_impulse = null
 initial_direction = 1
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine9" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(2913, 6444)
-bullet_up_impulse = null
 initial_direction = 1
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine10" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(4406, 8843)
-bullet_up_impulse = null
 initial_direction = 1
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
 movement_speed = 40.0
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine11" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(4420, 8843)
-bullet_up_impulse = null
 initial_direction = 1
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
 movement_speed = 40.0
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine12" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(4518, 8843)
-bullet_up_impulse = null
 initial_direction = 1
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
 movement_speed = 40.0
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine13" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(4538, 8843)
-bullet_up_impulse = null
 initial_direction = 1
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
 movement_speed = 40.0
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine14" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(5153, 8843)
-bullet_up_impulse = null
-initial_direction = null
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
 movement_speed = 40.0
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine15" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(5177, 8843)
-bullet_up_impulse = null
-initial_direction = null
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
 movement_speed = 40.0
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine16" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(5288, 8843)
-bullet_up_impulse = null
-initial_direction = null
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
 movement_speed = 40.0
-gravity = null
-direction = null
-character_type = null
 
 [node name="Aborigine17" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(5307, 8843)
-bullet_up_impulse = null
-initial_direction = null
-initial_state = null
-hurt_time = null
-awake_time = null
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
 movement_speed = 40.0
-gravity = null
-direction = null
-character_type = null
 
 [node name="BigAborigine4" parent="Enemies/Aborigines" instance=ExtResource("6_njy1a")]
 position = Vector2(4659, 8839)

@@ -3,9 +3,9 @@
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
 [ext_resource type="Script" uid="uid://dpd1hu8tkk1y4" path="res://scripts/utils/threat_indicator_area_2d.gd" id="3_e1c60"]
 [ext_resource type="PackedScene" uid="uid://cvdklsb743i1l" path="res://scenes/ui/markers/threat_marker.tscn" id="4_vb1hh"]
-[ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="6_1bdp4"]
+[ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="6_bed0j"]
+[ext_resource type="PackedScene" uid="uid://caj73aiw7tf22" path="res://scenes/enemies/minions/melees/big_aborigine.tscn" id="9_ycpif"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="10_ycpif"]
-[ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="12_a6v5w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vb1hh"]
 size = Vector2(1240, 960)
@@ -20,6 +20,7 @@ tile_set = ExtResource("1_fx7si")
 
 [node name="Player" parent="." instance=ExtResource("10_ycpif")]
 position = Vector2(426, 135)
+collision_mask = 32769
 character_type = 3
 metadata/_edit_group_ = true
 
@@ -39,9 +40,8 @@ shape = SubResource("RectangleShape2D_vb1hh")
 
 [node name="Obstacles" type="Node2D" parent="."]
 
-[node name="Crab" parent="." instance=ExtResource("12_a6v5w")]
-position = Vector2(535, 174)
+[node name="BigAborigine" parent="." instance=ExtResource("9_ycpif")]
+position = Vector2(192, 172)
 
-[node name="KingCrab" parent="." instance=ExtResource("6_1bdp4")]
-position = Vector2(331, 168)
-chase_time = 2.0
+[node name="Starfish" parent="." instance=ExtResource("6_bed0j")]
+position = Vector2(245, 175)

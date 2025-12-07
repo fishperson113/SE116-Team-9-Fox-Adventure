@@ -29,10 +29,12 @@ func _init_initial_state() -> void:
 	fsm = FSM.new(self, $States, state_node)
 
 func update_normal(_delta: float) -> void:
-	try_patrol_turn(_delta)
-	manage_attack_spacing()
-	if found_player:
+	if is_player_visible():
 		target(found_player.position)
+		manage_attack_spacing()
+		try_jump()
+	else:
+		try_patrol_turn(_delta)
 	pass
 
 # Hurt state
