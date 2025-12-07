@@ -5,9 +5,8 @@ extends CanvasLayer
 func _ready() -> void:
 	$SettingsButton.connect("button_down", Callable(self, "_on_settings_button_down"))
 	change_blade_ui()
-	
-	var thrower = get_tree().current_scene.get_node("Player/WeaponThrower")
-	thrower.throwProjectile.connect(change_blade_ui)
+
+	GameManager.modifyBlade.connect(change_blade_ui)
 
 func _on_settings_button_down():
 	var scene = load("res://scenes/ui/Setting.tscn").instantiate()

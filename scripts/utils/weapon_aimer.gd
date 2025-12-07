@@ -1,8 +1,6 @@
 class_name WeaponThrower
 extends Node
 
-signal throwProjectile
-
 @onready var item_storer: ItemStorer = $"../ItemStorer"
 @export var projectile_type: int = 0
 var weapon_detail: Resource
@@ -70,7 +68,6 @@ func stop_find_throw_direction() -> void:
 	throw_projectile()
 	trajectory_line.visible = false
 	is_dir_inspected = false
-	throwProjectile.emit()
 
 func inspect_direction() -> void:
 	if not is_dir_inspected:
