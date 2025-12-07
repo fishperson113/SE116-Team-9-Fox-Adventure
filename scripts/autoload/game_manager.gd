@@ -23,6 +23,9 @@ var slots_data: Array[Dictionary] = converted_empty_slots()
 #Inventory that stores items and weapons overall
 var inventory_data: Array[Dictionary] = []
 
+# How many blades are available?
+var blade_count: int = 50
+
 func _ready() -> void:
 	# Load checkpoint data when game starts
 	load_tutorial_progress()
@@ -255,5 +258,14 @@ func load_tutorial_progress() -> void:
 	if not tutorial_progress.is_empty():
 		is_tutorial_finished = tutorial_progress["is_tutorial_finished"]
 		print("Tutorial progress loaded")
+
+func add_blades(number_of_blades: int) -> void:
+	blade_count += number_of_blades
+
+func remove_blades(number_of_blades: int) -> void:
+	blade_count -= number_of_blades
+	if blade_count < 0:
+		blade_count = 0
+
 #func get_tutorial_progress() -> bool:
 #	return is_tutorial_finished

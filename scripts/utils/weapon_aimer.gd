@@ -3,61 +3,49 @@ extends Node
 
 @onready var item_storer: ItemStorer = $"../ItemStorer"
 @export var projectile_type: int = 0
-var weapon_type: String
 var weapon_detail: Resource
 var weapon: PackedScene
 
-@export var dir_vector: Vector2
 var max_dir_vector: Vector2 = Vector2(1, 1)
-var mouse_dir_vector: Vector2 = Vector2(0, 0)
-var mouse_dir_change_rate: float = 0.5
-var speed: float
-var gravity: float
+var dir_vector: Vector2 = Vector2(0, 0)
+var dir_change_rate: float = 0.5
+var is_dir_inspected: bool = false
+
+var speed: float = 1000
+var gravity: float = 300
 
 @onready var trajectory_line: Line2D = $TrajectoryLine
 @onready var player: Player = $".."
 
-var max_mouse_still_time = 0.05
-var mouse_still_time = 0
-
 func _ready() -> void:
+	weapon = preload("res://scenes/items/weapons/weapon_blade.tscn")
+	weapon_detail = load("res://data/weapon/blade_throws/weapon_blade_throw.tres")
 	pass
 
 func _process(delta: float) -> void:
-	mouse_still_time += delta
-	if mouse_still_time > max_mouse_still_time:
-		mouse_dir_vector = Vector2.ZERO
+	if Input.get_action_strength("left"):
+		dir_vector.x -= dir_change_rate * delta
+	if Input.get_action_strength("right"):
+		dir_vector.x += dir_change_rate * delta
+	if Input.get_action_strength("up"):
+		dir_vector.y -= dir_change_rate * delta
+	if Input.get_action_strength("down"):
+		dir_vector.y += dir_change_rate * delta
 	pass
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		mouse_dir_vector = Vector2(event.relative.x, event.relative.y)
-		mouse_still_time = 0
-
-func change_weapon(weapon_type: String, weapon_detail) -> void:
-	if weapon_detail is Dictionary:
-		weapon_type = "none"
-		return
-	
-	self.weapon_type = weapon_type
-	self.weapon_detail = weapon_detail
-	if weapon_type == "none": 
-		weapon = null
-		return
-	if weapon_type == "weapon_blade":
-		weapon = preload("res://scenes/items/weapons/weapon_blade.tscn")
+func change_weapon() -> void:
 	var weapon_temp = weapon.instantiate()
 	#weapon_temp.add_general_weapon_properties(weapon_detail)
 	speed = weapon_temp.speed
 	gravity = weapon_temp.gravity
 	
-
 func find_throw_direction(delta: float) -> void:
-	if !item_storer.is_slot_available(): return
-	if !item_storer.is_slot_weapon(): return
+	if GameManager.blade_count <= 0: 
+		return
+	
 	inspect_direction()
 	trajectory_line.visible = true
-	dir_vector += Vector2(delta * mouse_dir_change_rate * mouse_dir_vector.x, delta * mouse_dir_change_rate * mouse_dir_vector.y)
+	#dir_vector += Vector2(dir_vector.x, dir_vector.y)
 	
 	if dir_vector.x < -max_dir_vector.x:
 		dir_vector.x = -max_dir_vector.x
@@ -77,24 +65,29 @@ func find_throw_direction(delta: float) -> void:
 	trajectory_line.update_trajectory(dir_vector, speed, gravity, delta)
 
 func stop_find_throw_direction() -> void:
-	if !item_storer.is_slot_available(): return
-	if !item_storer.is_slot_weapon(): return
 	throw_projectile()
-	item_storer.remove_item(weapon_type, weapon_detail)
 	trajectory_line.visible = false
+	is_dir_inspected = false
 
 func inspect_direction() -> void:
-	if player.direction * dir_vector.x < 0:
-		dir_vector.x = -dir_vector.x
+	if not is_dir_inspected:
+		if player.direction == -1 and dir_vector.x > 0:
+			dir_vector.x = -dir_vector.x
+		elif player.direction == 1 and dir_vector.x < 0:
+			dir_vector.x = -dir_vector.x
+		is_dir_inspected = true
+	pass
 
 func throw_projectile() -> void:
+	print(weapon)
 	if weapon != null:
 		var weapon_thrown: BaseWeapon = weapon.instantiate()
 		weapon_thrown.add_general_weapon_properties(weapon_detail)
 		weapon_thrown.global_position = self.get_parent().position
 		weapon_thrown.dir = dir_vector
-		weapon_thrown.speed = speed
-		weapon_thrown.gravity = gravity
-		weapon_thrown.set_dealt_damage(weapon_detail.get_damage())
-		self.get_parent().get_parent().add_child(weapon_thrown)
+		weapon_thrown.speed = weapon_detail.throw_speed
+		weapon_thrown.gravity = weapon_detail.throw_gravity
+		weapon_thrown.set_dealt_damage(weapon_detail.damage)
+		weapon_thrown.set_attacker()
+		get_tree().current_scene.add_child(weapon_thrown)
 	pass

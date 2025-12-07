@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends BaseCharacter
 class_name BaseWeapon
 
 var hit_area: HitArea2D
@@ -6,7 +6,7 @@ var hit_area: HitArea2D
 var _velocity: Vector2 = Vector2.ZERO
 var dir: Vector2 = Vector2.ZERO
 @export var speed: float
-@export var gravity: float
+@export var _gravity: float
 @export var spin_speed: float #tốc độ quay được tính bằng độ
 
 #General properties of a weapon
@@ -16,6 +16,7 @@ var weapon_detail: Resource
 @export var sample_collectible_weapon: PackedScene
 
 func _init() -> void:
+	gravity = _gravity
 	hit_area = $Direction/HitArea2D
 	pass
 
@@ -31,7 +32,11 @@ func _on_body_entered(body: Node2D) -> void:
 	pass # Replace with function body.
 
 func add_general_weapon_properties(weapon_detail: Resource) -> void:
-	self.weapon_detail = weapon_detail.duplicate(true)
+	#self.weapon_detail = weapon_detail.duplicate(true)
+	pass
 
 func set_dealt_damage(dealt_damage: float) -> void:
 	hit_area.set_dealt_damage(dealt_damage)
+
+func set_attacker() -> void:
+	hit_area.set_attacker(self)

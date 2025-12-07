@@ -15,6 +15,10 @@ func _exit() -> void:
 #Control moving and changing state to run
 #Return true if moving
 func control_moving() -> bool:
+	#if control_throwing(get_process_delta_time()):
+	#	obj.internal_force.x = 0
+	#	return false
+		
 	var dir: float = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var is_moving: bool = abs(dir) > 0.1
 	if is_moving and obj.fsm.current_state != fsm.states.throwing:

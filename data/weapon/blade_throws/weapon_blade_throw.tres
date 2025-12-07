@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="WeaponBladeThrow" load_steps=2 format=3 uid="uid://curhj4fmapx6d"]
+
+[ext_resource type="Script" uid="uid://buo1kk08busi0" path="res://scripts/items/weapons/weapon_blade_throw.gd" id="1_rqlkd"]
+
+[resource]
+script = ExtResource("1_rqlkd")
+throw_speed = 1000.0
+throw_gravity = 300.0
+damage = 10.0
+metadata/_custom_type_script = "uid://buo1kk08busi0"

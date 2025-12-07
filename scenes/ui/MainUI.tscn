@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://djoolf474qo2p"]
+[gd_scene load_steps=16 format=3 uid="uid://djoolf474qo2p"]
 
 [ext_resource type="Script" uid="uid://bj1vha74m6rd2" path="res://scripts/ui/main_ui.gd" id="1_7s5y6"]
 [ext_resource type="Texture2D" uid="uid://vj2xvbhnt45o" path="res://assets/ui/panels/health_bar.png" id="1_kdubu"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bak1dc8urb02c" path="res://assets/ui/buttons/settings_button.png" id="6_hqns4"]
 [ext_resource type="Texture2D" uid="uid://cf2xtiybswiem" path="res://assets/sprites/items/Keyboard/A.png" id="7_ir8iy"]
 [ext_resource type="Texture2D" uid="uid://ci25u8dfvvsna" path="res://assets/sprites/items/Keyboard/Space.png" id="8_hqns4"]
+[ext_resource type="Texture2D" uid="uid://d0s8rm2fj4wef" path="res://assets/sprites/characters/foxy/blade/blade_anim_1.png" id="8_rpv8g"]
 [ext_resource type="Texture2D" uid="uid://d086j8jvm50hp" path="res://assets/sprites/items/Keyboard/D.png" id="9_x0ka3"]
 [ext_resource type="Texture2D" uid="uid://dos6hwpl7kq7l" path="res://assets/ui/panels/progress.png" id="12_mjmcw"]
 [ext_resource type="PackedScene" uid="uid://bquisodmhmkdk" path="res://scenes/ui/inventory/Inv_ui.tscn" id="14_jv1lx"]
@@ -85,6 +86,24 @@ texture = ExtResource("5_ir8iy")
 expand_mode = 2
 
 [node name="NumCoin" type="Label" parent="Items/3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_qg6rx")
+theme_override_font_sizes/font_size = 30
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="4" type="HBoxContainer" parent="Items"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Blade" type="TextureRect" parent="Items/4"]
+layout_mode = 2
+texture = ExtResource("8_rpv8g")
+expand_mode = 2
+
+[node name="NumBlade" type="Label" parent="Items/4"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_qg6rx")
 theme_override_font_sizes/font_size = 30

@@ -56,10 +56,11 @@ func add_item(item_type: String, item_detail) -> bool:
 	return true
 
 func change_item(index_in_slot: int = 0) -> void:
-	if is_slot_weapon() and is_slot_available():
-		weapon_thrower.change_weapon(items_archive[item_slot]["item_type"], items_archive[item_slot]["item_detail"][index_in_slot])
-	else:
-		weapon_thrower.change_weapon("none", {})
+	#if is_slot_weapon() and is_slot_available():
+	#	weapon_thrower.change_weapon(items_archive[item_slot]["item_type"], items_archive[item_slot]["item_detail"][index_in_slot])
+	#else:
+	#	weapon_thrower.change_weapon("none", {})
+	pass
 
 func switch_item_slot(offset: int) -> void:
 	if item_slot + offset < 0:
