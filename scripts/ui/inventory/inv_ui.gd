@@ -56,7 +56,7 @@ func load_icon(item_type: String, item_detail_list := []) -> Texture2D:
 		printerr("⚠ Invalid weapon data for: ", item_type)
 		return null
 
-	var default_path := "res://ui/icons/%s.png" % item_type
+	var default_path := "res://assets/ui/icons/%s.png" % item_type
 
 	if ResourceLoader.exists(default_path):
 		return load(default_path)

@@ -88,7 +88,10 @@ func _equip_current_slot_weapon():
 	if item["item_detail"].is_empty():
 		GameManager.player.unequip_weapon()
 		return
-
+		
+	if not item.has("item_type") or not item["item_type"].begins_with("weapon_"):
+		GameManager.player.unequip_weapon()
+		return
 	var weapon: WeaponData = item["item_detail"][0]
 	GameManager.player.equip_weapon(weapon)
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://by1are4orvcmn"]
+[gd_scene load_steps=11 format=3 uid="uid://by1are4orvcmn"]
 
 [ext_resource type="Script" uid="uid://dbnywb46siqhm" path="res://scripts/level/level_1/stage.gd" id="1_eneqq"]
 [ext_resource type="Texture2D" uid="uid://cxakiw7e7eaom" path="res://icon.svg" id="2_tf1xb"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/items/collectible_items/collectible_ore_gold.tscn" id="5_tf1xb"]
 [ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/items/collectible_items/collectible_ore_copper.tscn" id="7_5aj3t"]
 [ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/items/collectible_items/collectible_ore_iron.tscn" id="8_snc7u"]
+[ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="9_887m6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_03kx2"]
 size = Vector2(128, 128)
@@ -201,6 +202,8 @@ position = Vector2(198, 202)
 
 [node name="Iron5" parent="." instance=ExtResource("8_snc7u")]
 position = Vector2(370, 149)
+
+[node name="MainUI" parent="." instance=ExtResource("9_887m6")]
 
 [connection signal="pressed" from="Inventory Buttons/ShowInventory" to="Inventory Buttons" method="_on_show_inventory_pressed"]
 [connection signal="pressed" from="Inventory Buttons/AddWeapon11" to="Inventory Buttons" method="_on_add_weapon_11_pressed"]

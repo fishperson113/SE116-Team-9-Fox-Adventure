@@ -11,7 +11,10 @@ func _ready() -> void:
 func _on_interaction_available() -> void:
 	print("Player touched the collectible")
 	print(item_type)
+	GameManager.player.inventory.insert_item(item_type,item_detail)
+	GameManager.player.inventory.save_inventory()
 	GameManager.player.item_storer.add_item(item_type, item_detail)
+	GameManager.player.item_storer.save_slots()
 	queue_free()
 	pass # Replace with function body.
 
