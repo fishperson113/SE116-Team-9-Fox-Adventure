@@ -79,7 +79,7 @@
 [ext_resource type="Script" uid="uid://eb7cglr7oflu" path="res://scripts/utils/weapon_aimer.gd" id="75_3p0jd"]
 [ext_resource type="Script" uid="uid://bvxcpvst3aaxd" path="res://scripts/player/states/throwing.gd" id="75_s050l"]
 [ext_resource type="Script" uid="uid://clda3mhukcmdf" path="res://scripts/player/trajectory/trajectory_line.gd" id="75_ymths"]
-[ext_resource type="Script" path="res://scripts/player/states/launch.gd" id="76_4sw5w"]
+[ext_resource type="Script" uid="uid://w3w0sbvoe5al" path="res://scripts/player/states/launch.gd" id="76_4sw5w"]
 [ext_resource type="Texture2D" uid="uid://b2ys0lkughw88" path="res://assets/sprites/trajectory/dotted_line.png" id="77_0y4ya"]
 [ext_resource type="AudioStream" uid="uid://irnmtldt0n5y" path="res://assets/audio/sfx/jump.mp3" id="79_trum3"]
 [ext_resource type="Script" uid="uid://c8sscfh3560ce" path="res://scripts/player/states/dash.gd" id="79_wuxn4"]
@@ -566,6 +566,9 @@ inventory = NodePath("../Inventory")
 script = ExtResource("82_vkc6f")
 item_storer = NodePath("../ItemStorer")
 
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.3
+
 [node name="InvulnerabilityTimer" type="Timer" parent="."]
 
 [node name="DashabilityTimer" type="Timer" parent="."]
@@ -583,6 +586,7 @@ one_shot = true
 [connection signal="animation_finished" from="Direction/AnimatedSprite2D" to="States/Attack" method="_on_attack_animation_finished"]
 [connection signal="animation_finished" from="Direction/AnimatedSprite2D" to="States/Hit" method="_on_hit_animation_finished"]
 [connection signal="hurt" from="Direction/HurtArea2D" to="." method="_on_hurt_area_2d_hurt"]
+[connection signal="timeout" from="AttackTimer" to="States/Attack" method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]
 [connection signal="timeout" from="DashabilityTimer" to="States/Dash" method="_on_dashability_timer_timeout"]
 [connection signal="timeout" from="WideAttackTimer" to="States/WideAttack" method="_on_wide_attack_timer_timeout"]
