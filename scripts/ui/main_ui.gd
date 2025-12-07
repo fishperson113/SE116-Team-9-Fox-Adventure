@@ -1,7 +1,12 @@
 extends CanvasLayer
 
+@onready var num_blade_ui: Label = $"Items/4/NumBlade"
+
 func _ready() -> void:
 	$SettingsButton.connect("button_down", Callable(self, "_on_settings_button_down"))
+	change_blade_ui()
+
+	GameManager.modifyBlade.connect(change_blade_ui)
 
 func _on_settings_button_down():
 	var scene = load("res://scenes/ui/Setting.tscn").instantiate()
@@ -15,3 +20,6 @@ func _on_settings_button_down():
 		nine_patch.position = (viewport_size - nine_patch.size) / 2
 	
 	get_tree().paused = true
+
+func change_blade_ui():
+	num_blade_ui.text = str(GameManager.blade_count)

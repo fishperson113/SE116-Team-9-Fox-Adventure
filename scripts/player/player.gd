@@ -49,7 +49,7 @@ func _ready() -> void:
 	super._ready()
 	GameManager.player = self
 	base_speed=movement_speed
-	maxHealth=1000000
+	maxHealth=2000
 	currentHealth=maxHealth
 
 func _process(delta: float) -> void:

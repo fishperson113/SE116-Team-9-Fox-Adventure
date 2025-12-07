@@ -15,6 +15,10 @@ func _exit() -> void:
 #Control moving and changing state to run
 #Return true if moving
 func control_moving() -> bool:
+	#if control_throwing(get_process_delta_time()):
+	#	obj.internal_force.x = 0
+	#	return false
+		
 	var dir: float = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var is_moving: bool = abs(dir) > 0.1
 	if is_moving and obj.fsm.current_state != fsm.states.throwing:
@@ -66,10 +70,15 @@ func control_attack() -> bool:
 
 func control_throwing(delta: float) -> bool:
 	if Input.is_action_pressed("throw"):
+		if GameManager.blade_count <= 0:
+			return false
+		
 		obj.weapon_thrower.find_throw_direction(delta)
 		change_state(fsm.states.throwing)
 		return true
 	elif Input.is_action_just_released("throw"):
+		if GameManager.blade_count <= 0:
+			return false
 		obj.weapon_thrower.stop_find_throw_direction()
 	return false
 

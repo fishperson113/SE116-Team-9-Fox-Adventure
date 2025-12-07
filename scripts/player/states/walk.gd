@@ -10,6 +10,7 @@ func _update(delta: float):
 	control_jump()
 	control_attack()
 	control_wide_attack()
+	control_throwing(delta)
 	control_unequip()
 	#Control moving and if not moving change to idle
 	if !control_moving():
