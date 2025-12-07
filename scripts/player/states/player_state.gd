@@ -70,10 +70,15 @@ func control_attack() -> bool:
 
 func control_throwing(delta: float) -> bool:
 	if Input.is_action_pressed("throw"):
+		if GameManager.blade_count <= 0:
+			return false
+		
 		obj.weapon_thrower.find_throw_direction(delta)
 		change_state(fsm.states.throwing)
 		return true
 	elif Input.is_action_just_released("throw"):
+		if GameManager.blade_count <= 0:
+			return false
 		obj.weapon_thrower.stop_find_throw_direction()
 	return false
 

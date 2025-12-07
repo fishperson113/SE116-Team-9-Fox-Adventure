@@ -1,6 +1,8 @@
 class_name WeaponThrower
 extends Node
 
+signal throwProjectile
+
 @onready var item_storer: ItemStorer = $"../ItemStorer"
 @export var projectile_type: int = 0
 var weapon_detail: Resource
@@ -68,6 +70,7 @@ func stop_find_throw_direction() -> void:
 	throw_projectile()
 	trajectory_line.visible = false
 	is_dir_inspected = false
+	throwProjectile.emit()
 
 func inspect_direction() -> void:
 	if not is_dir_inspected:
@@ -91,4 +94,5 @@ func throw_projectile() -> void:
 		weapon_thrown.set_dealt_damage(weapon_detail.damage)
 		weapon_thrown.set_attacker()
 		get_tree().current_scene.add_child(weapon_thrown)
+		GameManager.remove_blades(1)
 	pass
