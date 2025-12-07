@@ -179,10 +179,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x7qun"]
-size = Vector2(94, 44)
+size = Vector2(89, 44)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ppg4x"]
-size = Vector2(92, 33)
+size = Vector2(88, 42.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l046a"]
 size = Vector2(800, 800)
@@ -214,6 +214,7 @@ roll_accelerator = 100.0
 roll_decelerator = 100.0
 prepare_meteor_time = 1.75
 meteor_slide_speed = 1000.0
+chase_time = 2.0
 slash_frame = 3
 claw_frame = 3
 claw_range = 600.0
@@ -236,14 +237,14 @@ animation = &"shoot"
 visible = false
 
 [node name="NormalCollisionShape2D" parent="Direction/HitArea2D" index="0"]
-position = Vector2(-3, 5)
+position = Vector2(1.5, 5)
 shape = SubResource("RectangleShape2D_x7qun")
 
 [node name="HurtArea2D" parent="Direction" index="2"]
 visible = false
 
 [node name="CollisionShape2D" parent="Direction/HurtArea2D" index="0"]
-position = Vector2(-3, 8.5)
+position = Vector2(2, 2.25)
 shape = SubResource("RectangleShape2D_ppg4x")
 
 [node name="NearSenseArea2D" parent="Direction" index="3"]
@@ -292,11 +293,11 @@ shape = SubResource("RectangleShape2D_xn0de")
 disabled = true
 
 [node name="RollHitArea2D" type="Area2D" parent="Direction" index="10"]
+visible = false
 script = ExtResource("32_2tyas")
 metadata/_custom_type_script = "uid://dkb25vr64v37l"
 
 [node name="RollCollisionShape2D" type="CollisionShape2D" parent="Direction/RollHitArea2D" index="0"]
-visible = false
 position = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_2tyas")
 

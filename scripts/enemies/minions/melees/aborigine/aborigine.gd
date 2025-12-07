@@ -9,8 +9,6 @@ extends ShootableEnemy
 #Quả dừa sẽ tự biến mất khi tiếp xúc với mặt đất
 #Nếu người chơi chạm vào quả dừa thì sẽ bị mất máu theo Attack Damage
 
-enum DistanceFeel { FAR, NEAR, FINE }
-
 @export var safe_distance: float = 75
 @export var bullet_up_impulse: float = -300.0
 

@@ -19,7 +19,7 @@ tile_set = ExtResource("1_fx7si")
 [node name="Bullets" type="Node" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("10_ycpif")]
-position = Vector2(297, 177)
+position = Vector2(426, 135)
 character_type = 3
 metadata/_edit_group_ = true
 
@@ -43,4 +43,5 @@ shape = SubResource("RectangleShape2D_vb1hh")
 position = Vector2(535, 174)
 
 [node name="KingCrab" parent="." instance=ExtResource("6_1bdp4")]
-position = Vector2(148, 158)
+position = Vector2(331, 168)
+chase_time = 2.0

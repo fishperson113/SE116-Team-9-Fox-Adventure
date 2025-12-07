@@ -21,6 +21,7 @@ extends Boss
 @export var meteor_slide_speed: float = 1000
 
 @export_group("Death slash skill")
+@export var chase_time: float = 2.0
 @export var slash_frame: int = 3
 
 @export_group("Launch claw skill")
@@ -86,16 +87,19 @@ func _init_skill_set():
 
 # Normal state
 func update_normal(_delta: float):
-	if not found_player:
-		return
 	_follow_player()
-	super.update_normal(_delta)
+	if not is_player_visible():
+		return
+	if is_exhausted():
+		fsm.change_state(fsm.states.rest)
+	if fsm.current_state.update_timer(_delta):
+		use_stamina()
+		fsm.change_state(get_skill())
 
 func _follow_player() -> void:
-	if is_player_visible():
-		target(found_player.position)
-		hold_distance_from_player()
-		try_jump()
+	perceive_player_position()
+	target(_memorized_player_position)
+	hold_distance(_memorized_player_position)
 
 func try_jump() -> bool:
 	return jump_over_wall() or jump_over_hole()
@@ -244,10 +248,11 @@ func meteor_slide():
 # Prepare slash state
 func start_prepare_slash() -> void:
 	start_normal()
+	fsm.current_state.timer = chase_time
 	pass
 
 func update_prepare_slash(_delta: float) -> void:
-	if not is_player_visible():
+	if not is_player_visible() or fsm.current_state.update_timer(_delta):
 		_return_to_normal()
 		return
 	_follow_player()

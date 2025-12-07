@@ -1,6 +1,7 @@
 class_name Enemy
 extends BaseCharacter
 
+enum DistanceFeel { VERY_FAR, FAR, NEAR, FINE, CONFUSED }
 const BLOCK_SIZE: int = 32
 
 ## Base character class that provides common functionality for all characters
@@ -34,6 +35,7 @@ var _patrol_controller: PatrolController = null
 var _player_detection_count: int = 0
 var _has_touched_player: bool = false
 var _is_hitted: bool = false
+var _memorized_player_position: Vector2 = Vector2.ZERO
 
 var _front_ray_cast: RayCast2D = null
 var _down_ray_cast: RayCast2D = null
@@ -328,14 +330,18 @@ func is_player_visible() -> bool:
 func is_close(target: Vector2, tolerance: float) -> bool:
 	return target.distance_to(position) <= tolerance
 
-func hold_distance(_target_position: Vector2, _safe_distance: float, _tolerance: float) -> void:
-	var distance = _target_position.distance_to(position)
-	if distance >= _safe_distance + _tolerance:
-		move_forward()
-	elif distance <= _safe_distance - _tolerance:
-		move_backward()
+func evaluate_distance(distance: float, hurt_range: float, attack_range: float, max_evaluate_range: float = 300) -> int:
+	distance = absf(distance)
+	if hurt_range >= attack_range:
+		return DistanceFeel.CONFUSED
+	if distance >= max_evaluate_range:
+		return DistanceFeel.VERY_FAR
+	elif distance >= attack_range:
+		return DistanceFeel.FAR
+	elif distance <= hurt_range:
+		return DistanceFeel.NEAR
 	else:
-		stop_move()
+		return DistanceFeel.FINE
 
 func move_forward() -> void:
 	_movement_speed = movement_speed
@@ -346,19 +352,27 @@ func move_backward() -> void:
 func stop_move() -> void:
 	_movement_speed = 0.0
 
-func hold_distance_from_player() -> bool:
-	if not _collision_shape or not found_player:
-		move_forward()
-		return false
-		
-	var _area = _collision_shape.shape
-	if _hit_area_shape:
-		_area = _hit_area_shape.shape
-	elif _hurt_area_shape:
-		_area = _hurt_area_shape.shape
+func hold_distance(_target_position: Vector2) -> void:
+	var horizontal_hurt_range = _hurt_area_shape.shape.size.x / 2 + _hurt_area_shape.position.x
+	var horizontal_attack_range = horizontal_hurt_range + BLOCK_SIZE
+	var horizontal_distance_feeling = evaluate_distance(global_position.x - _target_position.x, horizontal_hurt_range, horizontal_attack_range)
+	var vertical_distance = _target_position.y - global_position.y
+	var vertical_hurt_range = _hurt_area_shape.shape.size.y / 2
+	var vertical_attack_range = vertical_hurt_range + BLOCK_SIZE / 2
+	var vertical_distance_feeling = evaluate_distance(vertical_distance, vertical_hurt_range, vertical_attack_range, 100)
 	
-	hold_distance(found_player.position, _area.size.x / 2, 5)
-	return true
+	if horizontal_distance_feeling == DistanceFeel.FAR \
+		or (vertical_distance_feeling != DistanceFeel.NEAR and vertical_distance > 0):
+		move_forward()
+	elif horizontal_distance_feeling == DistanceFeel.NEAR:
+		move_backward()
+	else:
+		stop_move()
+	
+	
+	if not try_jump():
+		if vertical_distance_feeling == DistanceFeel.FAR and vertical_distance < 0:
+			jump()
 
 func manage_attack_spacing() -> void:
 	if _has_touched_player:
@@ -366,8 +380,13 @@ func manage_attack_spacing() -> void:
 	else:
 		move_forward()
 
-func is_on_direction(_target_position: Vector2) -> bool:
-	return (_target_position - position).x * direction >= 0
+func is_on_direction(_target_position: Vector2, _tolerance: float = 10) -> bool:
+	var dx = _target_position.x - global_position.x
+
+	if absf(dx) < _tolerance:
+		return true
+	
+	return dx * direction >= 0
 
 func set_combat_collision(flag: bool) -> void:
 	_hurt_area_shape.disabled = not flag
@@ -378,7 +397,7 @@ func clear_area_collision(_area: Area2D) -> void:
 	_area.collision_mask = 0
 
 func target(_position: Vector2) -> void:
-	if _compute_target_direction(_position) != direction:
+	if not is_on_direction(_position):
 		turn()
 
 func _compute_target_direction(_position: Vector2) -> int:
@@ -400,3 +419,7 @@ func _compute_anim_speed(_anim_name: String, duration: float) -> float:
 		return 0.0
 	var frame_count = animated_sprite.sprite_frames.get_frame_count(_anim_name)
 	return frame_count / duration
+
+func perceive_player_position():
+	if is_player_visible():
+		_memorized_player_position = found_player.global_position
