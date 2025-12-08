@@ -20,6 +20,7 @@ func SpawnLoot(source_node: Node2D):
 		container_node = get_tree().current_scene.get_node("collectibles") 
 	
 	var dropables := drop_table.roll()
+	print("Drop successfully with these items: ", dropables)
 	for dropable in dropables:
 		var b: EffectWrapper = create(dropable)
 		b.global_position = source_node.global_position
