@@ -48,21 +48,12 @@ size = Vector2(12, 23)
 
 [node name="Mushroom" groups=["melee"] instance=ExtResource("1_cq6ry")]
 script = ExtResource("2_65vyy")
-initial_state = null
-hurt_time = null
-awake_time = null
+initial_state = 0
+hurt_time = 0.4
+awake_time = 2.0
 health = 50.0
 spike = 80.0
-sight = null
-movement_range = null
-attack_damage = null
-attack_speed = null
-use_raycast_detection = null
-turn_chance = null
 movement_speed = 50.0
-gravity = null
-direction = null
-character_type = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]
 sprite_frames = SubResource("SpriteFrames_qdbxi")

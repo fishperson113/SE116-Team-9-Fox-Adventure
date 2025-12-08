@@ -1,16 +1,46 @@
-[gd_scene load_steps=8 format=4 uid="uid://2myew2spjl4b"]
+[gd_scene load_steps=18 format=4 uid="uid://2myew2spjl4b"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
 [ext_resource type="Script" uid="uid://dpd1hu8tkk1y4" path="res://scripts/utils/threat_indicator_area_2d.gd" id="3_e1c60"]
 [ext_resource type="PackedScene" uid="uid://cvdklsb743i1l" path="res://scenes/ui/markers/threat_marker.tscn" id="4_vb1hh"]
-[ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="6_bed0j"]
-[ext_resource type="PackedScene" uid="uid://caj73aiw7tf22" path="res://scenes/enemies/minions/melees/big_aborigine.tscn" id="9_ycpif"]
+[ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/items/collectible_items/collectible_ore_copper.tscn" id="7_gfba4"]
+[ext_resource type="Script" uid="uid://bvmayktwi2sq6" path="res://scenes/levels/loot_system/dropable.gd" id="8_gfba4"]
+[ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/items/collectible_items/collectible_ore_iron.tscn" id="8_msjuq"]
+[ext_resource type="Script" uid="uid://bhnnjl5ixmyra" path="res://scenes/levels/loot_system/drop_data.gd" id="8_xl7d7"]
+[ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="8_ycpif"]
+[ext_resource type="PackedScene" uid="uid://c1ojnmhr1sm5l" path="res://scenes/enemies/minions/melees/mushroom.tscn" id="9_msjuq"]
+[ext_resource type="PackedScene" uid="uid://crkmos1d5bdx3" path="res://scenes/items/collectible_items/collectible_chest_key.tscn" id="9_rr8pu"]
+[ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/items/collectible_items/collectible_ore_gold.tscn" id="10_rr8pu"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="10_ycpif"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vb1hh"]
 size = Vector2(1240, 960)
 
-[node name="Stage" type="Node2D"]
+[sub_resource type="Resource" id="Resource_msjuq"]
+script = ExtResource("8_gfba4")
+item = ExtResource("7_gfba4")
+weight = 12
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_a6v5w"]
+script = ExtResource("8_gfba4")
+item = ExtResource("8_msjuq")
+weight = 0
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_d63eo"]
+script = ExtResource("8_gfba4")
+item = ExtResource("10_rr8pu")
+weight = 1
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_cu5if"]
+script = ExtResource("8_gfba4")
+item = ExtResource("9_rr8pu")
+weight = 12
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[node name="Stage2" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." groups=["ground"]]
 tile_map_data = PackedByteArray("AAABAAUAAAAEAAEAAAABAAYAAAAPAAQAAAACAAYAAAABAAQAAAADAAYAAAABAAQAAAAEAAYAAAABAAQAAAAFAAYAAAABAAQAAAAGAAYAAAABAAQAAAAHAAYAAAABAAQAAAAIAAYAAAABAAQAAAAJAAYAAAABAAQAAAAKAAYAAAABAAQAAAALAAYAAAABAAQAAAAMAAYAAAAKAAQAAAANAAYAAAAJAAQAAAABAAQAAAAEAAEAAAABAAMAAAAEAAEAAAABAAIAAAAEAAEAAAABAAEAAAAEAAAAAAAOAAYAAAABAAQAAAAPAAYAAAABAAQAAAARAAYAAAABAAQAAAASAAYAAAABAAQAAAATAAYAAAAQAAMAAAAWAAYAAAAPAAMAAAAXAAYAAAABAAQAAAAYAAYAAAABAAQAAAAZAAYAAAABAAQAAAAaAAYAAAABAAQAAAAbAAYAAAABAAQAAAAkAAYAAAABAAQAAAAlAAYAAAABAAQAAAAmAAYAAAABAAQAAAAnAAYAAAAQAAQAAAAnAAUAAAAEAAEAAAAnAAQAAAAEAAEAAAAnAAMAAAAEAAEAAAAnAAIAAAAEAAEAAAAnAAEAAAAEAAAAAAAQAAYAAAABAAQAAAAcAAYAAAABAAQAAAAdAAYAAAABAAQAAAAfAAYAAAABAAQAAAAeAAYAAAABAAQAAAAgAAYAAAABAAQAAAAhAAYAAAABAAQAAAAiAAYAAAABAAQAAAAjAAYAAAABAAQAAAANAAUAAAACAAAAAAAMAAUAAAAGAAQAAAAMAAQAAAAEAAAAAAAUAAcAAAAQAAMAAAAVAAgAAAABAAQAAAAWAAcAAAAEAAEAAAAWAAgAAAAQAAQAAAAUAAgAAAAPAAQAAAATAAcAAAAPAAQAAAA=")
@@ -19,7 +49,7 @@ tile_set = ExtResource("1_fx7si")
 [node name="Bullets" type="Node" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("10_ycpif")]
-position = Vector2(426, 135)
+position = Vector2(285, 183)
 collision_mask = 32769
 character_type = 3
 metadata/_edit_group_ = true
@@ -40,8 +70,22 @@ shape = SubResource("RectangleShape2D_vb1hh")
 
 [node name="Obstacles" type="Node2D" parent="."]
 
-[node name="BigAborigine" parent="." instance=ExtResource("9_ycpif")]
-position = Vector2(192, 172)
+[node name="DropData" type="Node2D" parent="."]
+script = ExtResource("8_xl7d7")
+min_drop = 2
+max_drop = 4
+drop_table = Array[ExtResource("8_gfba4")]([SubResource("Resource_msjuq"), SubResource("Resource_a6v5w")])
+metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
-[node name="Starfish" parent="." instance=ExtResource("6_bed0j")]
-position = Vector2(245, 175)
+[node name="Crab" parent="." instance=ExtResource("8_ycpif")]
+position = Vector2(100, 180)
+
+[node name="Mushroom" parent="." instance=ExtResource("9_msjuq")]
+position = Vector2(214, 178)
+
+[node name="DropData" type="Node2D" parent="Mushroom"]
+script = ExtResource("8_xl7d7")
+min_drop = 1
+max_drop = 4
+drop_table = Array[ExtResource("8_gfba4")]([SubResource("Resource_d63eo"), SubResource("Resource_cu5if")])
+metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
