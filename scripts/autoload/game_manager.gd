@@ -36,8 +36,8 @@ func _ready() -> void:
 	load_inventory_data()
 	load_slots_data()
 	load_level_progress()
-	initialize_systems()
 	pass
+
 func initialize_systems():
 	await get_tree().process_frame
 
@@ -151,32 +151,13 @@ func clear_checkpoint_data() -> void:
 	print("All checkpoint data cleared")
 
 func save_slots_data() -> void:
-	for i in range(slots_data.size()):
-		if not slots_data[i].has("item_type"):
-			continue
-		
-		if not slots_data[i]["item_type"].begins_with("weapon_"):
-			continue
-		
-		for j in range(slots_data[i]["item_detail"].size()):
-			slots_data[i]["item_detail"][j] = slots_data[i]["item_detail"][j].resource_path
-			
 	SaveSystem.save_slots_data(slots_data)
 
 func load_slots_data() -> void:
 	var slots = SaveSystem.load_slots_data()
 	if not slots.is_empty():
-		for i in range(slots.size()):
-			if not slots[i].has("item_type"):
-				continue
-			
-			if not slots[i]["item_type"].begins_with("weapon_"):
-				continue
-			
-			for j in range(slots[i]["item_detail"].size()):
-				slots[i]["item_detail"][j] = load(slots[i]["item_detail"][j])
-		slots_data = slots;
-		print("Slots data loaded from inventory file")
+		slots_data = slots
+		print("Slots data loaded from file")
 
 func clear_slots_data() -> void:
 	slots_data.clear()
@@ -184,27 +165,13 @@ func clear_slots_data() -> void:
 	print("All inventory data cleared")
 
 func save_inventory_data() -> void:
-	for i in range(inventory_data.size()):
-		if not inventory_data[i]["item_type"].begins_with("weapon_"):
-			continue
-			
-		for j in range(inventory_data[i]["item_detail"].size()):
-			inventory_data[i]["item_detail"][j] = inventory_data[i]["item_detail"][j].resource_path
-	
 	SaveSystem.save_inventory_data(inventory_data)
 
 func load_inventory_data() -> void:
 	var inventory = SaveSystem.load_inventory_data()
 	if not inventory.is_empty():
-		for i in range(inventory.size()):
-			if not inventory[i]["item_type"].begins_with("weapon_"):
-				continue
-				
-			for j in range(inventory[i]["item_detail"].size()):
-				inventory[i]["item_detail"][j] = load(inventory[i]["item_detail"][j])
-		
-		inventory_data = inventory;
-		print("Inventory data loaded from inventory file")
+		inventory_data = inventory
+		print("Inventory data loaded from file")
 
 func clear_inventory_data() -> void:
 	inventory_data.clear()
@@ -223,10 +190,7 @@ func check_object_type(item_one, item_two) -> bool:
 		return item_one.resource_path == item_two.resource_path
 	elif item_one is WeaponMaterialData and item_two is WeaponMaterialData:
 		return item_one.id == item_two.id
-	else:
-		return false
-	
-	return true
+	return false
 
 # Level progress functions
 func unlock_level() -> void:

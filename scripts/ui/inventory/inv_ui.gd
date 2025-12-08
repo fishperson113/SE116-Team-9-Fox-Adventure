@@ -2,6 +2,8 @@ extends Control
 class_name InvUI
 
 @onready var slots := $Panel/MarginContainer/GridContainer.get_children()
+var current_hotbar_slot := -1
+
 func _ready() -> void:
 	GameManager.player.inventory.inventory_changed.connect(update_inventory_ui)
 	GameManager.player.inventory.item_storer.slot_changed.connect(_on_slot_changed)
@@ -36,35 +38,38 @@ func update_inventory_ui():
 
 
 func load_icon(item_type: String, item_detail_list := []) -> Texture2D:
-
 	if item_type.begins_with("weapon_"):
-		if item_detail_list.size() > 0 and item_detail_list[0] is WeaponData:
-			var weapon: WeaponData = item_detail_list[0]
-			var icon_path := weapon.png_path
+		# item_detail_list giờ chứa STRING PATH
+		if item_detail_list.size() > 0 and item_detail_list[0] is String:
+			var weapon_path: String = item_detail_list[0]
 
-			if icon_path != "" and FileAccess.file_exists(icon_path):
-				var img := Image.load_from_file(icon_path)
-				if img:
-					return ImageTexture.create_from_image(img)
+			if ResourceLoader.exists(weapon_path):
+				var weapon: WeaponData = load(weapon_path)
 
-				printerr("⚠ Failed to load image from file: ", icon_path)
-				return null
+				if weapon and weapon.png_path != "":
+					if FileAccess.file_exists(weapon.png_path):
+						var img := Image.load_from_file(weapon.png_path)
+						if img:
+							return ImageTexture.create_from_image(img)
+						printerr("⚠ Failed to load PNG from: ", weapon.png_path)
+						return null
+					printerr("⚠ PNG not found at: ", weapon.png_path)
+					return null
 
-			printerr("⚠ Weapon icon not found at: ", icon_path)
+			printerr("⚠ Invalid weapon path: ", weapon_path)
 			return null
 
-		printerr("⚠ Invalid weapon data for: ", item_type)
+		printerr("⚠ item_detail_list does not contain weapon path")
 		return null
 
+	# Normal item → load icon mặc định
 	var default_path := "res://assets/ui/icons/%s.png" % item_type
-
 	if ResourceLoader.exists(default_path):
 		return load(default_path)
 
-	printerr("⚠ Default icon not found for item_type: ", item_type)
+	printerr("⚠ Default icon not found for: ", item_type)
 	return null
 
-var current_hotbar_slot := -1
 
 func highlight_slot(index: int):
 	for i in range(slots.size()):
