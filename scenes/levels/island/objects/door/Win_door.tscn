@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://slg0p8vvevb8"]
+[gd_scene load_steps=19 format=3 uid="uid://slg0p8vvevb8"]
 
 [ext_resource type="Texture2D" uid="uid://cpvkepx2kh0ku" path="res://assets/sprites/objects/door/closing.png" id="1_7l4jk"]
 [ext_resource type="Script" uid="uid://l7xnwnjlisqx" path="res://scripts/object/door/win_door.gd" id="1_x6qlk"]
 [ext_resource type="Texture2D" uid="uid://bywbldgj5n4af" path="res://assets/sprites/objects/door/idle.png" id="2_8ymf3"]
+[ext_resource type="Texture2D" uid="uid://hyh2aj6io8li" path="res://assets/sprites/hotkeys/hotkey_enter.png" id="2_luba1"]
 [ext_resource type="Texture2D" uid="uid://cwhw7q87xsjwa" path="res://assets/sprites/objects/door/opening.png" id="3_2wyd1"]
 [ext_resource type="Script" uid="uid://3u7i3d58hkla" path="res://scripts/utils/interactive_area_2d.gd" id="4_l7mgg"]
 [ext_resource type="AudioStream" uid="uid://w5jqjknju6hu" path="res://assets/audio/sfx/coin.mp3" id="6_rndn5"]
@@ -90,8 +91,14 @@ size = Vector2(32, 47)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l7mgg"]
 size = Vector2(32, 47)
 
-[node name="WinDoor" type="Node2D"]
+[node name="WinDoor" type="Node2D" node_paths=PackedStringArray("key_signal")]
 script = ExtResource("1_x6qlk")
+key_signal = NodePath("KeySignal")
+
+[node name="KeySignal" type="Sprite2D" parent="."]
+position = Vector2(0, -65)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_luba1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -28)
