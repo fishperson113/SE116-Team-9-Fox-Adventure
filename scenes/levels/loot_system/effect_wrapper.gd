@@ -33,13 +33,14 @@ func unwrap() -> void:
 	if parent:
 		parent.remove_child(self)
 	
+	var old_pos: Vector2 = node.global_position
 	remove_child(node)
 	
 	if parent:
 		parent.add_child(node)
 
 	# These modifcations should be here because the effect of add and remove child
-	node.global_position = global_position
+	node.global_position = old_pos
 
 func _on_sleep_change() -> void:
 	finish.emit()
