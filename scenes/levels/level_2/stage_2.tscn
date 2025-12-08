@@ -1,11 +1,9 @@
-[gd_scene load_steps=55 format=4 uid="uid://ctnn4ampknjte"]
+[gd_scene load_steps=45 format=4 uid="uid://ctnn4ampknjte"]
 
 [ext_resource type="TileSet" uid="uid://xcv3crb1m8j3" path="res://assets/tileset/tileset_64.tres" id="1_d28cy"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_2qphj"]
-[ext_resource type="PackedScene" uid="uid://bu0ebjvtvbb4j" path="res://scenes/levels/area_unlockers/area_unlocker_enemies.tscn" id="3_h0lkx"]
 [ext_resource type="PackedScene" uid="uid://d2wpy684uyjct" path="res://scenes/enemies/spawners/triggered_spawner.tscn" id="3_ljkq7"]
 [ext_resource type="PackedScene" uid="uid://slg0p8vvevb8" path="res://scenes/levels/island/objects/door/Win_door.tscn" id="4_4lvta"]
-[ext_resource type="Texture2D" uid="uid://ddyvyvrav5jnd" path="res://assets/sprites/mystery/Mystery Pack 76.png" id="4_lebvl"]
 [ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="8_n6lnb"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="8_u56sg"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="9_f3mxx"]
@@ -30,31 +28,6 @@
 [ext_resource type="Texture2D" uid="uid://dt1od2hyke60g" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_02.png" id="26_t0i4e"]
 [ext_resource type="Texture2D" uid="uid://frimagh5yfit" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_03.png" id="27_obdqt"]
 [ext_resource type="Texture2D" uid="uid://cjcxdxoq8hp4l" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_04.png" id="28_4gpaa"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n6lnb"]
-atlas = ExtResource("4_lebvl")
-region = Rect2(96, 0, 16, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h8jsa"]
-size = Vector2(1305, 405.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ka18f"]
-size = Vector2(1440, 571)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_21cbj"]
-size = Vector2(1964, 637)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4lvta"]
-size = Vector2(1284, 553)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vk5y7"]
-size = Vector2(1182, 553)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_saf1a"]
-size = Vector2(1753, 640)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oc4am"]
-size = Vector2(1133, 256)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lebvl"]
 size = Vector2(30, 1000)
@@ -219,90 +192,6 @@ tile_set = ExtResource("2_2qphj")
 
 [node name="Door" parent="World" instance=ExtResource("4_4lvta")]
 position = Vector2(17223, 704)
-
-[node name="AreaUnlockerEnemies" parent="World" instance=ExtResource("3_h0lkx")]
-position = Vector2(785, 519)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies" index="0"]
-position = Vector2(650, -7)
-scale = Vector2(2, 24)
-texture = SubResource("AtlasTexture_n6lnb")
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies/EnemyTestArea" index="0"]
-position = Vector2(-14.4998, -17.25)
-shape = SubResource("RectangleShape2D_h8jsa")
-
-[node name="AreaUnlockerEnemies2" parent="World" instance=ExtResource("3_h0lkx")]
-position = Vector2(3952, 450)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies2" index="0"]
-position = Vector2(-64, -98)
-scale = Vector2(2, 36)
-texture = SubResource("AtlasTexture_n6lnb")
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies2/EnemyTestArea" index="0"]
-position = Vector2(-800, -16.5)
-shape = SubResource("RectangleShape2D_ka18f")
-
-[node name="AreaUnlockerEnemies3" parent="World" instance=ExtResource("3_h0lkx")]
-position = Vector2(4922, 465)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies3" index="0"]
-position = Vector2(973, -161)
-scale = Vector2(2, 50)
-texture = SubResource("AtlasTexture_n6lnb")
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies3/EnemyTestArea" index="0"]
-position = Vector2(-25, -79.5)
-shape = SubResource("RectangleShape2D_21cbj")
-
-[node name="AreaUnlockerEnemies4" parent="World" instance=ExtResource("3_h0lkx")]
-position = Vector2(6600, 465)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies4" index="0"]
-position = Vector2(984, -81)
-scale = Vector2(4, 40)
-texture = SubResource("AtlasTexture_n6lnb")
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies4/EnemyTestArea" index="0"]
-position = Vector2(315, -37.5)
-shape = SubResource("RectangleShape2D_4lvta")
-
-[node name="AreaUnlockerEnemies5" parent="World" instance=ExtResource("3_h0lkx")]
-position = Vector2(7943, 465)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies5" index="0"]
-position = Vector2(887, -81)
-scale = Vector2(4, 40)
-texture = SubResource("AtlasTexture_n6lnb")
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies5/EnemyTestArea" index="0"]
-position = Vector2(264, -37.5)
-shape = SubResource("RectangleShape2D_vk5y7")
-
-[node name="AreaUnlockerEnemies6" parent="World" instance=ExtResource("3_h0lkx")]
-position = Vector2(11904, 465)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies6" index="0"]
-position = Vector2(887, -81)
-scale = Vector2(4, 40)
-texture = SubResource("AtlasTexture_n6lnb")
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies6/EnemyTestArea" index="0"]
-position = Vector2(-21.5, -81)
-shape = SubResource("RectangleShape2D_saf1a")
-
-[node name="AreaUnlockerEnemies7" parent="World" instance=ExtResource("3_h0lkx")]
-position = Vector2(16846, 465)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies7" index="0"]
-position = Vector2(255, -81)
-scale = Vector2(4, 40)
-texture = SubResource("AtlasTexture_n6lnb")
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies7/EnemyTestArea" index="0"]
-position = Vector2(-343.5, 111)
-shape = SubResource("RectangleShape2D_oc4am")
 
 [node name="Spawner" parent="World" instance=ExtResource("3_ljkq7")]
 position = Vector2(910, 674)
@@ -591,13 +480,6 @@ position = Vector2(360.925, 188.14)
 sprite_frames = SubResource("SpriteFrames_c4j3j")
 centered = false
 
-[editable path="World/AreaUnlockerEnemies"]
-[editable path="World/AreaUnlockerEnemies2"]
-[editable path="World/AreaUnlockerEnemies3"]
-[editable path="World/AreaUnlockerEnemies4"]
-[editable path="World/AreaUnlockerEnemies5"]
-[editable path="World/AreaUnlockerEnemies6"]
-[editable path="World/AreaUnlockerEnemies7"]
 [editable path="World/Spawner"]
 [editable path="World/Spawner2"]
 [editable path="World/Spawner3"]
