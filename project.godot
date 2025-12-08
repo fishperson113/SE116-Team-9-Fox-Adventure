@@ -21,6 +21,7 @@ Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 GameManager="*res://scripts/autoload/game_manager.gd"
 SaveSystem="*res://scripts/autoload/save_system.gd"
 ColorManager="*res://scripts/autoload/color_manager.gd"
+LootSystem="*res://scenes/levels/loot_system/loot_manager.gd"
 
 [dialogic]
 

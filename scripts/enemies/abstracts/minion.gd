@@ -17,7 +17,7 @@ func _ready() -> void:
 	pass
 
 func _init_initial_state() -> void:
-	var state_node: EnemyState = null
+	var state_node: EnemyState = $States/Normal
 	match initial_state:
 		InitialState.NORMAL:
 			state_node = $States/Normal
