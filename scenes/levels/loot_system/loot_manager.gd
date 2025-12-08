@@ -1,7 +1,13 @@
 class_name LootManager
 extends Node
 
-var effect_wrapper: PackedScene = load("res://scenes/levels/loot_system/loot_physics_body.tscn")
+var effect_wrapper: PackedScene = null
+
+func _ready() -> void:
+	_load_resource()
+
+func _load_resource() -> void:
+	effect_wrapper = load("res://scenes/levels/loot_system/loot_physics_body.tscn")
 
 func SpawnLoot(source_node: Node2D):
 	var drop_table = _get_closest_drop_data(source_node)
