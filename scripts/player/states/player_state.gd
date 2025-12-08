@@ -34,7 +34,7 @@ func control_moving() -> bool:
 	return false
 
 func control_dash() -> bool:
-	var is_dash_pressed = Input.is_action_just_pressed("dash")
+	var is_dash_pressed = Input.is_action_just_pressed("special_attack")
 	if is_dash_pressed and obj.is_dash and obj.current_dash < obj.max_dash:
 		change_state(fsm.states.dash)
 		return true
@@ -84,7 +84,7 @@ func control_throwing(delta: float) -> bool:
 
 func control_wide_attack() -> bool:
 	if obj.current_wide_attack < obj.max_wide_attack:
-		if Input.is_action_just_pressed("wide_attack"):
+		if Input.is_action_just_pressed("special_attack"):
 			change_state(fsm.states.wideattack)
 			return true
 	return false
