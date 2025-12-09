@@ -17,6 +17,7 @@ func set_item(texture: Texture2D, type: String, detail, amount: int = 1):
 
 	qty.text = str(quantity)
 	qty.visible = quantity > 1
+	_update_tooltip()
 
 
 func clear_slot():
@@ -26,6 +27,7 @@ func clear_slot():
 	item_type = ""
 	item_detail = null
 	quantity = 0
+	tooltip_text = ""
 
 
 func _get_drag_data(at_position):
@@ -106,3 +108,43 @@ func highlight(active: bool):
 		style.shadow_size = 0
 
 	add_theme_stylebox_override("panel", style)
+
+func _update_tooltip():
+	if item_type == "":
+		tooltip_text = ""
+		return
+
+	# 1. Tên vật phẩm (Tiêu đề)
+	var text_content = item_type.replace("_", " ").capitalize()
+
+	# 2. Logic riêng cho Weapon
+	if item_type.begins_with("weapon_") and item_detail is Array and item_detail.size() > 0:
+		var weapon_path = item_detail[0]
+		
+		# Load resource để lấy chỉ số (Nhanh do cache)
+		if weapon_path is String and ResourceLoader.exists(weapon_path):
+			var weapon: WeaponData = load(weapon_path)
+			
+			if weapon:
+				text_content += "\n━━━━━━━━━━━━━" # Dòng kẻ ngăn cách
+				
+				# Damage
+				var dmg = weapon.get_damage()
+				if dmg > 0:
+					text_content += "\n⚔ Damage: %d" % dmg
+				
+				# Max Health
+				var hp = weapon.get_max_health()
+				if hp > 0:
+					text_content += "\n♥ Health: +%d" % hp
+					
+				# Attack Speed
+				var spd = weapon.get_attack_speed()
+				text_content += "\n⚡ Speed: %.1f" % spd
+				
+				# Special Skill
+				var skill = weapon.get_special_skill()
+				if skill != "":
+					text_content += "\n★ Skill: %s" % skill.capitalize()
+
+	tooltip_text = text_content
