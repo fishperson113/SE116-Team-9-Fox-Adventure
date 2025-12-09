@@ -23,11 +23,11 @@ func _init_skill_set():
 	rest()
 
 func get_skill():
-	var is_close = is_player_close()
+	var _is_close = is_player_close()
 	if randf() <= misbehave_chance:
-		is_close = not is_close
+		_is_close = not _is_close
 		
-	if is_close:
+	if _is_close:
 		return _short_range_skills.pick_random()
 	return _far_range_skills.pick_random()
 
@@ -95,4 +95,6 @@ func is_player_close() -> bool:
 func _on_normal_react(input: BehaviorInput) -> void:
 	if input is HurtBehaviorInput:
 		take_damage(input.damage_taken)
+		if not is_alive():
+			fsm.change_state(fsm.states.dead)
 	pass

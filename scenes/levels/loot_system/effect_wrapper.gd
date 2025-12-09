@@ -14,6 +14,7 @@ func wrap_up(node: Node2D) -> void:
 	if parent:
 		parent.remove_child(node)
 	
+	var old_pos: Vector2 = node.global_position
 	add_child(node)
 	
 	if parent:
@@ -21,7 +22,7 @@ func wrap_up(node: Node2D) -> void:
 
 	# These modifcations should be here because the effect of add and remove child
 	node.name = CHILD_NAME
-	node.position = Vector2.ZERO
+	node.global_position = old_pos
 
 func unwrap() -> void:
 	var node: Node2D = null
@@ -33,13 +34,14 @@ func unwrap() -> void:
 	if parent:
 		parent.remove_child(self)
 	
+	var old_pos: Vector2 = node.global_position
 	remove_child(node)
 	
 	if parent:
 		parent.add_child(node)
 
 	# These modifcations should be here because the effect of add and remove child
-	node.global_position = global_position
+	node.global_position = old_pos
 
 func _on_sleep_change() -> void:
 	finish.emit()

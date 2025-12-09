@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://cchdurl56vp0g"]
+[gd_scene load_steps=54 format=4 uid="uid://cchdurl56vp0g"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_ryjcr"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="3_4dlow"]
@@ -32,6 +32,10 @@
 [ext_resource type="Texture2D" uid="uid://frimagh5yfit" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_03.png" id="22_4s0km"]
 [ext_resource type="Texture2D" uid="uid://cjcxdxoq8hp4l" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_04.png" id="23_360j8"]
 [ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="31_a2u48"]
+[ext_resource type="Script" uid="uid://bhnnjl5ixmyra" path="res://scenes/levels/loot_system/drop_data.gd" id="31_ryjcr"]
+[ext_resource type="Script" uid="uid://bvmayktwi2sq6" path="res://scenes/levels/loot_system/dropable.gd" id="32_4dlow"]
+[ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="33_4tvhb"]
+[ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/collectibles/items/collectible_items/collectible_ore_iron.tscn" id="34_nmymp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_goifi"]
 atlas = ExtResource("5_rpd7o")
@@ -183,6 +187,18 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="Resource" id="Resource_rpd7o"]
+script = ExtResource("32_4dlow")
+item = ExtResource("33_4tvhb")
+weight = 1
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_3c5t6"]
+script = ExtResource("32_4dlow")
+item = ExtResource("34_nmymp")
+weight = 4
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
 [node name="Stage" type="Node2D"]
 
@@ -562,6 +578,13 @@ centered = false
 position = Vector2(360.925, 188.14)
 sprite_frames = SubResource("SpriteFrames_c4j3j")
 centered = false
+
+[node name="DropData" type="Node2D" parent="."]
+script = ExtResource("31_ryjcr")
+min_drop = 2
+max_drop = 4
+drop_table = Array[ExtResource("32_4dlow")]([SubResource("Resource_rpd7o"), SubResource("Resource_3c5t6")])
+metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [editable path="World/AreaUnlockerEnemies4"]
 [editable path="World/Spawner"]

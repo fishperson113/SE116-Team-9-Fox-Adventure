@@ -223,7 +223,7 @@ max_stamina = 5
 rest_time = 2.0
 skill_cooldown = 1.0
 close_range = 150.0
-health = 1000.0
+health = 1.0
 spike = 50.0
 turn_chance = 0.0
 movement_speed = 50.0
@@ -301,11 +301,7 @@ metadata/_custom_type_script = "uid://dkb25vr64v37l"
 position = Vector2(3, 3)
 shape = SubResource("RectangleShape2D_2tyas")
 
-[node name="DetectObstacleRayCast2D" type="RayCast2D" parent="." index="1"]
-target_position = Vector2(0, 0)
-collision_mask = 5
-
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("RectangleShape2D_uijwm")
 
 [node name="Normal" parent="States" index="0"]
