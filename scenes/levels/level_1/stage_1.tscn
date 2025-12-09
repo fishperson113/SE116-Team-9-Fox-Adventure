@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=4 uid="uid://bqs7uxv4vt07x"]
+[gd_scene load_steps=40 format=4 uid="uid://bqs7uxv4vt07x"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_33rtp"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_dwsf3"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://dcrnqve71d36p" path="res://assets/sprites/environment/background/additional_sky.png" id="3_dwsf3"]
 [ext_resource type="PackedScene" uid="uid://d2wpy684uyjct" path="res://scenes/enemies/spawners/triggered_spawner.tscn" id="4_5o6pu"]
 [ext_resource type="Texture2D" uid="uid://bqde0l4at7gv8" path="res://assets/sprites/environment/background/bg_image.png" id="4_i388g"]
-[ext_resource type="PackedScene" uid="uid://bu0ebjvtvbb4j" path="res://scenes/levels/area_unlockers/area_unlocker_enemies.tscn" id="4_jxlqe"]
 [ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="5_5usqu"]
 [ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="5_j1ua3"]
 [ext_resource type="Texture2D" uid="uid://dekyi7oa4n0sg" path="res://assets/sprites/environment/background/water_reflect_big_01.png" id="6_1vm6v"]
@@ -29,47 +28,17 @@
 [ext_resource type="Texture2D" uid="uid://cjcxdxoq8hp4l" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_04.png" id="21_pkhui"]
 [ext_resource type="PackedScene" uid="uid://slg0p8vvevb8" path="res://scenes/levels/island/objects/door/Win_door.tscn" id="39_6vpxb"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5o6pu"]
-size = Vector2(2473, 431)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6vpxb"]
-size = Vector2(1843, 128)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w06il"]
-size = Vector2(542, 103)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_srx1h"]
-size = Vector2(850, 128)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ol6co"]
 size = Vector2(30, 192)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j1ua3"]
 size = Vector2(30, 128)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cacsb"]
-size = Vector2(30, 192)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c7qlg"]
-size = Vector2(30, 192)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jups3"]
-size = Vector2(30, 160)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_af67u"]
-size = Vector2(96, 32)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dh8so"]
 size = Vector2(30, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8lhl"]
 size = Vector2(30, 96)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wuc3"]
-size = Vector2(96, 15)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_64mh7"]
-size = Vector2(30, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bedff"]
 size = Vector2(30, 128)
@@ -198,6 +167,24 @@ animations = [{
 
 [node name="Enemies" type="Node2D" parent="."]
 
+[node name="Mushroom" parent="Enemies" instance=ExtResource("7_c7qlg")]
+position = Vector2(1683, 197)
+
+[node name="Mushroom2" parent="Enemies" instance=ExtResource("7_c7qlg")]
+position = Vector2(1299, -282)
+
+[node name="Mushroom3" parent="Enemies" instance=ExtResource("7_c7qlg")]
+position = Vector2(1980, -476)
+
+[node name="Mushroom4" parent="Enemies" instance=ExtResource("7_c7qlg")]
+position = Vector2(2778, -344)
+
+[node name="Mushroom5" parent="Enemies" instance=ExtResource("7_c7qlg")]
+position = Vector2(3965, -535)
+
+[node name="Mushroom6" parent="Enemies" instance=ExtResource("7_c7qlg")]
+position = Vector2(3238, -535)
+
 [node name="World" type="Node2D" parent="."]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="World"]
@@ -207,59 +194,6 @@ tile_set = ExtResource("1_33rtp")
 
 [node name="Door" parent="World" instance=ExtResource("39_6vpxb")]
 position = Vector2(4361, -741)
-
-[node name="AreaUnlockerEnemies" parent="World" instance=ExtResource("4_jxlqe")]
-position = Vector2(108, -181)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies" index="0"]
-scale = Vector2(8, 2)
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies/EnemyTestArea" index="0"]
-position = Vector2(384, 65)
-
-[node name="AreaUnlockerEnemies2" parent="World" instance=ExtResource("4_jxlqe")]
-position = Vector2(441, -597)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies2" index="0"]
-position = Vector2(-285, -32)
-scale = Vector2(14, 2)
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies2/EnemyTestArea" index="0"]
-position = Vector2(830.5, 199.5)
-shape = SubResource("RectangleShape2D_5o6pu")
-
-[node name="AreaUnlockerEnemies3" parent="World" instance=ExtResource("4_jxlqe")]
-position = Vector2(3532, 115)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies3" index="0"]
-position = Vector2(160, -8)
-scale = Vector2(76, 2)
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies3/EnemyTestArea" index="0"]
-position = Vector2(-50.5, 40)
-shape = SubResource("RectangleShape2D_6vpxb")
-
-[node name="AreaUnlockerEnemies4" parent="World" instance=ExtResource("4_jxlqe")]
-position = Vector2(4220, -501)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies4" index="0"]
-position = Vector2(32, 0)
-scale = Vector2(6, 2)
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies4/EnemyTestArea" index="0"]
-position = Vector2(-192, 60.5)
-shape = SubResource("RectangleShape2D_w06il")
-
-[node name="AreaUnlockerEnemies5" parent="World" instance=ExtResource("4_jxlqe")]
-position = Vector2(3893, -814)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies5" index="0"]
-position = Vector2(409, 9)
-scale = Vector2(2, 8)
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies5/EnemyTestArea" index="0"]
-position = Vector2(-32, 9)
-shape = SubResource("RectangleShape2D_srx1h")
 
 [node name="Spawner" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(214, -101)
@@ -302,98 +236,6 @@ position = Vector2(850, 16)
 
 [node name="CollisionShape2D" parent="World/Spawner2/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_j1ua3")
-
-[node name="Spawner3" parent="World" instance=ExtResource("4_5o6pu")]
-position = Vector2(1648, 182)
-width = 10.0
-height = 10.0
-melee_spawn = 1
-range_spawn = 0
-trigger_size = Vector2(30, 192)
-trigger_position = Vector2(-600, -60)
-objects = Array[PackedScene]([ExtResource("7_c7qlg")])
-group = "Enemies"
-
-[node name="DebugOx" parent="World/Spawner3" index="0"]
-target_position = Vector2(10, 0)
-
-[node name="DebugOy" parent="World/Spawner3" index="1"]
-target_position = Vector2(0, -15)
-
-[node name="Area2D" parent="World/Spawner3" index="2"]
-position = Vector2(-600, -60)
-
-[node name="CollisionShape2D" parent="World/Spawner3/Area2D" index="0"]
-shape = SubResource("RectangleShape2D_cacsb")
-
-[node name="Spawner4" parent="World" instance=ExtResource("4_5o6pu")]
-position = Vector2(1268, -274)
-width = 10.0
-height = 10.0
-melee_spawn = 1
-range_spawn = 0
-trigger_size = Vector2(30, 192)
-trigger_position = Vector2(-250, -82)
-objects = Array[PackedScene]([ExtResource("7_c7qlg")])
-group = "Enemies"
-
-[node name="DebugOx" parent="World/Spawner4" index="0"]
-target_position = Vector2(10, 0)
-
-[node name="DebugOy" parent="World/Spawner4" index="1"]
-target_position = Vector2(0, -15)
-
-[node name="Area2D" parent="World/Spawner4" index="2"]
-position = Vector2(-250, -82)
-
-[node name="CollisionShape2D" parent="World/Spawner4/Area2D" index="0"]
-shape = SubResource("RectangleShape2D_c7qlg")
-
-[node name="Spawner5" parent="World" instance=ExtResource("4_5o6pu")]
-position = Vector2(1924, -468)
-width = 300.0
-height = 70.0
-melee_spawn = 1
-range_spawn = 0
-trigger_size = Vector2(30, 160)
-trigger_position = Vector2(250, 128)
-objects = Array[PackedScene]([ExtResource("7_c7qlg")])
-group = "Enemies"
-
-[node name="DebugOx" parent="World/Spawner5" index="0"]
-target_position = Vector2(300, 0)
-
-[node name="DebugOy" parent="World/Spawner5" index="1"]
-target_position = Vector2(0, -105)
-
-[node name="Area2D" parent="World/Spawner5" index="2"]
-position = Vector2(250, 128)
-
-[node name="CollisionShape2D" parent="World/Spawner5/Area2D" index="0"]
-shape = SubResource("RectangleShape2D_jups3")
-
-[node name="Spawner6" parent="World" instance=ExtResource("4_5o6pu")]
-position = Vector2(2755, -333)
-width = 50.0
-height = 50.0
-melee_spawn = 1
-range_spawn = 0
-trigger_size = Vector2(96, 32)
-trigger_position = Vector2(25, -450)
-objects = Array[PackedScene]([ExtResource("7_c7qlg")])
-group = "Enemies"
-
-[node name="DebugOx" parent="World/Spawner6" index="0"]
-target_position = Vector2(50, 0)
-
-[node name="DebugOy" parent="World/Spawner6" index="1"]
-target_position = Vector2(0, -75)
-
-[node name="Area2D" parent="World/Spawner6" index="2"]
-position = Vector2(25, -450)
-
-[node name="CollisionShape2D" parent="World/Spawner6/Area2D" index="0"]
-shape = SubResource("RectangleShape2D_af67u")
 
 [node name="Spawner7" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(3554, 203)
@@ -440,51 +282,6 @@ position = Vector2(-300, -31)
 
 [node name="CollisionShape2D" parent="World/Spawner8/Area2D" index="0"]
 shape = SubResource("RectangleShape2D_v8lhl")
-
-[node name="Spawner9" parent="World" instance=ExtResource("4_5o6pu")]
-position = Vector2(3949, -530)
-width = 140.0
-height = 25.0
-melee_spawn = 1
-range_spawn = 0
-trigger_size = Vector2(96, 15)
-trigger_position = Vector2(303, 23.895)
-objects = Array[PackedScene]([ExtResource("7_c7qlg")])
-group = "Enemies"
-
-[node name="DebugOx" parent="World/Spawner9" index="0"]
-target_position = Vector2(140, 0)
-
-[node name="DebugOy" parent="World/Spawner9" index="1"]
-target_position = Vector2(0, -37.5)
-
-[node name="Area2D" parent="World/Spawner9" index="2"]
-position = Vector2(303, 23.895)
-
-[node name="CollisionShape2D" parent="World/Spawner9/Area2D" index="0"]
-shape = SubResource("RectangleShape2D_5wuc3")
-
-[node name="Spawner10" parent="World" instance=ExtResource("4_5o6pu")]
-position = Vector2(3192, -542)
-width = 300.0
-height = 1.0
-range_spawn = 0
-trigger_size = Vector2(30, 128)
-trigger_position = Vector2(450, -102)
-objects = Array[PackedScene]([ExtResource("7_c7qlg")])
-group = "Enemies"
-
-[node name="DebugOx" parent="World/Spawner10" index="0"]
-target_position = Vector2(300, 0)
-
-[node name="DebugOy" parent="World/Spawner10" index="1"]
-target_position = Vector2(0, -1.5)
-
-[node name="Area2D" parent="World/Spawner10" index="2"]
-position = Vector2(450, -102)
-
-[node name="CollisionShape2D" parent="World/Spawner10/Area2D" index="0"]
-shape = SubResource("RectangleShape2D_64mh7")
 
 [node name="Spawner11" parent="World" instance=ExtResource("4_5o6pu")]
 position = Vector2(3655, -750)
@@ -616,19 +413,8 @@ position = Vector2(360.925, 188.14)
 sprite_frames = SubResource("SpriteFrames_c4j3j")
 centered = false
 
-[editable path="World/AreaUnlockerEnemies"]
-[editable path="World/AreaUnlockerEnemies2"]
-[editable path="World/AreaUnlockerEnemies3"]
-[editable path="World/AreaUnlockerEnemies4"]
-[editable path="World/AreaUnlockerEnemies5"]
 [editable path="World/Spawner"]
 [editable path="World/Spawner2"]
-[editable path="World/Spawner3"]
-[editable path="World/Spawner4"]
-[editable path="World/Spawner5"]
-[editable path="World/Spawner6"]
 [editable path="World/Spawner7"]
 [editable path="World/Spawner8"]
-[editable path="World/Spawner9"]
-[editable path="World/Spawner10"]
 [editable path="World/Spawner11"]

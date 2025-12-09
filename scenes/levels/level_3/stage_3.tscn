@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=4 uid="uid://cchdurl56vp0g"]
+[gd_scene load_steps=48 format=4 uid="uid://cchdurl56vp0g"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_ryjcr"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="3_4dlow"]
@@ -32,27 +32,6 @@
 [ext_resource type="Texture2D" uid="uid://frimagh5yfit" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_03.png" id="22_4s0km"]
 [ext_resource type="Texture2D" uid="uid://cjcxdxoq8hp4l" path="res://assets/sprites/environment/back_palm_trees/back_palm_tree_regular_04.png" id="23_360j8"]
 [ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="31_a2u48"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3c5t6"]
-atlas = ExtResource("5_rpd7o")
-region = Rect2(128, 0, 16, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_goifi"]
-size = Vector2(1255, 1798)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y84bu"]
-atlas = ExtResource("5_rpd7o")
-region = Rect2(128, 0, 16, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_c8euh"]
-size = Vector2(1480, 261)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ctv1g"]
-atlas = ExtResource("5_rpd7o")
-region = Rect2(128, 0, 16, 16)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1vunm"]
-size = Vector2(881, 368)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_goifi"]
 atlas = ExtResource("5_rpd7o")
@@ -213,63 +192,15 @@ animations = [{
 
 [node name="Mushroom" parent="Enemies" instance=ExtResource("3_ryjcr")]
 position = Vector2(2270, -1242)
-initial_state = 0
-hurt_time = 0.4
-awake_time = 2.0
-sight = 100.0
-movement_range = 500.0
-attack_damage = 50.0
-attack_speed = 50.0
-use_raycast_detection = false
-turn_chance = 0.001
-gravity = 700.0
-direction = 1
-character_type = 0
 
 [node name="Mushroom2" parent="Enemies" instance=ExtResource("3_ryjcr")]
 position = Vector2(3385, -3222)
-initial_state = 0
-hurt_time = 0.4
-awake_time = 2.0
-sight = 100.0
-movement_range = 500.0
-attack_damage = 50.0
-attack_speed = 50.0
-use_raycast_detection = false
-turn_chance = 0.001
-gravity = 700.0
-direction = 1
-character_type = 0
 
 [node name="Mushroom3" parent="Enemies" instance=ExtResource("3_ryjcr")]
 position = Vector2(4010, -3732)
-initial_state = 0
-hurt_time = 0.4
-awake_time = 2.0
-sight = 100.0
-movement_range = 500.0
-attack_damage = 50.0
-attack_speed = 50.0
-use_raycast_detection = false
-turn_chance = 0.001
-gravity = 700.0
-direction = 1
-character_type = 0
 
 [node name="Mushroom4" parent="Enemies" instance=ExtResource("3_ryjcr")]
 position = Vector2(842, -1525)
-initial_state = 0
-hurt_time = 0.4
-awake_time = 2.0
-sight = 100.0
-movement_range = 500.0
-attack_damage = 50.0
-attack_speed = 50.0
-use_raycast_detection = false
-turn_chance = 0.001
-gravity = 700.0
-direction = 1
-character_type = 0
 
 [node name="Crab" parent="Enemies" instance=ExtResource("9_goifi")]
 position = Vector2(5369, -4056)
@@ -285,39 +216,6 @@ tile_set = ExtResource("2_ryjcr")
 
 [node name="Door" parent="World" instance=ExtResource("3_4tvhb")]
 position = Vector2(5662, -4032)
-
-[node name="AreaUnlockerEnemies" parent="World" instance=ExtResource("4_nmymp")]
-position = Vector2(1441, -944)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies" index="0"]
-scale = Vector2(4, 6)
-texture = SubResource("AtlasTexture_3c5t6")
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies/EnemyTestArea" index="0"]
-position = Vector2(-645.5, 811)
-shape = SubResource("RectangleShape2D_goifi")
-
-[node name="AreaUnlockerEnemies2" parent="World" instance=ExtResource("4_nmymp")]
-position = Vector2(1088, -1600)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies2" index="0"]
-scale = Vector2(4, 16)
-texture = SubResource("AtlasTexture_y84bu")
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies2/EnemyTestArea" index="0"]
-position = Vector2(770, -1.5)
-shape = SubResource("RectangleShape2D_c8euh")
-
-[node name="AreaUnlockerEnemies3" parent="World" instance=ExtResource("4_nmymp")]
-position = Vector2(1888, -2944)
-
-[node name="Sprite2D" parent="World/AreaUnlockerEnemies3" index="0"]
-scale = Vector2(4, 4)
-texture = SubResource("AtlasTexture_ctv1g")
-
-[node name="CollisionShape2D" parent="World/AreaUnlockerEnemies3/EnemyTestArea" index="0"]
-position = Vector2(-459.5, 146)
-shape = SubResource("RectangleShape2D_1vunm")
 
 [node name="AreaUnlockerEnemies4" parent="World" instance=ExtResource("4_nmymp")]
 position = Vector2(5440, -4064)
@@ -665,9 +563,6 @@ position = Vector2(360.925, 188.14)
 sprite_frames = SubResource("SpriteFrames_c4j3j")
 centered = false
 
-[editable path="World/AreaUnlockerEnemies"]
-[editable path="World/AreaUnlockerEnemies2"]
-[editable path="World/AreaUnlockerEnemies3"]
 [editable path="World/AreaUnlockerEnemies4"]
 [editable path="World/Spawner"]
 [editable path="World/Spawner2"]

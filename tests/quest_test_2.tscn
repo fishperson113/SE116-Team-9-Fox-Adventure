@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dbnywb46siqhm" path="res://scripts/level/level_1/stage.gd" id="1_uu5jo"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_uu5jo"]
 [ext_resource type="Script" uid="uid://ddm6bjtgp8rv3" path="res://scripts/player/inventory_check.gd" id="3_7yoop"]
-[ext_resource type="PackedScene" uid="uid://2th8rtech0pg" path="res://scenes/collectibles/chest_key.tscn" id="4_245h2"]
+[ext_resource type="PackedScene" uid="uid://2th8rtech0pg" path="res://scenes/collectibles/items/collectible_items/chest_key.tscn" id="4_245h2"]
 [ext_resource type="PackedScene" uid="uid://bhohtlj321per" path="res://scenes/chests/chest.tscn" id="5_m5lxa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_03kx2"]

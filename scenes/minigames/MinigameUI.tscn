@@ -11,7 +11,7 @@ signal closed
 @onready var smelt := $SmeltOreMinigame
 @onready var assemble := $AssembleWeaponMinigame
 
-var selected_material := \"\"
+var selected_material_data: WeaponMaterialData
 func _ready():
 	visible = false
 
@@ -19,9 +19,9 @@ func _ready():
 	smelt.smelting_done.connect(_on_smelting_done)
 	assemble.assemble_done.connect(_on_assemble_done)
 
-func open(mat_id: String):
+func open(mat: WeaponMaterialData):
 	reset()
-	selected_material = mat_id
+	selected_material_data = mat
 	visible = true
 	smelt.visible = true
 	assemble.visible = false
@@ -41,25 +41,32 @@ func _disable_player(state: bool):
 		GameManager.player.input_enabled = !state
 		
 func _on_smelting_done():
-	# Chuyển panel smelt -> assemble
 	_switch_panel(smelt, assemble)
 	
-	#Expand later if needed
 	var part_id = \"blade_1\"
-	# Gửi dữ liệu sang assemble
-	assemble.start_assemble(part_id,  selected_material)
+	
+	if assemble.assembler and assemble.assembler.part_map.has(part_id):
+		var original_part = assemble.assembler.part_map[part_id]
+		
+		var custom_part = original_part.duplicate()
+		
+		custom_part.damage = selected_material_data.damage
+		
+		assemble.assembler.part_map[part_id] = custom_part
+		
+		print(\"Overrided blade damage to: \", custom_part.damage)
+
+	assemble.start_assemble(part_id, selected_material_data.id)
 
 func _on_assemble_done(path):
 	print(\"Assemble finished → exported to: \", path)
 	close()
-	var weapon := load(path)
 	
-	GameManager.player.inventory.insert_item(\"weapon_blade\",weapon)
+	GameManager.player.inventory.insert_item(\"weapon_blade\",path)
 	GameManager.player.inventory.save_inventory()
-	GameManager.player.item_storer.add_item(\"weapon_blade\",weapon)
+	GameManager.player.item_storer.add_item(\"weapon_blade\",path)
 	GameManager.player.item_storer.save_slots()
-	#GameManager.player.equip_weapon(path)
-	#GameManager.equipped_weapon_path=path
+	GameManager.finalize_crafting()
 
 # ============================================================
 # PANEL TRANSITION
@@ -77,6 +84,7 @@ func reset():
 
 func _on_back_button_pressed() -> void:
 	close()
+	GameManager.refund_all_fees()
 "
 
 [node name="MinigameUI" type="Control"]

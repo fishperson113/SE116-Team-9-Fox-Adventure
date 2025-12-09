@@ -7,26 +7,24 @@
 
 [sub_resource type="GDScript" id="GDScript_n82oa"]
 script/source = "extends Panel
-signal material_selected(material: String)
+
+signal material_selected(material: WeaponMaterialData)
 
 @export var material_list: Array[WeaponMaterialData]
 @onready var hbox := $HBoxContainer
 @export var offset_y = 50
 
-
 func _ready():
 	visible = false
 	_load_materials()
 
-
 func open():
 	visible = true
 	_center_panel()
-
+	_load_materials()
 
 func close():
 	visible = false
-
 
 func _center_panel():
 	var vp_size = get_viewport_rect().size
@@ -36,9 +34,8 @@ func _center_panel():
 		(vp_size.y - my_size.y) * 0.5 + offset_y
 	)
 
-
 func _load_materials():
-	# Xóa cũ
+	# Xóa các icon cũ
 	for c in hbox.get_children():
 		c.queue_free()
 
@@ -47,29 +44,90 @@ func _load_materials():
 	for i in count:
 		var mat := material_list[i]
 
-		# --- ICON ---
+		# --- TẠO ICON ---
 		var icon := TextureRect.new()
 		icon.texture = mat.icon
 		icon.custom_minimum_size = Vector2(60, 0)
 		icon.expand_mode = TextureRect.EXPAND_KEEP_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_SCALE
 
-		# click
+		# Lấy thông tin từ GameManager
+		var current_amount = GameManager.materials_wallet.get(mat.id, 0)
+		# So sánh với giá trong GameManager
+		var is_enough_material = current_amount >= GameManager.material_crafting_cost
+		
+		# --- [UPDATED] TOOLTIP BUILDER ---
+		# 1. Tên hiển thị (Ưu tiên display_name, nếu ko có thì dùng ID viết hoa)
+		var name_str = mat.display_name if mat.display_name else mat.id.capitalize()
+		
+		# 2. Thông tin cơ bản (Quan trọng nhất là Damage)
+		var tip = \"%s\\nBase Damage: %d\" % [name_str, mat.damage]
+
+		# 3. Xử lý Visual & Trạng thái Cost
+		if is_enough_material:
+			icon.modulate = Color(1, 1, 1, 1)
+			icon.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+			
+			# Thêm thông tin giá
+			tip += \"\\n\\n[COST]\"
+			tip += \"\\n• %d Coin\" % GameManager.crafting_cost
+			tip += \"\\n• %d %s\" % [GameManager.material_crafting_cost, name_str]
+		else:
+			icon.modulate = Color(0.4, 0.4, 0.4, 1)
+			icon.mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
+			
+			# Thêm thông báo thiếu
+			tip += \"\\n\\n[INSUFFICIENT]\"
+			tip += \"\\nOwned: %d / %d\" % [current_amount, GameManager.material_crafting_cost]
+
+		icon.tooltip_text = tip
+		# --- XỬ LÝ CLICK ---
 		icon.gui_input.connect(func(event):
 			if event is InputEventMouseButton \\
 			and event.pressed \\
 			and event.button_index == MOUSE_BUTTON_LEFT:
-				close()
-				material_selected.emit(mat.id)
+				
+				# 1. Visual check
+				if not is_enough_material:
+					_shake_icon(icon)
+					print(\"UI: Không đủ nguyên liệu để bấm!\")
+					return
+
+				# 2. Trừ Coin
+				if not GameManager.pay_entry_fee():
+					_shake_icon(icon)
+					print(\"UI: Không đủ Coin!\")
+					return 
+				
+				# 3. Trừ Ore (Dùng giá từ GameManager)
+				if GameManager.pay_material_fee(mat.id, GameManager.material_crafting_cost):
+					# --- THÀNH CÔNG ---
+					print(\"UI: Thanh toán đủ cả Coin và Ore. Bắt đầu game.\")
+					close()
+					material_selected.emit(mat)
+				else:
+					# --- LỖI LOGIC (Hoàn tiền Coin) ---
+					print(\"UI: Lỗi trừ Ore! Đang hoàn tiền Coin...\")
+					GameManager.refund_all_fees()
+					_shake_icon(icon)
 		)
 
 		hbox.add_child(icon)
 
-		# --- Separator (không thêm separator cuối) ---
+		# --- Separator ---
 		if i < count - 1:
 			var sep := VSeparator.new()
 			sep.custom_minimum_size = Vector2(8, 0)
 			hbox.add_child(sep)
+
+func _shake_icon(control: Control):
+	var tween = create_tween()
+	var original_modulate = control.modulate
+	
+	tween.tween_property(control, \"modulate\", Color(1, 0, 0, 1), 0.05)
+	tween.tween_property(control, \"modulate\", original_modulate, 0.05)
+	tween.tween_property(control, \"modulate\", Color(1, 0, 0, 1), 0.05)
+	tween.tween_property(control, \"modulate\", original_modulate, 0.05)
 "
 
 [node name="MaterialSelectPopup" type="Panel"]

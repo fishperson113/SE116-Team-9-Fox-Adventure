@@ -8,7 +8,7 @@ const SLOTS_FILE = "user://slots_save.dat"
 const INVENTORY_FILE = "user://inventory_save.dat"
 const TUTORIAL_PROGRESS_FILE = "user://tutorial_progress.dat"
 const LEVEL_PROGRESS_FILE = "user://level_progress.dat"
-
+const RESOURCES_FILE = "user://resources_save.dat"
 # Save checkpoint data to file
 func save_checkpoint_data(data: Dictionary) -> void:
 	var file = FileAccess.open(SAVE_FILE, FileAccess.WRITE)
@@ -260,3 +260,51 @@ func load_tutorial_progress() -> Dictionary:
 	
 	printerr("An error occurred when trying to open the save file.")
 	return {}
+
+# Save resources data to file
+func save_resources_data(data: Dictionary) -> void:
+	var file = FileAccess.open(RESOURCES_FILE, FileAccess.WRITE)
+	if file:
+		var json_string = JSON.stringify(data, "\t")
+		file.store_string(json_string)
+		file.close()
+		print("Resources data saved successfully.")
+	else:
+		printerr("An error occurred when trying to save the resources file.")
+
+# Load resources data from file
+func load_resources_data() -> Dictionary:
+	if not has_resources_file():
+		return {} # Trả về dictionary rỗng nếu chưa có file
+
+	var file = FileAccess.open(RESOURCES_FILE, FileAccess.READ)
+	if file:
+		var content = file.get_as_text()
+		file.close()
+		
+		var json = JSON.new()
+		var error = json.parse(content)
+		
+		if error != OK:
+			printerr("Error parsing Resources JSON file: ", error)
+			return {}
+		
+		var data = json.get_data()
+		if typeof(data) == TYPE_DICTIONARY:
+			return data
+		else:
+			printerr("Resources file format is invalid (expected Dictionary).")
+			return {}
+	
+	printerr("An error occurred when trying to open the resources file.")
+	return {}
+
+# Check if resources file exists
+func has_resources_file() -> bool:
+	return FileAccess.file_exists(RESOURCES_FILE)
+
+# Delete resources file
+func delete_resources_file() -> void:
+	if has_resources_file():
+		DirAccess.remove_absolute(RESOURCES_FILE)
+		print("Resources file deleted")

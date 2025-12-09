@@ -51,6 +51,8 @@ func _ready() -> void:
 	base_speed=movement_speed
 	maxHealth=2000
 	currentHealth=maxHealth
+	GameManager.initialize_systems()
+
 
 func _process(delta: float) -> void:
 	if current_dash == max_dash:

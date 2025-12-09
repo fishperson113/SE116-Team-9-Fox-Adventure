@@ -1,0 +1,61 @@
+[gd_scene load_steps=12 format=3 uid="uid://2th8rtech0pg"]
+
+[ext_resource type="Script" uid="uid://bxo867eipkltx" path="res://scripts/collectibles/items/collectibles/chest_key.gd" id="1_vxe4e"]
+[ext_resource type="Texture2D" uid="uid://bldlesja38ka7" path="res://assets/sprites/items/key/key_1.png" id="2_fbid2"]
+[ext_resource type="Texture2D" uid="uid://cew616p4sap05" path="res://assets/sprites/items/key/key_2.png" id="3_6vc8o"]
+[ext_resource type="Texture2D" uid="uid://bjfdohfs8mddo" path="res://assets/sprites/items/key/key_3.png" id="4_bv35t"]
+[ext_resource type="Texture2D" uid="uid://dtf5kcrqbf0a5" path="res://assets/sprites/items/key/key_4.png" id="5_n0bmc"]
+[ext_resource type="Texture2D" uid="uid://bokjeaixlik7v" path="res://assets/sprites/items/key/key_5.png" id="6_dmu0g"]
+[ext_resource type="Texture2D" uid="uid://cyvwd34108x58" path="res://assets/sprites/items/key/key_6.png" id="7_gu3o2"]
+[ext_resource type="Texture2D" uid="uid://y7l2h7ru0kkp" path="res://assets/sprites/items/key/key_7.png" id="8_qvqb2"]
+[ext_resource type="Texture2D" uid="uid://nkq3e80k6vy5" path="res://assets/sprites/items/key/key_8.png" id="9_mi68n"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rlk1s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fbid2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6vc8o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_bv35t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_n0bmc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_dmu0g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gu3o2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_qvqb2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_mi68n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vxe4e"]
+height = 24.0
+
+[node name="ChestKey" type="Area2D"]
+collision_mask = 4
+script = ExtResource("1_vxe4e")
+metadata/_custom_type_script = "uid://3u7i3d58hkla"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rlk1s")
+frame = 1
+frame_progress = 0.925434
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_vxe4e")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -40,7 +40,7 @@ func populate_parts():
 	var required_type = STAGE_TYPES.get(current_stage, "")
 
 	for part_id in assembler.part_map.keys():
-		var part:WeaponPartData = assembler.part_map[part_id]
+		var part: WeaponPartData = assembler.part_map[part_id]
 
 		if part.type != required_type:
 			continue
@@ -53,7 +53,23 @@ func populate_parts():
 		btn.focus_mode = Control.FOCUS_NONE
 		btn.add_theme_constant_override("content_margin_left", 0) 
 		btn.add_theme_constant_override("content_margin_right", 0)
-
+		
+		var name_str = part.display_name if part.display_name != "" else part.id.capitalize()
+		var info_text = "%s\n[%s]" % [name_str, part.type.capitalize()]
+		
+		match part.type:
+			"blade":
+				info_text += "\nDamage: +%d" % part.damage
+			"crossguard":
+				info_text += "\nMax HP: +%d" % part.max_health
+			"grip":
+				info_text += "\nAtk Speed: +%.2f" % part.attack_speed
+			"pommel":
+				if part.special_skill != "":
+					info_text += "\nSkill: %s" % part.special_skill.capitalize()
+		
+		btn.tooltip_text = info_text
+		# ---------------------------
 
 		var icon := TextureRect.new()
 		icon.texture = tex
@@ -64,6 +80,8 @@ func populate_parts():
 		icon.anchor_right = 0.5 
 		icon.offset_left = -48 
 		icon.offset_top = 12
+		icon.mouse_filter = Control.MOUSE_FILTER_PASS 
+		
 		btn.add_child(icon)
 
 		btn.connect("gui_input", func(event):

@@ -25,9 +25,28 @@ var inventory_data: Array[Dictionary] = []
 
 # How many blades are available?
 var blade_count: int = 50
+var coin_count:int = 50
 
+# --- CẤU HÌNH MATERIAL MẶC ĐỊNH ---
+const DEFAULT_MATERIALS: Dictionary = {
+	"copper": 50,
+	"iron": 50,
+	"gold": 50
+}
+
+var materials_wallet: Dictionary = DEFAULT_MATERIALS.duplicate()
+
+#Crafting cost
+var crafting_cost: int = 10
+var material_crafting_cost: int = 5
+var is_paid_coin:bool =false
+var is_paid_ore:bool =false
+var pending_material_id: String = ""
+var pending_material_amount: int = 0
 # Signals
 signal modifyBlade
+signal coinChange
+signal materialChange
 
 func _ready() -> void:
 	# Load checkpoint data when game starts
@@ -36,8 +55,85 @@ func _ready() -> void:
 	load_inventory_data()
 	load_slots_data()
 	load_level_progress()
-	initialize_systems()
+	load_resources_data()
 	pass
+
+func has_material(material_id: String, amount: int) -> bool:
+	return int(materials_wallet.get(material_id, 0)) >= amount
+
+func add_material(material_id: String, amount: int) -> void:
+	if material_id not in materials_wallet:
+		materials_wallet[material_id] = 0
+	
+	materials_wallet[material_id] = int(materials_wallet[material_id] + amount)
+	
+	materialChange.emit()
+	print("Added %d %s. Total: %d" % [amount, material_id, materials_wallet[material_id]])
+
+func pay_material_fee(material_id: String, amount: int) -> bool:
+	if is_paid_ore:
+		return true
+		
+	if not has_material(material_id, amount):
+		print("Không đủ material: " + material_id)
+		return false
+	
+	materials_wallet[material_id] = int(materials_wallet[material_id] - amount)
+	
+	pending_material_id = material_id
+	pending_material_amount = amount
+	is_paid_ore = true
+	
+	materialChange.emit()
+	save_resources_data()
+	print("Đã tạm trừ %d %s. (Is Paid Ore: True)" % [amount, material_id])
+	return true
+	
+func pay_entry_fee() -> bool:
+	if is_paid_coin:
+		return true
+
+	if coin_count >= crafting_cost:
+		remove_coins(crafting_cost)
+		is_paid_coin = true
+		save_resources_data()
+		print("GameManager: Đã mua vé craft. (Has Ticket: True)")
+		return true
+	
+	print("GameManager: Không đủ tiền.")
+	return false
+	
+func refund_all_fees() -> void:
+	var need_save = false
+	
+	if is_paid_coin:
+		add_coins(crafting_cost)
+		is_paid_coin = false
+		need_save = true
+		print("Đã hoàn tiền Coin.")
+		
+	if is_paid_ore:
+		if pending_material_id != "":
+			materials_wallet[pending_material_id] = int(materials_wallet.get(pending_material_id, 0) + pending_material_amount)
+			materialChange.emit()
+			
+		pending_material_id = ""
+		pending_material_amount = 0
+		is_paid_ore = false
+		need_save = true
+		print("Đã hoàn trả Ore.")
+
+	if need_save:
+		save_resources_data()
+
+func finalize_crafting() -> void:
+	if is_paid_coin or is_paid_ore:
+		is_paid_coin = false
+		is_paid_ore = false
+		pending_material_id = ""
+		pending_material_amount = 0
+		print("Craft thành công! Giao dịch hoàn tất (Không hoàn tiền).")
+
 func initialize_systems():
 	await get_tree().process_frame
 
@@ -57,6 +153,7 @@ func collect_blade():
 
 #change stage by path and target portal name
 func change_stage(stage_path: String, _target_portal_name: String = "") -> void:
+	save_resources_data()
 	target_portal_name = _target_portal_name
 	#change scene to stage path
 	get_tree().change_scene_to_file(stage_path)
@@ -134,6 +231,7 @@ func save_checkpoint_data() -> void:
 		"checkpoint_data": checkpoint_data
 	}
 	SaveSystem.save_checkpoint_data(save_data)
+	save_resources_data()
 
 # Load checkpoint data from persistent storage
 func load_checkpoint_data() -> void:
@@ -151,32 +249,13 @@ func clear_checkpoint_data() -> void:
 	print("All checkpoint data cleared")
 
 func save_slots_data() -> void:
-	for i in range(slots_data.size()):
-		if not slots_data[i].has("item_type"):
-			continue
-		
-		if not slots_data[i]["item_type"].begins_with("weapon_"):
-			continue
-		
-		for j in range(slots_data[i]["item_detail"].size()):
-			slots_data[i]["item_detail"][j] = slots_data[i]["item_detail"][j].resource_path
-			
 	SaveSystem.save_slots_data(slots_data)
 
 func load_slots_data() -> void:
 	var slots = SaveSystem.load_slots_data()
 	if not slots.is_empty():
-		for i in range(slots.size()):
-			if not slots[i].has("item_type"):
-				continue
-			
-			if not slots[i]["item_type"].begins_with("weapon_"):
-				continue
-			
-			for j in range(slots[i]["item_detail"].size()):
-				slots[i]["item_detail"][j] = load(slots[i]["item_detail"][j])
-		slots_data = slots;
-		print("Slots data loaded from inventory file")
+		slots_data = slots
+		print("Slots data loaded from file")
 
 func clear_slots_data() -> void:
 	slots_data.clear()
@@ -184,27 +263,13 @@ func clear_slots_data() -> void:
 	print("All inventory data cleared")
 
 func save_inventory_data() -> void:
-	for i in range(inventory_data.size()):
-		if not inventory_data[i]["item_type"].begins_with("weapon_"):
-			continue
-			
-		for j in range(inventory_data[i]["item_detail"].size()):
-			inventory_data[i]["item_detail"][j] = inventory_data[i]["item_detail"][j].resource_path
-	
 	SaveSystem.save_inventory_data(inventory_data)
 
 func load_inventory_data() -> void:
 	var inventory = SaveSystem.load_inventory_data()
 	if not inventory.is_empty():
-		for i in range(inventory.size()):
-			if not inventory[i]["item_type"].begins_with("weapon_"):
-				continue
-				
-			for j in range(inventory[i]["item_detail"].size()):
-				inventory[i]["item_detail"][j] = load(inventory[i]["item_detail"][j])
-		
-		inventory_data = inventory;
-		print("Inventory data loaded from inventory file")
+		inventory_data = inventory
+		print("Inventory data loaded from file")
 
 func clear_inventory_data() -> void:
 	inventory_data.clear()
@@ -223,10 +288,7 @@ func check_object_type(item_one, item_two) -> bool:
 		return item_one.resource_path == item_two.resource_path
 	elif item_one is WeaponMaterialData and item_two is WeaponMaterialData:
 		return item_one.id == item_two.id
-	else:
-		return false
-	
-	return true
+	return false
 
 # Level progress functions
 func unlock_level() -> void:
@@ -271,6 +333,56 @@ func remove_blades(number_of_blades: int) -> void:
 	if blade_count < 0:
 		blade_count = 0
 	modifyBlade.emit()
+func add_coins(number_of_coins: int) -> void:
+	coin_count += number_of_coins
+	coinChange.emit()
 
+func remove_coins(number_of_coins: int) -> void:
+	coin_count -= number_of_coins
+	coinChange.emit()
 #func get_tutorial_progress() -> bool:
 #	return is_tutorial_finished
+
+func save_resources_data() -> void:
+	var resources_data = {
+		"coin_count": coin_count,
+		"blade_count": blade_count,
+		"materials_wallet": materials_wallet
+	}
+	SaveSystem.save_resources_data(resources_data)
+	print("Resources data saved (Coin, Blade, Materials)")
+
+func load_resources_data() -> void:
+	var resources = SaveSystem.load_resources_data()
+	
+	if not resources.is_empty():
+		coin_count = int(resources.get("coin_count", 0))
+		blade_count = int(resources.get("blade_count", 0))
+		
+		materials_wallet = DEFAULT_MATERIALS.duplicate()
+		var saved_wallet = resources.get("materials_wallet", {})
+		
+		for key in saved_wallet:
+			if key in materials_wallet:
+				materials_wallet[key] = int(saved_wallet[key])
+	else:
+		materials_wallet = DEFAULT_MATERIALS.duplicate()
+		
+	coinChange.emit()
+	modifyBlade.emit()
+	materialChange.emit()
+		
+	print("Resources loaded: Coins=%d, Blades=%d, Mats=%s" % [coin_count, blade_count, str(materials_wallet)])
+
+func clear_resources_data() -> void:
+	coin_count = 0
+	blade_count = 0
+	materials_wallet = DEFAULT_MATERIALS.duplicate()
+	
+	SaveSystem.delete_resources_file()
+	
+	# Cập nhật UI về 0
+	coinChange.emit()
+	modifyBlade.emit()
+	materialChange.emit()
+	print("All resources data cleared")

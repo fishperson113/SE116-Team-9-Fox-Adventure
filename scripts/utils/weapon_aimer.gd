@@ -18,7 +18,7 @@ var gravity: float = 300
 @onready var player: Player = $".."
 
 func _ready() -> void:
-	weapon = preload("res://scenes/items/weapons/weapon_blade.tscn")
+	weapon = preload("res://scenes/collectibles/items/weapons/weapon_blade.tscn")
 	weapon_detail = load("res://data/weapon/blade_throws/weapon_blade_throw.tres")
 	pass
 

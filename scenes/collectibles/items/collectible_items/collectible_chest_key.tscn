@@ -1,0 +1,59 @@
+[gd_scene load_steps=13 format=3 uid="uid://crkmos1d5bdx3"]
+
+[ext_resource type="PackedScene" uid="uid://djgld28m7mftt" path="res://scenes/collectibles/items/collectible_items/collectible.tscn" id="1_nwqju"]
+[ext_resource type="Script" uid="uid://cghvuqmxm7515" path="res://scripts/collectibles/items/collectibles/collectible_chest_key.gd" id="2_bkdde"]
+[ext_resource type="Texture2D" uid="uid://bldlesja38ka7" path="res://assets/sprites/items/key/key_1.png" id="2_t7m1t"]
+[ext_resource type="Texture2D" uid="uid://cew616p4sap05" path="res://assets/sprites/items/key/key_2.png" id="3_bkdde"]
+[ext_resource type="Texture2D" uid="uid://bjfdohfs8mddo" path="res://assets/sprites/items/key/key_3.png" id="4_8od28"]
+[ext_resource type="Texture2D" uid="uid://dtf5kcrqbf0a5" path="res://assets/sprites/items/key/key_4.png" id="5_pjxv2"]
+[ext_resource type="Texture2D" uid="uid://bokjeaixlik7v" path="res://assets/sprites/items/key/key_5.png" id="6_lxorn"]
+[ext_resource type="Texture2D" uid="uid://cyvwd34108x58" path="res://assets/sprites/items/key/key_6.png" id="7_w5nna"]
+[ext_resource type="Texture2D" uid="uid://y7l2h7ru0kkp" path="res://assets/sprites/items/key/key_7.png" id="8_4ss7p"]
+[ext_resource type="Texture2D" uid="uid://nkq3e80k6vy5" path="res://assets/sprites/items/key/key_8.png" id="9_5anc2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_03ykb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_t7m1t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_bkdde")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_8od28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_pjxv2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_lxorn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_w5nna")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_4ss7p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5anc2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nwqju"]
+radius = 9.0
+height = 24.0
+
+[node name="ChestKey" instance=ExtResource("1_nwqju")]
+script = ExtResource("2_bkdde")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_03ykb")
+frame = 5
+frame_progress = 0.110187
+
+[node name="CollisionShape2D" parent="InteractiveArea2D" index="0"]
+shape = SubResource("CapsuleShape2D_nwqju")

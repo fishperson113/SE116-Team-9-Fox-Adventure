@@ -2,6 +2,7 @@ extends Node2D
 @export_file("*.tscn") var target_stage = ""
 @export var target_door = "Door"
 @onready var animated_sprite = $AnimatedSprite2D
+@export var key_signal: Sprite2D
 
 @onready var sfx_win: AudioStreamPlayer = $Win
 
@@ -10,6 +11,7 @@ var win_ui_shown = false
 
 func _ready() -> void:
 	animated_sprite.play("idle")
+	key_signal.visible = false
 
 func _process(delta):
 	pass
@@ -56,12 +58,14 @@ func _on_detection_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		player_in_area = true
 		animated_sprite.play("opening")
+		key_signal.visible = true
 
 func _on_detection_area_2d_body_exited(body: Node2D) -> void:
 	if body.name == "Player":
 		player_in_area = false
 		win_ui_shown = false  
 		animated_sprite.play("closing")
+		key_signal.visible = false
 		await animated_sprite.animation_finished
 		if animated_sprite.animation == "closing":
 			animated_sprite.play("idle")
