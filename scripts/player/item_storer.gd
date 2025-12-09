@@ -34,7 +34,6 @@ func add_item(item_type: String, item_path: String) -> bool:
 				"item_detail": [item_path]
 			}
 			print("Successfully added an object from inventory")
-			change_item()
 			return true
 
 		# Slot chứa cùng item_type & không phải weapon → stack
@@ -47,11 +46,6 @@ func add_item(item_type: String, item_path: String) -> bool:
 	inventory.insert_item(item_type, item_path)
 	return true
 
-
-func change_item(index_in_slot: int = 0) -> void:
-	pass
-
-
 func switch_item_slot(offset: int) -> void:
 	if item_slot + offset < 0:
 		item_slot = 0
@@ -60,7 +54,6 @@ func switch_item_slot(offset: int) -> void:
 	else:
 		item_slot += offset
 
-	change_item()
 	_equip_current_slot_weapon()
 
 	emit_signal("slot_changed", item_slot)
@@ -72,22 +65,19 @@ func switch_item_slot(offset: int) -> void:
 # ---------------------------------------------------------
 func _equip_current_slot_weapon():
 
+	GameManager.player.unequip_weapon()
 	if not is_slot_available():
-		GameManager.player.unequip_weapon()
 		return
 
 	var item = items_archive[item_slot]
 
 	if not item.has("item_detail"):
-		GameManager.player.unequip_weapon()
 		return
 
 	if item["item_detail"].is_empty():
-		GameManager.player.unequip_weapon()
 		return
 
 	if not item["item_type"].begins_with("weapon_"):
-		GameManager.player.unequip_weapon()
 		return
 
 	# -----------------------------
@@ -98,7 +88,6 @@ func _equip_current_slot_weapon():
 
 	if weapon == null:
 		push_error("Failed to load weapon at path: " + path)
-		GameManager.player.unequip_weapon()
 		return
 
 	GameManager.player.equip_weapon(weapon)
@@ -139,7 +128,6 @@ func remove_item(item_type: String, item_path: String) -> void:
 		if items_archive[item_slot]["item_detail"].is_empty():
 			items_archive[item_slot] = {}
 
-		change_item()
 		return
 
 
@@ -163,7 +151,6 @@ func return_item(item_type: String, item_path: String) -> void:
 			items_archive[item_slot]["item_detail"][0]
 		)
 
-		change_item()
 		return
 
 
@@ -195,7 +182,6 @@ func initialize_slots():
 		for i in range(number_of_slots):
 			items_archive[i] = {}
 
-	change_item()
 	_equip_current_slot_weapon()
 	emit_signal("slot_changed", item_slot)
 
