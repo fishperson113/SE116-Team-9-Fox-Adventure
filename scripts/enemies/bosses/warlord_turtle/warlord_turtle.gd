@@ -113,7 +113,7 @@ func spread_bomb() -> void:
 func spread(_factories: Array[Node], _count: int, _time_to_fall: float, _spread_pct: float) -> void:
 	if _factories.is_empty():
 		return
-		
+
 	var _computed_speed = compute_speed(_time_to_fall, found_player.position - self.position, gravity)
 	var _rand_speed_x = RandomSpec.new(_computed_speed.x * (1 - _spread_pct) , _computed_speed.x * (1 + _spread_pct))
 	var _rand_speed_y = RandomSpec.new(_computed_speed.y * (1 - _spread_pct) , _computed_speed.y * (1 + _spread_pct))
@@ -155,11 +155,11 @@ func reload_bomb() -> void:
 
 func is_out_of_bombs() -> bool:
 	return _bomb_fac_cursor >= _bomb_factories.get_child_count()
-	
+
 func shoot(_factory: Node2DFactory) -> void:
 	if not found_player:
 		return
-	
+
 	var bomb = _factory.create() as BaseBullet
 	bomb.apply_velocity(compute_shot_speed(_factory.global_position, found_player.position, shot_speed))
 	bomb.set_damage(spike)
@@ -213,7 +213,7 @@ func launch_rocket() -> void:
 	if _has_launched_rocket:
 		return
 	_has_launched_rocket = true
-	
+
 	if not found_player:
 		return
 

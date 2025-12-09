@@ -32,7 +32,7 @@ func _ready() -> void:
 size = Vector2(1254, 467)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_am3rg"]
-size = Vector2(1240, 960)
+size = Vector2(2048, 2048)
 
 [node name="Stage" type="Node2D"]
 script = SubResource("GDScript_pjjcp")
@@ -515,9 +515,9 @@ position = Vector2(2315, 3354)
 position = Vector2(3185, 6458)
 
 [connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/Checkpoint" to="TileMapLayers/FunctionalTileMapLayer/Checkpoint" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@39857" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@39857" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@39986" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@39986" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@39987" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@39987" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@39988" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@39988" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@49732" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@49732" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@49861" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@49861" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@49862" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@49862" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@49863" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@49863" method="_on_body_entered"]
 
 [editable path="AreaUnlockerEnemies"]
