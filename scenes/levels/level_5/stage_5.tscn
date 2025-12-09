@@ -3,6 +3,7 @@
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_3l2kx"]
 [ext_resource type="PackedScene" uid="uid://bu0ebjvtvbb4j" path="res://scenes/levels/area_unlockers/area_unlocker_enemies.tscn" id="2_lyf21"]
 [ext_resource type="PackedScene" uid="uid://slg0p8vvevb8" path="res://scenes/levels/island/objects/door/Win_door.tscn" id="2_m7cq7"]
+[ext_resource type="Texture2D" uid="uid://dg5jq3aix8s6t" path="res://assets/sprites/environment/background/Grassy_Mountains_preview_fullcolor.png" id="2_njy1a"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_y8cxf"]
 [ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="3_m7cq7"]
 [ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/collectibles/items/collectible_items/collectible_ore_copper.tscn" id="4_jdldg"]
@@ -45,6 +46,11 @@ z_index = -1
 position = Vector2(4962, 4238.5)
 scale = Vector2(330.875, 301.156)
 texture = ExtResource("12_pjjcp")
+
+[node name="Moutaints" type="Sprite2D" parent="Backgrounds"]
+position = Vector2(1110, 108.5)
+scale = Vector2(7.55208, 5.78241)
+texture = ExtResource("2_njy1a")
 
 [node name="AreaUnlockerEnemies" parent="." instance=ExtResource("2_lyf21")]
 position = Vector2(8975, 8545)
@@ -440,6 +446,11 @@ objects = Array[PackedScene]([ExtResource("9_am3rg")])
 
 [node name="Obstacles" type="Node2D" parent="."]
 
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/Checkpoint" to="TileMapLayers/FunctionalTileMapLayer/Checkpoint" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@32280" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@32280" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@32409" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@32409" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@32410" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@32410" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@32411" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@32411" method="_on_body_entered"]
 [node name="Resources" type="Node2D" parent="."]
 
 [node name="Irons" type="Node2D" parent="Resources"]

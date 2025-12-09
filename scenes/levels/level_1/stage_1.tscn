@@ -322,7 +322,6 @@ position_smoothing_speed = 10.0
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_scale = Vector2(0.001, 0.8)
 motion_mirroring = Vector2(767, 0)
 script = SubResource("GDScript_1vm6v")
@@ -394,22 +393,22 @@ scale = Vector2(5.66824, 1.2)
 texture = ExtResource("6_bfafv")
 centered = false
 
-[node name="TreeParallaxLayer" type="Node2D" parent="."]
+[node name="TreeParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 visible = false
-z_index = -1
+z_index = 1
 script = SubResource("GDScript_gfh8j")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TreeParallaxLayer"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ParallaxBackground/TreeParallaxLayer"]
 position = Vector2(84.745, 188.14)
 sprite_frames = SubResource("SpriteFrames_c4j3j")
 centered = false
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="TreeParallaxLayer"]
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="ParallaxBackground/TreeParallaxLayer"]
 position = Vector2(225.03, 188.14)
 sprite_frames = SubResource("SpriteFrames_c4j3j")
 centered = false
 
-[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="TreeParallaxLayer"]
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="ParallaxBackground/TreeParallaxLayer"]
 position = Vector2(360.925, 188.14)
 sprite_frames = SubResource("SpriteFrames_c4j3j")
 centered = false

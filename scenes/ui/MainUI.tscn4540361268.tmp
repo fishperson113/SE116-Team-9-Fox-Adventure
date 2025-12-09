@@ -1,0 +1,167 @@
+[gd_scene load_steps=17 format=3 uid="uid://djoolf474qo2p"]
+
+[ext_resource type="Script" uid="uid://bj1vha74m6rd2" path="res://scripts/ui/main_ui.gd" id="1_7s5y6"]
+[ext_resource type="Texture2D" uid="uid://vj2xvbhnt45o" path="res://assets/ui/panels/health_bar.png" id="1_kdubu"]
+[ext_resource type="Script" uid="uid://csc4qnp65a8rl" path="res://scripts/ui/items.gd" id="3_jv1lx"]
+[ext_resource type="Texture2D" uid="uid://cj8i62eqo1cv0" path="res://assets/sprites/items/gems/GemIcon.png" id="3_rj586"]
+[ext_resource type="Texture2D" uid="uid://bldlesja38ka7" path="res://assets/sprites/items/key/key_1.png" id="4_4d7sh"]
+[ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="4_qg6rx"]
+[ext_resource type="Texture2D" uid="uid://dtwnvoh5jfgsn" path="res://assets/sprites/items/coin/01.png" id="5_ir8iy"]
+[ext_resource type="Texture2D" uid="uid://bak1dc8urb02c" path="res://assets/ui/buttons/settings_button.png" id="6_hqns4"]
+[ext_resource type="Texture2D" uid="uid://cf2xtiybswiem" path="res://assets/sprites/items/Keyboard/A.png" id="7_ir8iy"]
+[ext_resource type="Texture2D" uid="uid://ci25u8dfvvsna" path="res://assets/sprites/items/Keyboard/Space.png" id="8_hqns4"]
+[ext_resource type="Texture2D" uid="uid://d0s8rm2fj4wef" path="res://assets/sprites/characters/foxy/blade/blade_anim_1.png" id="8_rpv8g"]
+[ext_resource type="Texture2D" uid="uid://d086j8jvm50hp" path="res://assets/sprites/items/Keyboard/D.png" id="9_x0ka3"]
+[ext_resource type="Texture2D" uid="uid://dos6hwpl7kq7l" path="res://assets/ui/panels/progress.png" id="12_mjmcw"]
+[ext_resource type="PackedScene" uid="uid://bquisodmhmkdk" path="res://scenes/ui/inventory/Inv_ui.tscn" id="14_jv1lx"]
+[ext_resource type="Script" uid="uid://c2xtf1ss4k7gw" path="res://scripts/ui/texture_progress_bar.gd" id="14_rpv8g"]
+[ext_resource type="PackedScene" uid="uid://ibceon5tf4v2" path="res://scenes/ui/inventory/AllInventory.tscn" id="16_0r0ox"]
+
+[node name="MainUI" type="CanvasLayer"]
+script = ExtResource("1_7s5y6")
+
+[node name="InvUi" parent="." instance=ExtResource("14_jv1lx")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_top = -77.0
+offset_bottom = -77.0
+grow_vertical = 0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(240, 136)
+
+[node name="Items" type="VBoxContainer" parent="."]
+offset_left = 19.0
+offset_top = 71.0
+offset_right = 111.0
+offset_bottom = 183.0
+scale = Vector2(0.5, 0.5)
+script = ExtResource("3_jv1lx")
+
+[node name="1" type="HBoxContainer" parent="Items"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="GemIcon" type="TextureRect" parent="Items/1"]
+layout_mode = 2
+texture = ExtResource("3_rj586")
+expand_mode = 2
+
+[node name="NumGems" type="Label" parent="Items/1"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_qg6rx")
+theme_override_font_sizes/font_size = 30
+text = "0"
+vertical_alignment = 1
+
+[node name="2" type="HBoxContainer" parent="Items"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Key" type="TextureRect" parent="Items/2"]
+layout_mode = 2
+texture = ExtResource("4_4d7sh")
+expand_mode = 2
+
+[node name="NumKey" type="Label" parent="Items/2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_qg6rx")
+theme_override_font_sizes/font_size = 30
+text = "0"
+vertical_alignment = 1
+
+[node name="3" type="HBoxContainer" parent="Items"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Coin" type="TextureRect" parent="Items/3"]
+layout_mode = 2
+texture = ExtResource("5_ir8iy")
+expand_mode = 2
+
+[node name="NumCoin" type="Label" parent="Items/3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_qg6rx")
+theme_override_font_sizes/font_size = 30
+text = "0"
+vertical_alignment = 1
+
+[node name="4" type="HBoxContainer" parent="Items"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Blade" type="TextureRect" parent="Items/4"]
+layout_mode = 2
+texture = ExtResource("8_rpv8g")
+expand_mode = 2
+
+[node name="NumBlade" type="Label" parent="Items/4"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_qg6rx")
+theme_override_font_sizes/font_size = 30
+text = "0"
+vertical_alignment = 1
+
+[node name="ASD" type="HBoxContainer" parent="."]
+visible = false
+offset_left = 29.0
+offset_top = 222.0
+offset_right = 350.0
+offset_bottom = 326.0
+scale = Vector2(0.25, 0.25)
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="A" type="TextureRect" parent="ASD"]
+layout_mode = 2
+texture = ExtResource("7_ir8iy")
+expand_mode = 2
+
+[node name="Space" type="TextureRect" parent="ASD"]
+layout_mode = 2
+texture = ExtResource("8_hqns4")
+expand_mode = 2
+
+[node name="D" type="TextureRect" parent="ASD"]
+layout_mode = 2
+texture = ExtResource("9_x0ka3")
+expand_mode = 3
+
+[node name="SettingsButton" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_bottom = 80.0
+grow_horizontal = 0
+icon = ExtResource("6_hqns4")
+flat = true
+icon_alignment = 2
+expand_icon = true
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 107.0
+offset_bottom = 43.0
+scale = Vector2(2, 2)
+value = 40.0
+texture_under = ExtResource("1_kdubu")
+texture_progress = ExtResource("12_mjmcw")
+texture_progress_offset = Vector2(18, 10)
+script = ExtResource("14_rpv8g")
+
+[node name="AllInventory" parent="." instance=ExtResource("16_0r0ox")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2

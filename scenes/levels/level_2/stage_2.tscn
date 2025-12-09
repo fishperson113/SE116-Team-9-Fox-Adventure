@@ -9,10 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="9_f3mxx"]
 [ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="9_ka18f"]
 [ext_resource type="PackedScene" uid="uid://d4g0t6v7fn5uq" path="res://scenes/levels/level_2/death_pit/death_pit.tscn" id="10_n6lnb"]
-[ext_resource type="Texture2D" uid="uid://dcrnqve71d36p" path="res://assets/sprites/environment/background/additional_sky.png" id="10_vunfs"]
-[ext_resource type="Texture2D" uid="uid://bqde0l4at7gv8" path="res://assets/sprites/environment/background/bg_image.png" id="11_uo7op"]
+[ext_resource type="Texture2D" uid="uid://oqx0rbvgvkih" path="res://assets/sprites/environment/background/big_clouds_1.png" id="12_kp3hl"]
 [ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="12_mgj3a"]
 [ext_resource type="Texture2D" uid="uid://dekyi7oa4n0sg" path="res://assets/sprites/environment/background/water_reflect_big_01.png" id="13_0nnmk"]
+[ext_resource type="Texture2D" uid="uid://cr8rh4mtp3puv" path="res://assets/sprites/environment/background/house_1.png" id="13_kp3hl"]
 [ext_resource type="Texture2D" uid="uid://b6dilwf04d4be" path="res://assets/sprites/environment/background/water_reflect_big_02.png" id="14_6bfce"]
 [ext_resource type="Texture2D" uid="uid://drl3x1wfs0vai" path="res://assets/sprites/environment/background/water_reflect_big_03.png" id="15_dj0wk"]
 [ext_resource type="Texture2D" uid="uid://c5ur36rqix0vh" path="res://assets/sprites/environment/background/water_reflect_big_04.png" id="16_lnroj"]
@@ -388,40 +388,36 @@ position_smoothing_speed = 10.0
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-visible = false
 motion_scale = Vector2(0.001, 0.8)
-motion_mirroring = Vector2(767, 0)
 script = SubResource("GDScript_1vm6v")
 
 [node name="SkySprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(265, -49.752)
-scale = Vector2(69, 22.953)
-texture = ExtResource("10_vunfs")
-
-[node name="SeaSkySprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(-840, 59)
-scale = Vector2(5.7474, 2)
-texture = ExtResource("11_uo7op")
-centered = false
+position = Vector2(1039.5, 906)
+scale = Vector2(3.87891, 4.9351)
+texture = ExtResource("12_kp3hl")
 
 [node name="WaterSprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+visible = false
 position = Vector2(260.5, 405)
 scale = Vector2(68.7813, 5.969)
 texture = ExtResource("12_mgj3a")
 
 [node name="WaveSprite2D" type="AnimatedSprite2D" parent="ParallaxBackground/ParallaxLayer"]
+visible = false
 position = Vector2(0, 233)
 scale = Vector2(1.83529, 1.2)
 sprite_frames = SubResource("SpriteFrames_ki2mu")
 centered = false
 
 [node name="WaveSprite2DMedium" type="AnimatedSprite2D" parent="ParallaxBackground/ParallaxLayer"]
+visible = false
 position = Vector2(319, 233)
 scale = Vector2(3.37143, 1.2)
 sprite_frames = SubResource("SpriteFrames_gfh8j")
 centered = false
 
 [node name="WaveSprite2DSmall" type="AnimatedSprite2D" parent="ParallaxBackground/ParallaxLayer"]
+visible = false
 position = Vector2(444, 233)
 scale = Vector2(2.77143, 1.2)
 sprite_frames = SubResource("SpriteFrames_gfh8j")
@@ -460,6 +456,8 @@ scale = Vector2(5.66824, 1.2)
 texture = ExtResource("24_7ahpy")
 centered = false
 
+[node name="House" type="Node2D" parent="ParallaxBackground"]
+
 [node name="TreeParallaxLayer" type="Node2D" parent="."]
 visible = false
 z_index = -1
@@ -480,6 +478,44 @@ position = Vector2(360.925, 188.14)
 sprite_frames = SubResource("SpriteFrames_c4j3j")
 centered = false
 
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(0, 39)
+
+[node name="HouseSprite2D2" type="Sprite2D" parent="Node2D"]
+z_index = -1
+position = Vector2(4337, 59)
+scale = Vector2(5.50782, 2)
+texture = ExtResource("13_kp3hl")
+centered = false
+
+[node name="HouseSprite2D3" type="Sprite2D" parent="Node2D"]
+z_index = -1
+position = Vector2(9331, 59)
+scale = Vector2(5.50782, 2)
+texture = ExtResource("13_kp3hl")
+centered = false
+
+[node name="HouseSprite2D4" type="Sprite2D" parent="Node2D"]
+z_index = -1
+position = Vector2(14319, 59)
+scale = Vector2(5.50782, 2)
+texture = ExtResource("13_kp3hl")
+centered = false
+
+[node name="HouseSprite2D" type="Sprite2D" parent="Node2D"]
+z_index = -1
+position = Vector2(-656, 59)
+scale = Vector2(5.50782, 2)
+texture = ExtResource("13_kp3hl")
+centered = false
+
+[editable path="World/AreaUnlockerEnemies"]
+[editable path="World/AreaUnlockerEnemies2"]
+[editable path="World/AreaUnlockerEnemies3"]
+[editable path="World/AreaUnlockerEnemies4"]
+[editable path="World/AreaUnlockerEnemies5"]
+[editable path="World/AreaUnlockerEnemies6"]
+[editable path="World/AreaUnlockerEnemies7"]
 [editable path="World/Spawner"]
 [editable path="World/Spawner2"]
 [editable path="World/Spawner3"]
