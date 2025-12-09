@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://djoolf474qo2p"]
+[gd_scene load_steps=19 format=3 uid="uid://djoolf474qo2p"]
 
 [ext_resource type="Script" uid="uid://bj1vha74m6rd2" path="res://scripts/ui/main_ui.gd" id="1_7s5y6"]
 [ext_resource type="Texture2D" uid="uid://vj2xvbhnt45o" path="res://assets/ui/panels/health_bar.png" id="1_kdubu"]
@@ -11,7 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://cf2xtiybswiem" path="res://assets/sprites/items/Keyboard/A.png" id="7_ir8iy"]
 [ext_resource type="Texture2D" uid="uid://ci25u8dfvvsna" path="res://assets/sprites/items/Keyboard/Space.png" id="8_hqns4"]
 [ext_resource type="Texture2D" uid="uid://d0s8rm2fj4wef" path="res://assets/sprites/characters/foxy/blade/blade_anim_1.png" id="8_rpv8g"]
+[ext_resource type="Texture2D" uid="uid://btl01pl2rrre3" path="res://assets/ui/icons/copper.png" id="9_k3ty2"]
 [ext_resource type="Texture2D" uid="uid://d086j8jvm50hp" path="res://assets/sprites/items/Keyboard/D.png" id="9_x0ka3"]
+[ext_resource type="Texture2D" uid="uid://ddbid6rke16wu" path="res://assets/ui/icons/iron.png" id="10_dg873"]
+[ext_resource type="Texture2D" uid="uid://d2ac5s0c14wb6" path="res://assets/ui/icons/gold.png" id="11_bgwmq"]
 [ext_resource type="Texture2D" uid="uid://dos6hwpl7kq7l" path="res://assets/ui/panels/progress.png" id="12_mjmcw"]
 [ext_resource type="PackedScene" uid="uid://bquisodmhmkdk" path="res://scenes/ui/inventory/Inv_ui.tscn" id="14_jv1lx"]
 [ext_resource type="Script" uid="uid://c2xtf1ss4k7gw" path="res://scripts/ui/texture_progress_bar.gd" id="14_rpv8g"]
@@ -40,6 +43,7 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("3_jv1lx")
 
 [node name="1" type="HBoxContainer" parent="Items"]
+visible = false
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -101,6 +105,57 @@ texture = ExtResource("8_rpv8g")
 expand_mode = 2
 
 [node name="NumBlade" type="Label" parent="Items/4"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_qg6rx")
+theme_override_font_sizes/font_size = 30
+text = "0"
+vertical_alignment = 1
+
+[node name="5" type="HBoxContainer" parent="Items"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Copper" type="TextureRect" parent="Items/5"]
+layout_mode = 2
+texture = ExtResource("9_k3ty2")
+expand_mode = 2
+
+[node name="NumCopper" type="Label" parent="Items/5"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_qg6rx")
+theme_override_font_sizes/font_size = 30
+text = "0"
+vertical_alignment = 1
+
+[node name="6" type="HBoxContainer" parent="Items"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Iron" type="TextureRect" parent="Items/6"]
+layout_mode = 2
+texture = ExtResource("10_dg873")
+expand_mode = 2
+
+[node name="NumIron" type="Label" parent="Items/6"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_qg6rx")
+theme_override_font_sizes/font_size = 30
+text = "0"
+vertical_alignment = 1
+
+[node name="7" type="HBoxContainer" parent="Items"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Gold" type="TextureRect" parent="Items/7"]
+layout_mode = 2
+texture = ExtResource("11_bgwmq")
+expand_mode = 2
+
+[node name="NumGold" type="Label" parent="Items/7"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_qg6rx")
 theme_override_font_sizes/font_size = 30

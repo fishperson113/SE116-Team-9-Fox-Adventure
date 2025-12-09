@@ -26,12 +26,14 @@ var inventory_data: Array[Dictionary] = []
 # How many blades are available?
 var blade_count: int = 50
 var coin_count:int = 50
+var materials_wallet: Dictionary = {}
 #Crafting cost
 var crafting_cost: int = 10
 var is_paid:bool =false
 # Signals
 signal modifyBlade
 signal coinChange
+signal materialChange
 
 func _ready() -> void:
 	# Load checkpoint data when game starts
@@ -40,8 +42,30 @@ func _ready() -> void:
 	load_inventory_data()
 	load_slots_data()
 	load_level_progress()
+	load_resources_data()
 	pass
 
+func has_material(material_id: String, amount: int) -> bool:
+	return materials_wallet.get(material_id, 0) >= amount
+
+func add_material(material_id: String, amount: int) -> void:
+	if material_id not in materials_wallet:
+		materials_wallet[material_id] = 0
+	
+	materials_wallet[material_id] += amount
+	materialChange.emit()
+	print("Added %d %s. Total: %d" % [amount, material_id, materials_wallet[material_id]])
+
+func consume_material(material_id: String, amount: int) -> bool:
+	if not has_material(material_id, amount):
+		print("Không đủ material: " + material_id)
+		return false
+	save_resources_data()
+	materials_wallet[material_id] -= amount
+	materialChange.emit()
+	print("Consumed %d %s. Remaining: %d" % [amount, material_id, materials_wallet[material_id]])
+	return true
+	
 func pay_entry_fee() -> bool:
 	if is_paid:
 		return true
@@ -49,6 +73,7 @@ func pay_entry_fee() -> bool:
 	if coin_count >= crafting_cost:
 		remove_coins(crafting_cost)
 		is_paid = true
+		save_resources_data()
 		print("GameManager: Đã mua vé craft. (Has Ticket: True)")
 		return true
 	
@@ -79,6 +104,7 @@ func collect_blade():
 
 #change stage by path and target portal name
 func change_stage(stage_path: String, _target_portal_name: String = "") -> void:
+	save_resources_data()
 	target_portal_name = _target_portal_name
 	#change scene to stage path
 	get_tree().change_scene_to_file(stage_path)
@@ -156,6 +182,7 @@ func save_checkpoint_data() -> void:
 		"checkpoint_data": checkpoint_data
 	}
 	SaveSystem.save_checkpoint_data(save_data)
+	save_resources_data()
 
 # Load checkpoint data from persistent storage
 func load_checkpoint_data() -> void:
@@ -266,3 +293,37 @@ func remove_coins(number_of_coins: int) -> void:
 	coinChange.emit()
 #func get_tutorial_progress() -> bool:
 #	return is_tutorial_finished
+func save_resources_data() -> void:
+	var resources_data = {
+		"coin_count": coin_count,
+		"blade_count": blade_count,
+		"materials_wallet": materials_wallet
+	}
+	SaveSystem.save_resources_data(resources_data)
+	print("Resources data saved (Coin, Blade, Materials)")
+
+func load_resources_data() -> void:
+	var resources = SaveSystem.load_resources_data()
+	if not resources.is_empty():
+		coin_count = resources.get("coin_count", 0)
+		blade_count = resources.get("blade_count", 0)
+		materials_wallet = resources.get("materials_wallet", {})
+		
+		coinChange.emit()
+		modifyBlade.emit()
+		materialChange.emit()
+		
+		print("Resources loaded: Coins=%d, Blades=%d, Mats=%s" % [coin_count, blade_count, str(materials_wallet)])
+
+func clear_resources_data() -> void:
+	coin_count = 0 
+	blade_count = 0 
+	materials_wallet.clear()
+	
+	SaveSystem.delete_resources_file()
+	
+	# Cập nhật UI về 0
+	coinChange.emit()
+	modifyBlade.emit()
+	materialChange.emit()
+	print("All resources data cleared")
