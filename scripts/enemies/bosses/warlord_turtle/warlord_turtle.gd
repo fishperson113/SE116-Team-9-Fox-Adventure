@@ -225,3 +225,6 @@ func launch_rocket() -> void:
 		bullet.set_damage(spike)
 		bullet.set_gravity(0)
 	pass
+
+func is_player_visible() -> bool:
+	return found_player != null

@@ -23,11 +23,11 @@ func _init_skill_set():
 	rest()
 
 func get_skill():
-	var is_close = is_player_close()
+	var _is_close = is_player_close()
 	if randf() <= misbehave_chance:
-		is_close = not is_close
+		_is_close = not _is_close
 		
-	if is_close:
+	if _is_close:
 		return _short_range_skills.pick_random()
 	return _far_range_skills.pick_random()
 
