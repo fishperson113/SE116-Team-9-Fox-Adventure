@@ -19,5 +19,5 @@
 [resource]
 script = ExtResource("3_jqf8u")
 parts = Array[ExtResource("2_p7ge1")]([ExtResource("6_bo1cm"), ExtResource("7_64ji6"), ExtResource("8_d4va3"), ExtResource("9_stl3y"), ExtResource("10_klfxi"), ExtResource("11_nkfxx"), ExtResource("12_1deq3"), ExtResource("13_bo1cm"), ExtResource("14_64ji6")])
-materials = Array[ExtResource("1_l62ef")]([ExtResource("2_11ltr"), ExtResource("3_nkfxx"), ExtResource("4_1deq3")])
+materials = Array[ExtResource("1_l62ef")]([ExtResource("2_11ltr"), ExtResource("4_1deq3"), ExtResource("3_nkfxx")])
 metadata/_custom_type_script = "uid://c15346etd4npl"

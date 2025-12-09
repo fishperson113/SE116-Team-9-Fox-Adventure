@@ -9,4 +9,5 @@ id = "iron"
 display_name = ""
 color = Color(0.230315, 0.230315, 0.230315, 1)
 icon = ExtResource("2_mvk3i")
+damage = 20
 metadata/_custom_type_script = "uid://bg7o110gecbgs"

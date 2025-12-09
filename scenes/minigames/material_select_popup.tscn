@@ -8,7 +8,7 @@
 [sub_resource type="GDScript" id="GDScript_n82oa"]
 script/source = "extends Panel
 
-signal material_selected(material: String)
+signal material_selected(material: WeaponMaterialData)
 
 @export var material_list: Array[WeaponMaterialData]
 @onready var hbox := $HBoxContainer
@@ -56,18 +56,31 @@ func _load_materials():
 		# So sánh với giá trong GameManager
 		var is_enough_material = current_amount >= GameManager.material_crafting_cost
 		
-		# --- XỬ LÝ VISUAL (HIGHLIGHT) ---
+		# --- [UPDATED] TOOLTIP BUILDER ---
+		# 1. Tên hiển thị (Ưu tiên display_name, nếu ko có thì dùng ID viết hoa)
+		var name_str = mat.display_name if mat.display_name else mat.id.capitalize()
+		
+		# 2. Thông tin cơ bản (Quan trọng nhất là Damage)
+		var tip = \"%s\\nBase Damage: %d\" % [name_str, mat.damage]
+
+		# 3. Xử lý Visual & Trạng thái Cost
 		if is_enough_material:
 			icon.modulate = Color(1, 1, 1, 1)
 			icon.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-			# Cập nhật Tooltip lấy giá động từ GameManager
-			icon.tooltip_text = \"%s\\nCost: %d Ore + %d Gold\" % [mat.id, GameManager.material_crafting_cost, GameManager.crafting_cost]
+			
+			# Thêm thông tin giá
+			tip += \"\\n\\n[COST]\"
+			tip += \"\\n• %d Coin\" % GameManager.crafting_cost
+			tip += \"\\n• %d %s\" % [GameManager.material_crafting_cost, name_str]
 		else:
 			icon.modulate = Color(0.4, 0.4, 0.4, 1)
 			icon.mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
-			# Cập nhật Tooltip báo thiếu
-			icon.tooltip_text = \"MISSING MATERIALS\\nNeed: %d %s\\nYou have: %d\" % [GameManager.material_crafting_cost, mat.id, current_amount]
+			
+			# Thêm thông báo thiếu
+			tip += \"\\n\\n[INSUFFICIENT]\"
+			tip += \"\\nOwned: %d / %d\" % [current_amount, GameManager.material_crafting_cost]
 
+		icon.tooltip_text = tip
 		# --- XỬ LÝ CLICK ---
 		icon.gui_input.connect(func(event):
 			if event is InputEventMouseButton \\
@@ -91,7 +104,7 @@ func _load_materials():
 					# --- THÀNH CÔNG ---
 					print(\"UI: Thanh toán đủ cả Coin và Ore. Bắt đầu game.\")
 					close()
-					material_selected.emit(mat.id)
+					material_selected.emit(mat)
 				else:
 					# --- LỖI LOGIC (Hoàn tiền Coin) ---
 					print(\"UI: Lỗi trừ Ore! Đang hoàn tiền Coin...\")

@@ -9,4 +9,5 @@ id = "copper"
 display_name = ""
 color = Color(0.8, 0.5, 0.3, 1)
 icon = ExtResource("2_m2243")
+damage = 10
 metadata/_custom_type_script = "uid://bg7o110gecbgs"
