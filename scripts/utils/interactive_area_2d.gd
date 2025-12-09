@@ -20,6 +20,9 @@ func _ready():
 
 
 func _unhandled_input(event):
+	if GameManager.player and not GameManager.player.input_enabled:
+		return
+		
 	if event.is_action_pressed(interact_input_action):
 		interacted.emit()
 		var viewport = get_viewport()

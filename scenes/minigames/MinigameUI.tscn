@@ -57,7 +57,7 @@ func _on_assemble_done(path):
 	GameManager.player.inventory.save_inventory()
 	GameManager.player.item_storer.add_item(\"weapon_blade\",path)
 	GameManager.player.item_storer.save_slots()
-	GameManager.consume_entry_fee()
+	GameManager.finalize_crafting()
 
 # ============================================================
 # PANEL TRANSITION
@@ -75,6 +75,7 @@ func reset():
 
 func _on_back_button_pressed() -> void:
 	close()
+	GameManager.refund_all_fees()
 "
 
 [node name="MinigameUI" type="Control"]

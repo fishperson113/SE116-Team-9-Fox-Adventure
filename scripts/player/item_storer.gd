@@ -184,6 +184,7 @@ func show_slots() -> void:
 func save_slots() -> void:
 	GameManager.slots_data = items_archive.duplicate(true)
 	GameManager.save_slots_data()
+	switch_item_slot(item_slot)
 
 
 func initialize_slots():

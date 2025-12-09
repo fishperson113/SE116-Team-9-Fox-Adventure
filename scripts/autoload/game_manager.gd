@@ -26,10 +26,23 @@ var inventory_data: Array[Dictionary] = []
 # How many blades are available?
 var blade_count: int = 50
 var coin_count:int = 50
-var materials_wallet: Dictionary = {}
+
+# --- CẤU HÌNH MATERIAL MẶC ĐỊNH ---
+const DEFAULT_MATERIALS: Dictionary = {
+	"copper": 50,
+	"iron": 50,
+	"gold": 50
+}
+
+var materials_wallet: Dictionary = DEFAULT_MATERIALS.duplicate()
+
 #Crafting cost
 var crafting_cost: int = 10
-var is_paid:bool =false
+var material_crafting_cost: int = 5
+var is_paid_coin:bool =false
+var is_paid_ore:bool =false
+var pending_material_id: String = ""
+var pending_material_amount: int = 0
 # Signals
 signal modifyBlade
 signal coinChange
@@ -46,33 +59,43 @@ func _ready() -> void:
 	pass
 
 func has_material(material_id: String, amount: int) -> bool:
-	return materials_wallet.get(material_id, 0) >= amount
+	return int(materials_wallet.get(material_id, 0)) >= amount
 
 func add_material(material_id: String, amount: int) -> void:
 	if material_id not in materials_wallet:
 		materials_wallet[material_id] = 0
 	
-	materials_wallet[material_id] += amount
+	materials_wallet[material_id] = int(materials_wallet[material_id] + amount)
+	
 	materialChange.emit()
 	print("Added %d %s. Total: %d" % [amount, material_id, materials_wallet[material_id]])
 
-func consume_material(material_id: String, amount: int) -> bool:
+func pay_material_fee(material_id: String, amount: int) -> bool:
+	if is_paid_ore:
+		return true
+		
 	if not has_material(material_id, amount):
 		print("Không đủ material: " + material_id)
 		return false
-	save_resources_data()
-	materials_wallet[material_id] -= amount
+	
+	materials_wallet[material_id] = int(materials_wallet[material_id] - amount)
+	
+	pending_material_id = material_id
+	pending_material_amount = amount
+	is_paid_ore = true
+	
 	materialChange.emit()
-	print("Consumed %d %s. Remaining: %d" % [amount, material_id, materials_wallet[material_id]])
+	save_resources_data()
+	print("Đã tạm trừ %d %s. (Is Paid Ore: True)" % [amount, material_id])
 	return true
 	
 func pay_entry_fee() -> bool:
-	if is_paid:
+	if is_paid_coin:
 		return true
 
 	if coin_count >= crafting_cost:
 		remove_coins(crafting_cost)
-		is_paid = true
+		is_paid_coin = true
 		save_resources_data()
 		print("GameManager: Đã mua vé craft. (Has Ticket: True)")
 		return true
@@ -80,11 +103,37 @@ func pay_entry_fee() -> bool:
 	print("GameManager: Không đủ tiền.")
 	return false
 	
-func consume_entry_fee() -> void:
-	if is_paid:
-		is_paid = false
-		print("GameManager: Đã xài xong. (Has Ticket: False)")
+func refund_all_fees() -> void:
+	var need_save = false
+	
+	if is_paid_coin:
+		add_coins(crafting_cost)
+		is_paid_coin = false
+		need_save = true
+		print("Đã hoàn tiền Coin.")
 		
+	if is_paid_ore:
+		if pending_material_id != "":
+			materials_wallet[pending_material_id] = int(materials_wallet.get(pending_material_id, 0) + pending_material_amount)
+			materialChange.emit()
+			
+		pending_material_id = ""
+		pending_material_amount = 0
+		is_paid_ore = false
+		need_save = true
+		print("Đã hoàn trả Ore.")
+
+	if need_save:
+		save_resources_data()
+
+func finalize_crafting() -> void:
+	if is_paid_coin or is_paid_ore:
+		is_paid_coin = false
+		is_paid_ore = false
+		pending_material_id = ""
+		pending_material_amount = 0
+		print("Craft thành công! Giao dịch hoàn tất (Không hoàn tiền).")
+
 func initialize_systems():
 	await get_tree().process_frame
 
@@ -293,6 +342,7 @@ func remove_coins(number_of_coins: int) -> void:
 	coinChange.emit()
 #func get_tutorial_progress() -> bool:
 #	return is_tutorial_finished
+
 func save_resources_data() -> void:
 	var resources_data = {
 		"coin_count": coin_count,
@@ -304,21 +354,30 @@ func save_resources_data() -> void:
 
 func load_resources_data() -> void:
 	var resources = SaveSystem.load_resources_data()
+	
 	if not resources.is_empty():
-		coin_count = resources.get("coin_count", 0)
-		blade_count = resources.get("blade_count", 0)
-		materials_wallet = resources.get("materials_wallet", {})
+		coin_count = int(resources.get("coin_count", 0))
+		blade_count = int(resources.get("blade_count", 0))
 		
-		coinChange.emit()
-		modifyBlade.emit()
-		materialChange.emit()
+		materials_wallet = DEFAULT_MATERIALS.duplicate()
+		var saved_wallet = resources.get("materials_wallet", {})
 		
-		print("Resources loaded: Coins=%d, Blades=%d, Mats=%s" % [coin_count, blade_count, str(materials_wallet)])
+		for key in saved_wallet:
+			if key in materials_wallet:
+				materials_wallet[key] = int(saved_wallet[key])
+	else:
+		materials_wallet = DEFAULT_MATERIALS.duplicate()
+		
+	coinChange.emit()
+	modifyBlade.emit()
+	materialChange.emit()
+		
+	print("Resources loaded: Coins=%d, Blades=%d, Mats=%s" % [coin_count, blade_count, str(materials_wallet)])
 
 func clear_resources_data() -> void:
-	coin_count = 0 
-	blade_count = 0 
-	materials_wallet.clear()
+	coin_count = 0
+	blade_count = 0
+	materials_wallet = DEFAULT_MATERIALS.duplicate()
 	
 	SaveSystem.delete_resources_file()
 	

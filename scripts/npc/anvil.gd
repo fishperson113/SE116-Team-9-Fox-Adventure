@@ -12,8 +12,7 @@ func _ready() -> void:
 
 func _on_interacted(): 
 	print("interact with anvil") 
-	if(GameManager.pay_entry_fee()):
-		material_panel.open() 
+	material_panel.open() 
 
 
 func _start_minigame(mat_id):
