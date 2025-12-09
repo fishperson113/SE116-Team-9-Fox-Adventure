@@ -237,6 +237,9 @@ func set_combat_collision(flag: bool) -> void:
 	_hit_area_shape.disabled = not flag
 
 func clear_area_collision(_area: Area2D) -> void:
+	if not _area:
+		return
+
 	_area.collision_layer = 0
 	_area.collision_mask = 0
 

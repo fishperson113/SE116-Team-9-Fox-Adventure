@@ -95,4 +95,6 @@ func is_player_close() -> bool:
 func _on_normal_react(input: BehaviorInput) -> void:
 	if input is HurtBehaviorInput:
 		take_damage(input.damage_taken)
+		if not is_alive():
+			fsm.change_state(fsm.states.dead)
 	pass

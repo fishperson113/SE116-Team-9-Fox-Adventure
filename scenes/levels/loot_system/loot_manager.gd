@@ -14,17 +14,18 @@ func SpawnLoot(source_node: Node2D):
 	if not drop_table:
 		print("Drop table is not available")
 		return
+	print("Get the closest drop table successfully: ", drop_table)
 
 	var container_node := get_tree().current_scene
 	if container_node.has_node("Collectibles"):
 		container_node = get_tree().current_scene.get_node("collectibles") 
 	
 	var dropables := drop_table.roll()
-	print("Drop successfully with these items: ", dropables)
 	for dropable in dropables:
 		var b: EffectWrapper = create(dropable)
 		b.global_position = source_node.global_position
 		container_node.add_child(b)
+	print("Drop successfully with these items: ", dropables)
 
 func _get_closest_drop_data(source_node: Node2D) -> DropData:
 	var traverse: Node2D = source_node
