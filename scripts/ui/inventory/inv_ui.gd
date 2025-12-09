@@ -7,15 +7,24 @@ var current_hotbar_slot := -1
 func _ready() -> void:
 	GameManager.player.inventory.inventory_changed.connect(update_inventory_ui)
 	GameManager.player.inventory.item_storer.slot_changed.connect(_on_slot_changed)
+	for i in range(slots.size()):
+		slots[i].gui_input.connect(_on_slot_gui_input.bind(i))
 	update_inventory_ui()
 	
+func _on_slot_gui_input(event: InputEvent, index: int):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var item_storer = GameManager.player.inventory.item_storer
+		
+		var offset = index - item_storer.item_slot
+		
+		if offset != 0:
+			item_storer.switch_item_slot(offset)
 func update_inventory_ui():
 	var archive = GameManager.player.inventory.item_archive
 
 	# Reset toàn bộ slot trước
 	for slot in slots:
 		slot.clear_slot()
-
 	# Loop 6 slot cố định
 	for i in range(min(archive.size(), slots.size())):
 		var item_data = archive[i]
