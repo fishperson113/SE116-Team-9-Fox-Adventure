@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://cmpjvwi5t014k"]
 
-[ext_resource type="PackedScene" uid="uid://csq7igra0yk41" path="res://scenes/items/weapons/weapon.tscn" id="1_xgwjc"]
-[ext_resource type="Script" uid="uid://u8bbb65rl2i3" path="res://scripts/items/weapons/weapon_blade.gd" id="2_j6y1a"]
+[ext_resource type="PackedScene" uid="uid://csq7igra0yk41" path="res://scenes/collectibles/items/weapons/weapon.tscn" id="1_xgwjc"]
+[ext_resource type="Script" uid="uid://u8bbb65rl2i3" path="res://scripts/collectibles/items/weapons/weapon_blade.gd" id="2_j6y1a"]
 [ext_resource type="Texture2D" uid="uid://bng34woae2g8q" path="res://assets/sprites/characters/foxy/blade/blade_throw_1.png" id="2_nudti"]
-[ext_resource type="PackedScene" uid="uid://d3h2osnbjxaqb" path="res://scenes/items/collectible_items/collectible_blade.tscn" id="3_j6y1a"]
+[ext_resource type="PackedScene" uid="uid://d3h2osnbjxaqb" path="res://scenes/collectibles/items/collectible_items/collectible_blade.tscn" id="3_j6y1a"]
 
 [node name="Blade" instance=ExtResource("1_xgwjc")]
 script = ExtResource("2_j6y1a")

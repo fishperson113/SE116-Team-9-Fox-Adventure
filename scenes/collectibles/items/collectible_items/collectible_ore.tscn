@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3htq6cyenbsi"]
 
-[ext_resource type="PackedScene" uid="uid://djgld28m7mftt" path="res://scenes/items/collectible_items/collectible.tscn" id="1_7547d"]
-[ext_resource type="Script" uid="uid://dmvw1tbkovtie" path="res://scripts/items/collectibles/collectible_ore.gd" id="2_dbohs"]
+[ext_resource type="PackedScene" uid="uid://djgld28m7mftt" path="res://scenes/collectibles/items/collectible_items/collectible.tscn" id="1_7547d"]
+[ext_resource type="Script" uid="uid://dmvw1tbkovtie" path="res://scripts/collectibles/items/collectibles/collectible_ore.gd" id="2_dbohs"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_lyhcw"]
 

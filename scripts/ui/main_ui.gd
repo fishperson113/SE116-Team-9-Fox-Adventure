@@ -1,12 +1,14 @@
 extends CanvasLayer
 
 @onready var num_blade_ui: Label = $"Items/4/NumBlade"
+@onready var num_coin_ui: Label = $"Items/3/NumCoin"
 
 func _ready() -> void:
 	$SettingsButton.connect("button_down", Callable(self, "_on_settings_button_down"))
 	change_blade_ui()
-
+	change_coin_ui()
 	GameManager.modifyBlade.connect(change_blade_ui)
+	GameManager.coinChange.connect(change_coin_ui)
 
 func _on_settings_button_down():
 	var scene = load("res://scenes/ui/Setting.tscn").instantiate()
@@ -23,3 +25,6 @@ func _on_settings_button_down():
 
 func change_blade_ui():
 	num_blade_ui.text = str(GameManager.blade_count)
+	
+func change_coin_ui():
+	num_coin_ui.text= str(GameManager.coin_count)

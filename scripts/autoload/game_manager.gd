@@ -25,9 +25,10 @@ var inventory_data: Array[Dictionary] = []
 
 # How many blades are available?
 var blade_count: int = 50
-
+var coin_count:int = 0
 # Signals
 signal modifyBlade
+signal coinChange
 
 func _ready() -> void:
 	# Load checkpoint data when game starts
@@ -235,6 +236,12 @@ func remove_blades(number_of_blades: int) -> void:
 	if blade_count < 0:
 		blade_count = 0
 	modifyBlade.emit()
+func add_coins(number_of_coins: int) -> void:
+	coin_count += number_of_coins
+	coinChange.emit()
 
+func remove_coins(number_of_coins: int) -> void:
+	coin_count -= number_of_coins
+	coinChange.emit()
 #func get_tutorial_progress() -> bool:
 #	return is_tutorial_finished

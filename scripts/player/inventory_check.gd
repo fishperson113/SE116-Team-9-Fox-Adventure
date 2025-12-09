@@ -12,7 +12,7 @@ func _on_show_inventory_pressed() -> void:
 	pass # Replace with function body.
 
 func _on_return_item_pressed() -> void:
-	player.item_storer.return_item("item_fun", {})
+	#player.item_storer.return_item("item_fun", {})
 	#player.item_storer.return_item()
 	pass # Replace with function body.
 
@@ -21,27 +21,27 @@ func _on_show_slots_button_pressed() -> void:
 	pass # Replace with function body.
 
 func _on_add_weapon_11_pressed() -> void:
-	player.inventory.insert_item("weapon_blade", weapon_1_1)
+	#player.inventory.insert_item("weapon_blade", weapon_1_1)
 	pass # Replace with function body.
 
 func _on_add_weapon_12_pressed() -> void:
-	player.inventory.insert_item("weapon_blade", weapon_1_2)
+	#player.inventory.insert_item("weapon_blade", weapon_1_2)
 	pass # Replace with function body.
 
 func _on_add_weapon_21_pressed() -> void:
-	player.inventory.insert_item("weapon_blade", weapon_2_1)
+	#player.inventory.insert_item("weapon_blade", weapon_2_1)
 	pass # Replace with function body.
 
 func _on_add_slot_weapon_11_pressed() -> void:
-	player.item_storer.add_item("weapon_blade", weapon_1_1)
+	#player.item_storer.add_item("weapon_blade", weapon_1_1)
 	pass # Replace with function body.
 
 func _on_add_slot_weapon_12_pressed() -> void:
-	player.item_storer.add_item("weapon_blade", weapon_1_2)
+	#player.item_storer.add_item("weapon_blade", weapon_1_2)
 	pass # Replace with function body.
 
 func _on_add_slot_weapon_21_pressed() -> void:
-	player.item_storer.add_item("weapon_blade", weapon_2_1)
+	#player.item_storer.add_item("weapon_blade", weapon_2_1)
 	pass # Replace with function body.
 
 func _on_save_inventory_and_slots_pressed() -> void:

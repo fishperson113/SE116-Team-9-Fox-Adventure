@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="3_fg14e"]
 [ext_resource type="Script" uid="uid://ddm6bjtgp8rv3" path="res://scripts/player/inventory_check.gd" id="4_a4nmb"]
 [ext_resource type="PackedScene" uid="uid://bhohtlj321per" path="res://scenes/chests/chest.tscn" id="6_gnscl"]
-[ext_resource type="PackedScene" uid="uid://crkmos1d5bdx3" path="res://scenes/items/collectible_items/collectible_chest_key.tscn" id="6_jf5sl"]
+[ext_resource type="PackedScene" uid="uid://crkmos1d5bdx3" path="res://scenes/collectibles/items/collectible_items/collectible_chest_key.tscn" id="6_jf5sl"]
 [ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="7_2ljwt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_03kx2"]

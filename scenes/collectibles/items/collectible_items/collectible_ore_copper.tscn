@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://lpbsp21eba1u"]
 
-[ext_resource type="PackedScene" uid="uid://d3htq6cyenbsi" path="res://scenes/items/collectible_items/collectible_ore.tscn" id="1_3btqk"]
-[ext_resource type="Script" uid="uid://bebi44o5lk37i" path="res://scripts/items/collectibles/collectible_ore_copper.gd" id="2_61wjo"]
+[ext_resource type="PackedScene" uid="uid://d3htq6cyenbsi" path="res://scenes/collectibles/items/collectible_items/collectible_ore.tscn" id="1_3btqk"]
+[ext_resource type="Script" uid="uid://bebi44o5lk37i" path="res://scripts/collectibles/items/collectibles/collectible_ore_copper.gd" id="2_61wjo"]
 [ext_resource type="Texture2D" uid="uid://j4ii1cxsg13q" path="res://assets/sprites/ore/3970.png" id="2_d0gkl"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_61wjo"]

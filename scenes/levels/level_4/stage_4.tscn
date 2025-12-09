@@ -10,9 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://cf30thpmo45yj" path="res://scenes/enemies/minions/shootables/seahorse.tscn" id="5_n84ud"]
 [ext_resource type="PackedScene" uid="uid://crwb5kl1tn450" path="res://scenes/enemies/minions/shootables/pelican.tscn" id="6_qpij7"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="10_c7rpm"]
-[ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/items/collectible_items/collectible_ore_iron.tscn" id="11_n0rtw"]
-[ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/items/collectible_items/collectible_ore_gold.tscn" id="12_165p0"]
-[ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/items/collectible_items/collectible_ore_copper.tscn" id="13_ks3mc"]
+[ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/collectibles/items/collectible_items/collectible_ore_iron.tscn" id="11_n0rtw"]
+[ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="12_165p0"]
+[ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/collectibles/items/collectible_items/collectible_ore_copper.tscn" id="13_ks3mc"]
 
 [sub_resource type="GDScript" id="GDScript_c7rpm"]
 script/source = "extends Node2D
