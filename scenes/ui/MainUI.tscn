@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://djoolf474qo2p"]
+[gd_scene load_steps=20 format=3 uid="uid://djoolf474qo2p"]
 
 [ext_resource type="Script" uid="uid://bj1vha74m6rd2" path="res://scripts/ui/main_ui.gd" id="1_7s5y6"]
 [ext_resource type="Texture2D" uid="uid://vj2xvbhnt45o" path="res://assets/ui/panels/health_bar.png" id="1_kdubu"]
@@ -18,6 +18,67 @@
 [ext_resource type="Texture2D" uid="uid://dos6hwpl7kq7l" path="res://assets/ui/panels/progress.png" id="12_mjmcw"]
 [ext_resource type="PackedScene" uid="uid://bquisodmhmkdk" path="res://scenes/ui/inventory/Inv_ui.tscn" id="14_jv1lx"]
 [ext_resource type="Script" uid="uid://c2xtf1ss4k7gw" path="res://scripts/ui/texture_progress_bar.gd" id="14_rpv8g"]
+
+[sub_resource type="GDScript" id="GDScript_k3ty2"]
+script/source = "extends PanelContainer
+
+@onready var weapon_name_label: Label = $MarginContainer/VBoxContainer/WeaponName
+@onready var damage_label: Label = $MarginContainer/VBoxContainer/Damage
+@onready var hp_bonus_label: Label = $MarginContainer/VBoxContainer/HPBonus
+@onready var atk_speed_label: Label = $MarginContainer/VBoxContainer/AttackSpeedBonus
+@onready var special_ability_label: Label = $MarginContainer/VBoxContainer/SpecialAbility
+
+# Tùy chỉnh chiều rộng tối đa của bảng thông tin tại đây (tính bằng pixel)
+const MAX_PANEL_WIDTH = 250.0 
+
+func _ready() -> void:
+	# Đảm bảo đường dẫn tới item_storer là đúng
+	GameManager.player.inventory.item_storer.info_panel_change.connect(_update_info_panel)
+	visible = false
+	
+	# --- SETUP TỰ ĐỘNG XUỐNG DÒNG ---
+	# Áp dụng cho label Skill (thường là cái dài nhất)
+	special_ability_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	special_ability_label.custom_minimum_size.x = MAX_PANEL_WIDTH
+	
+	# Nếu tên vũ khí cũng dài, bạn có thể bật luôn cho nó:
+	# weapon_name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	# weapon_name_label.custom_minimum_size.x = MAX_PANEL_WIDTH
+
+func _update_info_panel(weapon_data: WeaponData):
+	if weapon_data == null:
+		visible = false
+		return
+	
+	visible = true
+	
+	# weapon_name_label.text = weapon_data.resource_name.capitalize() 
+	
+	var dmg = weapon_data.get_damage()
+	if dmg > 0:
+		damage_label.text = \"⚔ Damage: %d\" % dmg
+		damage_label.visible = true
+	else:
+		damage_label.visible = false
+
+	var hp = weapon_data.get_max_health()
+	if hp > 0:
+		hp_bonus_label.text = \"♥ Health: +%d\" % hp
+		hp_bonus_label.visible = true
+	else:
+		hp_bonus_label.visible = false
+	
+	var spd = weapon_data.get_attack_speed()
+	atk_speed_label.text = \"⚡ Speed: %.1f\" % spd
+	
+	var skill = weapon_data.get_special_skill()
+	if skill != \"\":
+		special_ability_label.text = \"★ Skill: %s\" % skill.capitalize()
+		special_ability_label.visible = true
+		special_ability_label.modulate = Color.GOLD 
+	else:
+		special_ability_label.visible = false
+"
 
 [node name="MainUI" type="CanvasLayer"]
 script = ExtResource("1_7s5y6")
@@ -210,3 +271,45 @@ texture_under = ExtResource("1_kdubu")
 texture_progress = ExtResource("12_mjmcw")
 texture_progress_offset = Vector2(18, 10)
 script = ExtResource("14_rpv8g")
+
+[node name="InfoUI" type="PanelContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 66.0
+offset_top = -251.0
+offset_right = 280.0
+offset_bottom = -25.0
+grow_vertical = 0
+script = SubResource("GDScript_k3ty2")
+
+[node name="MarginContainer" type="MarginContainer" parent="InfoUI"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InfoUI/MarginContainer"]
+layout_mode = 2
+
+[node name="WeaponName" type="Label" parent="InfoUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Weapon Name"
+
+[node name="Damage" type="Label" parent="InfoUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Damage:"
+
+[node name="HPBonus" type="Label" parent="InfoUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "HP:"
+
+[node name="AttackSpeedBonus" type="Label" parent="InfoUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Attack Speed:"
+
+[node name="SpecialAbility" type="Label" parent="InfoUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Special Ability:"

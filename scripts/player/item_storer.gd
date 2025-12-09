@@ -1,7 +1,7 @@
 extends Node
 class_name ItemStorer
 signal slot_changed(new_slot_index)
-
+signal info_panel_change(weapon_data:WeaponData)
 var number_of_slots: int
 var items_archive: Array[Dictionary]
 
@@ -66,30 +66,20 @@ func switch_item_slot(offset: int) -> void:
 func _equip_current_slot_weapon():
 
 	GameManager.player.unequip_weapon()
+	
 	if not is_slot_available():
+		info_panel_change.emit(null)
 		return
 
 	var item = items_archive[item_slot]
-
-	if not item.has("item_detail"):
-		return
-
-	if item["item_detail"].is_empty():
-		return
-
-	if not item["item_type"].begins_with("weapon_"):
-		return
-
-	# -----------------------------
-	# LOAD RESOURCE TỪ PATH
-	# -----------------------------
 	var path: String = item["item_detail"][0]
 	var weapon: WeaponData = load(path)
+	info_panel_change.emit(weapon)
 
 	if weapon == null:
 		push_error("Failed to load weapon at path: " + path)
 		return
-
+		
 	GameManager.player.equip_weapon(weapon)
 
 
