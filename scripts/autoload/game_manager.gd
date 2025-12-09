@@ -25,7 +25,10 @@ var inventory_data: Array[Dictionary] = []
 
 # How many blades are available?
 var blade_count: int = 50
-var coin_count:int = 0
+var coin_count:int = 50
+#Crafting cost
+var crafting_cost: int = 10
+var is_paid:bool =false
 # Signals
 signal modifyBlade
 signal coinChange
@@ -39,6 +42,24 @@ func _ready() -> void:
 	load_level_progress()
 	pass
 
+func pay_entry_fee() -> bool:
+	if is_paid:
+		return true
+
+	if coin_count >= crafting_cost:
+		remove_coins(crafting_cost)
+		is_paid = true
+		print("GameManager: Đã mua vé craft. (Has Ticket: True)")
+		return true
+	
+	print("GameManager: Không đủ tiền.")
+	return false
+	
+func consume_entry_fee() -> void:
+	if is_paid:
+		is_paid = false
+		print("GameManager: Đã xài xong. (Has Ticket: False)")
+		
 func initialize_systems():
 	await get_tree().process_frame
 

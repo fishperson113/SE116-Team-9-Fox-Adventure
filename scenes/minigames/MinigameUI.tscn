@@ -57,6 +57,7 @@ func _on_assemble_done(path):
 	GameManager.player.inventory.save_inventory()
 	GameManager.player.item_storer.add_item(\"weapon_blade\",path)
 	GameManager.player.item_storer.save_slots()
+	GameManager.consume_entry_fee()
 
 # ============================================================
 # PANEL TRANSITION
