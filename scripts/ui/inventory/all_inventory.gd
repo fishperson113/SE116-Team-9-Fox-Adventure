@@ -4,22 +4,20 @@ class_name AllInventory
 @export var slot_scene: PackedScene
 
 @onready var grid := $NinePatchRect/GridContainer
-var slots: Array = []
+@onready var inventory 
+var slots: Array[Slot] = []
 var is_open := false
 
-
 func _ready():
-	self.visible = false     # inventory ẩn khi bắt đầu
-
-	for c in grid.get_children():
-		c.queue_free()
-
-	slots.clear()
-
-	for i in range(16):
-		create_new_slot()
-
-	refresh()
+	self.visible = false
+		
+	slots = []
+	for child in grid.get_children():
+		if child is Slot:
+			slots.append(child)
+	inventory  = GameManager.player.inventory
+	GameManager.player.inventory.inventory_changed.connect(update_inventory_ui)
+	update_inventory_ui()
 
 
 func _input(event):
@@ -40,41 +38,102 @@ func close_inventory():
 	is_open = false
 
 
-func create_new_slot():
-	var s = slot_scene.instantiate()
-	grid.add_child(s)
-	slots.append(s)
-	return s
-
-
-func refresh():
-	if GameManager.player == null:
-		print("Không tìm thấy player")
-		return
-
+# ---------------------------------------------------------
+# UPDATE UI INVENTORY
+# ---------------------------------------------------------
+func update_inventory_ui():
 	var archive = GameManager.player.inventory.item_archive
 
-	for s in slots:
-		s.clear_slot()
+	# Reset toàn bộ slot trước
+	for slot in slots:
+		slot.clear_slot()
 
+	# Gắn item lên slot
 	for i in range(min(archive.size(), slots.size())):
 		var data = archive[i]
-		if data == {}:
+
+		if data.is_empty():
 			continue
 
-		var item_type = data["item_type"]
-		var details = data["item_detail"]
-		var count = data["count"]
+		var item_type: String = data["item_type"]
+		var detail_list: Array = data["item_detail"]
 
-		if details.size() == 0:
+		if detail_list.is_empty():
 			continue
 
-		var first_detail = details[0]
-		var texture = load(first_detail["texture_path"])
+		var icon := load_icon(item_type, detail_list)
+		var count := detail_list.size()
+		slots[i].parent = inventory
+		slots[i].index = i
+		slots[i].request_move.connect(_on_slot_request_move)
+		slots[i].set_item(icon, item_type, detail_list, count)
 
-		var slot = slots[i]
-		slot.set_item(texture, item_type, first_detail, count)
+func _on_slot_request_move(src_parent, from_index, dst_parent, to_index):
+	if src_parent == dst_parent:
+		src_parent.move(from_index, to_index)
+
+# ---------------------------------------------------------
+# LOAD ICON
+# ---------------------------------------------------------
+func load_icon(item_type: String, item_detail_list: Array) -> Texture2D:
+	return _get_weapon_icon(item_detail_list)
 
 
-func update_inventory_ui():
-	refresh()
+func _get_weapon_icon(item_detail_list: Array) -> Texture2D:
+	var weapon_data = _load_weapon_data(item_detail_list)
+	if not weapon_data:
+		return null
+
+	return _load_texture_from_disk(weapon_data.png_path)
+
+
+func _load_weapon_data(item_detail_list: Array) -> WeaponData:
+	if item_detail_list.is_empty() or not (item_detail_list[0] is String):
+		return null
+	
+	var weapon_path = item_detail_list[0]
+
+	if not ResourceLoader.exists(weapon_path):
+		return null
+
+	return load(weapon_path) as WeaponData
+
+
+func _load_texture_from_disk(path: String) -> Texture2D:
+	if path == "" or not FileAccess.file_exists(path):
+		return null
+
+	var img = Image.load_from_file(path)
+	if img:
+		return ImageTexture.create_from_image(img)
+
+	return null
+
+func _handle_transfer(src_parent, from_index, to_parent, to_index):
+	var src_data = src_parent.item_archive[from_index]
+
+	var item_type = src_data["item_type"]
+	var item_detail = src_data["item_detail"].duplicate(true)
+
+	var dst_data = {}
+	if to_index < to_parent.item_archive.size():
+		dst_data = to_parent.item_archive[to_index]
+
+	if to_index < to_parent.item_archive.size():
+		to_parent.item_archive[to_index] = {
+			"item_type": item_type,
+			"item_detail": item_detail,
+		}
+	else:
+		to_parent.item_archive.append({
+			"item_type": item_type,
+			"item_detail": item_detail,
+		})
+
+	if dst_data.is_empty():
+		src_parent.item_archive.remove_at(from_index)
+	else:
+		src_parent.item_archive[from_index] = dst_data
+
+	src_parent.emit_signal("inventory_changed")
+	to_parent.emit_signal("inventory_changed")

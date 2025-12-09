@@ -42,10 +42,14 @@ func update_inventory_ui():
 
 		var count :int = item_detail_list.size()
 		var icon := load_icon(item_type, item_detail_list)
-
+		slots[i].parent = GameManager.player.item_storer
+		slots[i].index = i
+		slots[i].connect("request_move", Callable(self, "_on_slot_request_move"))
 		slots[i].set_item(icon, item_type, item_detail_list, count)
 
-
+func _on_slot_request_move(parent_node, from_index, to_index):
+	parent_node.move(from_index, to_index)
+	
 func load_icon(item_type: String, item_detail_list: Array) -> Texture2D:
 		return _get_weapon_icon(item_detail_list)
 

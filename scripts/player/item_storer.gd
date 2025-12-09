@@ -176,3 +176,19 @@ func initialize_slots():
 	emit_signal("slot_changed", item_slot)
 
 	print("ItemStorer initialized:", items_archive)
+	
+func move(from: int, to: int):
+	if from == to:
+		return
+	var temp = items_archive[to]
+	items_archive[to] = items_archive[from]
+	items_archive[from] = temp
+	
+	emit_signal("inventory_changed")
+	debug_slots()
+	
+func debug_slots():
+	print("\n=== DEBUG HOTBAR SLOTS ===")
+	for i in range(items_archive.size()):
+		print(i, ": ", items_archive[i])
+	print("==========================\n")

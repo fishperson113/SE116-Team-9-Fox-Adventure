@@ -3,10 +3,15 @@ class_name Slot
 
 @onready var icon: TextureRect = $Icon
 @onready var qty: Label = $Number
+@onready var inventory = GameManager.player.inventory
+@onready var item_storer = GameManager.player.item_storer
+signal request_move(src_parent, from_index, dst_parent, to_index)
 
 var item_type: String = ""
 var item_detail        # Variant (Resource hoặc Dictionary)
 var quantity: int = 0
+var parent
+var index: int
 
 func set_item(texture: Texture2D, type: String, detail, amount: int = 1):
 	icon.texture = texture
@@ -51,6 +56,7 @@ func _get_drag_data(at_position):
 	return data
 
 
+
 func _can_drop_data(at_position, data):
 	return data is Dictionary and data.has("item_type")
 
@@ -60,7 +66,13 @@ func _drop_data(at_position, data):
 
 	if src == self:
 		return
-
+	
+	if parent == src.parent:
+		print(parent)
+		emit_signal("request_move", parent, src.index, parent, index)
+		return
+	else:
+		exchange(src.parent, src.index, parent, index)
 	# Backup current slot
 	var cur_tex = icon.texture
 	var cur_type = item_type
@@ -81,6 +93,27 @@ func _drop_data(at_position, data):
 	else:
 		src.set_item(cur_tex, cur_type, cur_detail, cur_count)
 		
+func exchange(src_parent, src_index, dst_parent, dst_index):
+	var src_data
+	if src_parent == inventory:
+		src_data = inventory.item_archive[src_index]
+	else:
+		src_data = item_storer.items_archive[src_index]
+	var dst_data
+	if dst_parent == inventory:
+		dst_data = inventory.item_archive[dst_index]
+	else:
+		dst_data = item_storer.items_archive[dst_index]
+	if src_parent == inventory and dst_parent == item_storer:
+		inventory.item_archive[src_index] = dst_data
+		item_storer.items_archive[dst_index] = src_data
+	elif src_parent == item_storer and dst_parent == inventory:
+		item_storer.items_archive[src_index] = dst_data
+		inventory.item_archive[dst_index] = src_data
+
+	inventory.inventory_changed.emit()
+	item_storer.slot_changed.emit(dst_index)
+
 func highlight(active: bool):
 	var style := StyleBoxFlat.new()
 
