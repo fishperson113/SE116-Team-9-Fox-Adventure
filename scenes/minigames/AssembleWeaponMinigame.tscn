@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bbh8h6o3fs2r3"]
+[gd_scene load_steps=13 format=3 uid="uid://bbh8h6o3fs2r3"]
 
 [ext_resource type="Texture2D" uid="uid://bnbxan1lc7bpx" path="res://assets/sprites/caldron/mold/422.png" id="1_eix47"]
 [ext_resource type="Texture2D" uid="uid://7qaokb7xej13" path="res://assets/sprites/caldron/mold/443.png" id="2_gp2fn"]
@@ -73,6 +73,15 @@ func reset_minigame():
 	# Reset handler that manages drag & drop
 	if collection_area and collection_area.has_method(\"reset_handler\"):
 		collection_area.reset_handler()
+"
+
+[sub_resource type="GDScript" id="GDScript_0cft4"]
+script/source = "extends Control
+func _ready():
+	gui_input.connect(func(event):
+		if event is InputEventMouseButton and event.pressed:
+			print(\"Assemble Area đã nhận được Click! -> Mouse path thông thoáng\")
+	)
 "
 
 [sub_resource type="Animation" id="Animation_gp2fn"]
@@ -424,6 +433,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
+script = SubResource("GDScript_0cft4")
 
 [node name="Closed" type="TextureRect" parent="MainLayout/AssembleArea"]
 layout_mode = 1
@@ -484,6 +494,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("4_gp2fn")
 database = ExtResource("5_0cft4")
 
