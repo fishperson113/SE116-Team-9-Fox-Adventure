@@ -6,10 +6,10 @@ extends Node
 var weapon_detail: Resource
 var weapon: PackedScene
 
-var max_dir_vector: Vector2 = Vector2(1, 1)
-var dir_vector: Vector2 = Vector2(0, 0)
-var dir_change_rate: float = 0.5
-var is_dir_inspected: bool = false
+var max_dir_vector: Vector2 = Vector2(1, -0.1)
+var start_dir_vector: Vector2 = Vector2(0.1, -0.1)
+var dir_vector: Vector2 = Vector2(0, -0.1)
+var dir_change_rate: float = 0.01
 
 var speed: float = 1000
 var gravity: float = 300
@@ -18,19 +18,10 @@ var gravity: float = 300
 @onready var player: Player = $".."
 
 func _ready() -> void:
+	dir_vector = start_dir_vector
+	
 	weapon = preload("res://scenes/collectibles/items/weapons/weapon_blade.tscn")
 	weapon_detail = load("res://data/weapon/blade_throws/weapon_blade_throw.tres")
-	pass
-
-func _process(delta: float) -> void:
-	if Input.get_action_strength("left"):
-		dir_vector.x -= dir_change_rate * delta
-	if Input.get_action_strength("right"):
-		dir_vector.x += dir_change_rate * delta
-	if Input.get_action_strength("up"):
-		dir_vector.y -= dir_change_rate * delta
-	if Input.get_action_strength("down"):
-		dir_vector.y += dir_change_rate * delta
 	pass
 
 func change_weapon() -> void:
@@ -44,38 +35,28 @@ func find_throw_direction(delta: float) -> void:
 		return
 	
 	inspect_direction()
+	update_direction()
 	trajectory_line.visible = true
-	#dir_vector += Vector2(dir_vector.x, dir_vector.y)
-	
-	if dir_vector.x < -max_dir_vector.x:
-		dir_vector.x = -max_dir_vector.x
-	elif dir_vector.x > max_dir_vector.x:
-		dir_vector.x = max_dir_vector.x
-	
-	if dir_vector.x < 0:
-		player.change_direction(-1)
-	else:
-		player.change_direction(1)
-	
-	if dir_vector.y < -max_dir_vector.y:
-		dir_vector.y = -max_dir_vector.y
-	elif dir_vector.y > max_dir_vector.y:
-		dir_vector.y = max_dir_vector.y
 	
 	trajectory_line.update_trajectory(dir_vector, speed, gravity, delta)
 
 func stop_find_throw_direction() -> void:
 	throw_projectile()
 	trajectory_line.visible = false
-	is_dir_inspected = false
 
 func inspect_direction() -> void:
-	if not is_dir_inspected:
-		if player.direction == -1 and dir_vector.x > 0:
-			dir_vector.x = -dir_vector.x
-		elif player.direction == 1 and dir_vector.x < 0:
-			dir_vector.x = -dir_vector.x
-		is_dir_inspected = true
+	if player.direction == -1 and dir_vector.x > 0:
+		dir_vector.x = -dir_vector.x
+	elif player.direction == 1 and dir_vector.x < 0:
+		dir_vector.x = -dir_vector.x
+	pass
+
+func update_direction() -> void:
+	dir_vector.x += (dir_change_rate * player.direction)
+	if dir_vector.x < -max_dir_vector.x:
+		dir_vector.x = -max_dir_vector.x
+	elif dir_vector.x > max_dir_vector.x:
+		dir_vector.x = max_dir_vector.x
 	pass
 
 func throw_projectile() -> void:
@@ -92,4 +73,5 @@ func throw_projectile() -> void:
 		weapon_thrown.set_attacker()
 		get_tree().current_scene.add_child(weapon_thrown)
 		GameManager.remove_blades(1)
+		dir_vector = start_dir_vector
 	pass

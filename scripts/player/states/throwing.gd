@@ -6,7 +6,7 @@ func _enter() -> void:
 	pass
 
 func _update(_delta: float) -> void:
-	#control_moving()
+	control_moving()
 	if !control_throwing(_delta):
 		if !obj.is_on_floor():
 			change_state(fsm.states.fall)
