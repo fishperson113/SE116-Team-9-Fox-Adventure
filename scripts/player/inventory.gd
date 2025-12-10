@@ -10,7 +10,6 @@ func _ready() -> void:
 	item_archive = GameManager.inventory_data
 	pass
 
-
 func show_item_archive() -> void:
 	if len(item_archive) == 0:
 		print("No item in inventory")
@@ -141,3 +140,19 @@ func remove_item(item_type: String, item_path: String) -> void:
 func save_inventory() -> void:
 	GameManager.inventory_data = item_archive.duplicate(true)
 	GameManager.save_inventory_data()
+	
+func move(from: int, to: int):
+	if from == to:
+		return
+	var temp = item_archive[to]
+	item_archive[to] = item_archive[from]
+	item_archive[from] = temp
+
+	emit_signal("inventory_changed")
+	debug_inventory()
+	
+func debug_inventory():
+	print("\n=== DEBUG INVENTORY ===")
+	for i in range(item_archive.size()):
+		print(i, ": ", item_archive[i])
+	print("========================\n")

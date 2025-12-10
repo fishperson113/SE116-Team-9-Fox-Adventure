@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://djoolf474qo2p"]
+[gd_scene load_steps=21 format=3 uid="uid://djoolf474qo2p"]
 
 [ext_resource type="Script" uid="uid://bj1vha74m6rd2" path="res://scripts/ui/main_ui.gd" id="1_7s5y6"]
 [ext_resource type="Texture2D" uid="uid://vj2xvbhnt45o" path="res://assets/ui/panels/health_bar.png" id="1_kdubu"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://dos6hwpl7kq7l" path="res://assets/ui/panels/progress.png" id="12_mjmcw"]
 [ext_resource type="PackedScene" uid="uid://bquisodmhmkdk" path="res://scenes/ui/inventory/Inv_ui.tscn" id="14_jv1lx"]
 [ext_resource type="Script" uid="uid://c2xtf1ss4k7gw" path="res://scripts/ui/texture_progress_bar.gd" id="14_rpv8g"]
+[ext_resource type="PackedScene" uid="uid://ibceon5tf4v2" path="res://scenes/ui/inventory/AllInventory.tscn" id="19_dg873"]
 
 [sub_resource type="GDScript" id="GDScript_k3ty2"]
 script/source = "extends PanelContainer
@@ -313,3 +314,12 @@ text = "Attack Speed:"
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Special Ability:"
+
+[node name="AllInventory" parent="." instance=ExtResource("19_dg873")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2

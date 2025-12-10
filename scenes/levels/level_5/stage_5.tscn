@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://b4he3cnf7cpbq"]
+[gd_scene load_steps=23 format=4 uid="uid://b4he3cnf7cpbq"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_3l2kx"]
 [ext_resource type="PackedScene" uid="uid://bu0ebjvtvbb4j" path="res://scenes/levels/area_unlockers/area_unlocker_enemies.tscn" id="2_lyf21"]
@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="5_th0hk"]
 [ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/collectibles/items/collectible_items/collectible_ore_iron.tscn" id="6_js4gn"]
 [ext_resource type="PackedScene" uid="uid://caj73aiw7tf22" path="res://scenes/enemies/minions/melees/big_aborigine.tscn" id="6_njy1a"]
-[ext_resource type="Script" uid="uid://dpd1hu8tkk1y4" path="res://scripts/utils/threat_indicator_area_2d.gd" id="6_txxkb"]
+[ext_resource type="Script" path="res://scripts/utils/threat_indicator_area_2d.gd" id="6_txxkb"]
 [ext_resource type="PackedScene" uid="uid://cvdklsb743i1l" path="res://scenes/ui/markers/threat_marker.tscn" id="7_e1o38"]
 [ext_resource type="PackedScene" uid="uid://ddc86ootpum2i" path="res://scenes/enemies/bosses/warlord_turtle/warlord_turtle.tscn" id="7_txxkb"]
 [ext_resource type="PackedScene" uid="uid://cv7h7e7s07r0m" path="res://scenes/enemies/spawners/time_spawner.tscn" id="8_e1o38"]
@@ -92,7 +92,6 @@ collision_layer = 0
 collision_mask = 128
 script = ExtResource("6_txxkb")
 marker = ExtResource("7_e1o38")
-metadata/_custom_type_script = "uid://dpd1hu8tkk1y4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/ThreadIndicatorArea2D"]
 shape = SubResource("RectangleShape2D_am3rg")
@@ -446,11 +445,6 @@ objects = Array[PackedScene]([ExtResource("9_am3rg")])
 
 [node name="Obstacles" type="Node2D" parent="."]
 
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/Checkpoint" to="TileMapLayers/FunctionalTileMapLayer/Checkpoint" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@32280" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@32280" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@32409" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@32409" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@32410" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@32410" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@32411" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@32411" method="_on_body_entered"]
 [node name="Resources" type="Node2D" parent="."]
 
 [node name="Irons" type="Node2D" parent="Resources"]

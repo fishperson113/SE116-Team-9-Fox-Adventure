@@ -509,13 +509,6 @@ scale = Vector2(5.50782, 2)
 texture = ExtResource("13_kp3hl")
 centered = false
 
-[editable path="World/AreaUnlockerEnemies"]
-[editable path="World/AreaUnlockerEnemies2"]
-[editable path="World/AreaUnlockerEnemies3"]
-[editable path="World/AreaUnlockerEnemies4"]
-[editable path="World/AreaUnlockerEnemies5"]
-[editable path="World/AreaUnlockerEnemies6"]
-[editable path="World/AreaUnlockerEnemies7"]
 [editable path="World/Spawner"]
 [editable path="World/Spawner2"]
 [editable path="World/Spawner3"]
