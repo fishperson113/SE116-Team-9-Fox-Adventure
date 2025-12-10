@@ -440,10 +440,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vkc6f"]
-size = Vector2(15, 28)
+size = Vector2(29, 28)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wuxn4"]
-radius = 74.0068
+radius = 107.005
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_trum3"]
 height = 28.0
@@ -473,7 +473,7 @@ script = ExtResource("67_s4k4a")
 metadata/_custom_type_script = "uid://dkb25vr64v37l"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/HitArea2D"]
-position = Vector2(16.5, 1)
+position = Vector2(23.5, 1)
 shape = SubResource("RectangleShape2D_vkc6f")
 
 [node name="WideHitArea2D" type="Area2D" parent="Direction"]
