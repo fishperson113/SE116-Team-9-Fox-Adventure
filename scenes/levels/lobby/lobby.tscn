@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://clfqragev0x8n"]
+[gd_scene load_steps=26 format=4 uid="uid://clfqragev0x8n"]
 
 [ext_resource type="Script" uid="uid://cpp12lpg4jtvk" path="res://scenes/levels/lobby/lobby.gd" id="1_lds41"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_xex7k"]
@@ -17,10 +17,12 @@
 [ext_resource type="Texture2D" uid="uid://dk1yqrsmjaho1" path="res://assets/sprites/tutorial/tutorial_double_jump.png" id="8_m7q2q"]
 [ext_resource type="Texture2D" uid="uid://cti54mjf5djfs" path="res://assets/sprites/tutorial/tutorial_emphasize_crafting.png" id="9_t1qjs"]
 [ext_resource type="Texture2D" uid="uid://cegslfm3qheed" path="res://assets/sprites/tutorial/tutorial_interact.png" id="10_8rmxw"]
-[ext_resource type="Texture2D" uid="uid://6c0ebdmt6oqp" path="res://assets/sprites/tutorial/tutorial_unequip.png" id="11_1iqgf"]
-[ext_resource type="Texture2D" uid="uid://do1wo8a3hg1v0" path="res://assets/sprites/tutorial/tutorial_attack.png" id="12_7nx20"]
-[ext_resource type="Texture2D" uid="uid://bd2tt014icggb" path="res://assets/sprites/tutorial/tutorial_throw_blade.png" id="13_7dncq"]
+[ext_resource type="Texture2D" uid="uid://cdna8lhbjf4ac" path="res://assets/sprites/tutorial/tutorial_inventory.png" id="14_7nx20"]
 [ext_resource type="Texture2D" uid="uid://bqywg27uvx6ek" path="res://assets/sprites/tutorial/tutorial_special_action.png" id="14_yhktf"]
+[ext_resource type="Texture2D" uid="uid://dfxeq3mgimrs4" path="res://assets/sprites/tutorial/tutorial_open_inventory.png" id="15_7dncq"]
+[ext_resource type="Texture2D" uid="uid://cg0b3jv5jwy0q" path="res://assets/sprites/tutorial/inventory_change_slots.png" id="16_yhktf"]
+[ext_resource type="Texture2D" uid="uid://lyui763qwpd7" path="res://assets/sprites/tutorial/tutorial_attack_2.png" id="17_7nx20"]
+[ext_resource type="Texture2D" uid="uid://dissxrq012sdw" path="res://assets/sprites/tutorial/tutorial_throw_2.png" id="18_7dncq"]
 
 [sub_resource type="Resource" id="Resource_1iqgf"]
 script = ExtResource("5_8rmxw")
@@ -60,7 +62,7 @@ position = Vector2(2334, 32)
 position = Vector2(1906, -8)
 
 [node name="Anvil" parent="World" node_paths=PackedStringArray("miniggame_ui", "material_panel") instance=ExtResource("7_c0qtq")]
-position = Vector2(924, 18)
+position = Vector2(900, 18)
 miniggame_ui = NodePath("../../MainUI/MinigameUI")
 material_panel = NodePath("../../MainUI/MaterialSelectPopup")
 
@@ -84,29 +86,39 @@ scale = Vector2(0.2, 0.2)
 texture = ExtResource("8_m7q2q")
 
 [node name="Interact2" type="Sprite2D" parent="Tutorials"]
-position = Vector2(1019, -45)
+position = Vector2(900, -45)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("9_t1qjs")
 
 [node name="Interact" type="Sprite2D" parent="Tutorials"]
-position = Vector2(925, -3)
+position = Vector2(900, -3)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("10_8rmxw")
 
-[node name="Unequip" type="Sprite2D" parent="Tutorials"]
-position = Vector2(1108, -3)
+[node name="Inventory" type="Sprite2D" parent="Tutorials"]
+position = Vector2(1122, -45)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("14_7nx20")
+
+[node name="OpenInventory" type="Sprite2D" parent="Tutorials"]
+position = Vector2(1055, -3)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("11_1iqgf")
+texture = ExtResource("15_7dncq")
+
+[node name="ChangeSlots" type="Sprite2D" parent="Tutorials"]
+position = Vector2(1155, -3)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("16_yhktf")
 
 [node name="Attack" type="Sprite2D" parent="Tutorials"]
 position = Vector2(1384, -3)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("12_7nx20")
+texture = ExtResource("17_7nx20")
 
 [node name="ThrowBlade" type="Sprite2D" parent="Tutorials"]
 position = Vector2(1518, -50)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("13_7dncq")
+texture = ExtResource("18_7dncq")
 
 [node name="SpecialAttack" type="Sprite2D" parent="Tutorials"]
 position = Vector2(1658, -3)

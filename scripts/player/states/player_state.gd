@@ -21,7 +21,7 @@ func control_moving() -> bool:
 		
 	var dir: float = Input.get_action_strength("right") - Input.get_action_strength("left")
 	var is_moving: bool = abs(dir) > 0.1
-	if is_moving and obj.fsm.current_state != fsm.states.throwing:
+	if is_moving:
 		dir = sign(dir)
 		obj.change_direction(dir)
 		obj.internal_force.x = obj.movement_speed * dir

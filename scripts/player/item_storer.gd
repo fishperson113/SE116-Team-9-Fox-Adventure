@@ -14,11 +14,29 @@ func _init() -> void:
 	number_of_slots = GameManager.slots_size
 	items_archive.resize(number_of_slots)
 
+func _input(event):
+	if event is not InputEventMouseButton or not event.pressed:
+		return
+		
+	match event.button_index:
+		MOUSE_BUTTON_WHEEL_UP:
+			switch_item_slot(-1)
+		MOUSE_BUTTON_WHEEL_DOWN:
+			switch_item_slot(1)
+
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("change_slot_left"):
-		switch_item_slot(-1)
-	elif Input.is_action_just_pressed("change_slot_right"):
-		switch_item_slot(1)
+	if Input.is_action_just_pressed("change_slot_1"):
+		switch_item_slot_manually(0)
+	elif Input.is_action_just_pressed("change_slot_2"):
+		switch_item_slot_manually(1)
+	elif Input.is_action_just_pressed("change_slot_3"):
+		switch_item_slot_manually(2)
+	elif Input.is_action_just_pressed("change_slot_4"):
+		switch_item_slot_manually(3)
+	elif Input.is_action_just_pressed("change_slot_5"):
+		switch_item_slot_manually(4)
+	elif Input.is_action_just_pressed("change_slot_6"):
+		switch_item_slot_manually(5)
 
 
 # ---------------------------------------------------------
@@ -59,6 +77,15 @@ func switch_item_slot(offset: int) -> void:
 	emit_signal("slot_changed", item_slot)
 	print("Switched to slot ", item_slot, "\n", items_archive[item_slot])
 
+func switch_item_slot_manually(slot_num: int) -> void:
+	if slot_num < 0 or slot_num >= number_of_slots:
+		return
+	
+	item_slot = slot_num
+	_equip_current_slot_weapon()
+
+	emit_signal("slot_changed", item_slot)
+	print("Switched to slot ", item_slot, "\n", items_archive[item_slot])
 
 # ---------------------------------------------------------
 # EQUIP WEAPON → load resource từ path string

@@ -1,6 +1,10 @@
 extends Panel
 class_name Slot
 
+@onready var highlighted_icon: CompressedTexture2D = preload("res://assets/ui/inventory/inventory_icon_highlighted.png")
+@onready var non_highlighted_icon: CompressedTexture2D = preload("res://assets/ui/inventory/inventory_icon_not_highlighted.png")
+
+@onready var background: TextureRect = $Background
 @onready var icon: TextureRect = $Icon
 @onready var qty: Label = $Number
 @onready var inventory = GameManager.player.inventory
@@ -117,26 +121,30 @@ func exchange(src_parent, src_index, dst_parent, dst_index):
 func highlight(active: bool):
 	var style := StyleBoxFlat.new()
 
-	style.corner_radius_top_left = 8
-	style.corner_radius_top_right = 8
-	style.corner_radius_bottom_left = 8
-	style.corner_radius_bottom_right = 8
+	style.corner_radius_top_left = 16
+	style.corner_radius_top_right = 16
+	style.corner_radius_bottom_left = 16
+	style.corner_radius_bottom_right = 16
 
 	style.border_width_left = 0
 	style.border_width_right = 0
 	style.border_width_top = 0
 	style.border_width_bottom = 0
+	
+	background.texture = non_highlighted_icon
 
 	if active:
-		style.border_color = Color.hex(0xBBCB64)
+		style.border_color = Color.WHITE
 		style.border_width_left = 3
 		style.border_width_right = 3
 		style.border_width_top = 3
 		style.border_width_bottom = 3
 
 		# Glow neon
-		style.shadow_color = Color.hex(0xBBCB64)
-		style.shadow_size = 10
+		style.shadow_color = Color.WHITE
+		style.shadow_size = 4
+		
+		background.texture = highlighted_icon
 	else:
 		style.shadow_size = 0
 

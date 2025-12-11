@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://gvvexixu8mup"]
 
-[ext_resource type="Texture2D" uid="uid://bm66ag0j7y3qi" path="res://assets/ui/panels/popup.png" id="1_av6gd"]
 [ext_resource type="Script" uid="uid://fjoapnn7xc3g" path="res://scripts/ui/inventory/slot.gd" id="1_vu2q6"]
+[ext_resource type="Texture2D" uid="uid://elwhd3mi6aql" path="res://assets/ui/inventory/inventory_icon_not_highlighted.png" id="2_vu2q6"]
 [ext_resource type="Script" uid="uid://jp0mafdye28r" path="res://scripts/ui/inventory/texture_rect.gd" id="3_gysbr"]
 
 [node name="Slot" type="Panel"]
@@ -18,7 +18,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("1_av6gd")
+texture = ExtResource("2_vu2q6")
 stretch_mode = 5
 
 [node name="Icon" type="TextureRect" parent="."]
