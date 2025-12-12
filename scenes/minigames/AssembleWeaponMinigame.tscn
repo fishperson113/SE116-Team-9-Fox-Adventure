@@ -38,6 +38,16 @@ func start_assemble(part_id: String, material: String) -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if(anim_name==\"reveal\"):
 		_reveal_blade()
+	elif anim_name == \"blade_move\":
+		
+		# 1. Cho phép input (kéo thả)
+		input_enabled = true
+		
+		# 2. Bây giờ mới ra lệnh cho Collection Area hiện đồ
+		if collection_area:
+			collection_area.populate_parts()
+			
+		print(\"Blade animation done. UI Populated & Input enabled.\")
 
 func _reveal_blade() -> void:
 	# Add the part that SmeltOre passed in
@@ -47,10 +57,10 @@ func _reveal_blade() -> void:
 	anim.play(\"blade_move\")
 
 	# Only enable drag-drop when done
-	var t := create_tween()
-	t.finished.connect(func():
-		input_enabled = true
-	)
+	#var t := create_tween()
+	#t.finished.connect(func():
+		#input_enabled = true
+	#)
 	
 func reset_minigame():
 	# Reset internal flags
