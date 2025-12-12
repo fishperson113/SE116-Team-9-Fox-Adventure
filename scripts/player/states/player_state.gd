@@ -127,5 +127,4 @@ func add_jump_effect(pos: Vector2):
 	add_child(jump_fx)
 	
 func control_unequip():
-	if Input.is_action_pressed("unequip") and obj.is_equipped:
-		obj.unequip_weapon()
+	pass

@@ -62,8 +62,8 @@ func _on_assemble_done(path):
 	print(\"Assemble finished → exported to: \", path)
 	close()
 	
-	GameManager.player.inventory.insert_item(\"weapon_blade\",path)
-	GameManager.player.inventory.save_inventory()
+	#GameManager.player.inventory.insert_item(\"weapon_blade\",path)
+	#GameManager.player.inventory.save_inventory()
 	GameManager.player.item_storer.add_item(\"weapon_blade\",path)
 	GameManager.player.item_storer.save_slots()
 	GameManager.finalize_crafting()
