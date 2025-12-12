@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c1ojnmhr1sm5l"]
+[gd_scene load_steps=18 format=3 uid="uid://c1ojnmhr1sm5l"]
 
 [ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_cq6ry"]
 [ext_resource type="Script" uid="uid://b2dyf0uvypchb" path="res://scripts/enemies/abstracts/minion.gd" id="2_65vyy"]
@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://di7pg4ow6n6rv" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_01.png" id="5_n0mlq"]
 [ext_resource type="Texture2D" uid="uid://ro22qcieewjs" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_02.png" id="6_f4ybn"]
 [ext_resource type="Texture2D" uid="uid://cmig7rvc1vfn2" path="res://assets/sprites/enemies/monsters/mushroom/mushroom_03.png" id="7_545sw"]
+[ext_resource type="PackedScene" uid="uid://dqeyhetii8sb0" path="res://scenes/levels/loot_system/drop_data.tscn" id="9_g7ksb"]
+[ext_resource type="Script" uid="uid://bvmayktwi2sq6" path="res://scenes/levels/loot_system/dropable.gd" id="10_6yiiv"]
+[ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/collectibles/items/collectible_items/collectible_ore_copper.tscn" id="11_ecuxs"]
+[ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/collectibles/items/collectible_items/collectible_ore_iron.tscn" id="12_5m3jo"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qdbxi"]
 animations = [{
@@ -46,6 +50,18 @@ size = Vector2(20, 23)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhuc4"]
 size = Vector2(12, 23)
 
+[sub_resource type="Resource" id="Resource_grkx3"]
+script = ExtResource("10_6yiiv")
+item = ExtResource("11_ecuxs")
+weight = 1
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_fqy0h"]
+script = ExtResource("10_6yiiv")
+item = ExtResource("12_5m3jo")
+weight = 1
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
 [node name="Mushroom" groups=["melee"] instance=ExtResource("1_cq6ry")]
 script = ExtResource("2_65vyy")
 initial_state = 0
@@ -70,3 +86,8 @@ shape = SubResource("RectangleShape2D_rl72c")
 visible = false
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_bhuc4")
+
+[node name="DropData" parent="." index="5" instance=ExtResource("9_g7ksb")]
+min_drop = 1
+max_drop = 3
+drop_table = Array[ExtResource("10_6yiiv")]([SubResource("Resource_grkx3"), SubResource("Resource_fqy0h")])
