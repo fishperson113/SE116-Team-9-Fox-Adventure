@@ -45,25 +45,26 @@ func _process(delta: float) -> void:
 # ---------------------------------------------------------
 func add_item(item_type: String, item_path: String) -> bool:
 	for i in range(number_of_slots):
+		print("SLOT DATA: ", item_archive)
 
-		# Slot trống → nhét vào
+		# Slot trống → thêm item
 		if not item_archive[i].has("item_type"):
 			item_archive[i] = {
 				"item_type": item_type,
 				"item_detail": [item_path]
 			}
-			print("Successfully added an object from inventory")
+			emit_signal("slot_changed", i)
 			return true
 
-		# Slot chứa cùng item_type & không phải weapon → stack
+		# Nếu stack được (không phải weapon)
 		elif not is_slot_weapon(i) and item_archive[i]["item_type"] == item_type:
 			item_archive[i]["item_detail"].append(item_path)
-			print("Successfully added an object from inventory")
+			emit_signal("slot_changed", i)
 			return true
+	
+	# Không còn slot phù hợp
+	return false
 
-	# Nếu không có slot phù hợp → trả về inventory
-	inventory.insert_item(item_type, item_path)
-	return true
 
 func switch_item_slot(offset: int) -> void:
 	if item_slot + offset < 0:
@@ -189,6 +190,8 @@ func show_slots() -> void:
 func save_slots() -> void:
 	GameManager.slots_data = item_archive.duplicate(true)
 	GameManager.save_slots_data()
+	for i in range(number_of_slots):
+		emit_signal("slot_changed", i)
 	switch_item_slot(item_slot)
 
 
@@ -199,20 +202,38 @@ func initialize_slots():
 		item_archive.resize(number_of_slots)
 		for i in range(number_of_slots):
 			item_archive[i] = {}
+	
+	for i in range(number_of_slots):
+		emit_signal("slot_changed", i)
 
 	_equip_current_slot_weapon()
 	emit_signal("slot_changed", item_slot)
 
-	print("ItemStorer initialized:", item_archive)
+	print("itemtorer initialized:", item_archive)
 	
 func move(from: int, to: int):
 	if from == to:
 		return
+	
+	if from < 0 or from >= number_of_slots or to < 0 or to >= number_of_slots:
+		printerr(" Invalid slot indices: from=", from, " to=", to)
+		return
+	
+	# Swap
 	var temp = item_archive[to]
 	item_archive[to] = item_archive[from]
 	item_archive[from] = temp
 	
-	emit_signal("inventory_changed")
+	if from == item_slot:
+		item_slot = to
+	elif to == item_slot:
+		item_slot = from
+	
+	emit_signal("slot_changed", from)
+	emit_signal("slot_changed", to)
+	
+	_equip_current_slot_weapon()
+	
 	debug_slots()
 	
 func debug_slots():
@@ -222,7 +243,7 @@ func debug_slots():
 	print("==========================\n")
 	
 func destroy_current_item():
-	print("ItemStorer: Destroying item in slot ", item_slot)
+	print("itemtorer: Destroying item in slot ", item_slot)
 	
 	item_archive[item_slot] = {}
 	

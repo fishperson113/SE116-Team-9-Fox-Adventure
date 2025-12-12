@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://jp0mafdye28r" path="res://scripts/ui/inventory/texture_rect.gd" id="3_gysbr"]
 
 [node name="Slot" type="Panel"]
+z_index = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0

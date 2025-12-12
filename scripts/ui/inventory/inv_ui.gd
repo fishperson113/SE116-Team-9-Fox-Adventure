@@ -10,18 +10,21 @@ func _ready() -> void:
 	GameManager.player.item_storer.item_destroyed.connect(_on_item_destroyed)
 	for i in range(slots.size()):
 		slots[i].gui_input.connect(_on_slot_gui_input.bind(i))
+		slots[i].parent = GameManager.player.item_storer
+		slots[i].index = i
+		
+		# Connect signal move
+		if not slots[i].request_move.is_connected(_on_slot_request_move):
+			slots[i].request_move.connect(_on_slot_request_move)
 	update_inventory_ui()
 	
 func _on_slot_gui_input(event: InputEvent, index: int):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var item_storer = GameManager.player.item_storer
+		var item_storer = GameManager.player.inventory.item_storer
+		item_storer.switch_item_slot_manually(index)
 		
-		var offset = index - item_storer.item_slot
-		
-		if offset != 0:
-			item_storer.switch_item_slot(offset)
 func update_inventory_ui():
-	var archive = GameManager.player.inventory.item_storer.item_archive
+	var archive = GameManager.player.item_storer.item_archive
 
 	# Reset toàn bộ slot trước
 	for slot in slots:
@@ -43,9 +46,6 @@ func update_inventory_ui():
 
 		var count :int = item_detail_list.size()
 		var icon := load_icon(item_type, item_detail_list)
-		slots[i].parent = GameManager.player.item_storer
-		slots[i].index = i
-		slots[i].connect("request_move", Callable(self, "_on_slot_request_move"))
 		slots[i].set_item(icon, item_type, item_detail_list, count)
 
 func _on_slot_request_move(parent_node, from_index, to_index):
