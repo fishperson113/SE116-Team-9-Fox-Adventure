@@ -271,54 +271,54 @@ position = Vector2(7820, 8431)
 
 [node name="Pelican" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
 position = Vector2(599, -238)
-sight = 300.0
 left_bound = 200.0
 right_bound = 2150.0
+sight = 300.0
 
 [node name="Pelican2" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
 position = Vector2(837, -292)
-initial_direction = 1
-sight = 300.0
 left_bound = 200.0
 right_bound = 2150.0
+initial_direction = 1
+sight = 300.0
 
 [node name="Pelican3" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
 position = Vector2(1488, -266)
-initial_direction = 1
-sight = 300.0
 left_bound = 200.0
 right_bound = 2150.0
+initial_direction = 1
+sight = 300.0
 
 [node name="Pelican4" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
 position = Vector2(1914, -215)
-sight = 300.0
 left_bound = 200.0
 right_bound = 2150.0
+sight = 300.0
 
 [node name="Pelican5" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
 position = Vector2(2609, -204)
-sight = 3000.0
-movement_speed = 90.0
 bullet_impulse = Vector2(25, -200)
 left_bound = 2490.0
 right_bound = 3100.0
+sight = 3000.0
+movement_speed = 90.0
 
 [node name="Pelican7" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
 position = Vector2(2856, -204)
-sight = 3000.0
-movement_speed = 90.0
 bullet_impulse = Vector2(25, -200)
 left_bound = 2490.0
 right_bound = 3100.0
+sight = 3000.0
+movement_speed = 90.0
 
 [node name="Pelican6" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
 position = Vector2(2720, -154)
-initial_direction = 1
-sight = 3000.0
-movement_speed = 90.0
 bullet_impulse = Vector2(25, -200)
 left_bound = 2490.0
 right_bound = 3100.0
+initial_direction = 1
+sight = 3000.0
+movement_speed = 90.0
 
 [node name="Aborigines" type="Node2D" parent="Enemies"]
 

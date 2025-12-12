@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://djoolf474qo2p"]
+[gd_scene load_steps=25 format=3 uid="uid://djoolf474qo2p"]
 
 [ext_resource type="Script" uid="uid://bj1vha74m6rd2" path="res://scripts/ui/main_ui.gd" id="1_7s5y6"]
 [ext_resource type="Texture2D" uid="uid://vj2xvbhnt45o" path="res://assets/ui/panels/health_bar.png" id="1_kdubu"]
@@ -19,6 +19,14 @@
 [ext_resource type="PackedScene" uid="uid://bquisodmhmkdk" path="res://scenes/ui/inventory/Inv_ui.tscn" id="14_jv1lx"]
 [ext_resource type="Script" uid="uid://c2xtf1ss4k7gw" path="res://scripts/ui/texture_progress_bar.gd" id="14_rpv8g"]
 [ext_resource type="PackedScene" uid="uid://ibceon5tf4v2" path="res://scenes/ui/inventory/AllInventory.tscn" id="19_dg873"]
+[ext_resource type="Texture2D" uid="uid://cr83qurn2evck" path="res://assets/ui/panels/skill_bar.png" id="19_l0rvw"]
+[ext_resource type="Texture2D" uid="uid://dlxhd2aq6c8vv" path="res://assets/ui/panels/skill_progress.png" id="20_6lw4s"]
+[ext_resource type="Texture2D" uid="uid://doloqid0kscci" path="res://assets/ui/panels/countdown_bar.png" id="21_6lw4s"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_6lw4s"]
+font_size = 25
+shadow_size = 6
+shadow_color = Color(0.241695, 0.197101, 0.0622945, 1)
 
 [sub_resource type="GDScript" id="GDScript_k3ty2"]
 script/source = "extends PanelContainer
@@ -129,6 +137,7 @@ text = "0"
 vertical_alignment = 1
 
 [node name="2" type="HBoxContainer" parent="Items"]
+visible = false
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -277,6 +286,43 @@ value = 40.0
 texture_under = ExtResource("1_kdubu")
 texture_progress = ExtResource("12_mjmcw")
 texture_progress_offset = Vector2(18, 10)
+script = ExtResource("14_rpv8g")
+
+[node name="SpecialSkillBar" type="TextureProgressBar" parent="."]
+offset_left = 213.0
+offset_top = 27.0
+offset_right = 486.0
+offset_bottom = 82.0
+scale = Vector2(0.65, 0.65)
+value = 100.0
+texture_under = ExtResource("19_l0rvw")
+texture_progress = ExtResource("20_6lw4s")
+script = ExtResource("14_rpv8g")
+
+[node name="ProgressText" type="Label" parent="SpecialSkillBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -8.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0/0"
+label_settings = SubResource("LabelSettings_6lw4s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpecialSkillCountDown" type="TextureProgressBar" parent="."]
+offset_left = 213.0
+offset_top = 59.0
+offset_right = 486.0
+offset_bottom = 114.0
+scale = Vector2(0.65, 0.15)
+step = 0.1
+value = 100.0
+texture_under = ExtResource("19_l0rvw")
+texture_progress = ExtResource("21_6lw4s")
 script = ExtResource("14_rpv8g")
 
 [node name="InfoUI" type="PanelContainer" parent="."]
