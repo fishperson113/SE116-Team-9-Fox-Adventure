@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://dk3cjc74xm8k0"]
+[gd_scene load_steps=53 format=3 uid="uid://dk3cjc74xm8k0"]
 
 [ext_resource type="PackedScene" uid="uid://c40nxk7wmbjxm" path="res://scenes/enemies/abstract_enemies/boss.tscn" id="1_l046a"]
 [ext_resource type="Script" uid="uid://bdxnp2lgdqy4y" path="res://scripts/enemies/bosses/king_crab/king_crab.gd" id="1_ta3rv"]
@@ -33,6 +33,12 @@
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="31_ih4yw"]
 [ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="32_2tyas"]
 [ext_resource type="Script" uid="uid://b788rlt8r54r8" path="res://scripts/enemies/states/boss_state.gd" id="32_set4q"]
+[ext_resource type="PackedScene" uid="uid://dqeyhetii8sb0" path="res://scenes/levels/loot_system/drop_data.tscn" id="34_ppg4x"]
+[ext_resource type="Script" uid="uid://bvmayktwi2sq6" path="res://scenes/levels/loot_system/dropable.gd" id="35_lx88a"]
+[ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/collectibles/items/collectible_items/collectible_ore_copper.tscn" id="36_48w1g"]
+[ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/collectibles/items/collectible_items/collectible_ore_iron.tscn" id="37_uijwm"]
+[ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="38_4nk0q"]
+[ext_resource type="PackedScene" uid="uid://bu151mcbsrxx7" path="res://scenes/collectibles/items/collectible_items/coin.tscn" id="39_7ex1o"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xn0de"]
 animations = [{
@@ -207,6 +213,30 @@ func take_damage(_attacker: BaseCharacter, _direction: Vector2, _damage: float) 
 	pass
 "
 
+[sub_resource type="Resource" id="Resource_ti07b"]
+script = ExtResource("35_lx88a")
+item = ExtResource("36_48w1g")
+weight = 3
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_5u7fw"]
+script = ExtResource("35_lx88a")
+item = ExtResource("37_uijwm")
+weight = 3
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_r44hm"]
+script = ExtResource("35_lx88a")
+item = ExtResource("38_4nk0q")
+weight = 1
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_d8a1j"]
+script = ExtResource("35_lx88a")
+item = ExtResource("39_7ex1o")
+weight = 2
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
 [node name="KingCrab" instance=ExtResource("1_l046a")]
 collision_layer = 128
 script = ExtResource("1_ta3rv")
@@ -344,3 +374,8 @@ metadata/_custom_type_script = "uid://cuat5txuhbdg5"
 [node name="Rest" type="Node" parent="States" index="11"]
 script = ExtResource("32_set4q")
 metadata/_custom_type_script = "uid://cuat5txuhbdg5"
+
+[node name="DropData" parent="." index="5" instance=ExtResource("34_ppg4x")]
+min_drop = 10
+max_drop = 20
+drop_table = Array[ExtResource("35_lx88a")]([SubResource("Resource_ti07b"), SubResource("Resource_5u7fw"), SubResource("Resource_r44hm"), SubResource("Resource_d8a1j")])
