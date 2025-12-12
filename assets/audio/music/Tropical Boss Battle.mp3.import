@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dt7yhh3q4oxqk"
+path="res://.godot/imported/Tropical Boss Battle.mp3-8cdb7906f860f2b188693505b89b8c16.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/Tropical Boss Battle.mp3"
+dest_files=["res://.godot/imported/Tropical Boss Battle.mp3-8cdb7906f860f2b188693505b89b8c16.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

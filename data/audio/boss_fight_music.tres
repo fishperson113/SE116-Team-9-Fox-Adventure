@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AudioClip" load_steps=3 format=3 uid="uid://b2bbk2l2npdt"]
+
+[ext_resource type="Script" uid="uid://chlphbiuq1gay" path="res://scripts/audio/audio_clip.gd" id="1_gxqrw"]
+[ext_resource type="AudioStream" uid="uid://co2lc8nexjl2j" path="res://assets/audio/music/boss_fight.ogg" id="2_57u6v"]
+
+[resource]
+script = ExtResource("1_gxqrw")
+clip_id = "boss_fight"
+stream = ExtResource("2_57u6v")
+volume_db = 0.0
+randomize_pitch = false
+pitch_min = 0.9
+pitch_max = 1.1
+description = ""
+metadata/_custom_type_script = "uid://chlphbiuq1gay"
