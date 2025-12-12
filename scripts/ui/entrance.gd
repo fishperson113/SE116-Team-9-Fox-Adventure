@@ -8,7 +8,10 @@ func _on_button_pressed(button_name: String) -> void:
 	print("🔴 _on_button_pressed called with:", button_name)
 	match button_name:
 		"Lobby":
-			_change_scene("res://scenes/levels/lobby/lobby.tscn")
+			if GameManager.is_tutorial_finished:
+				_change_scene("res://scenes/levels/mini_lobby/mini_lobby.tscn")
+			else:
+				_change_scene("res://scenes/levels/lobby/lobby.tscn")
 			#var nine_patch = scene.get_node("NinePatchRect")
 			#get_tree().root.add_child(scene)
 			#if nine_patch:
