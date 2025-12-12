@@ -6,7 +6,7 @@
 bounce = 0.2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6xj2f"]
-size = Vector2(16, 16)
+size = Vector2(6, 6)
 
 [node name="LootPhysicsBody" type="RigidBody2D"]
 collision_layer = 0

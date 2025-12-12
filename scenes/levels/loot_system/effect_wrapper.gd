@@ -52,6 +52,6 @@ func dissolve() -> void:
 	queue_free()
 
 func play_effect() -> void:
-	var vertical_speed: float = randf_range(-200, -300)
+	var vertical_speed: float = randf_range(-200, -400)
 	var horizontal_speed: float = randf_range(-100, 100)
 	apply_impulse(Vector2(horizontal_speed, vertical_speed))
