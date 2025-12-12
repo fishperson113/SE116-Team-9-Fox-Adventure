@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://devjt26a8imht"]
+
+[ext_resource type="Script" uid="uid://baaulu24ue6uq" path="res://scripts/audio/ambience_area_2d.gd" id="1_due21"]
+
+[node name="AmbienceArea2d" type="Area2D"]
+script = ExtResource("1_due21")

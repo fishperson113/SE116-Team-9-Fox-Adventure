@@ -38,6 +38,16 @@ func start_assemble(part_id: String, material: String) -> void:
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if(anim_name==\"reveal\"):
 		_reveal_blade()
+	elif anim_name == \"blade_move\":
+		
+		# 1. Cho phép input (kéo thả)
+		input_enabled = true
+		
+		# 2. Bây giờ mới ra lệnh cho Collection Area hiện đồ
+		if collection_area:
+			collection_area.populate_parts()
+			
+		print(\"Blade animation done. UI Populated & Input enabled.\")
 
 func _reveal_blade() -> void:
 	# Add the part that SmeltOre passed in
@@ -47,10 +57,10 @@ func _reveal_blade() -> void:
 	anim.play(\"blade_move\")
 
 	# Only enable drag-drop when done
-	var t := create_tween()
-	t.finished.connect(func():
-		input_enabled = true
-	)
+	#var t := create_tween()
+	#t.finished.connect(func():
+		#input_enabled = true
+	#)
 	
 func reset_minigame():
 	# Reset internal flags
@@ -569,6 +579,19 @@ grow_vertical = 2
 rotation = -1.5708
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MainLayout/AssembleArea/WeaponAssembler"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -147.0
+offset_top = 60.0
+offset_right = 327.0
+offset_bottom = 102.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "Drag and drop weapon part here"
 
 [node name="CollectionArea" type="Control" parent="MainLayout" node_paths=PackedStringArray("assembler", "assemble_area")]
 layout_mode = 2

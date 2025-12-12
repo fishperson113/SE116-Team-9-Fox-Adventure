@@ -149,6 +149,7 @@ func move(from: int, to: int):
 	item_archive[from] = temp
 
 	emit_signal("inventory_changed")
+	GameManager.player.inventory.save_inventory()
 	debug_inventory()
 	
 func debug_inventory():

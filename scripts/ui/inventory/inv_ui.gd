@@ -6,21 +6,25 @@ var current_hotbar_slot := -1
 
 func _ready() -> void:
 	GameManager.player.inventory.inventory_changed.connect(update_inventory_ui)
-	GameManager.player.inventory.item_storer.slot_changed.connect(_on_slot_changed)
+	GameManager.player.item_storer.slot_changed.connect(_on_slot_changed)
+	GameManager.player.item_storer.item_destroyed.connect(_on_item_destroyed)
 	for i in range(slots.size()):
 		slots[i].gui_input.connect(_on_slot_gui_input.bind(i))
+		slots[i].parent = GameManager.player.item_storer
+		slots[i].index = i
+		
+		# Connect signal move
+		if not slots[i].request_move.is_connected(_on_slot_request_move):
+			slots[i].request_move.connect(_on_slot_request_move)
 	update_inventory_ui()
 	
 func _on_slot_gui_input(event: InputEvent, index: int):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var item_storer = GameManager.player.inventory.item_storer
+		item_storer.switch_item_slot_manually(index)
 		
-		var offset = index - item_storer.item_slot
-		
-		if offset != 0:
-			item_storer.switch_item_slot(offset)
 func update_inventory_ui():
-	var archive = GameManager.player.inventory.item_archive
+	var archive = GameManager.player.item_storer.item_archive
 
 	# Reset toàn bộ slot trước
 	for slot in slots:
@@ -42,13 +46,13 @@ func update_inventory_ui():
 
 		var count :int = item_detail_list.size()
 		var icon := load_icon(item_type, item_detail_list)
-		slots[i].parent = GameManager.player.item_storer
-		slots[i].index = i
-		slots[i].connect("request_move", Callable(self, "_on_slot_request_move"))
 		slots[i].set_item(icon, item_type, item_detail_list, count)
 
 func _on_slot_request_move(parent_node, from_index, to_index):
 	parent_node.move(from_index, to_index)
+
+func _on_item_destroyed(_slot_index):
+	update_inventory_ui()
 	
 func load_icon(item_type: String, item_detail_list: Array) -> Texture2D:
 		return _get_weapon_icon(item_detail_list)
@@ -61,6 +65,7 @@ func highlight_slot(index: int):
 func _on_slot_changed(new_slot: int):
 	current_hotbar_slot = new_slot
 	highlight_slot(new_slot)
+	update_inventory_ui()
 
 func _get_weapon_icon(item_detail_list: Array) -> Texture2D:
 	# 1. Load data

@@ -8,12 +8,12 @@ func _enter() -> void:
 func _update(_delta: float) -> void:
 	#Control moving
 	control_moving()
-	control_dash()
 	control_jump()
 	control_attack()
-	control_wide_attack()
 	control_throwing(_delta)
 	control_unequip()
+	control_special_ability()
+
 	#If on floor change to idle if not moving and not jumping
 	if obj.is_on_floor():
 			change_state(fsm.states.idle)

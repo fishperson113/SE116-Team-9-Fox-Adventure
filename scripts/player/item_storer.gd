@@ -2,8 +2,9 @@ extends Node
 class_name ItemStorer
 signal slot_changed(new_slot_index)
 signal info_panel_change(weapon_data:WeaponData)
+signal item_destroyed(slot_index)
 var number_of_slots: int
-var items_archive: Array[Dictionary]
+var item_archive: Array[Dictionary]
 
 var item_slot: int = 0
 
@@ -12,7 +13,7 @@ var item_slot: int = 0
 
 func _init() -> void:
 	number_of_slots = GameManager.slots_size
-	items_archive.resize(number_of_slots)
+	item_archive.resize(number_of_slots)
 
 func _input(event):
 	if event is not InputEventMouseButton or not event.pressed:
@@ -44,25 +45,26 @@ func _process(delta: float) -> void:
 # ---------------------------------------------------------
 func add_item(item_type: String, item_path: String) -> bool:
 	for i in range(number_of_slots):
+		print("SLOT DATA: ", item_archive)
 
-		# Slot trống → nhét vào
-		if not items_archive[i].has("item_type"):
-			items_archive[i] = {
+		# Slot trống → thêm item
+		if not item_archive[i].has("item_type"):
+			item_archive[i] = {
 				"item_type": item_type,
 				"item_detail": [item_path]
 			}
-			print("Successfully added an object from inventory")
+			emit_signal("slot_changed", i)
 			return true
 
-		# Slot chứa cùng item_type & không phải weapon → stack
-		elif not is_slot_weapon(i) and items_archive[i]["item_type"] == item_type:
-			items_archive[i]["item_detail"].append(item_path)
-			print("Successfully added an object from inventory")
+		# Nếu stack được (không phải weapon)
+		elif not is_slot_weapon(i) and item_archive[i]["item_type"] == item_type:
+			item_archive[i]["item_detail"].append(item_path)
+			emit_signal("slot_changed", i)
 			return true
+	
+	# Không còn slot phù hợp
+	return false
 
-	# Nếu không có slot phù hợp → trả về inventory
-	inventory.insert_item(item_type, item_path)
-	return true
 
 func switch_item_slot(offset: int) -> void:
 	if item_slot + offset < 0:
@@ -75,7 +77,7 @@ func switch_item_slot(offset: int) -> void:
 	_equip_current_slot_weapon()
 
 	emit_signal("slot_changed", item_slot)
-	print("Switched to slot ", item_slot, "\n", items_archive[item_slot])
+	print("Switched to slot ", item_slot, "\n", item_archive[item_slot])
 
 func switch_item_slot_manually(slot_num: int) -> void:
 	if slot_num < 0 or slot_num >= number_of_slots:
@@ -85,7 +87,7 @@ func switch_item_slot_manually(slot_num: int) -> void:
 	_equip_current_slot_weapon()
 
 	emit_signal("slot_changed", item_slot)
-	print("Switched to slot ", item_slot, "\n", items_archive[item_slot])
+	print("Switched to slot ", item_slot, "\n", item_archive[item_slot])
 
 # ---------------------------------------------------------
 # EQUIP WEAPON → load resource từ path string
@@ -98,7 +100,7 @@ func _equip_current_slot_weapon():
 		info_panel_change.emit(null)
 		return
 
-	var item = items_archive[item_slot]
+	var item = item_archive[item_slot]
 	var path: String = item["item_detail"][0]
 	var weapon: WeaponData = load(path)
 	info_panel_change.emit(weapon)
@@ -111,7 +113,7 @@ func _equip_current_slot_weapon():
 
 
 func is_slot_available(slot_index: int = item_slot) -> bool:
-	return items_archive[slot_index] != {}
+	return item_archive[slot_index] != {}
 
 
 func is_item_storer_full() -> bool:
@@ -122,50 +124,50 @@ func is_item_storer_full() -> bool:
 
 
 func is_slot_weapon(item_index: int = item_slot) -> bool:
-	if items_archive[item_index].has("item_type"):
-		return items_archive[item_index]["item_type"].begins_with("weapon_")
+	if item_archive[item_index].has("item_type"):
+		return item_archive[item_index]["item_type"].begins_with("weapon_")
 	return false
 
 
 func get_item_type() -> String:
-	return items_archive[item_slot]["item_type"]
+	return item_archive[item_slot]["item_type"]
 
 
 # ---------------------------------------------------------
 # REMOVE ITEM → compare path string
 # ---------------------------------------------------------
 func remove_item(item_type: String, item_path: String) -> void:
-	if items_archive[item_slot]["item_type"] != item_type:
+	if item_archive[item_slot]["item_type"] != item_type:
 		print("Can't remove a different type of item")
 		return
 
-	if items_archive[item_slot]["item_detail"][0] == item_path:
-		items_archive[item_slot]["item_detail"].remove_at(0)
+	if item_archive[item_slot]["item_detail"][0] == item_path:
+		item_archive[item_slot]["item_detail"].remove_at(0)
 
-		if items_archive[item_slot]["item_detail"].is_empty():
-			items_archive[item_slot] = {}
+		if item_archive[item_slot]["item_detail"].is_empty():
+			item_archive[item_slot] = {}
 
 		return
 
 
 func return_item(item_type: String, item_path: String) -> void:
-	if items_archive[item_slot] == {}:
+	if item_archive[item_slot] == {}:
 		print("Slot is empty. Can't return item to inventory")
 		return
 	
-	if items_archive[item_slot]["item_type"] != item_type:
+	if item_archive[item_slot]["item_type"] != item_type:
 		print("Can't return a different type of object to the inventory")
 		return
 
-	if items_archive[item_slot]["item_detail"][0] == item_path:
+	if item_archive[item_slot]["item_detail"][0] == item_path:
 		inventory.insert_item(
-			items_archive[item_slot]["item_type"],
-			items_archive[item_slot]["item_detail"][0]
+			item_archive[item_slot]["item_type"],
+			item_archive[item_slot]["item_detail"][0]
 		)
 
 		remove_item(
-			items_archive[item_slot]["item_type"],
-			items_archive[item_slot]["item_detail"][0]
+			item_archive[item_slot]["item_type"],
+			item_archive[item_slot]["item_detail"][0]
 		)
 
 		return
@@ -173,49 +175,80 @@ func return_item(item_type: String, item_path: String) -> void:
 
 func show_slots() -> void:
 	print("List of slots:")
-	for item_index in len(items_archive):
+	for item_index in len(item_archive):
 		if is_slot_weapon(item_index):
-			print(item_index, ": ", items_archive[item_index])
-		elif items_archive[item_index].is_empty():
-			print(item_index, ": ", items_archive[item_index])
+			print(item_index, ": ", item_archive[item_index])
+		elif item_archive[item_index].is_empty():
+			print(item_index, ": ", item_archive[item_index])
 		else:
 			print(item_index, ": ",
-			items_archive[item_index]["item_type"],
-			": size: ", items_archive[item_index]["item_detail"].size())
+			item_archive[item_index]["item_type"],
+			": size: ", item_archive[item_index]["item_detail"].size())
 	print("\n")
 
 
 func save_slots() -> void:
-	GameManager.slots_data = items_archive.duplicate(true)
+	GameManager.slots_data = item_archive.duplicate(true)
 	GameManager.save_slots_data()
+	for i in range(number_of_slots):
+		emit_signal("slot_changed", i)
 	switch_item_slot(item_slot)
 
 
 func initialize_slots():
-	items_archive = GameManager.slots_data.duplicate(true)
+	item_archive = GameManager.slots_data.duplicate(true)
 
-	if items_archive.is_empty():
-		items_archive.resize(number_of_slots)
+	if item_archive.is_empty():
+		item_archive.resize(number_of_slots)
 		for i in range(number_of_slots):
-			items_archive[i] = {}
+			item_archive[i] = {}
+	
+	for i in range(number_of_slots):
+		emit_signal("slot_changed", i)
 
 	_equip_current_slot_weapon()
 	emit_signal("slot_changed", item_slot)
 
-	print("ItemStorer initialized:", items_archive)
+	print("itemtorer initialized:", item_archive)
 	
 func move(from: int, to: int):
 	if from == to:
 		return
-	var temp = items_archive[to]
-	items_archive[to] = items_archive[from]
-	items_archive[from] = temp
 	
-	emit_signal("inventory_changed")
+	if from < 0 or from >= number_of_slots or to < 0 or to >= number_of_slots:
+		printerr(" Invalid slot indices: from=", from, " to=", to)
+		return
+	
+	# Swap
+	var temp = item_archive[to]
+	item_archive[to] = item_archive[from]
+	item_archive[from] = temp
+	
+	if from == item_slot:
+		item_slot = to
+	elif to == item_slot:
+		item_slot = from
+	
+	emit_signal("slot_changed", from)
+	emit_signal("slot_changed", to)
+	
+	_equip_current_slot_weapon()
+	GameManager.player.item_storer.save_slots()
 	debug_slots()
 	
 func debug_slots():
 	print("\n=== DEBUG HOTBAR SLOTS ===")
-	for i in range(items_archive.size()):
-		print(i, ": ", items_archive[i])
+	for i in range(item_archive.size()):
+		print(i, ": ", item_archive[i])
 	print("==========================\n")
+	
+func destroy_current_item():
+	print("itemtorer: Destroying item in slot ", item_slot)
+	
+	item_archive[item_slot] = {}
+	
+	save_slots()
+	
+	_equip_current_slot_weapon()
+	
+	item_destroyed.emit(item_slot)

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cika8akbev767"
+path="res://.godot/imported/Sunset Stroll.mp3-48e164ad9b2b40279e028255105fd1af.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/Sunset Stroll.mp3"
+dest_files=["res://.godot/imported/Sunset Stroll.mp3-48e164ad9b2b40279e028255105fd1af.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -10,4 +10,5 @@ display_name = ""
 color = Color(0.943, 0.93, 0.52, 1)
 icon = ExtResource("2_ptj30")
 damage = 30
+durability = 60.0
 metadata/_custom_type_script = "uid://bg7o110gecbgs"

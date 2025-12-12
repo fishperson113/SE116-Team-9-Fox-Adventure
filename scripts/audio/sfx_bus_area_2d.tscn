@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c554drmf5122s"]
+
+[ext_resource type="Script" uid="uid://d4kk3frtg44w6" path="res://scripts/audio/sfx_bus_area_2d.gd" id="1_35f0h"]
+
+[node name="SfxBusArea2d" type="Area2D"]
+script = ExtResource("1_35f0h")

@@ -32,7 +32,7 @@ func _ready():
 		if event is InputEventMouseButton and event.pressed:
 			print("Collection Area đã nhận được Click! -> Mouse path thông thoáng")
 	)
-	populate_parts()
+	#populate_parts()
 
 # Hàm _process cũ đã bị xóa vì Control tự xử lý vị trí chuột
 
@@ -51,14 +51,29 @@ func populate_parts():
 		var tex := part.sprite
 		var btn := Button.new()
 		
-		# --- Setup Button Visual (Giữ nguyên như cũ) ---
+		# --- Setup Button Visual ---
 		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		btn.custom_minimum_size = Vector2(0, 120)
 		btn.focus_mode = Control.FOCUS_NONE
 		
-		# ... (Đoạn tạo tooltip và text giữ nguyên) ...
+		# --- SETUP TOOLTIP (ĐÃ CẬP NHẬT) ---
 		var name_str = part.display_name if part.display_name != "" else part.id.capitalize()
-		var info_text = "%s\n[%s]" % [name_str, part.type.capitalize()]
+		
+		# Tạo dòng hiển thị chỉ số dựa trên loại part
+		var stat_info := ""
+		match part.type:
+			"blade":
+				stat_info = "Damage: +%d" % part.damage
+			"crossguard":
+				stat_info = "Health Bonus: +%d" % part.max_health
+			"grip":
+				# Hiển thị 2 số thập phân cho tốc độ đánh
+				stat_info = "Atk Speed: +%.2f" % part.attack_speed 
+			"pommel":
+				stat_info = "Skill: %s" % part.special_skill.capitalize()
+
+		# Gộp thông tin lại: Tên -> Loại -> Chỉ số
+		var info_text = "%s\n[%s]\n%s" % [name_str, part.type.capitalize(), stat_info]
 		btn.tooltip_text = info_text
 		# ----------------------------------------------
 
@@ -68,18 +83,16 @@ func populate_parts():
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		icon.anchor_left = 0.5
-		icon.anchor_right = 0.5 
-		icon.offset_left = -48 
+		icon.anchor_right = 0.5
+		icon.offset_left = -48
 		icon.offset_top = 12
-		icon.mouse_filter = Control.MOUSE_FILTER_PASS 
+		icon.mouse_filter = Control.MOUSE_FILTER_PASS
 		btn.add_child(icon)
 
 		# --- SETUP DRAG CHO BUTTON ---
-		# Thay vì gui_input, ta dùng drag forwarding
-		# Dùng Lambda function để "bắt" biến part_id và tex vào trong hàm
 		btn.set_drag_forwarding(
 			func(_pos): return _get_part_drag_data(part_id, tex, icon.size),
-			func(_pos, _data): return false, # Button không nhận drop
+			func(_pos, _data): return false, 
 			func(_pos, _data): pass
 		)
 
@@ -166,4 +179,9 @@ func advance_stage(tw: Tween) -> void:
 
 func reset_handler():
 	current_stage = 1
-	populate_parts()
+	#populate_parts()
+	clear_current_parts()
+	
+func clear_current_parts():
+	for c in list_container.get_children():
+		c.queue_free()

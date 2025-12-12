@@ -61,7 +61,7 @@ func _load_materials():
 		var name_str = mat.display_name if mat.display_name else mat.id.capitalize()
 		
 		# 2. Thông tin cơ bản (Quan trọng nhất là Damage)
-		var tip = \"%s\\nBase Damage: %d\" % [name_str, mat.damage]
+		var tip = \"%s\\nBase Damage: %d\\nDurability: %d\" % [name_str, mat.damage, mat.durability]
 
 		# 3. Xử lý Visual & Trạng thái Cost
 		if is_enough_material:
@@ -69,7 +69,7 @@ func _load_materials():
 			icon.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 			
 			# Thêm thông tin giá
-			tip += \"\\n\\n[COST]\"
+			tip += \"\\n[COST]\"
 			tip += \"\\n• %d Coin\" % GameManager.crafting_cost
 			tip += \"\\n• %d %s\" % [GameManager.material_crafting_cost, name_str]
 		else:

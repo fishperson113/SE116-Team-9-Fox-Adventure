@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AudioDatabase" load_steps=7 format=3 uid="uid://c1ope6ptf8yny"]
+
+[ext_resource type="Script" uid="uid://ovmtn36802i6" path="res://scripts/audio/audio_database.gd" id="1_nw313"]
+[ext_resource type="Script" uid="uid://chlphbiuq1gay" path="res://scripts/audio/audio_clip.gd" id="1_x0dso"]
+[ext_resource type="Resource" uid="uid://cbllkbthmymma" path="res://data/audio/player_jump.tres" id="2_quhjw"]
+[ext_resource type="Resource" uid="uid://bvieqbwrdo8ph" path="res://data/audio/player_attack.tres" id="3_ut6nb"]
+[ext_resource type="Resource" uid="uid://w241ro6w4yyq" path="res://data/audio/stage_music.tres" id="4_hsaa8"]
+[ext_resource type="Resource" uid="uid://b2bbk2l2npdt" path="res://data/audio/boss_fight_music.tres" id="5_wru05"]
+
+[resource]
+script = ExtResource("1_nw313")
+clips = Array[ExtResource("1_x0dso")]([ExtResource("2_quhjw"), ExtResource("3_ut6nb"), ExtResource("4_hsaa8"), ExtResource("5_wru05")])
+metadata/_custom_type_script = "uid://ovmtn36802i6"

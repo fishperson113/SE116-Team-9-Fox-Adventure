@@ -10,12 +10,21 @@ var is_open := false
 
 func _ready():
 	self.visible = false
-		
+	self.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$NinePatchRect.mouse_filter = Control.MOUSE_FILTER_STOP
+	grid.mouse_filter = Control.MOUSE_FILTER_PASS
 	slots = []
 	for child in grid.get_children():
 		if child is Slot:
 			slots.append(child)
 	inventory  = GameManager.player.inventory
+	for i in range(slots.size()):
+		slots[i].parent = inventory
+		slots[i].index = i
+		
+		if not slots[i].request_move.is_connected(_on_slot_request_move):
+			slots[i].request_move.connect(_on_slot_request_move)
+	
 	GameManager.player.inventory.inventory_changed.connect(update_inventory_ui)
 	update_inventory_ui()
 
@@ -43,7 +52,6 @@ func close_inventory():
 # ---------------------------------------------------------
 func update_inventory_ui():
 	var archive = GameManager.player.inventory.item_archive
-
 	# Reset toàn bộ slot trước
 	for slot in slots:
 		slot.clear_slot()
@@ -65,12 +73,12 @@ func update_inventory_ui():
 		var count := detail_list.size()
 		slots[i].parent = inventory
 		slots[i].index = i
-		slots[i].request_move.connect(_on_slot_request_move)
+		if not slots[i].request_move.is_connected(_on_slot_request_move):
+			slots[i].request_move.connect(_on_slot_request_move)
 		slots[i].set_item(icon, item_type, detail_list, count)
 
-func _on_slot_request_move(src_parent, from_index, dst_parent, to_index):
-	if src_parent == dst_parent:
-		src_parent.move(from_index, to_index)
+func _on_slot_request_move(parent_node, from_index, to_index):
+	parent_node.move(from_index, to_index)
 
 # ---------------------------------------------------------
 # LOAD ICON

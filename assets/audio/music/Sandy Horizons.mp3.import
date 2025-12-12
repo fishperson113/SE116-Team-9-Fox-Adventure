@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://vpjv7wclwq5u"
+path="res://.godot/imported/Sandy Horizons.mp3-da7a8f58337b09f77b3fb6f71cc1f4c9.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/Sandy Horizons.mp3"
+dest_files=["res://.godot/imported/Sandy Horizons.mp3-da7a8f58337b09f77b3fb6f71cc1f4c9.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
