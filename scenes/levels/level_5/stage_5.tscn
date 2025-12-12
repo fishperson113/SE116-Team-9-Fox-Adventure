@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://b4he3cnf7cpbq"]
+[gd_scene load_steps=36 format=4 uid="uid://b4he3cnf7cpbq"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_3l2kx"]
 [ext_resource type="PackedScene" uid="uid://bu0ebjvtvbb4j" path="res://scenes/levels/area_unlockers/area_unlocker_enemies.tscn" id="2_lyf21"]
@@ -18,7 +18,10 @@
 [ext_resource type="PackedScene" uid="uid://ddc86ootpum2i" path="res://scenes/enemies/bosses/warlord_turtle/warlord_turtle.tscn" id="7_txxkb"]
 [ext_resource type="PackedScene" uid="uid://cv7h7e7s07r0m" path="res://scenes/enemies/spawners/time_spawner.tscn" id="8_e1o38"]
 [ext_resource type="PackedScene" uid="uid://dboyhgacrhohs" path="res://scenes/levels/level_5/Rock/rock.tscn" id="9_am3rg"]
+[ext_resource type="Script" uid="uid://bhnnjl5ixmyra" path="res://scenes/levels/loot_system/drop_data.gd" id="11_wvm0h"]
+[ext_resource type="Script" uid="uid://bvmayktwi2sq6" path="res://scenes/levels/loot_system/dropable.gd" id="12_2elvf"]
 [ext_resource type="Texture2D" uid="uid://dcrnqve71d36p" path="res://assets/sprites/environment/background/additional_sky.png" id="12_pjjcp"]
+[ext_resource type="PackedScene" uid="uid://bu151mcbsrxx7" path="res://scenes/collectibles/items/collectible_items/coin.tscn" id="18_2elvf"]
 
 [sub_resource type="GDScript" id="GDScript_pjjcp"]
 script/source = "extends Node2D
@@ -34,6 +37,66 @@ size = Vector2(1254, 467)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_am3rg"]
 size = Vector2(2048, 2048)
+
+[sub_resource type="Resource" id="Resource_k168q"]
+script = ExtResource("12_2elvf")
+item = ExtResource("5_th0hk")
+weight = 3
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_1d1ln"]
+script = ExtResource("12_2elvf")
+item = ExtResource("6_js4gn")
+weight = 7
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_tu1nf"]
+script = ExtResource("12_2elvf")
+item = ExtResource("5_th0hk")
+weight = 1
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_nmp7s"]
+script = ExtResource("12_2elvf")
+item = ExtResource("4_jdldg")
+weight = 3
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_w01x5"]
+script = ExtResource("12_2elvf")
+item = ExtResource("18_2elvf")
+weight = 6
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_2elvf"]
+script = ExtResource("12_2elvf")
+item = ExtResource("5_th0hk")
+weight = 5
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_hajgy"]
+script = ExtResource("12_2elvf")
+item = ExtResource("18_2elvf")
+weight = 5
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_752bv"]
+script = ExtResource("12_2elvf")
+item = ExtResource("5_th0hk")
+weight = 2
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_ocqpa"]
+script = ExtResource("12_2elvf")
+item = ExtResource("6_js4gn")
+weight = 3
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_7l22j"]
+script = ExtResource("12_2elvf")
+item = ExtResource("18_2elvf")
+weight = 5
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
 [node name="Stage" type="Node2D"]
 script = SubResource("GDScript_pjjcp")
@@ -250,6 +313,13 @@ position = Vector2(7638, 8431)
 [node name="Turtle44" parent="Enemies/Turtles" instance=ExtResource("3_m7cq7")]
 position = Vector2(7820, 8431)
 
+[node name="DropData" type="Node2D" parent="Enemies/Turtles"]
+script = ExtResource("11_wvm0h")
+min_drop = 1
+max_drop = 3
+drop_table = Array[ExtResource("12_2elvf")]([SubResource("Resource_k168q"), SubResource("Resource_1d1ln")])
+metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
+
 [node name="Pelicans" type="Node2D" parent="Enemies"]
 
 [node name="Pelican" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
@@ -305,72 +375,97 @@ movement_speed = 90.0
 
 [node name="Aborigines" type="Node2D" parent="Enemies"]
 
-[node name="Aborigine2" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
+[node name="BigAborigines" type="Node2D" parent="Enemies/Aborigines"]
+
+[node name="BigAborigine" parent="Enemies/Aborigines/BigAborigines" instance=ExtResource("6_njy1a")]
+position = Vector2(3247, 6440)
+
+[node name="BigAborigine3" parent="Enemies/Aborigines/BigAborigines" instance=ExtResource("6_njy1a")]
+position = Vector2(3001, 6440)
+
+[node name="BigAborigine4" parent="Enemies/Aborigines/BigAborigines" instance=ExtResource("6_njy1a")]
+position = Vector2(4659, 8839)
+movement_speed = 20.0
+
+[node name="BigAborigine5" parent="Enemies/Aborigines/BigAborigines" instance=ExtResource("6_njy1a")]
+position = Vector2(4747, 8839)
+movement_speed = 20.0
+
+[node name="BigAborigine6" parent="Enemies/Aborigines/BigAborigines" instance=ExtResource("6_njy1a")]
+position = Vector2(4928, 8839)
+movement_speed = 20.0
+
+[node name="BigAborigine7" parent="Enemies/Aborigines/BigAborigines" instance=ExtResource("6_njy1a")]
+position = Vector2(5014, 8839)
+movement_speed = 20.0
+
+[node name="DropData" type="Node2D" parent="Enemies/Aborigines/BigAborigines"]
+script = ExtResource("11_wvm0h")
+min_drop = 3
+max_drop = 5
+drop_table = Array[ExtResource("12_2elvf")]([SubResource("Resource_tu1nf"), SubResource("Resource_nmp7s"), SubResource("Resource_w01x5")])
+metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
+
+[node name="SmallAborigines" type="Node2D" parent="Enemies/Aborigines"]
+
+[node name="Aborigine2" parent="Enemies/Aborigines/SmallAborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(2496, 2990)
 shoot_time = 0.5
 shoot_cooldown = 2.0
 
-[node name="Aborigine3" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
+[node name="Aborigine3" parent="Enemies/Aborigines/SmallAborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(2579, 2990)
 shoot_time = 0.5
 shoot_cooldown = 2.0
 
-[node name="BigAborigine" parent="Enemies/Aborigines" instance=ExtResource("6_njy1a")]
-position = Vector2(3247, 6440)
-
-[node name="BigAborigine3" parent="Enemies/Aborigines" instance=ExtResource("6_njy1a")]
-position = Vector2(3001, 6440)
-
-[node name="Aborigine4" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
+[node name="Aborigine4" parent="Enemies/Aborigines/SmallAborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(3246, 6445)
 
-[node name="Aborigine5" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
+[node name="Aborigine5" parent="Enemies/Aborigines/SmallAborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(3263, 6444)
 
-[node name="Aborigine8" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
+[node name="Aborigine8" parent="Enemies/Aborigines/SmallAborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(2987, 6443)
 initial_direction = 1
 
-[node name="Aborigine9" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
+[node name="Aborigine9" parent="Enemies/Aborigines/SmallAborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(3015, 6445)
 initial_direction = 1
 
-[node name="Aborigine10" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
+[node name="Aborigine10" parent="Enemies/Aborigines/SmallAborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(4508, 8844)
 initial_direction = 1
 movement_speed = 40.0
 
-[node name="Aborigine12" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
+[node name="Aborigine12" parent="Enemies/Aborigines/SmallAborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(4528, 8843)
 initial_direction = 1
 movement_speed = 40.0
 
-[node name="Aborigine14" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
+[node name="Aborigine14" parent="Enemies/Aborigines/SmallAborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(5153, 8843)
 movement_speed = 40.0
 
-[node name="Aborigine15" parent="Enemies/Aborigines" instance=ExtResource("5_lyf21")]
+[node name="Aborigine15" parent="Enemies/Aborigines/SmallAborigines" instance=ExtResource("5_lyf21")]
 position = Vector2(5177, 8843)
 movement_speed = 40.0
 
-[node name="BigAborigine4" parent="Enemies/Aborigines" instance=ExtResource("6_njy1a")]
-position = Vector2(4659, 8839)
-movement_speed = 20.0
-
-[node name="BigAborigine5" parent="Enemies/Aborigines" instance=ExtResource("6_njy1a")]
-position = Vector2(4747, 8839)
-movement_speed = 20.0
-
-[node name="BigAborigine6" parent="Enemies/Aborigines" instance=ExtResource("6_njy1a")]
-position = Vector2(4928, 8839)
-movement_speed = 20.0
-
-[node name="BigAborigine7" parent="Enemies/Aborigines" instance=ExtResource("6_njy1a")]
-position = Vector2(5014, 8839)
-movement_speed = 20.0
+[node name="DropData" type="Node2D" parent="Enemies/Aborigines/SmallAborigines"]
+script = ExtResource("11_wvm0h")
+min_drop = 1
+max_drop = 2
+drop_table = Array[ExtResource("12_2elvf")]([SubResource("Resource_2elvf"), SubResource("Resource_hajgy")])
+metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [node name="WarlordTurtle" parent="Enemies" instance=ExtResource("7_txxkb")]
 position = Vector2(8987, 8859)
+
+[node name="DropData" type="Node2D" parent="Enemies/WarlordTurtle"]
+script = ExtResource("11_wvm0h")
+min_drop = 10
+max_drop = 12
+drop_table = Array[ExtResource("12_2elvf")]([SubResource("Resource_752bv"), SubResource("Resource_ocqpa"), SubResource("Resource_7l22j")])
+metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [node name="Bullets" type="Node2D" parent="."]
 
@@ -468,5 +563,11 @@ position = Vector2(2315, 3354)
 
 [node name="Copper15" parent="Resources/Coppers" instance=ExtResource("4_jdldg")]
 position = Vector2(3185, 6458)
+
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/Checkpoint" to="TileMapLayers/FunctionalTileMapLayer/Checkpoint" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@239093" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@239093" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@239222" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@239222" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@239223" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@239223" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@239224" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@239224" method="_on_body_entered"]
 
 [editable path="AreaUnlockerEnemies"]

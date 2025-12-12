@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://xmmhse6d6ge7"]
+[gd_scene load_steps=31 format=4 uid="uid://xmmhse6d6ge7"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_3uy1m"]
 [ext_resource type="PackedScene" uid="uid://d2wpy684uyjct" path="res://scenes/enemies/spawners/triggered_spawner.tscn" id="2_4f3hn"]
@@ -9,8 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="3_l583c"]
 [ext_resource type="PackedScene" uid="uid://cf30thpmo45yj" path="res://scenes/enemies/minions/shootables/seahorse.tscn" id="5_n84ud"]
 [ext_resource type="PackedScene" uid="uid://crwb5kl1tn450" path="res://scenes/enemies/minions/shootables/pelican.tscn" id="6_qpij7"]
+[ext_resource type="Script" uid="uid://bhnnjl5ixmyra" path="res://scenes/levels/loot_system/drop_data.gd" id="8_ks3mc"]
+[ext_resource type="Script" uid="uid://bvmayktwi2sq6" path="res://scenes/levels/loot_system/dropable.gd" id="9_8bipx"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="10_c7rpm"]
 [ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/collectibles/items/collectible_items/collectible_ore_iron.tscn" id="11_n0rtw"]
+[ext_resource type="PackedScene" uid="uid://bu151mcbsrxx7" path="res://scenes/collectibles/items/collectible_items/coin.tscn" id="12_8bipx"]
 [ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="12_165p0"]
 [ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/collectibles/items/collectible_items/collectible_ore_copper.tscn" id="13_ks3mc"]
 
@@ -32,6 +35,72 @@ gradient = SubResource("Gradient_c7rpm")
 width = 14500
 height = 4000
 fill_to = Vector2(1.12, 0.025)
+
+[sub_resource type="Resource" id="Resource_8bipx"]
+script = ExtResource("9_8bipx")
+item = ExtResource("12_8bipx")
+weight = 60
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_cwm16"]
+script = ExtResource("9_8bipx")
+item = ExtResource("13_ks3mc")
+weight = 20
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_bridh"]
+script = ExtResource("9_8bipx")
+item = ExtResource("11_n0rtw")
+weight = 10
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_po0fb"]
+script = ExtResource("9_8bipx")
+item = ExtResource("12_165p0")
+weight = 5
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_k168q"]
+script = ExtResource("9_8bipx")
+item = ExtResource("12_165p0")
+weight = 3
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_1d1ln"]
+script = ExtResource("9_8bipx")
+item = ExtResource("11_n0rtw")
+weight = 7
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_pyftv"]
+script = ExtResource("9_8bipx")
+item = ExtResource("12_165p0")
+weight = 2
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_mknhp"]
+script = ExtResource("9_8bipx")
+item = ExtResource("11_n0rtw")
+weight = 3
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_h3yuq"]
+script = ExtResource("9_8bipx")
+item = ExtResource("12_8bipx")
+weight = 6
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_ti4k1"]
+script = ExtResource("9_8bipx")
+item = ExtResource("12_8bipx")
+weight = 8
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_745yt"]
+script = ExtResource("9_8bipx")
+item = ExtResource("11_n0rtw")
+weight = 2
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
 [node name="Stage" type="Node2D"]
 script = SubResource("GDScript_c7rpm")
@@ -118,6 +187,13 @@ position = Vector2(5469, 1687)
 [node name="Crab22" parent="Enemies/Crabs" instance=ExtResource("2_o2n0b")]
 position = Vector2(5343, 1688)
 
+[node name="DropData" type="Node2D" parent="Enemies/Crabs"]
+script = ExtResource("8_ks3mc")
+min_drop = 2
+max_drop = 4
+drop_table = Array[ExtResource("9_8bipx")]([SubResource("Resource_8bipx"), SubResource("Resource_cwm16"), SubResource("Resource_bridh"), SubResource("Resource_po0fb")])
+metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
+
 [node name="Turtles" type="Node2D" parent="Enemies"]
 
 [node name="Turtle" parent="Enemies/Turtles" instance=ExtResource("2_vp5ds")]
@@ -187,6 +263,13 @@ initial_state = 1
 position = Vector2(10064, 2998)
 initial_state = 1
 
+[node name="DropData" type="Node2D" parent="Enemies/Turtles"]
+script = ExtResource("8_ks3mc")
+min_drop = 1
+max_drop = 3
+drop_table = Array[ExtResource("9_8bipx")]([SubResource("Resource_k168q"), SubResource("Resource_1d1ln")])
+metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
+
 [node name="Starfishes" type="Node2D" parent="Enemies"]
 
 [node name="Starfish" parent="Enemies/Starfishes" instance=ExtResource("3_l583c")]
@@ -227,6 +310,12 @@ position = Vector2(1133, 722)
 [node name="Starfish16" parent="Enemies/Starfishes" instance=ExtResource("3_l583c")]
 position = Vector2(1282, 2000)
 
+[node name="DropData" type="Node2D" parent="Enemies/Starfishes"]
+script = ExtResource("8_ks3mc")
+max_drop = 4
+drop_table = Array[ExtResource("9_8bipx")]([SubResource("Resource_pyftv"), SubResource("Resource_mknhp"), SubResource("Resource_h3yuq")])
+metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
+
 [node name="Seahorses" type="Node2D" parent="Enemies"]
 
 [node name="Seahorse" parent="Enemies/Seahorses" instance=ExtResource("5_n84ud")]
@@ -243,6 +332,13 @@ attack_speed = 200.0
 position = Vector2(16877, 3505)
 sight = 1200.0
 attack_speed = 200.0
+
+[node name="DropData" type="Node2D" parent="Enemies/Seahorses"]
+script = ExtResource("8_ks3mc")
+min_drop = 1
+max_drop = 2
+drop_table = Array[ExtResource("9_8bipx")]([SubResource("Resource_ti4k1"), SubResource("Resource_745yt")])
+metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [node name="Pelicans" type="Node2D" parent="Enemies"]
 
