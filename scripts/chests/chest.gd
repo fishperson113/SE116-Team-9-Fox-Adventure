@@ -14,10 +14,6 @@ func _on__interaction_available() -> void:
 		print("The chest is already open")
 		return
 	
-	if not GameManager.player.inventory.is_key_available():
-		print("Player does not have any keys")
-		return
-	
 	print("Player is standing next to the chest")
 	pass # Replace with function body.
 

@@ -3,8 +3,14 @@ extends FSMState
 
 var smoke = preload("res://scenes/levels/island/objects/smoke/smoke.tscn")
 
+var sfx_jump_pitch_min: float = 0.9
+var sfx_jump_pitch_max: float = 1.1
+
+var sfx_dash_pitch_min: float = 0.4
+var sfx_dash_pitch_max: float = 0.5
 #Sound effects
 @onready var sfx_jump: AudioStreamPlayer = $"../../SFX/Jump"
+@onready var sfx_dash: AudioStreamPlayer = $"../../SFX/Dash"
 
 func _enter() -> void:
 	pass
@@ -37,6 +43,8 @@ func control_dash() -> bool:
 	var is_dash_pressed = Input.is_action_just_pressed("special_attack")
 	if is_dash_pressed and obj.is_dash and obj.current_dash < obj.max_dash:
 		change_state(fsm.states.dash)
+		sfx_dash.pitch_scale = randf_range(sfx_dash_pitch_min, sfx_dash_pitch_max)
+		sfx_dash.play()
 		return true
 	return false
 
@@ -48,6 +56,7 @@ func control_jump() -> bool:
 	if (is_jumping and obj.current_jump<obj.jump_step):
 		obj.velocity.y = -obj.jump_speed
 		change_state(fsm.states.jump)
+		sfx_jump.pitch_scale = randf_range(sfx_jump_pitch_min, sfx_jump_pitch_max)
 		sfx_jump.play()
 		#var starting = obj.get_parent()
 		#if starting.has_method("add_smoke_effect"):
@@ -106,5 +115,6 @@ func add_jump_effect(pos: Vector2):
 	add_child(jump_fx)
 	
 func control_unequip():
-	if Input.is_action_pressed("unequip") and obj.is_equipped:
-		obj.unequip_weapon()
+	#if Input.is_action_pressed("unequip") and obj.is_equipped:
+	#	obj.unequip_weapon()
+	pass
