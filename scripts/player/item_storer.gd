@@ -233,7 +233,7 @@ func move(from: int, to: int):
 	emit_signal("slot_changed", to)
 	
 	_equip_current_slot_weapon()
-	
+	GameManager.player.item_storer.save_slots()
 	debug_slots()
 	
 func debug_slots():
