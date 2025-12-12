@@ -9,8 +9,7 @@ class_name Slot
 @onready var qty: Label = $Number
 @onready var inventory = GameManager.player.inventory
 @onready var item_storer = GameManager.player.item_storer
-
-signal request_move(src_parent, from_index, dst_parent, to_index)
+signal request_move(parent_node, from_index, to_index)
 
 var item_type: String = ""
 var item_detail = null
@@ -51,13 +50,10 @@ func _get_drag_data(_at_position):
 	}
 
 	var preview := TextureRect.new()
+	preview.z_index = 100
 	preview.texture = icon.texture
 	preview.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
 	preview.size = icon.size
-	
-	# Làm mờ preview một chút cho đẹp
-	preview.modulate.a = 0.8
-	
 	set_drag_preview(preview)
 	return data
 
@@ -70,43 +66,94 @@ func _drop_data(_at_position, data):
 	if src == self:
 		return
 	
+	var cur_tex = icon.texture
+	var cur_type = item_type
+	var cur_detail = item_detail
+	var cur_count = quantity
+	
 	if parent == src.parent:
-		emit_signal("request_move", parent, src.index, parent, index)
-	else:
-		exchange(src.parent, src.index, parent, index)
-
-# --- DATA LOGIC ---
+		print(parent)
+		emit_signal("request_move", parent, src.index, index)
+		return
+		
+	exchange(src.parent, src.index, parent, index)
+			
 func exchange(src_parent, src_index, dst_parent, dst_index):
+	# Lấy data từ slot nguồn
 	var src_data
 	if src_parent == inventory:
+		if src_index >= inventory.item_archive.size():
+			print("ERROR: src_index out of range")
+			return
 		src_data = inventory.item_archive[src_index]
 	else:
-		src_data = item_storer.items_archive[src_index]
-		
-	var dst_data
+		src_data = item_storer.item_archive[src_index]
+	
+	print("Source data: ", src_data)
+	
+	# Lấy data từ slot đích
+	var dst_data = null
+	var dst_is_empty = true
+	
 	if dst_parent == inventory:
-		dst_data = inventory.item_archive[dst_index]
+		if dst_index < inventory.item_archive.size():
+			dst_data = inventory.item_archive[dst_index]
+			dst_is_empty = (dst_data == null or (dst_data is Dictionary and dst_data.is_empty()))
+		else:
+			# Slot nằm ngoài range → coi như trống
+			dst_is_empty = true
 	else:
 		dst_data = item_storer.items_archive[dst_index]
-
-	# Swap Data
+		dst_is_empty = (dst_data == null or (dst_data is Dictionary and dst_data.is_empty()))
+	
+	print("Dest data: ", dst_data)
+	print("Dest is empty: ", dst_is_empty)
+	
+	# ===== Inventory ↔ ItemStorer =====
 	if src_parent == inventory and dst_parent == item_storer:
-		inventory.item_archive[src_index] = dst_data
+		print("→ Inventory to ItemStorer")
+		
+		# Ghi vào slot đích
 		item_storer.items_archive[dst_index] = src_data
-	elif src_parent == item_storer and dst_parent == inventory:
-		item_storer.items_archive[src_index] = dst_data
-		inventory.item_archive[dst_index] = src_data
-	
-	# Emit Signal để UI (InvUI) vẽ lại
-	inventory.inventory_changed.emit()
-	
-	# Nếu dính đến ItemStorer (Hotbar), cần báo slot changed
-	if src_parent == item_storer:
-		item_storer.slot_changed.emit(src_index)
-	if dst_parent == item_storer:
+		
+		# Xử lý slot nguồn
+		if dst_is_empty:
+			print("  Removing from inventory[", src_index, "]")
+			inventory.item_archive.remove_at(src_index)
+		else:
+			print("  Swapping inventory[", src_index, "] = ", dst_data)
+			inventory.item_archive[src_index] = dst_data
+		
+		inventory.inventory_changed.emit()
 		item_storer.slot_changed.emit(dst_index)
-
-# --- VISUAL HELPERS ---
+		
+		if dst_index == item_storer.item_slot:
+			item_storer._equip_current_slot_weapon()
+	
+	# ===== ItemStorer → Inventory =====
+	elif src_parent == item_storer and dst_parent == inventory:
+		print("→ ItemStorer to Inventory")
+		
+		if dst_is_empty:
+			print("  Appending to inventory")
+			# Slot đích trống → append vào cuối
+			inventory.item_archive.append(src_data)
+			# Xóa slot nguồn
+			item_storer.item_archive[src_index] = {}
+		else:
+			print("  Swapping with inventory[", dst_index, "]")
+			# Slot đích có item → swap
+			inventory.item_archive[dst_index] = src_data
+			item_storer.item_archive[src_index] = dst_data
+		
+		inventory.inventory_changed.emit()
+		item_storer.slot_changed.emit(src_index)
+		
+		if src_index == item_storer.item_slot:
+			item_storer._equip_current_slot_weapon()
+		GameManager.player.item_storer.save_slots()
+		GameManager.player.inventory.save_inventory()
+	
 func highlight(active: bool):
 	# (Code highlight giữ nguyên như của bạn)
 	var style := StyleBoxFlat.new()

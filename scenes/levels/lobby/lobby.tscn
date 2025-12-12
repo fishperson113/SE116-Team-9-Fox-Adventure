@@ -131,6 +131,16 @@ texture = ExtResource("14_yhktf")
 
 [node name="Player" parent="." instance=ExtResource("2_188ev")]
 position = Vector2(2, -5)
+jump_step = null
+current_jump = null
+max_dash = null
+current_dash = null
+max_wide_attack = null
+current_wide_attack = null
+movement_speed = null
+gravity = null
+direction = null
+character_type = null
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -35)
