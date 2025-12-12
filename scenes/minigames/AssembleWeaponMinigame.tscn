@@ -580,6 +580,19 @@ rotation = -1.5708
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="Label" type="Label" parent="MainLayout/AssembleArea/WeaponAssembler"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -147.0
+offset_top = 60.0
+offset_right = 327.0
+offset_bottom = 102.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "Drag and drop weapon part here"
+
 [node name="CollectionArea" type="Control" parent="MainLayout" node_paths=PackedStringArray("assembler", "assemble_area")]
 layout_mode = 2
 size_flags_horizontal = 3
