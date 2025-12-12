@@ -3,8 +3,15 @@ extends FSMState
 
 var smoke = preload("res://scenes/levels/island/objects/smoke/smoke.tscn")
 
+var sfx_jump_pitch_min: float = 0.9
+var sfx_jump_pitch_max: float = 1.1
+
+var sfx_dash_pitch_min: float = 1.3
+var sfx_dash_pitch_max: float = 1.5
+
 #Sound effects
 @onready var sfx_jump: AudioStreamPlayer = $"../../SFX/Jump"
+@onready var sfx_dash: AudioStreamPlayer = $"../../SFX/Dash"
 
 func _enter() -> void:
 	pass
