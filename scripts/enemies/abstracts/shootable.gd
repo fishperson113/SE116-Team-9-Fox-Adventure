@@ -59,9 +59,7 @@ func update_shoot(_delta: float) -> void:
 		fsm.change_state(fsm.states.normal)
 
 func can_attack() -> bool:
-	if player_detection_raycast and player_detection_raycast.enabled:
-		return player_detection_raycast.is_colliding() and _is_ready
-	return false
+	return is_player_visible() and _is_ready
 
 func _on_shoot_timer_timeout():
 	_is_ready = true
@@ -75,3 +73,8 @@ func try_attack() -> void:
 	if can_attack():
 		found_player = player_detection_raycast.get_collider() as Player
 		fsm.change_state(fsm.states.shoot)
+
+func is_player_visible() -> bool:
+	if player_detection_raycast and player_detection_raycast.enabled:
+		return player_detection_raycast.is_colliding()
+	return false

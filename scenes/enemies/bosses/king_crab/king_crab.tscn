@@ -191,7 +191,7 @@ size = Vector2(89, 44)
 size = Vector2(88, 42.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l046a"]
-size = Vector2(800, 800)
+size = Vector2(1200, 800)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_48w1g"]
 size = Vector2(50, 37)
@@ -276,9 +276,6 @@ visible = false
 [node name="CollisionShape2D" parent="Direction/HurtArea2D" index="0"]
 position = Vector2(2, 2.25)
 shape = SubResource("RectangleShape2D_ppg4x")
-
-[node name="NearSenseArea2D" parent="Direction" index="3"]
-visible = false
 
 [node name="CollisionShape2D" parent="Direction/NearSenseArea2D" index="0"]
 shape = SubResource("RectangleShape2D_l046a")

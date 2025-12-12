@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://2myew2spjl4b"]
+[gd_scene load_steps=20 format=4 uid="uid://2myew2spjl4b"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
 [ext_resource type="Script" uid="uid://dpd1hu8tkk1y4" path="res://scripts/utils/threat_indicator_area_2d.gd" id="3_e1c60"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://crkmos1d5bdx3" path="res://scenes/collectibles/items/collectible_items/collectible_chest_key.tscn" id="9_rr8pu"]
 [ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="10_rr8pu"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="10_ycpif"]
+[ext_resource type="PackedScene" uid="uid://ddc86ootpum2i" path="res://scenes/enemies/bosses/warlord_turtle/warlord_turtle.tscn" id="13_d63eo"]
+[ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="14_a6v5w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vb1hh"]
 size = Vector2(1240, 960)
@@ -40,7 +42,7 @@ item = ExtResource("9_rr8pu")
 weight = 12
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
-[node name="Stage2" type="Node2D"]
+[node name="Stage" type="Node2D"]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." groups=["ground"]]
 tile_map_data = PackedByteArray("AAABAAUAAAAEAAEAAAABAAYAAAAPAAQAAAACAAYAAAABAAQAAAADAAYAAAABAAQAAAAEAAYAAAABAAQAAAAFAAYAAAABAAQAAAAGAAYAAAABAAQAAAAHAAYAAAABAAQAAAAIAAYAAAABAAQAAAAJAAYAAAABAAQAAAAKAAYAAAABAAQAAAALAAYAAAABAAQAAAAMAAYAAAAKAAQAAAANAAYAAAAJAAQAAAABAAQAAAAEAAEAAAABAAMAAAAEAAEAAAABAAIAAAAEAAEAAAABAAEAAAAEAAAAAAAOAAYAAAABAAQAAAAPAAYAAAABAAQAAAARAAYAAAABAAQAAAASAAYAAAABAAQAAAATAAYAAAAQAAMAAAAWAAYAAAAPAAMAAAAXAAYAAAABAAQAAAAYAAYAAAABAAQAAAAZAAYAAAABAAQAAAAaAAYAAAABAAQAAAAbAAYAAAABAAQAAAAkAAYAAAABAAQAAAAlAAYAAAABAAQAAAAmAAYAAAABAAQAAAAnAAYAAAAQAAQAAAAnAAUAAAAEAAEAAAAnAAQAAAAEAAEAAAAnAAMAAAAEAAEAAAAnAAIAAAAEAAEAAAAnAAEAAAAEAAAAAAAQAAYAAAABAAQAAAAcAAYAAAABAAQAAAAdAAYAAAABAAQAAAAfAAYAAAABAAQAAAAeAAYAAAABAAQAAAAgAAYAAAABAAQAAAAhAAYAAAABAAQAAAAiAAYAAAABAAQAAAAjAAYAAAABAAQAAAANAAUAAAACAAAAAAAMAAUAAAAGAAQAAAAMAAQAAAAEAAAAAAAUAAcAAAAQAAMAAAAVAAgAAAABAAQAAAAWAAcAAAAEAAEAAAAWAAgAAAAQAAQAAAAUAAgAAAAPAAQAAAATAAcAAAAPAAQAAAA=")
@@ -89,3 +91,9 @@ min_drop = 1
 max_drop = 4
 drop_table = Array[ExtResource("8_gfba4")]([SubResource("Resource_d63eo"), SubResource("Resource_cu5if")])
 metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
+
+[node name="WarlordTurtle" parent="." instance=ExtResource("13_d63eo")]
+position = Vector2(827, 157)
+
+[node name="KingCrab" parent="." instance=ExtResource("14_a6v5w")]
+position = Vector2(888, 165)

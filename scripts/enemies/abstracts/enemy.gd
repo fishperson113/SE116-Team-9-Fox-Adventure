@@ -55,6 +55,8 @@ var _near_sense_area: Area2D = null
 var _hit_area: HitArea2D = null
 var _hurt_area: HurtArea2D = null
 
+var _player_detected_marker: PlayerDetectedMarker = null
+
 func _ready() -> void:
 	super._ready()
 	
@@ -101,6 +103,7 @@ func _init_components() -> void:
 	_init_hurt_area()
 	_init_hit_area()
 	_init_collision_shape()
+	_init_markers()
 
 func _init_animated_sprite():
 	if has_node("Direction/AnimatedSprite2D"):
@@ -151,6 +154,10 @@ func _init_hurt_area():
 func _init_collision_shape():
 	if has_node("CollisionShape2D"):
 		_collision_shape = $CollisionShape2D
+
+func _init_markers():
+	if has_node("Direction/PlayerDetectedMarker"):
+		_player_detected_marker = $Direction/PlayerDetectedMarker
 
 # Main handler
 func _physics_process(delta: float) -> void:
