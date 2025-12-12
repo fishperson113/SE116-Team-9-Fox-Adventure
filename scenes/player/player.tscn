@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://chcs4qer8dybe"]
+[gd_scene load_steps=99 format=3 uid="uid://chcs4qer8dybe"]
 
 [ext_resource type="Script" uid="uid://d00o3jgu015v4" path="res://scripts/player/player.gd" id="1_ugbui"]
 [ext_resource type="Texture2D" uid="uid://cwgjo8l0lmemi" path="res://assets/sprites/characters/foxy/fox/fox_idle_1.png" id="2_5gtgg"]
@@ -87,6 +87,7 @@
 [ext_resource type="Script" uid="uid://dwdq55txq7lgs" path="res://scripts/player/states/wide_attack.gd" id="80_46q5t"]
 [ext_resource type="AudioStream" uid="uid://bhf82m72nk0or" path="res://assets/audio/sfx/defeat.mp3" id="80_v8cnd"]
 [ext_resource type="AudioStream" uid="uid://mc3en83ij8df" path="res://assets/audio/sfx/hit.mp3" id="81_wuxn4"]
+[ext_resource type="AudioStream" uid="uid://dcoem0bta3xf7" path="res://assets/audio/sfx/dash.ogg" id="82_5miun"]
 [ext_resource type="Script" uid="uid://ync4l7s6o8pl" path="res://scripts/player/inventory.gd" id="82_vkc6f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kvlxm"]
@@ -439,6 +440,45 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Animation" id="Animation_5miun"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_46q5t"]
+resource_name = "invulnerable"
+length = 0.400007
+loop_mode = 1
+step = 0.0666667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2, 0.266667, 0.333333),
+"transitions": PackedFloat32Array(0, 0, 0, 0, 0, 0),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.27451), Color(1, 1, 1, 1), Color(1, 1, 1, 0.27451), Color(1, 1, 1, 1), Color(1, 1, 1, 0.27451)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7u1tp"]
+_data = {
+&"RESET": SubResource("Animation_5miun"),
+&"invulnerable": SubResource("Animation_46q5t")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vkc6f"]
 size = Vector2(29, 28)
 
@@ -466,6 +506,11 @@ metadata/_custom_type_script = "uid://dlxdtwr6rpwbr"
 sprite_frames = SubResource("SpriteFrames_kvlxm")
 animation = &"hat_blade_attack"
 frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Direction/AnimatedSprite2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_7u1tp")
+}
 
 [node name="HitArea2D" type="Area2D" parent="Direction"]
 collision_mask = 24
@@ -536,6 +581,10 @@ script = ExtResource("80_46q5t")
 
 [node name="Jump" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("79_trum3")
+
+[node name="Dash" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("82_5miun")
+volume_db = -2.0
 
 [node name="Defeat" type="AudioStreamPlayer" parent="SFX"]
 process_mode = 3

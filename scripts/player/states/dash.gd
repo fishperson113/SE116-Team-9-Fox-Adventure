@@ -4,6 +4,9 @@ var dash_multiplier_hor = 1.5
 var dash_multiplier_ver = 1.5
 
 func _enter() -> void:
+	obj.create_effect("dash")
+	sfx_dash.pitch_scale = randf_range(sfx_jump_pitch_min, sfx_jump_pitch_max)
+	sfx_dash.play()
 	$"../../DashabilityTimer".start()
 	obj.current_dash += 1
 	pass

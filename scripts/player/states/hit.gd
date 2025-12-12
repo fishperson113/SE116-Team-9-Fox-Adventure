@@ -10,6 +10,7 @@ func _enter() -> void:
 	obj.velocity.y = -250
 	obj.velocity.x = -250 * sign(obj.velocity.x)
 	timer = 0.5
+	obj.invulnerable_effect.play("invulnerable")
 	pass
 
 func _update(_delta: float) -> void:

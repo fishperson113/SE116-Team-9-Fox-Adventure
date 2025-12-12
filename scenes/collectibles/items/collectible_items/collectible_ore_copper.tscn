@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://lpbsp21eba1u"]
+[gd_scene load_steps=8 format=3 uid="uid://lpbsp21eba1u"]
 
 [ext_resource type="PackedScene" uid="uid://d3htq6cyenbsi" path="res://scenes/collectibles/items/collectible_items/collectible_ore.tscn" id="1_3btqk"]
 [ext_resource type="Script" uid="uid://bebi44o5lk37i" path="res://scripts/collectibles/items/collectibles/collectible_ore_copper.gd" id="2_61wjo"]
@@ -15,8 +15,28 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Gradient" id="Gradient_037cs"]
+offsets = PackedFloat32Array(0, 0.478599, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lahk5"]
+gradient = SubResource("Gradient_037cs")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b0igb"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(9.675, 1, 1)
+gravity = Vector3(0, -50, 0)
+color = Color(0.898039, 0.466667, 0.141176, 1)
+color_ramp = SubResource("GradientTexture1D_lahk5")
+
 [node name="Copper" instance=ExtResource("1_3btqk")]
 script = ExtResource("2_61wjo")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_61wjo")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." index="2"]
+z_index = -1
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_b0igb")

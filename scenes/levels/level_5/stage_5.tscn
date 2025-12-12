@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="5_th0hk"]
 [ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/collectibles/items/collectible_items/collectible_ore_iron.tscn" id="6_js4gn"]
 [ext_resource type="PackedScene" uid="uid://caj73aiw7tf22" path="res://scenes/enemies/minions/melees/big_aborigine.tscn" id="6_njy1a"]
-[ext_resource type="Script" path="res://scripts/utils/threat_indicator_area_2d.gd" id="6_txxkb"]
+[ext_resource type="Script" uid="uid://dpd1hu8tkk1y4" path="res://scripts/utils/threat_indicator_area_2d.gd" id="6_txxkb"]
 [ext_resource type="PackedScene" uid="uid://cvdklsb743i1l" path="res://scenes/ui/markers/threat_marker.tscn" id="7_e1o38"]
 [ext_resource type="PackedScene" uid="uid://ddc86ootpum2i" path="res://scenes/enemies/bosses/warlord_turtle/warlord_turtle.tscn" id="7_txxkb"]
 [ext_resource type="PackedScene" uid="uid://cv7h7e7s07r0m" path="res://scenes/enemies/spawners/time_spawner.tscn" id="8_e1o38"]
@@ -271,54 +271,54 @@ position = Vector2(7820, 8431)
 
 [node name="Pelican" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
 position = Vector2(599, -238)
+sight = 300.0
 left_bound = 200.0
 right_bound = 2150.0
-sight = 300.0
 
 [node name="Pelican2" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
 position = Vector2(837, -292)
-left_bound = 200.0
-right_bound = 2150.0
 initial_direction = 1
 sight = 300.0
+left_bound = 200.0
+right_bound = 2150.0
 
 [node name="Pelican3" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
 position = Vector2(1488, -266)
-left_bound = 200.0
-right_bound = 2150.0
 initial_direction = 1
 sight = 300.0
+left_bound = 200.0
+right_bound = 2150.0
 
 [node name="Pelican4" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
 position = Vector2(1914, -215)
+sight = 300.0
 left_bound = 200.0
 right_bound = 2150.0
-sight = 300.0
 
 [node name="Pelican5" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
 position = Vector2(2609, -204)
+sight = 3000.0
+movement_speed = 90.0
 bullet_impulse = Vector2(25, -200)
 left_bound = 2490.0
 right_bound = 3100.0
-sight = 3000.0
-movement_speed = 90.0
 
 [node name="Pelican7" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
 position = Vector2(2856, -204)
+sight = 3000.0
+movement_speed = 90.0
 bullet_impulse = Vector2(25, -200)
 left_bound = 2490.0
 right_bound = 3100.0
-sight = 3000.0
-movement_speed = 90.0
 
 [node name="Pelican6" parent="Enemies/Pelicans" instance=ExtResource("4_pjjcp")]
 position = Vector2(2720, -154)
-bullet_impulse = Vector2(25, -200)
-left_bound = 2490.0
-right_bound = 3100.0
 initial_direction = 1
 sight = 3000.0
 movement_speed = 90.0
+bullet_impulse = Vector2(25, -200)
+left_bound = 2490.0
+right_bound = 3100.0
 
 [node name="Aborigines" type="Node2D" parent="Enemies"]
 
@@ -518,11 +518,5 @@ position = Vector2(2315, 3354)
 
 [node name="Copper15" parent="Resources/Coppers" instance=ExtResource("4_jdldg")]
 position = Vector2(3185, 6458)
-
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/Checkpoint" to="TileMapLayers/FunctionalTileMapLayer/Checkpoint" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@49732" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@49732" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@49861" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@49861" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@49862" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@49862" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@49863" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@49863" method="_on_body_entered"]
 
 [editable path="AreaUnlockerEnemies"]

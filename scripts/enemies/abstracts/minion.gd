@@ -79,6 +79,6 @@ func end_awaking() -> void:
 	pass
 
 func update_awaking(_delta: float) -> void:
-	if fsm.current_staet.update_timer(_delta):
+	if fsm.current_state.update_timer(_delta):
 		fsm.change_state(fsm.states.normal)
 	pass

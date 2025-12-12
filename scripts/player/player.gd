@@ -37,6 +37,13 @@ var is_equipped: bool = false
 var is_dash: bool = false
 var current_skill_id: String = ""
 var current_weapon_data: WeaponData = null
+# Invulnerable effect
+var invulnerable_effect: AnimationPlayer
+# Effects for player
+var dash_effect: PackedScene = null
+var attack_effect: PackedScene = null
+var wide_attack_effect: PackedScene = null
+
 func _ready() -> void:
 	get_node("Direction/HitArea2D/CollisionShape2D").disabled = true
 	get_node("Direction/WideHitArea2D/CollisionShape2D").disabled = true
@@ -46,13 +53,18 @@ func _ready() -> void:
 	decorator_manager.initialize(self)
 	# Set the attacker to take damage from reflect
 	hit_area.set_attacker(self)
+	wide_hit_area.set_attacker(self)
 	super._ready()
 	GameManager.player = self
 	base_speed=movement_speed
 	maxHealth=2000
 	currentHealth=maxHealth
 	GameManager.initialize_systems()
-
+	
+	invulnerable_effect = $Direction/AnimatedSprite2D/AnimationPlayer
+	dash_effect = preload("res://scenes/player/effects/dash_effect.tscn")
+	attack_effect = preload("res://scenes/player/effects/attack_effect.tscn")
+	wide_attack_effect = preload("res://scenes/player/effects/wide_attack_effect.tscn")
 
 func _process(delta: float) -> void:
 	if current_dash == max_dash:
@@ -105,6 +117,7 @@ func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, direction: Vector2, damage:
 
 func _on_invulnerability_timer_timeout() -> void:
 	is_invulnerable = false
+	invulnerable_effect.stop()
 
 func _on_wide_attack_resolve_timer_timeout() -> void:
 	current_wide_attack -= 1
@@ -181,6 +194,26 @@ func load_state(data: Dictionary) -> void:
 	if data.has("position"):
 		var pos_array = data["position"]
 		global_position = Vector2(pos_array[0], pos_array[1])
+
+func create_effect(action: String) -> void:
+	var created_effect = null
+	match action:
+		"dash":
+			created_effect = dash_effect.instantiate()
+		"attack":
+			created_effect = attack_effect.instantiate()
+		"wide_attack":
+			created_effect = wide_attack_effect.instantiate()
+	
+	if created_effect == null:
+		return
+	
+	created_effect.global_position = position
+	created_effect.scale.x = direction * created_effect.scale.x
+	created_effect.z_index = -1
+	get_tree().current_scene.add_child(created_effect)
+	if created_effect is GPUParticles2D:
+		created_effect.emitting = true
 func on_use_skill_durability():
 	if current_weapon_data == null:
 		return
