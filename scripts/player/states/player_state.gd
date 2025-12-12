@@ -74,6 +74,7 @@ func control_jump() -> bool:
 	if (is_jumping and obj.current_jump<obj.jump_step):
 		obj.velocity.y = -obj.jump_speed
 		change_state(fsm.states.jump)
+		sfx_jump.pitch_scale = randf_range(sfx_jump_pitch_min, sfx_jump_pitch_max)
 		sfx_jump.play()
 		#var starting = obj.get_parent()
 		#if starting.has_method("add_smoke_effect"):
