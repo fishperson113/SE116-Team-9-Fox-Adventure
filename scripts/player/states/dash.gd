@@ -5,8 +5,6 @@ var dash_multiplier_ver = 1.5
 
 func _enter() -> void:
 	obj.create_effect("dash")
-	sfx_dash.pitch_scale = randf_range(sfx_jump_pitch_min, sfx_jump_pitch_max)
-	sfx_dash.play()
 	$"../../DashabilityTimer".start()
 	obj.current_dash += 1
 	obj.current_special_skill_attempt += 1
@@ -14,6 +12,8 @@ func _enter() -> void:
 		obj.max_special_skill_attempt -
 		obj.current_special_skill_attempt
 		)
+	sfx_dash.pitch_scale = randf_range(sfx_dash_pitch_min, sfx_dash_pitch_max)
+	sfx_dash.play()
 	pass
 
 func _update(_delta: float) -> void:

@@ -18,8 +18,6 @@ var current_special_skill_attempt: int = 0
 @export var max_dash: int = 1
 @export var current_dash: int = 0
 
-@export var is_wide_attack: bool = false
-
 var weapon_thrower: WeaponThrower
 
 @onready var inventory: Inventory = $Inventory
@@ -41,7 +39,6 @@ var attack_damage
 var attack_speed
 var base_speed
 var is_equipped: bool = false
-var is_dash: bool = false
 var current_skill_id: String = ""
 var current_weapon_data: WeaponData = null
 # Invulnerable effect
@@ -192,10 +189,10 @@ func _apply_special_skill(skill: String):
 			movement_speed = base_speed * 2
 		"dash":
 			is_special_skill = true
-			is_dash = true
 		"wide_attack":
 			is_special_skill = true
-			is_wide_attack = true
+		"fireball_attack":
+			is_special_skill = true
 		_:
 			_reset_weapon_stats()
 	GameManager.inspectSkillBar.emit(is_special_skill)
@@ -204,8 +201,6 @@ func _reset_weapon_stats():
 	is_special_skill = false
 	jump_step = 2   
 	movement_speed=base_speed
-	is_dash = false
-	is_wide_attack = false
 	invulnerability_wait_time = 1.0
 	GameManager.inspectSkillBar.emit(is_special_skill)
 
