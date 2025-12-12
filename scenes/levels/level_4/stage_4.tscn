@@ -29,9 +29,9 @@ colors = PackedColorArray(0, 0, 0, 1, 0.209223, 0.533987, 0.736964, 1, 0.262745,
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_y1typ"]
 gradient = SubResource("Gradient_c7rpm")
-width = 16384
+width = 14500
 height = 4000
-fill_to = Vector2(1, 0.025)
+fill_to = Vector2(1.12, 0.025)
 
 [node name="Stage" type="Node2D"]
 script = SubResource("GDScript_c7rpm")
@@ -40,8 +40,8 @@ script = SubResource("GDScript_c7rpm")
 
 [node name="Background" type="Sprite2D" parent="Backgrounds"]
 z_index = -1
-position = Vector2(9938, 2133)
-scale = Vector2(1.262, 1.25375)
+position = Vector2(8959.75, 2077)
+scale = Vector2(1.27976, 1.25375)
 texture = SubResource("GradientTexture2D_y1typ")
 
 [node name="TileMapLayers" type="Node2D" parent="."]
@@ -344,10 +344,3 @@ position = Vector2(5852, 1304)
 
 [node name="Copper14" parent="Resources/Coppers" instance=ExtResource("13_ks3mc")]
 position = Vector2(5873, 986)
-
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/Checkpoint" to="TileMapLayers/FunctionalTileMapLayer/Checkpoint" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@148830" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@148830" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@148831" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@148831" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@168462" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@168462" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@180290" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@180290" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@180393" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@180393" method="_on_body_entered"]
