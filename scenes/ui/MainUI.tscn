@@ -28,6 +28,7 @@ script/source = "extends PanelContainer
 @onready var hp_bonus_label: Label = $MarginContainer/VBoxContainer/HPBonus
 @onready var atk_speed_label: Label = $MarginContainer/VBoxContainer/AttackSpeedBonus
 @onready var special_ability_label: Label = $MarginContainer/VBoxContainer/SpecialAbility
+@onready var durability_label: Label = $MarginContainer/VBoxContainer/Durability
 
 # Tùy chỉnh chiều rộng tối đa của bảng thông tin tại đây (tính bằng pixel)
 const MAX_PANEL_WIDTH = 250.0 
@@ -61,7 +62,12 @@ func _update_info_panel(weapon_data: WeaponData):
 		damage_label.visible = true
 	else:
 		damage_label.visible = false
-
+	var durability = weapon_data.get_durability()
+	if durability > 0:
+		durability_label.text = \"🛡️ Durability: %.1f\" % durability
+		durability_label.visible = true
+	else:
+		durability_label.visible = false
 	var hp = weapon_data.get_max_health()
 	if hp > 0:
 		hp_bonus_label.text = \"♥ Health: +%d\" % hp
@@ -300,6 +306,11 @@ text = "Weapon Name"
 layout_mode = 2
 theme_override_font_sizes/font_size = 23
 text = "Damage:"
+
+[node name="Durability" type="Label" parent="InfoUI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 23
+text = "Durability:"
 
 [node name="HPBonus" type="Label" parent="InfoUI/MarginContainer/VBoxContainer"]
 layout_mode = 2

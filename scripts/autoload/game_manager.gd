@@ -47,6 +47,7 @@ var pending_material_amount: int = 0
 signal modifyBlade
 signal coinChange
 signal materialChange
+signal weaponDurabilityChange
 
 func _ready() -> void:
 	# Load checkpoint data when game starts

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://clfqragev0x8n"]
+[gd_scene load_steps=30 format=4 uid="uid://clfqragev0x8n"]
 
 [ext_resource type="Script" uid="uid://cpp12lpg4jtvk" path="res://scenes/levels/lobby/lobby.gd" id="1_lds41"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_xex7k"]
@@ -23,6 +23,10 @@
 [ext_resource type="Texture2D" uid="uid://cg0b3jv5jwy0q" path="res://assets/sprites/tutorial/inventory_change_slots.png" id="16_yhktf"]
 [ext_resource type="Texture2D" uid="uid://lyui763qwpd7" path="res://assets/sprites/tutorial/tutorial_attack_2.png" id="17_7nx20"]
 [ext_resource type="Texture2D" uid="uid://dissxrq012sdw" path="res://assets/sprites/tutorial/tutorial_throw_2.png" id="18_7dncq"]
+[ext_resource type="Script" uid="uid://bg7o110gecbgs" path="res://scripts/crafting/weapon_material_data.gd" id="24_mvbuw"]
+[ext_resource type="Resource" uid="uid://b7f1xt8sai4l1" path="res://data/weapon/materials/copper.tres" id="25_ndaff"]
+[ext_resource type="Resource" uid="uid://g5k57m8utwwn" path="res://data/weapon/materials/iron.tres" id="26_mhr3f"]
+[ext_resource type="Resource" uid="uid://b1qe5hffbbbqj" path="res://data/weapon/materials/gold.tres" id="27_l2xjm"]
 
 [sub_resource type="Resource" id="Resource_1iqgf"]
 script = ExtResource("5_8rmxw")
@@ -48,7 +52,7 @@ tile_set = ExtResource("1_xex7k")
 [node name="Mushroom" parent="World" instance=ExtResource("2_n3oag")]
 position = Vector2(1510, 8)
 
-[node name="DropData" type="Node2D" parent="World/Mushroom"]
+[node name="DropData2" type="Node2D" parent="World/Mushroom"]
 script = ExtResource("4_t1qjs")
 min_drop = 2
 max_drop = 2
@@ -141,4 +145,5 @@ visible = false
 
 [node name="MaterialSelectPopup" parent="MainUI" instance=ExtResource("8_1ua0a")]
 visible = false
+material_list = Array[ExtResource("24_mvbuw")]([ExtResource("25_ndaff"), ExtResource("26_mhr3f"), ExtResource("27_l2xjm")])
 offset_y = 140

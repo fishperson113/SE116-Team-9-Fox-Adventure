@@ -35,7 +35,8 @@ var attack_speed
 var base_speed
 var is_equipped: bool = false
 var is_dash: bool = false
-
+var current_skill_id: String = ""
+var current_weapon_data: WeaponData = null
 func _ready() -> void:
 	get_node("Direction/HitArea2D/CollisionShape2D").disabled = true
 	get_node("Direction/WideHitArea2D/CollisionShape2D").disabled = true
@@ -43,7 +44,6 @@ func _ready() -> void:
 	weapon_thrower = $WeaponThrower
 	decorator_manager= DecoratorManager.new()
 	decorator_manager.initialize(self)
-	weapon_manager=WeaponEquipmentManager.new()
 	# Set the attacker to take damage from reflect
 	hit_area.set_attacker(self)
 	super._ready()
@@ -119,6 +119,9 @@ func equip_weapon(weapon: WeaponData):
 	if weapon==null:
 		unequip_weapon()
 		return
+	current_weapon_data = weapon
+	if current_weapon_data.current_durability < 0 and current_weapon_data.material:
+		current_weapon_data.current_durability = float(current_weapon_data.material.durability)
 	# Update stats
 	if weapon.blade:
 		attack_damage = weapon.blade.damage
@@ -133,11 +136,13 @@ func equip_weapon(weapon: WeaponData):
 
 	if weapon.pommel:
 		_apply_special_skill(weapon.pommel.special_skill)
+		current_skill_id=weapon.pommel.special_skill
 
 	change_player_type(2)
 	print("Player equipped craft weapon successfully!")
 func unequip_weapon():
 	_reset_weapon_stats()
+	current_weapon_data = null
 	if character_type == 3:
 		change_player_type(1) # còn hat
 	else:
@@ -176,3 +181,24 @@ func load_state(data: Dictionary) -> void:
 	if data.has("position"):
 		var pos_array = data["position"]
 		global_position = Vector2(pos_array[0], pos_array[1])
+func on_use_skill_durability():
+	if current_weapon_data == null:
+		return
+
+	# 1. Trừ độ bền
+	var new_durability = current_weapon_data.reduce_durability(1.5)
+	print("Weapon Durability Reduced: ", new_durability)
+	
+	# Cập nhật lại Panel Info nếu đang mở
+	if item_storer:
+		item_storer.info_panel_change.emit(current_weapon_data)
+	
+	if new_durability <= 0:
+		_break_weapon()
+
+func _break_weapon():
+	print("WEAPON BROKEN!")
+	unequip_weapon()
+	
+	if item_storer:
+		item_storer.destroy_current_item()

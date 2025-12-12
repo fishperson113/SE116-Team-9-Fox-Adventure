@@ -6,12 +6,11 @@ func _enter() -> void:
 
 func _update(delta: float):
 	#Control jump
-	control_dash()
 	control_jump()
 	control_attack()
-	control_wide_attack()
 	control_throwing(delta)
 	control_unequip()
+	control_special_ability()
 	#Control moving and if not moving change to idle
 	if !control_moving():
 		change_state(fsm.states.idle)

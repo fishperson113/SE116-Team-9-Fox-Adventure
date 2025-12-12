@@ -2,6 +2,7 @@ extends Node
 class_name ItemStorer
 signal slot_changed(new_slot_index)
 signal info_panel_change(weapon_data:WeaponData)
+signal item_destroyed(slot_index)
 var number_of_slots: int
 var items_archive: Array[Dictionary]
 
@@ -219,3 +220,14 @@ func debug_slots():
 	for i in range(items_archive.size()):
 		print(i, ": ", items_archive[i])
 	print("==========================\n")
+	
+func destroy_current_item():
+	print("ItemStorer: Destroying item in slot ", item_slot)
+	
+	items_archive[item_slot] = {}
+	
+	save_slots()
+	
+	_equip_current_slot_weapon()
+	
+	item_destroyed.emit(item_slot)

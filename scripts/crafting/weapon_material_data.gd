@@ -6,3 +6,4 @@ class_name WeaponMaterialData
 @export var color: Color = Color.WHITE
 @export var icon: Texture2D
 @export var damage: int
+@export var durability: float

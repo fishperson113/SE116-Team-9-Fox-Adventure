@@ -7,6 +7,7 @@ var current_hotbar_slot := -1
 func _ready() -> void:
 	GameManager.player.inventory.inventory_changed.connect(update_inventory_ui)
 	GameManager.player.inventory.item_storer.slot_changed.connect(_on_slot_changed)
+	GameManager.player.inventory.item_storer.item_destroyed.connect(_on_item_destroyed)
 	for i in range(slots.size()):
 		slots[i].gui_input.connect(_on_slot_gui_input.bind(i))
 	update_inventory_ui()
@@ -49,6 +50,9 @@ func update_inventory_ui():
 
 func _on_slot_request_move(parent_node, from_index, to_index):
 	parent_node.move(from_index, to_index)
+
+func _on_item_destroyed(_slot_index):
+	update_inventory_ui()
 	
 func load_icon(item_type: String, item_detail_list: Array) -> Texture2D:
 		return _get_weapon_icon(item_detail_list)

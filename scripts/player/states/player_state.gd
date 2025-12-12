@@ -40,6 +40,27 @@ func control_dash() -> bool:
 		return true
 	return false
 
+func control_special_ability() -> bool:
+	if not Input.is_action_just_pressed("special_attack"):
+		return false
+	var skill_activated = false
+	match obj.current_skill_id:
+		"dash":
+			if obj.is_dash and obj.current_dash < obj.max_dash:
+				change_state(fsm.states.dash)
+				skill_activated = true
+				
+		"wide_attack":
+			if obj.current_wide_attack < obj.max_wide_attack:
+				change_state(fsm.states.wideattack)
+				skill_activated = true
+		
+		"triple_jump":
+			pass
+	if skill_activated:
+		obj.on_use_skill_durability()
+		return true
+	return false
 #Control jumping
 #Return true if jumping
 func control_jump() -> bool:
