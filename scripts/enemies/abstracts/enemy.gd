@@ -181,6 +181,9 @@ func _on_near_sense_body_exited(_body) -> void:
 
 func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
 	var _context = HurtBehaviorInput.new(_attacker, _direction, _damage)
+	print(fsm.current_state)
+	if not fsm or not fsm.current_state:
+		return
 	fsm.current_state._react(_context)
 
 func _on_hit_area_2d_hitted(_body) -> void:

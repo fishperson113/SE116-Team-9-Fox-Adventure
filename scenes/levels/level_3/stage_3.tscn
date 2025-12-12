@@ -38,8 +38,6 @@
 [ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="31_a2u48"]
 [ext_resource type="Script" uid="uid://bhnnjl5ixmyra" path="res://scenes/levels/loot_system/drop_data.gd" id="31_ryjcr"]
 [ext_resource type="Script" uid="uid://bvmayktwi2sq6" path="res://scenes/levels/loot_system/dropable.gd" id="32_4dlow"]
-[ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="33_4tvhb"]
-[ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/collectibles/items/collectible_items/collectible_ore_iron.tscn" id="34_nmymp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4tvhb"]
 size = Vector2(30, 64)
@@ -210,16 +208,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_rpd7o"]
+[sub_resource type="Resource" id="Resource_ryjcr"]
 script = ExtResource("32_4dlow")
-item = ExtResource("33_4tvhb")
+item = ExtResource("31_a2u48")
 weight = 1
-metadata/_custom_type_script = "uid://bvmayktwi2sq6"
-
-[sub_resource type="Resource" id="Resource_3c5t6"]
-script = ExtResource("32_4dlow")
-item = ExtResource("34_nmymp")
-weight = 4
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
 [node name="Stage" type="Node2D"]
@@ -654,7 +646,7 @@ centered = false
 script = ExtResource("31_ryjcr")
 min_drop = 2
 max_drop = 4
-drop_table = Array[ExtResource("32_4dlow")]([SubResource("Resource_rpd7o"), SubResource("Resource_3c5t6")])
+drop_table = Array[ExtResource("32_4dlow")]([SubResource("Resource_ryjcr")])
 metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [editable path="Enemies/Spawner"]

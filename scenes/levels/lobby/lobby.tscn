@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="3_n3oag"]
 [ext_resource type="Script" uid="uid://bhnnjl5ixmyra" path="res://scenes/levels/loot_system/drop_data.gd" id="4_t1qjs"]
 [ext_resource type="Script" uid="uid://bvmayktwi2sq6" path="res://scenes/levels/loot_system/dropable.gd" id="5_8rmxw"]
-[ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="6_8rmxw"]
+[ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="6_7nx20"]
 [ext_resource type="Texture2D" uid="uid://cvamh28wuq862" path="res://assets/sprites/tutorial/tutorial_walk.png" id="6_oivha"]
 [ext_resource type="Texture2D" uid="uid://bhf0rqjt3u74q" path="res://assets/sprites/tutorial/tutorial_jump.png" id="7_8khen"]
 [ext_resource type="PackedScene" uid="uid://bm35kkpuu3dh4" path="res://scenes/anvil/anvil.tscn" id="7_c0qtq"]
@@ -30,13 +30,7 @@
 
 [sub_resource type="Resource" id="Resource_1iqgf"]
 script = ExtResource("5_8rmxw")
-item = ExtResource("2_n3oag")
-weight = 1
-metadata/_custom_type_script = "uid://bvmayktwi2sq6"
-
-[sub_resource type="Resource" id="Resource_7nx20"]
-script = ExtResource("5_8rmxw")
-item = ExtResource("6_8rmxw")
+item = ExtResource("6_7nx20")
 weight = 1
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
@@ -56,7 +50,7 @@ position = Vector2(1510, 8)
 script = ExtResource("4_t1qjs")
 min_drop = 2
 max_drop = 2
-drop_table = Array[ExtResource("5_8rmxw")]([SubResource("Resource_1iqgf"), SubResource("Resource_7nx20")])
+drop_table = Array[ExtResource("5_8rmxw")]([SubResource("Resource_1iqgf")])
 metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [node name="Door" parent="World" instance=ExtResource("3_lds41")]
