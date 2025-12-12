@@ -5,14 +5,20 @@ signal gemsChanged
 signal keysChanged
 signal coinsChanged
 
+signal skillAttemptChanged
+signal specialSkillResolveChanged
+
 @export var jump_step: int = 2
 @export var current_jump: int = 0
+
+var is_special_skill: bool = false
+var max_special_skill_attempt: int = 3
+var current_special_skill_attempt: int = 0
 
 @export var max_dash: int = 1
 @export var current_dash: int = 0
 
-@export var max_wide_attack: int = 0
-@export var current_wide_attack: int = 0
+@export var is_wide_attack: bool = false
 
 var weapon_thrower: WeaponThrower
 
@@ -23,7 +29,8 @@ var is_invulnerable: bool = false
 var invulnerability_wait_time: float = 1.0
 
 @onready var wide_attack_timer: Timer = $WideAttackTimer
-@onready var wide_attack_resolve_timer: Timer = $WideAttackResolveTimer
+
+@onready var special_skill_resolve_timer: Timer = $SpecialSkillResolveTimer
 
 # This will be used to accept reflect damage
 @onready var hit_area: HitArea2D = $Direction/HitArea2D
@@ -71,6 +78,14 @@ func _process(delta: float) -> void:
 		animated_sprite.modulate = ColorManager.dash_color
 	else:
 		animated_sprite.modulate = ColorManager.normal_color
+	
+	if special_skill_resolve_timer.is_stopped():
+		specialSkillResolveChanged.emit(0)
+	else:
+		specialSkillResolveChanged.emit(
+			special_skill_resolve_timer.wait_time -
+			special_skill_resolve_timer.time_left
+			)
 	pass
 		
 func change_player_type(char_type: int) -> void:
@@ -120,9 +135,14 @@ func _on_invulnerability_timer_timeout() -> void:
 	invulnerable_effect.stop()
 
 func _on_wide_attack_resolve_timer_timeout() -> void:
-	current_wide_attack -= 1
-	if current_wide_attack > 0:
-		wide_attack_resolve_timer.start()
+	current_special_skill_attempt -= 1
+	if current_special_skill_attempt > 0:
+		special_skill_resolve_timer.start()
+	
+	skillAttemptChanged.emit(
+		max_special_skill_attempt -
+		current_special_skill_attempt
+	)
 	pass # Replace with function body.
 
 func set_empty_health() -> void:
@@ -160,24 +180,29 @@ func unequip_weapon():
 func _apply_special_skill(skill: String):
 	match skill:
 		"triple_jump":
+			is_special_skill = false
 			jump_step = 3
 		"speed_up":
+			is_special_skill = false
 			movement_speed = base_speed * 2
 		"dash":
+			is_special_skill = true
 			is_dash = true
 		"wide_attack":
-			max_wide_attack = 5
-		"increase_invulnerable":
-			invulnerability_wait_time = 3.0
+			is_special_skill = true
+			is_wide_attack = true
 		_:
 			_reset_weapon_stats()
+	GameManager.inspectSkillBar.emit(is_special_skill)
 
 func _reset_weapon_stats():
+	is_special_skill = false
 	jump_step = 2   
 	movement_speed=base_speed
 	is_dash = false
-	max_wide_attack = 0
+	is_wide_attack = false
 	invulnerability_wait_time = 1.0
+	GameManager.inspectSkillBar.emit(is_special_skill)
 
 func save_state() -> Dictionary:
 	return {

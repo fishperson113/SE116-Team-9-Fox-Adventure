@@ -41,8 +41,12 @@ func control_moving() -> bool:
 
 func control_dash() -> bool:
 	var is_dash_pressed = Input.is_action_just_pressed("special_attack")
-	if is_dash_pressed and obj.is_dash and obj.current_dash < obj.max_dash:
+	if is_dash_pressed and obj.is_dash and obj.current_dash < obj.max_dash and obj.current_special_skill_attempt < obj.max_special_skill_attempt:
 		change_state(fsm.states.dash)
+		obj.skillAttemptChanged.emit(
+			obj.max_special_skill_attempt -
+			obj.current_special_skill_attempt
+			)
 		sfx_dash.pitch_scale = randf_range(sfx_dash_pitch_min, sfx_dash_pitch_max)
 		sfx_dash.play()
 		return true
@@ -92,7 +96,7 @@ func control_throwing(delta: float) -> bool:
 	return false
 
 func control_wide_attack() -> bool:
-	if obj.current_wide_attack < obj.max_wide_attack:
+	if obj.current_special_skill_attempt < obj.max_special_skill_attempt and obj.is_wide_attack:
 		if Input.is_action_just_pressed("special_attack"):
 			change_state(fsm.states.wideattack)
 			return true

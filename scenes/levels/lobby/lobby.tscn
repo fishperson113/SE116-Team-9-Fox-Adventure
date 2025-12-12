@@ -48,7 +48,7 @@ tile_set = ExtResource("1_xex7k")
 [node name="Mushroom" parent="World" instance=ExtResource("2_n3oag")]
 position = Vector2(1510, 8)
 
-[node name="DropData" type="Node2D" parent="World/Mushroom"]
+[node name="DropData2" type="Node2D" parent="World/Mushroom"]
 script = ExtResource("4_t1qjs")
 min_drop = 2
 max_drop = 2

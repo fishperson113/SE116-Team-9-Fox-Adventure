@@ -309,19 +309,19 @@ attack_speed = 200.0
 
 [node name="Pelican" parent="Enemies/Pelicans" instance=ExtResource("6_qpij7")]
 position = Vector2(5795, -208)
-spike = 0.0
-sight = 1200.0
 bullet_impulse = Vector2(10, -200)
 left_bound = 5750.0
 right_bound = 5865.0
+spike = 0.0
+sight = 1200.0
 
 [node name="Pelican2" parent="Enemies/Pelicans" instance=ExtResource("6_qpij7")]
 position = Vector2(5763, -133)
-spike = 0.0
-sight = 1200.0
 bullet_impulse = Vector2(10, -200)
 left_bound = 5750.0
 right_bound = 5865.0
+spike = 0.0
+sight = 1200.0
 
 [node name="Spawners" type="Node2D" parent="."]
 

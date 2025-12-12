@@ -48,6 +48,8 @@ signal modifyBlade
 signal coinChange
 signal materialChange
 
+signal inspectSkillBar
+
 func _ready() -> void:
 	# Load checkpoint data when game starts
 	load_tutorial_progress()

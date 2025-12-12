@@ -628,7 +628,7 @@ one_shot = true
 wait_time = 0.15
 one_shot = true
 
-[node name="WideAttackResolveTimer" type="Timer" parent="."]
+[node name="SpecialSkillResolveTimer" type="Timer" parent="."]
 wait_time = 2.5
 one_shot = true
 
@@ -639,4 +639,4 @@ one_shot = true
 [connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]
 [connection signal="timeout" from="DashabilityTimer" to="States/Dash" method="_on_dashability_timer_timeout"]
 [connection signal="timeout" from="WideAttackTimer" to="States/WideAttack" method="_on_wide_attack_timer_timeout"]
-[connection signal="timeout" from="WideAttackResolveTimer" to="." method="_on_wide_attack_resolve_timer_timeout"]
+[connection signal="timeout" from="SpecialSkillResolveTimer" to="." method="_on_wide_attack_resolve_timer_timeout"]
