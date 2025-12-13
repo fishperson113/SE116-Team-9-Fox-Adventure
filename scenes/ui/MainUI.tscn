@@ -66,29 +66,29 @@ func _update_info_panel(weapon_data: WeaponData):
 	
 	var dmg = weapon_data.get_damage()
 	if dmg > 0:
-		damage_label.text = \"⚔ Damage: %d\" % dmg
+		damage_label.text = \"Damage: %d\" % dmg
 		damage_label.visible = true
 	else:
 		damage_label.visible = false
 	var durability = weapon_data.get_durability()
 	if durability > 0:
-		durability_label.text = \"🛡️ Durability: %.1f\" % durability
+		durability_label.text = \"Durability: %.1f\" % durability
 		durability_label.visible = true
 	else:
 		durability_label.visible = false
 	var hp = weapon_data.get_max_health()
 	if hp > 0:
-		hp_bonus_label.text = \"♥ Health: +%d\" % hp
+		hp_bonus_label.text = \"Health: +%d\" % hp
 		hp_bonus_label.visible = true
 	else:
 		hp_bonus_label.visible = false
 	
 	var spd = weapon_data.get_knock_back_force()
-	atk_speed_label.text = \"⚡ Knock Back: %.1f\" % spd
+	atk_speed_label.text = \"Knock Back: %.1f\" % spd
 	
 	var skill = weapon_data.get_special_skill()
 	if skill != \"\":
-		special_ability_label.text = \"★ Skill: %s\" % skill.capitalize()
+		special_ability_label.text = \"Skill: %s\" % skill.capitalize()
 		special_ability_label.visible = true
 		special_ability_label.modulate = Color.GOLD 
 	else:

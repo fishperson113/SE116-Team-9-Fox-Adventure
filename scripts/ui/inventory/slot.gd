@@ -215,29 +215,29 @@ func _update_tooltip():
 				# Damage
 				var dmg = weapon.get_damage()
 				if dmg > 0:
-					stats_text += "\n⚔ Damage: %d" % dmg
+					stats_text += "\n Damage: %d" % dmg
 				
 				# Durability
 				var dur = weapon.get_durability()
 				# Chỉ hiện nếu độ bền > 0 (tức là không phải vô hạn hoặc đã vỡ)
 				if dur > 0:
-					stats_text += "\n🛡️ Durability: %.1f" % dur
+					stats_text += "\n Durability: %.1f" % dur
 				elif dur == 0:
-					stats_text += "\n🛡️ Durability: BROKEN"
+					stats_text += "\n Durability: BROKEN"
 				
 				# Health Bonus
 				var hp = weapon.get_max_health()
 				if hp > 0:
-					stats_text += "\n♥ Health: +%d" % hp
+					stats_text += "\n Health: +%d" % hp
 					
 				# Knockback
 				var kb = weapon.get_knock_back_force()
 				if kb > 0:
-					stats_text += "\n⚡ Knockback: %.1f" % kb
+					stats_text += "\n Knockback: %.1f" % kb
 				
 				# Special Skill
 				var skill = weapon.get_special_skill()
 				if skill != "":
-					stats_text += "\n★ Skill: %s" % skill.replace("_", " ").capitalize()
+					stats_text += "\n Skill: %s" % skill.replace("_", " ").capitalize()
 
 	tooltip_text = "%s%s" % [title_text, stats_text]
