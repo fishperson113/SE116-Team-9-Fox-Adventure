@@ -186,7 +186,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Stage2" type="Node2D"]
+[node name="Stage" type="Node2D"]
 
 [node name="Mushrooms" type="Node2D" parent="."]
 

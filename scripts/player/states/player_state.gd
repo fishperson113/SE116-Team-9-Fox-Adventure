@@ -33,8 +33,11 @@ func control_moving() -> bool:
 		obj.change_direction(dir)
 		obj.internal_force.x = obj.movement_speed * dir
 		if obj.is_on_floor():
-			change_state(fsm.states.walk)
-			obj.current_dash = 0
+			if fsm.current_state == fsm.states.throwing:
+				obj.change_animation("walk")
+			else:
+				change_state(fsm.states.walk)
+				obj.current_dash = 0
 		return true
 	else:
 		obj.internal_force.x = 0

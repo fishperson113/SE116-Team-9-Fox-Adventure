@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://cchdurl56vp0g"]
+[gd_scene load_steps=64 format=4 uid="uid://cchdurl56vp0g"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_ryjcr"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="3_4dlow"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="5_y84bu"]
 [ext_resource type="PackedScene" uid="uid://psxbpmcbicmg" path="res://scenes/enemies/minions/melees/aborigine.tscn" id="6_ctv1g"]
 [ext_resource type="PackedScene" uid="uid://dqeyhetii8sb0" path="res://scenes/levels/loot_system/drop_data.tscn" id="6_rpd7o"]
-[ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/collectibles/items/collectible_items/collectible_ore_copper.tscn" id="8_3c5t6"]
 [ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="8_ctv1g"]
 [ext_resource type="Texture2D" uid="uid://dekyi7oa4n0sg" path="res://assets/sprites/environment/background/water_reflect_big_01.png" id="8_y84bu"]
 [ext_resource type="Texture2D" uid="uid://b6dilwf04d4be" path="res://assets/sprites/environment/background/water_reflect_big_02.png" id="9_ctv1g"]
@@ -68,7 +67,7 @@ size = Vector2(30, 192)
 
 [sub_resource type="Resource" id="Resource_8mnue"]
 script = ExtResource("32_4dlow")
-item = ExtResource("8_3c5t6")
+item = ExtResource("35_nmymp")
 weight = 5
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
