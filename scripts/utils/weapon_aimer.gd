@@ -87,6 +87,7 @@ func update_direction() -> void:
 func throw_projectile() -> void:
 	print(weapon)
 	if weapon != null:
+		inspect_direction()
 		var weapon_thrown: BaseWeapon = weapon.instantiate()
 		weapon_thrown.add_general_weapon_properties(weapon_detail)
 		weapon_thrown.global_position = self.get_parent().position

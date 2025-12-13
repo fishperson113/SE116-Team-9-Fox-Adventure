@@ -63,6 +63,14 @@ func control_special_ability() -> bool:
 		"fireball_attack":
 			if obj.current_special_skill_attempt < obj.max_special_skill_attempt:
 				obj.weapon_thrower.change_weapon("weapon_fireball")
+				obj.weapon_thrower.throw_projectile()
+				obj.current_special_skill_attempt += 1
+				obj.skillAttemptChanged.emit(
+					obj.max_special_skill_attempt -
+					obj.current_special_skill_attempt
+				)
+				if obj.special_skill_resolve_timer.is_stopped():
+					obj.special_skill_resolve_timer.start()
 				skill_activated = true
 				
 	if skill_activated:
@@ -107,30 +115,10 @@ func control_throwing(delta: float) -> bool:
 		obj.weapon_thrower.find_throw_direction(delta)
 		change_state(fsm.states.throwing)
 		return true
-	elif Input.is_action_pressed("special_attack"):
-		if obj.current_skill_id != "fireball_attack" or obj.current_special_skill_attempt >= obj.max_special_skill_attempt:
-			return false
-		
-		obj.weapon_thrower.change_weapon("weapon_fireball")
-		obj.weapon_thrower.find_throw_direction(delta)
-		change_state(fsm.states.throwing)
-		return true
 	elif Input.is_action_just_released("throw"):
 		if GameManager.blade_count <= 0:
 			return false
 		obj.weapon_thrower.stop_find_throw_direction()
-		
-	elif Input.is_action_just_released("special_attack"):
-		if obj.current_skill_id != "fireball_attack" or obj.current_special_skill_attempt >= obj.max_special_skill_attempt:
-			return false
-		obj.weapon_thrower.stop_find_throw_direction()
-		obj.current_special_skill_attempt += 1
-		obj.skillAttemptChanged.emit(
-			obj.max_special_skill_attempt -
-			obj.current_special_skill_attempt
-			)
-		if obj.special_skill_resolve_timer.is_stopped():
-			obj.special_skill_resolve_timer.start()
 	return false
 
 func take_damage(damage) -> void:
