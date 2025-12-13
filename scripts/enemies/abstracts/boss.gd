@@ -18,6 +18,12 @@ func _ready() -> void:
 	super._ready();
 	_init_skill_set()
 	_init_state("Rest", start_rest, end_rest, update_rest, _on_normal_react)
+	
+	_setup_markers()
+
+func _setup_markers() -> void:
+	if _player_detected_marker:
+		_player_detected_marker.set_trigger(is_attacking)
 
 func _init_skill_set():
 	rest()
@@ -39,6 +45,12 @@ func is_exhausted() -> bool:
 
 func rest() -> void:
 	_stamina = 0
+
+func is_attacking() -> bool:
+	if not fsm.current_state:
+		return false
+		
+	return _far_range_skills.has(fsm.current_state) or _short_range_skills.has(fsm.current_state)
 
 func start_normal() -> void:
 	_movement_speed = movement_speed

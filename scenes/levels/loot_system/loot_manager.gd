@@ -9,7 +9,10 @@ func _ready() -> void:
 func _load_resource() -> void:
 	effect_wrapper = load("res://scenes/levels/loot_system/loot_physics_body.tscn")
 
-func SpawnLoot(source_node: Node2D):
+func spawn_loot(source_node: Node2D):
+	call_deferred("_loot", source_node)
+
+func _loot(source_node: Node2D):
 	var drop_table = _get_closest_drop_data(source_node)
 	if not drop_table:
 		print("Drop table is not available")

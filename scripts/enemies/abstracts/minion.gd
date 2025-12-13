@@ -14,7 +14,12 @@ func _ready() -> void:
 	_init_state("Sleep", start_sleep, end_sleep, update_sleep, _on_normal_react)
 	_init_state("Awaking", start_awaking, end_awaking, update_awaking, _on_normal_react)
 	_init_initial_state()
+	_setup_markers()
 	pass
+
+func _setup_markers():
+	if _player_detected_marker:
+		_player_detected_marker.set_trigger(is_player_visible)
 
 func _init_initial_state() -> void:
 	var state_node: EnemyState = $States/Normal

@@ -46,7 +46,7 @@ func start_dead() -> void:
 	clear_area_collision(_hurt_area)
 	clear_area_collision(_detect_player_area)
 	clear_area_collision(_near_sense_area)
-	LootSystem.SpawnLoot(self)
+	LootSystem.spawn_loot(self)
 	queue_free()
 
 func end_dead() -> void:

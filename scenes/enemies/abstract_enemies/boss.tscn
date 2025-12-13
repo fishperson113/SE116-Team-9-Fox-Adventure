@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://c40nxk7wmbjxm"]
+[gd_scene load_steps=7 format=3 uid="uid://c40nxk7wmbjxm"]
 
 [ext_resource type="Script" uid="uid://13yux6010px0" path="res://scripts/enemies/abstracts/boss.gd" id="1_5af8u"]
 [ext_resource type="Script" uid="uid://dkb25vr64v37l" path="res://scripts/utils/hit_area_2d.gd" id="2_5af8u"]
 [ext_resource type="Script" uid="uid://cofkmvw2auxcs" path="res://scripts/utils/hurt_area_2d.gd" id="3_jv7x0"]
 [ext_resource type="Script" uid="uid://cuat5txuhbdg5" path="res://scripts/enemies/states/enemy_state.gd" id="4_bqbrg"]
+[ext_resource type="PackedScene" uid="uid://cq6f03x2rrd3w" path="res://scenes/ui/markers/player_detected_marker.tscn" id="4_jv7x0"]
 [ext_resource type="PackedScene" uid="uid://bclb52owsoiju" path="res://scenes/ui/EnermyHealthBar.tscn" id="6_jv7x0"]
 
 [node name="Boss" type="CharacterBody2D"]
@@ -36,6 +37,9 @@ collision_layer = 0
 collision_mask = 36
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Direction/NearSenseArea2D"]
+
+[node name="PlayerDetectedMarker" parent="Direction" instance=ExtResource("4_jv7x0")]
+position = Vector2(39, -30)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
