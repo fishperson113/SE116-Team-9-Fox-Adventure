@@ -22,6 +22,7 @@ GameManager="*res://scripts/autoload/game_manager.gd"
 SaveSystem="*res://scripts/autoload/save_system.gd"
 ColorManager="*res://scripts/autoload/color_manager.gd"
 LootSystem="*res://scenes/levels/loot_system/loot_manager.gd"
+AudioManager="*res://scripts/audio/audio_manager.gd"
 
 [dialogic]
 

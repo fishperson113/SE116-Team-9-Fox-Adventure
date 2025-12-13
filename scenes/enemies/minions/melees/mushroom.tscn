@@ -87,9 +87,6 @@ visible = false
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_bhuc4")
 
-[node name="PlayerDetectedMarker" parent="." index="5"]
-fade_time = 0.25
-
 [node name="DropData" parent="." index="5" instance=ExtResource("9_g7ksb")]
 min_drop = 1
 max_drop = 3

@@ -210,8 +210,8 @@ func _update_tooltip():
 				if hp > 0:
 					text_content += "\n♥ Health: +%d" % hp
 					
-				var spd = weapon.get_attack_speed()
-				text_content += "\n⚡ Speed: %.1f" % spd
+				var spd = weapon.get_knock_back_force()
+				text_content += "\n⚡ Knock Back: %.1f" % spd
 				
 				var skill = weapon.get_special_skill()
 				if skill != "":

@@ -68,7 +68,7 @@ func populate_parts():
 				stat_info = "Health Bonus: +%d" % part.max_health
 			"grip":
 				# Hiển thị 2 số thập phân cho tốc độ đánh
-				stat_info = "Atk Speed: +%.2f" % part.attack_speed 
+				stat_info = "Knock Back: +%.2f" % part.knock_back_force
 			"pommel":
 				stat_info = "Skill: %s" % part.special_skill.capitalize()
 

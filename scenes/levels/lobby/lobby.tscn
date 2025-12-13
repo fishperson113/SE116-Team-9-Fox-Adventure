@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://clfqragev0x8n"]
+[gd_scene load_steps=31 format=4 uid="uid://clfqragev0x8n"]
 
 [ext_resource type="Script" uid="uid://cpp12lpg4jtvk" path="res://scenes/levels/lobby/lobby.gd" id="1_lds41"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_xex7k"]
@@ -159,14 +159,6 @@ texture = ExtResource("14_yhktf")
 
 [node name="Player" parent="." instance=ExtResource("2_188ev")]
 position = Vector2(2, -5)
-jump_step = null
-current_jump = null
-max_dash = null
-current_dash = null
-movement_speed = null
-gravity = null
-direction = null
-character_type = null
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -35)
@@ -177,7 +169,6 @@ position_smoothing_speed = 10.0
 [node name="MainUI" parent="." instance=ExtResource("3_n3oag")]
 
 [node name="MinigameUI" parent="MainUI" instance=ExtResource("7_e8q5c")]
-visible = false
 
 [node name="MaterialSelectPopup" parent="MainUI" instance=ExtResource("8_1ua0a")]
 visible = false

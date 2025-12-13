@@ -83,8 +83,8 @@ func _update_info_panel(weapon_data: WeaponData):
 	else:
 		hp_bonus_label.visible = false
 	
-	var spd = weapon_data.get_attack_speed()
-	atk_speed_label.text = \"⚡ Speed: %.1f\" % spd
+	var spd = weapon_data.get_knock_back_force()
+	atk_speed_label.text = \"⚡ Knock Back: %.1f\" % spd
 	
 	var skill = weapon_data.get_special_skill()
 	if skill != \"\":
@@ -97,15 +97,6 @@ func _update_info_panel(weapon_data: WeaponData):
 
 [node name="MainUI" type="CanvasLayer"]
 script = ExtResource("1_7s5y6")
-
-[node name="InvUi" parent="." instance=ExtResource("14_jv1lx")]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-offset_top = -77.0
-offset_bottom = -77.0
-grow_vertical = 0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(240, 136)
@@ -381,3 +372,12 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="InvUi" parent="." instance=ExtResource("14_jv1lx")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_top = -77.0
+offset_bottom = -77.0
+grow_vertical = 0

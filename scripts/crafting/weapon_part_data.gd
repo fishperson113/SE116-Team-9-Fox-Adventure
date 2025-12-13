@@ -15,5 +15,5 @@ var type: String
 # Mỗi part chỉ có đúng 1 stat tùy theo type
 @export var damage: int = 0          # blade
 @export var max_health: int = 0      # crossguard
-@export var attack_speed: float = 0  # grip
+@export var knock_back_force: float = 0  # grip
 @export var special_skill: String = ""  # pommel

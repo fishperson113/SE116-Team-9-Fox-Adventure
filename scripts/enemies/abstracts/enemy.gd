@@ -272,7 +272,7 @@ func move_backward() -> void:
 func stop_move() -> void:
 	_movement_speed = 0.0
 
-func bounce_off(_direction: Vector2) -> void:
+func bounce_off(_direction: Vector2,_knock_back_force:float) -> void:
 	_movement_speed = movement_speed * _direction.x * direction
 
 func is_close(_target: Vector2, tolerance: float) -> bool:
@@ -371,7 +371,7 @@ func manage_attack_spacing() -> void:
 # Health / Damage
 func take_damage_behavior(_attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
 	take_damage(int(_damage))
-	bounce_off(_direction)
+	bounce_off(_direction,_attacker.knock_back_force)
 	target(_attacker.position)
 	fsm.change_state(fsm.states.hurt)
 

@@ -154,19 +154,19 @@ func equip_weapon(weapon: WeaponData):
 		current_weapon_data.current_durability = float(current_weapon_data.material.durability)
 	# Update stats
 	if weapon.blade:
-		attack_damage = weapon.blade.damage
+		attack_damage = weapon.get_damage()
 		hit_area.set_dealt_damage(attack_damage)
 		wide_hit_area.set_dealt_damage(attack_damage)
 
 	if weapon.crossguard:
-		maxHealth += weapon.crossguard.max_health
+		maxHealth += weapon.get_max_health()
 
 	if weapon.grip:
-		attack_speed = weapon.grip.attack_speed
+		knock_back_force = weapon.get_knock_back_force()
 
 	if weapon.pommel:
-		_apply_special_skill(weapon.pommel.special_skill)
-		current_skill_id=weapon.pommel.special_skill
+		_apply_special_skill(weapon.get_special_skill())
+		current_skill_id=weapon.get_special_skill()
 
 	change_player_type(2)
 	print("Player equipped craft weapon successfully!")

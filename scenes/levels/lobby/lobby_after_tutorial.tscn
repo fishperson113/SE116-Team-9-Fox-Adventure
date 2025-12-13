@@ -1,0 +1,70 @@
+[gd_scene load_steps=14 format=4 uid="uid://dj4sl66scgre3"]
+
+[ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_j7m84"]
+[ext_resource type="Texture2D" uid="uid://b55lww4x4ihoy" path="res://assets/sprites/environment/background/background 4.png" id="4_r84t2"]
+[ext_resource type="Texture2D" uid="uid://bawl0lc1uc0t5" path="res://assets/sprites/environment/background/background 3.png" id="5_aar3o"]
+[ext_resource type="PackedScene" uid="uid://dubb5b1vjmsxd" path="res://scenes/levels/island/objects/door/door.tscn" id="7_slsen"]
+[ext_resource type="PackedScene" uid="uid://bm35kkpuu3dh4" path="res://scenes/anvil/anvil.tscn" id="8_11pdu"]
+[ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="22_iy4tw"]
+[ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="23_1sfwe"]
+[ext_resource type="PackedScene" uid="uid://qbrulhlifs0u" path="res://scenes/minigames/MinigameUI.tscn" id="24_6liod"]
+[ext_resource type="PackedScene" uid="uid://bsjp8w4bw1sb2" path="res://scenes/minigames/material_select_popup.tscn" id="25_wma7i"]
+[ext_resource type="Script" uid="uid://bg7o110gecbgs" path="res://scripts/crafting/weapon_material_data.gd" id="26_n0mdi"]
+[ext_resource type="Resource" uid="uid://b7f1xt8sai4l1" path="res://data/weapon/materials/copper.tres" id="27_eskaa"]
+[ext_resource type="Resource" uid="uid://g5k57m8utwwn" path="res://data/weapon/materials/iron.tres" id="28_sconl"]
+[ext_resource type="Resource" uid="uid://b1qe5hffbbbqj" path="res://data/weapon/materials/gold.tres" id="29_cx3ju"]
+
+[node name="Lobby" type="Node2D"]
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="World"]
+scale = Vector2(1.00116, 0.788033)
+tile_map_data = PackedByteArray("AAAMAAEAAAAGAAEAAAALAAEAAAAHAAEAAAAKAAEAAAABAAAAAAAJAAEAAAABAAAAAAAIAAEAAAABAAAAAAAHAAEAAAABAAAAAAAGAAEAAAABAAAAAAAFAAEAAAABAAAAAAAEAAEAAAABAAAAAAADAAEAAAABAAAAAAACAAEAAAABAAAAAAABAAEAAAABAAAAAAAAAAEAAAABAAAAAAD//wEAAAABAAAAAAD+/wEAAAABAAAAAAD9/wEAAAAGAAEAAAD9/wAAAAACAAEAAAD9////AAACAAEAAAD9//7/AAACAAEAAAD9//3/AAACAAEAAAD9//z/AAACAAEAAAD9//v/AAACAAEAAAD9//r/AAACAAEAAAD9//n/AAACAAEAAAD9//j/AAACAAEAAAD9//f/AAACAAEAAAD9//b/AAAGAAAAAAAMAPb/AAAGAAAAAAALAPb/AAAHAAAAAAAKAPb/AAABAAIAAAAJAPb/AAABAAIAAAAIAPb/AAABAAIAAAAHAPb/AAABAAIAAAAGAPb/AAABAAIAAAAFAPb/AAABAAIAAAAEAPb/AAABAAIAAAADAPb/AAABAAIAAAACAPb/AAABAAIAAAABAPb/AAABAAIAAAAAAPb/AAABAAIAAAD///b/AAABAAIAAAD+//b/AAABAAIAAAALAAAAAAAAAAEAAAAMAAQAAAABAAIAAAAMAAMAAAABAAEAAAAMAAIAAAABAAEAAAALAAQAAAABAAIAAAALAAMAAAABAAEAAAALAAIAAAABAAEAAAAKAAQAAAABAAIAAAAKAAMAAAABAAEAAAAKAAIAAAABAAEAAAAJAAQAAAABAAIAAAAJAAMAAAABAAEAAAAJAAIAAAABAAEAAAAIAAQAAAABAAIAAAAIAAMAAAABAAEAAAAIAAIAAAABAAEAAAAHAAQAAAABAAIAAAAHAAMAAAABAAEAAAAHAAIAAAABAAEAAAAGAAQAAAABAAIAAAAGAAMAAAABAAEAAAAGAAIAAAABAAEAAAAFAAQAAAABAAIAAAAFAAMAAAABAAEAAAAFAAIAAAABAAEAAAAEAAQAAAABAAIAAAAEAAMAAAABAAEAAAAEAAIAAAABAAEAAAADAAQAAAABAAIAAAADAAMAAAABAAEAAAADAAIAAAABAAEAAAACAAQAAAABAAIAAAACAAMAAAABAAEAAAACAAIAAAABAAEAAAABAAQAAAABAAIAAAABAAMAAAABAAEAAAABAAIAAAABAAEAAAAAAAQAAAABAAIAAAAAAAMAAAABAAEAAAAAAAIAAAABAAEAAAD//wQAAAABAAIAAAD//wMAAAABAAEAAAD//wIAAAABAAEAAAD+/wQAAAABAAIAAAD+/wMAAAABAAEAAAD+/wIAAAABAAEAAAD9/wQAAAABAAIAAAD9/wMAAAABAAEAAAD9/wIAAAABAAEAAAAMAPX/AAABAAAAAAALAPX/AAABAAAAAAAKAPX/AAABAAAAAAAJAPX/AAABAAAAAAAIAPX/AAABAAAAAAAHAPX/AAABAAAAAAAGAPX/AAABAAAAAAAFAPX/AAABAAAAAAAEAPX/AAABAAAAAAADAPX/AAABAAAAAAACAPX/AAABAAAAAAABAPX/AAABAAAAAAAAAPX/AAABAAAAAAD///X/AAABAAAAAAD+//X/AAABAAAAAAD9//X/AAABAAAAAAD8/wQAAAAAAAIAAAD8/wMAAAAAAAEAAAD8/wIAAAAAAAEAAAD8/wEAAAAAAAEAAAD8/wAAAAAAAAEAAAD8////AAAAAAEAAAD8//7/AAAAAAEAAAD8//3/AAAAAAEAAAD8//z/AAAAAAEAAAD8//v/AAAAAAEAAAD8//r/AAAAAAEAAAD8//n/AAAAAAEAAAD8//j/AAAAAAEAAAD8//f/AAAAAAEAAAD8//b/AAAAAAEAAAD8//X/AAAAAAAAAAADAAAAAQAAAAAABQAMAAAAAAACAAEAAAALAP//AAAAAAEAAAAMAP//AAACAAEAAAALAP7/AAAAAAEAAAAMAP7/AAACAAEAAAAMAP3/AAACAAEAAAALAP3/AAAAAAEAAAALAPz/AAAAAAEAAAAMAPz/AAACAAEAAAAMAPv/AAACAAEAAAAMAPr/AAACAAEAAAALAPr/AAAAAAEAAAALAPv/AAAAAAEAAAALAPn/AAAAAAEAAAALAPj/AAAAAAEAAAALAPf/AAAAAAEAAAAMAPf/AAACAAEAAAAMAPj/AAACAAEAAAAMAPn/AAACAAEAAAA=")
+tile_set = ExtResource("2_j7m84")
+
+[node name="Door" parent="World" instance=ExtResource("7_slsen")]
+position = Vector2(314, 25)
+
+[node name="Anvil" parent="World" node_paths=PackedStringArray("miniggame_ui", "material_panel") instance=ExtResource("8_11pdu")]
+position = Vector2(261, 16)
+miniggame_ui = NodePath("../../MainUI/MinigameUI")
+material_panel = NodePath("../../MainUI/MaterialSelectPopup")
+
+[node name="Background" type="Node2D" parent="World"]
+z_index = -1
+
+[node name="Background" type="Sprite2D" parent="World/Background"]
+position = Vector2(72, -58)
+scale = Vector2(1.83767, 2.16975)
+texture = ExtResource("4_r84t2")
+
+[node name="Background2" type="Sprite2D" parent="World/Background"]
+position = Vector2(-814, 18)
+scale = Vector2(1.23958, 1.64969)
+texture = ExtResource("4_r84t2")
+
+[node name="Background3" type="Sprite2D" parent="World/Background"]
+position = Vector2(964, -10)
+scale = Vector2(1.23958, 1.64969)
+texture = ExtResource("5_aar3o")
+
+[node name="Player" parent="." instance=ExtResource("22_iy4tw")]
+position = Vector2(2, -5)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -35)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="MainUI" parent="." instance=ExtResource("23_1sfwe")]
+
+[node name="MinigameUI" parent="MainUI" instance=ExtResource("24_6liod")]
+visible = false
+z_index = 2
+
+[node name="MaterialSelectPopup" parent="MainUI" instance=ExtResource("25_wma7i")]
+visible = false
+material_list = Array[ExtResource("26_n0mdi")]([ExtResource("27_eskaa"), ExtResource("28_sconl"), ExtResource("29_cx3ju")])
+offset_y = 140

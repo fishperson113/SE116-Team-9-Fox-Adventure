@@ -17,8 +17,8 @@ func get_damage() -> int:
 func get_max_health() -> int:
 	return crossguard.max_health if crossguard else 0
 
-func get_attack_speed() -> float:
-	return grip.attack_speed if grip else 1.0
+func get_knock_back_force() -> float:
+	return grip.knock_back_force if grip else 1.0
 
 func get_special_skill() -> String:
 	return pommel.special_skill if pommel else ""

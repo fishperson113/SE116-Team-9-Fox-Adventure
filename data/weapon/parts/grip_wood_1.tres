@@ -13,6 +13,6 @@ height = 40
 uses_material = false
 damage = 0
 max_health = 0
-attack_speed = 20.0
+knock_back_force = 10.0
 special_skill = ""
 metadata/_custom_type_script = "uid://b60t44i4hl225"
