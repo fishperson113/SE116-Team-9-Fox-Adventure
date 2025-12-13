@@ -7,9 +7,13 @@ signal assemble_done(export_path)
 @export var assemble_area: Control # Đây là vùng nhận Drop
 
 @onready var list_container := $ScrollContainer/VBoxContainer
-
+@onready var scroll_view := $ScrollContainer
+@onready var naming_container := $"../AssembleArea/WeaponAssembler/NamingContainer"
+@onready var name_input := $"../AssembleArea/WeaponAssembler/NamingContainer/NameLineEdit"
+@onready var confirm_btn := $"../AssembleArea/WeaponAssembler/NamingContainer/ConfirmButton"
+@onready var instructLabel:=$"../AssembleArea/WeaponAssembler/Label"
 var current_stage: int = 1
-const MAX_STAGE := 3
+const MAX_STAGE := 4
 
 const STAGE_TYPES := {
 	1: "crossguard",
@@ -32,6 +36,9 @@ func _ready():
 		if event is InputEventMouseButton and event.pressed:
 			print("Collection Area đã nhận được Click! -> Mouse path thông thoáng")
 	)
+	naming_container.visible = false # Ẩn lúc đầu
+	confirm_btn.pressed.connect(_on_confirm_name_pressed)
+	instructLabel.visible=true
 	#populate_parts()
 
 # Hàm _process cũ đã bị xóa vì Control tự xử lý vị trí chuột
@@ -39,7 +46,10 @@ func _ready():
 func populate_parts():
 	for c in list_container.get_children():
 		c.queue_free()
-
+	if current_stage == MAX_STAGE:
+		_show_naming_stage()
+		instructLabel.visible=false
+		return
 	var required_type = STAGE_TYPES.get(current_stage, "")
 
 	for part_id in assembler.part_map.keys():
@@ -98,6 +108,39 @@ func populate_parts():
 
 		list_container.add_child(btn)
 
+func _show_naming_stage():
+	print("Entering Naming Stage")
+	scroll_view.visible = false 
+	naming_container.visible = true 
+	name_input.text = "" 
+	name_input.placeholder_text = "Enter weapon name..."
+	name_input.grab_focus() 
+	
+func _on_confirm_name_pressed():
+	var final_name = name_input.text.strip_edges()
+	
+	if final_name == "":
+		final_name = "Unnamed Weapon" # Tên mặc định nếu để trống
+	
+	# Gọi hàm finish
+	_finish_assembling(final_name)
+	
+func _finish_assembling(weapon_name: String):
+	# 1. Export ảnh
+	var png_path := await assembler.export_png()
+	
+	# 2. Tạo data
+	var weapon_data := assembler.export_weapon_data(png_path)
+	
+	# 3. SET TÊN VŨ KHÍ VÀO DATA
+	weapon_data.weapon_name = weapon_name
+	
+	# 4. Lưu file .tres
+	var tres_path := assembler.save_weapon_tres(weapon_data)
+	
+	print("Completed! Name: %s, Path: %s" % [weapon_name, tres_path])
+	emit_signal("assemble_done", tres_path)
+	
 # --- PHẦN LOGIC DRAG (CHUẨN CONTROL) ---
 
 func _get_part_drag_data(part_id: String, tex: Texture2D, size: Vector2):
@@ -136,7 +179,8 @@ func _can_drop_on_area(_at_position, data) -> bool:
 	var required_type = STAGE_TYPES.get(current_stage, "")
 	if data["item_type"] != required_type:
 		return false
-		
+	if current_stage == MAX_STAGE:
+		return false
 	return true
 
 func _drop_on_area(_at_position, data):
@@ -168,13 +212,9 @@ func animate_part_drop(container: Control) -> Tween:
 
 func advance_stage(tw: Tween) -> void:
 	current_stage += 1
-	if current_stage > MAX_STAGE:
-		await tw.finished
-		var png_path := await assembler.export_png()
-		var weapon_data := assembler.export_weapon_data(png_path)
-		var tres_path := assembler.save_weapon_tres(weapon_data)
-		emit_signal("assemble_done", tres_path)
-		return
+	
+	await tw.finished
+	
 	populate_parts()
 
 func reset_handler():

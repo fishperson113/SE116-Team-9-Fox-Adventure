@@ -10,6 +10,7 @@ class_name WeaponData
 
 @export var png_path: String = ""
 @export var current_durability: float = -1.0
+@export var weapon_name:String= ""
 # --- Final stats ---
 func get_damage() -> int:
 	return blade.damage if blade else 0

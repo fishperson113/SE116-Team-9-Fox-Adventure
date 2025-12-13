@@ -169,6 +169,7 @@ position_smoothing_speed = 10.0
 [node name="MainUI" parent="." instance=ExtResource("3_n3oag")]
 
 [node name="MinigameUI" parent="MainUI" instance=ExtResource("7_e8q5c")]
+visible = false
 
 [node name="MaterialSelectPopup" parent="MainUI" instance=ExtResource("8_1ua0a")]
 visible = false

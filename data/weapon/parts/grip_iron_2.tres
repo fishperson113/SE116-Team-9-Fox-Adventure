@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaponPartData" load_steps=3 format=3 uid="uid://d3c4vcxjiencc"]
+
+[ext_resource type="Script" uid="uid://b60t44i4hl225" path="res://scripts/crafting/weapon_part_data.gd" id="1_eru3i"]
+[ext_resource type="Texture2D" uid="uid://b7gb62yvod62" path="res://assets/sprites/weapon_parts/sword/handle/5638.png" id="2_qretx"]
+
+[resource]
+script = ExtResource("1_eru3i")
+id = "grip_iron_2"
+display_name = ""
+type = "grip"
+sprite = ExtResource("2_qretx")
+height = 40
+uses_material = false
+damage = 0
+max_health = 0
+knock_back_force = 15.0
+special_skill = ""
+metadata/_custom_type_script = "uid://b60t44i4hl225"

@@ -62,7 +62,7 @@ func _update_info_panel(weapon_data: WeaponData):
 	
 	visible = true
 	
-	# weapon_name_label.text = weapon_data.resource_name.capitalize() 
+	weapon_name_label.text = weapon_data.weapon_name
 	
 	var dmg = weapon_data.get_damage()
 	if dmg > 0:

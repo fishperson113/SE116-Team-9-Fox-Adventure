@@ -30,7 +30,7 @@ func _ready():
 
 
 func _input(event):
-	if event.is_action_pressed("open_inventory"):
+	if event.is_action_pressed("open_inventory") && GameManager.player.input_enabled:
 		if is_open:
 			close_inventory()
 		else:

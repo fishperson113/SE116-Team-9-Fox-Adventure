@@ -182,39 +182,62 @@ func highlight(active: bool):
 	add_theme_stylebox_override("panel", style)
 
 func _update_tooltip():
+	# 1. Nếu không có item thì không hiện gì cả
 	if item_type == "":
 		tooltip_text = ""
 		return
 
-	var text_content = item_type.replace("_", " ").capitalize()
+	# Tên mặc định là loại item (ví dụ: Weapon Blade)
+	var title_text = item_type.replace("_", " ").capitalize()
+	var stats_text = ""
 
+	# 2. Kiểm tra nếu là Vũ khí
 	if item_type.begins_with("weapon_") and item_detail is Array and item_detail.size() > 0:
 		var weapon_path = item_detail[0]
 		
+		# Load Resource an toàn
 		if weapon_path is String and ResourceLoader.exists(weapon_path):
 			var weapon: WeaponData = load(weapon_path)
 			
 			if weapon:
-				text_content += "\n━━━━━━━━━━━━━"
+				# --- PHẦN TÊN ---
+				# Nếu vũ khí đã được đặt tên, dùng tên đó làm tiêu đề chính
+				if weapon.weapon_name != "":
+					title_text = weapon.weapon_name
 				
+				# Thêm dòng phụ để biết đây là loại vũ khí gì (Blade/Crossguard/...)
+				stats_text += "\n[%s]" % item_type.replace("weapon_", "").capitalize()
+				
+				stats_text += "\n━━━━━━━━━━━━━"
+				
+				# --- PHẦN CHỈ SỐ ---
+				
+				# Damage
 				var dmg = weapon.get_damage()
 				if dmg > 0:
-					text_content += "\n⚔ Damage: %d" % dmg
+					stats_text += "\n⚔ Damage: %d" % dmg
 				
-				# THÊM HIỂN THỊ DURABILITY TRONG KHO
+				# Durability
 				var dur = weapon.get_durability()
+				# Chỉ hiện nếu độ bền > 0 (tức là không phải vô hạn hoặc đã vỡ)
 				if dur > 0:
-					text_content += "\n🛡️ Durability: %.1f" % dur
+					stats_text += "\n🛡️ Durability: %.1f" % dur
+				elif dur == 0:
+					stats_text += "\n🛡️ Durability: BROKEN"
 				
+				# Health Bonus
 				var hp = weapon.get_max_health()
 				if hp > 0:
-					text_content += "\n♥ Health: +%d" % hp
+					stats_text += "\n♥ Health: +%d" % hp
 					
-				var spd = weapon.get_knock_back_force()
-				text_content += "\n⚡ Knock Back: %.1f" % spd
+				# Knockback
+				var kb = weapon.get_knock_back_force()
+				if kb > 0:
+					stats_text += "\n⚡ Knockback: %.1f" % kb
 				
+				# Special Skill
 				var skill = weapon.get_special_skill()
 				if skill != "":
-					text_content += "\n★ Skill: %s" % skill.capitalize()
+					stats_text += "\n★ Skill: %s" % skill.replace("_", " ").capitalize()
 
-	tooltip_text = text_content
+	tooltip_text = "%s%s" % [title_text, stats_text]

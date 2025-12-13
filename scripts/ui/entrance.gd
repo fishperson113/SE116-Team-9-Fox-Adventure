@@ -9,7 +9,7 @@ func _on_button_pressed(button_name: String) -> void:
 	match button_name:
 		"Lobby":
 			if GameManager.is_tutorial_finished:
-				_change_scene("res://scenes/levels/mini_lobby/mini_lobby.tscn")
+				_change_scene("res://scenes/levels/lobby/lobby_after_tutorial.tscn")
 			else:
 				_change_scene("res://scenes/levels/lobby/lobby.tscn")
 			#var nine_patch = scene.get_node("NinePatchRect")

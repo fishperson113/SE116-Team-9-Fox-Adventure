@@ -10,10 +10,10 @@ func _enter() -> void:
 		obj.current_special_skill_attempt
 		)
 	#Change animation to attack
-	#if obj.velocity.y < 0:
-	#	obj.change_animation("jump_attack")
-	#else:
-	#	obj.change_animation("attack")
+	if obj.velocity.y < 0:
+		obj.change_animation("jump_attack")
+	else:
+		obj.change_animation("attack")
 	pass
 
 func _exit() -> void:

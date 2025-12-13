@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bbh8h6o3fs2r3"]
+[gd_scene load_steps=14 format=3 uid="uid://bbh8h6o3fs2r3"]
 
 [ext_resource type="Texture2D" uid="uid://bnbxan1lc7bpx" path="res://assets/sprites/caldron/mold/422.png" id="1_eix47"]
 [ext_resource type="Texture2D" uid="uid://7qaokb7xej13" path="res://assets/sprites/caldron/mold/443.png" id="2_gp2fn"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://c8suqtt4rmk52" path="res://scripts/crafting/weapon_assembler.gd" id="4_gp2fn"]
 [ext_resource type="Resource" uid="uid://17jrg15tqase" path="res://data/weapon/weapon_database.tres" id="5_0cft4"]
 [ext_resource type="Script" uid="uid://deob242sns3ow" path="res://scripts/crafting/assembler_handler.gd" id="5_oak1q"]
+[ext_resource type="Texture2D" uid="uid://t2ks0nm3qn0e" path="res://assets/ui/buttons/finish_button.png" id="7_8b4vw"]
 
 [sub_resource type="GDScript" id="GDScript_gp2fn"]
 script/source = "extends Panel
@@ -592,6 +593,33 @@ offset_bottom = 102.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 30
 text = "Drag and drop weapon part here"
+
+[node name="NamingContainer" type="VBoxContainer" parent="MainLayout/AssembleArea/WeaponAssembler"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.5
+offset_top = -67.5
+offset_right = 129.5
+offset_bottom = 43.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.45859, 1.78032)
+
+[node name="Label" type="Label" parent="MainLayout/AssembleArea/WeaponAssembler/NamingContainer"]
+layout_mode = 2
+text = "Enter Your Weapon Name:"
+
+[node name="NameLineEdit" type="LineEdit" parent="MainLayout/AssembleArea/WeaponAssembler/NamingContainer"]
+layout_mode = 2
+
+[node name="ConfirmButton" type="Button" parent="MainLayout/AssembleArea/WeaponAssembler/NamingContainer"]
+layout_mode = 2
+icon = ExtResource("7_8b4vw")
+icon_alignment = 1
 
 [node name="CollectionArea" type="Control" parent="MainLayout" node_paths=PackedStringArray("assembler", "assemble_area")]
 layout_mode = 2
