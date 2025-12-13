@@ -13,10 +13,13 @@ var weapon: PackedScene
 @onready var weapon_blade_detail = load("res://data/weapon/blade_throws/weapon_blade_throw.tres")
 @onready var weapon_fireball_detail = load("res://data/weapon/blade_throws/weapon_fireball_throw.tres")
 
+var is_dir_vector_fixed: bool = false
 var max_dir_vector: Vector2 = Vector2(1, -0.1)
 var start_dir_vector: Vector2 = Vector2(0.1, -0.1)
 var dir_vector: Vector2 = Vector2(0, -0.1)
 var dir_change_rate: float = 0.01
+
+var const_dir_fixed: Vector2 = Vector2(0.75, 0)
 
 var speed: float
 var gravity: float
@@ -36,9 +39,13 @@ func change_weapon(weapon_type: String) -> void:
 		"weapon_blade":
 			weapon = weapon_blade.duplicate(true)
 			weapon_detail = weapon_blade_detail.duplicate(true)
+			is_dir_vector_fixed = false
+			dir_change_rate = 0.01
 		"weapon_fireball":
 			weapon = weapon_fireball.duplicate(true)
 			weapon_detail = weapon_fireball_detail.duplicate(true)
+			is_dir_vector_fixed = true
+			dir_vector = const_dir_fixed
 		_:
 			return
 	#weapon_temp.add_general_weapon_properties(weapon_detail)
@@ -70,6 +77,7 @@ func inspect_direction() -> void:
 
 func update_direction() -> void:
 	dir_vector.x += (dir_change_rate * player.direction)
+	print(player.direction)
 	if dir_vector.x < -max_dir_vector.x:
 		dir_vector.x = -max_dir_vector.x
 	elif dir_vector.x > max_dir_vector.x:

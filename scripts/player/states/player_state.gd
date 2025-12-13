@@ -119,6 +119,7 @@ func control_throwing(delta: float) -> bool:
 		if GameManager.blade_count <= 0:
 			return false
 		obj.weapon_thrower.stop_find_throw_direction()
+		
 	elif Input.is_action_just_released("special_attack"):
 		if obj.current_skill_id != "fireball_attack" or obj.current_special_skill_attempt >= obj.max_special_skill_attempt:
 			return false
