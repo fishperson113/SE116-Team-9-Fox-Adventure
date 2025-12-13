@@ -31,16 +31,19 @@ material_panel = NodePath("../../MainUI/MaterialSelectPopup")
 z_index = -1
 
 [node name="Background" type="Sprite2D" parent="World/Background"]
+modulate = Color(0.494118, 0.494118, 0.494118, 1)
 position = Vector2(466.25, 289.5)
 scale = Vector2(1.83767, 2.16975)
 texture = ExtResource("3_cu52s")
 
 [node name="Background2" type="Sprite2D" parent="World/Background"]
+modulate = Color(0.494118, 0.494118, 0.494118, 1)
 position = Vector2(-329, 304.75)
 scale = Vector2(1.23958, 1.64969)
 texture = ExtResource("3_cu52s")
 
 [node name="Background3" type="Sprite2D" parent="World/Background"]
+modulate = Color(0.494118, 0.494118, 0.494118, 1)
 position = Vector2(1326, 284)
 scale = Vector2(1.23958, 1.64969)
 texture = ExtResource("4_yt3rb")
