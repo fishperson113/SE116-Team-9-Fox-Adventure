@@ -55,6 +55,8 @@ var _near_sense_area: Area2D = null
 var _hit_area: HitArea2D = null
 var _hurt_area: HurtArea2D = null
 
+var _player_detected_marker: PlayerDetectedMarker = null
+
 func _ready() -> void:
 	super._ready()
 	
@@ -101,6 +103,7 @@ func _init_components() -> void:
 	_init_hurt_area()
 	_init_hit_area()
 	_init_collision_shape()
+	_init_markers()
 
 func _init_animated_sprite():
 	if has_node("Direction/AnimatedSprite2D"):
@@ -152,6 +155,10 @@ func _init_collision_shape():
 	if has_node("CollisionShape2D"):
 		_collision_shape = $CollisionShape2D
 
+func _init_markers():
+	if has_node("Direction/PlayerDetectedMarker"):
+		_player_detected_marker = $Direction/PlayerDetectedMarker
+
 # Main handler
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
@@ -181,6 +188,9 @@ func _on_near_sense_body_exited(_body) -> void:
 
 func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, _direction: Vector2, _damage: float) -> void:
 	var _context = HurtBehaviorInput.new(_attacker, _direction, _damage)
+	print(fsm.current_state)
+	if not fsm or not fsm.current_state:
+		return
 	fsm.current_state._react(_context)
 
 func _on_hit_area_2d_hitted(_body) -> void:

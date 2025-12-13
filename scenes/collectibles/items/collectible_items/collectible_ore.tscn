@@ -10,3 +10,6 @@ script = ExtResource("2_dbohs")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_lyhcw")
+
+[node name="InteractiveArea2D" parent="." index="1"]
+collision_layer = 0

@@ -40,6 +40,7 @@
 [ext_resource type="Script" uid="uid://bvmayktwi2sq6" path="res://scenes/levels/loot_system/dropable.gd" id="32_4dlow"]
 [ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="33_4tvhb"]
 [ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/collectibles/items/collectible_items/collectible_ore_iron.tscn" id="34_nmymp"]
+[ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/collectibles/items/collectible_items/collectible_ore_copper.tscn" id="35_nmymp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4tvhb"]
 size = Vector2(30, 64)
@@ -210,6 +211,12 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Resource" id="Resource_ryjcr"]
+script = ExtResource("32_4dlow")
+item = ExtResource("35_nmymp")
+weight = 1
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
 [sub_resource type="Resource" id="Resource_rpd7o"]
 script = ExtResource("32_4dlow")
 item = ExtResource("33_4tvhb")
@@ -219,7 +226,7 @@ metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 [sub_resource type="Resource" id="Resource_3c5t6"]
 script = ExtResource("32_4dlow")
 item = ExtResource("34_nmymp")
-weight = 4
+weight = 1
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
 [node name="Stage" type="Node2D"]
@@ -652,9 +659,9 @@ centered = false
 
 [node name="DropData" type="Node2D" parent="."]
 script = ExtResource("31_ryjcr")
-min_drop = 2
-max_drop = 4
-drop_table = Array[ExtResource("32_4dlow")]([SubResource("Resource_rpd7o"), SubResource("Resource_3c5t6")])
+min_drop = 10
+max_drop = 10
+drop_table = Array[ExtResource("32_4dlow")]([SubResource("Resource_ryjcr"), SubResource("Resource_rpd7o"), SubResource("Resource_3c5t6")])
 metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [editable path="Enemies/Spawner"]
