@@ -36,8 +36,8 @@ func _ready():
 		if event is InputEventMouseButton and event.pressed:
 			print("Collection Area đã nhận được Click! -> Mouse path thông thoáng")
 	)
-	naming_container.visible = false # Ẩn lúc đầu
 	confirm_btn.pressed.connect(_on_confirm_name_pressed)
+	naming_container.visible = false # Ẩn lúc đầu
 	instructLabel.visible=true
 	#populate_parts()
 
@@ -48,7 +48,6 @@ func populate_parts():
 		c.queue_free()
 	if current_stage == MAX_STAGE:
 		_show_naming_stage()
-		instructLabel.visible=false
 		return
 	var required_type = STAGE_TYPES.get(current_stage, "")
 
@@ -121,7 +120,7 @@ func _on_confirm_name_pressed():
 	
 	if final_name == "":
 		final_name = "Unnamed Weapon" # Tên mặc định nếu để trống
-	
+	naming_container.visible = false
 	# Gọi hàm finish
 	_finish_assembling(final_name)
 	
@@ -219,6 +218,10 @@ func advance_stage(tw: Tween) -> void:
 
 func reset_handler():
 	current_stage = 1
+	naming_container.visible = false # Ẩn lúc đầu
+	instructLabel.visible=true
+	scroll_view.visible = true
+
 	#populate_parts()
 	clear_current_parts()
 	
