@@ -5,14 +5,18 @@ signal gemsChanged
 signal keysChanged
 signal coinsChanged
 
+signal skillAttemptChanged
+signal specialSkillResolveChanged
+
 @export var jump_step: int = 2
 @export var current_jump: int = 0
 
+var is_special_skill: bool = false
+var max_special_skill_attempt: int = 3
+var current_special_skill_attempt: int = 0
+
 @export var max_dash: int = 1
 @export var current_dash: int = 0
-
-@export var max_wide_attack: int = 0
-@export var current_wide_attack: int = 0
 
 var weapon_thrower: WeaponThrower
 
@@ -23,7 +27,8 @@ var is_invulnerable: bool = false
 var invulnerability_wait_time: float = 1.0
 
 @onready var wide_attack_timer: Timer = $WideAttackTimer
-@onready var wide_attack_resolve_timer: Timer = $WideAttackResolveTimer
+
+@onready var special_skill_resolve_timer: Timer = $SpecialSkillResolveTimer
 
 # This will be used to accept reflect damage
 @onready var hit_area: HitArea2D = $Direction/HitArea2D
@@ -34,9 +39,15 @@ var attack_damage
 var attack_speed
 var base_speed
 var is_equipped: bool = false
-var is_dash: bool = false
 var current_skill_id: String = ""
 var current_weapon_data: WeaponData = null
+# Invulnerable effect
+var invulnerable_effect: AnimationPlayer
+# Effects for player
+var dash_effect: PackedScene = null
+var attack_effect: PackedScene = null
+var wide_attack_effect: PackedScene = null
+
 func _ready() -> void:
 	get_node("Direction/HitArea2D/CollisionShape2D").disabled = true
 	get_node("Direction/WideHitArea2D/CollisionShape2D").disabled = true
@@ -46,19 +57,32 @@ func _ready() -> void:
 	decorator_manager.initialize(self)
 	# Set the attacker to take damage from reflect
 	hit_area.set_attacker(self)
+	wide_hit_area.set_attacker(self)
 	super._ready()
 	GameManager.player = self
 	base_speed=movement_speed
 	maxHealth=2000
 	currentHealth=maxHealth
 	GameManager.initialize_systems()
-
+	
+	invulnerable_effect = $Direction/AnimatedSprite2D/AnimationPlayer
+	dash_effect = preload("res://scenes/player/effects/dash_effect.tscn")
+	attack_effect = preload("res://scenes/player/effects/attack_effect.tscn")
+	wide_attack_effect = preload("res://scenes/player/effects/wide_attack_effect.tscn")
 
 func _process(delta: float) -> void:
 	if current_dash == max_dash:
 		animated_sprite.modulate = ColorManager.dash_color
 	else:
 		animated_sprite.modulate = ColorManager.normal_color
+	
+	if special_skill_resolve_timer.is_stopped():
+		specialSkillResolveChanged.emit(0)
+	else:
+		specialSkillResolveChanged.emit(
+			special_skill_resolve_timer.wait_time -
+			special_skill_resolve_timer.time_left
+			)
 	pass
 		
 func change_player_type(char_type: int) -> void:
@@ -105,11 +129,17 @@ func _on_hurt_area_2d_hurt(_attacker: BaseCharacter, direction: Vector2, damage:
 
 func _on_invulnerability_timer_timeout() -> void:
 	is_invulnerable = false
+	invulnerable_effect.stop()
 
 func _on_wide_attack_resolve_timer_timeout() -> void:
-	current_wide_attack -= 1
-	if current_wide_attack > 0:
-		wide_attack_resolve_timer.start()
+	current_special_skill_attempt -= 1
+	if current_special_skill_attempt > 0:
+		special_skill_resolve_timer.start()
+	
+	skillAttemptChanged.emit(
+		max_special_skill_attempt -
+		current_special_skill_attempt
+	)
 	pass # Replace with function body.
 
 func set_empty_health() -> void:
@@ -152,24 +182,27 @@ func unequip_weapon():
 func _apply_special_skill(skill: String):
 	match skill:
 		"triple_jump":
+			is_special_skill = false
 			jump_step = 3
 		"speed_up":
+			is_special_skill = false
 			movement_speed = base_speed * 2
 		"dash":
-			is_dash = true
+			is_special_skill = true
 		"wide_attack":
-			max_wide_attack = 5
-		"increase_invulnerable":
-			invulnerability_wait_time = 3.0
+			is_special_skill = true
+		"fireball_attack":
+			is_special_skill = true
 		_:
 			_reset_weapon_stats()
+	GameManager.inspectSkillBar.emit(is_special_skill)
 
 func _reset_weapon_stats():
+	is_special_skill = false
 	jump_step = 2   
 	movement_speed=base_speed
-	is_dash = false
-	max_wide_attack = 0
 	invulnerability_wait_time = 1.0
+	GameManager.inspectSkillBar.emit(is_special_skill)
 
 func save_state() -> Dictionary:
 	return {
@@ -181,6 +214,26 @@ func load_state(data: Dictionary) -> void:
 	if data.has("position"):
 		var pos_array = data["position"]
 		global_position = Vector2(pos_array[0], pos_array[1])
+
+func create_effect(action: String) -> void:
+	var created_effect = null
+	match action:
+		"dash":
+			created_effect = dash_effect.instantiate()
+		"attack":
+			created_effect = attack_effect.instantiate()
+		"wide_attack":
+			created_effect = wide_attack_effect.instantiate()
+	
+	if created_effect == null:
+		return
+	
+	created_effect.global_position = position
+	created_effect.scale.x = direction * created_effect.scale.x
+	created_effect.z_index = -1
+	get_tree().current_scene.add_child(created_effect)
+	if created_effect is GPUParticles2D:
+		created_effect.emitting = true
 func on_use_skill_durability():
 	if current_weapon_data == null:
 		return

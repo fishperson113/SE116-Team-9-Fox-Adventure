@@ -1,6 +1,7 @@
 extends PlayerState
 
 func _enter() -> void:
+	obj.create_effect("attack")
 	obj.get_node("AttackTimer").start()
 	obj.get_node("Direction/HitArea2D/CollisionShape2D").disabled = false
 	#Change animation to attack

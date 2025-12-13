@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://b04jabbymsnru"]
+
+[sub_resource type="Gradient" id="Gradient_62low"]
+offsets = PackedFloat32Array(0, 0.595918, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yaau8"]
+gradient = SubResource("Gradient_62low")
+
+[sub_resource type="Curve" id="Curve_x3cqt"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 3), 0.0, 0.0, 0, 0, Vector2(1, 0.996166), -6.48405, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_m6k85"]
+curve = SubResource("Curve_x3cqt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x3cqt"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(11.58, 0, 0)
+emission_shape_scale = Vector3(0.4, 0.725, 1)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 34.0
+emission_ring_radius = 26.05
+emission_ring_inner_radius = 9.1
+emission_ring_cone_angle = 90.0
+angle_min = 1.07288e-05
+angle_max = 86.6
+spread = 15.0
+initial_velocity_min = 50.0
+initial_velocity_max = 155.4
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -100.0
+linear_accel_max = -100.0
+scale_min = 0.75
+scale_max = 2.0
+scale_over_velocity_curve = SubResource("CurveTexture_m6k85")
+color_ramp = SubResource("GradientTexture1D_yaau8")
+
+[sub_resource type="GDScript" id="GDScript_2qwns"]
+script/source = "extends GPUParticles2D
+
+func _on_finished() -> void:
+	queue_free();
+	pass # Replace with function body.
+"
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+emitting = false
+amount = 60
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_x3cqt")
+script = SubResource("GDScript_2qwns")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
