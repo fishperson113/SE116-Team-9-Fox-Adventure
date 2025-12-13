@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://bqs7uxv4vt07x"]
+[gd_scene load_steps=50 format=4 uid="uid://bqs7uxv4vt07x"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_33rtp"]
 [ext_resource type="PackedScene" uid="uid://dqeyhetii8sb0" path="res://scenes/levels/loot_system/drop_data.tscn" id="2_14gby"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="9_ewpek"]
 [ext_resource type="Texture2D" uid="uid://c5ur36rqix0vh" path="res://assets/sprites/environment/background/water_reflect_big_04.png" id="9_gi8ev"]
 [ext_resource type="Texture2D" uid="uid://dcvs45slp2tv3" path="res://assets/sprites/environment/background/small_cloud_3.png" id="9_t1ot5"]
+[ext_resource type="PackedScene" uid="uid://vjiqf8ajq7mc" path="res://scenes/collectibles/items/collectible_items/collectible_healer.tscn" id="10_8mnue"]
 [ext_resource type="Texture2D" uid="uid://do3ghl5b5mpgy" path="res://assets/sprites/environment/background/water_reflect_small_01.png" id="10_ki2mu"]
 [ext_resource type="Texture2D" uid="uid://cm71bsgwox0jq" path="res://assets/sprites/environment/background/water_reflect_small_02.png" id="11_eajpt"]
 [ext_resource type="Texture2D" uid="uid://d0b0yg85xphrg" path="res://assets/sprites/environment/background/water_reflect_small_03.png" id="12_2ck71"]
@@ -64,6 +65,12 @@ metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 script = ExtResource("3_ewpek")
 item = ExtResource("9_ewpek")
 weight = 1
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_jxlqe"]
+script = ExtResource("3_ewpek")
+item = ExtResource("10_8mnue")
+weight = 2
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
 [sub_resource type="GDScript" id="GDScript_1vm6v"]
@@ -394,7 +401,7 @@ shape = SubResource("RectangleShape2D_bedff")
 [node name="DropData" parent="Enemies" instance=ExtResource("2_14gby")]
 min_drop = 2
 max_drop = 5
-drop_table = Array[ExtResource("3_ewpek")]([SubResource("Resource_8mnue"), SubResource("Resource_1o0mn"), SubResource("Resource_sweax")])
+drop_table = Array[ExtResource("3_ewpek")]([SubResource("Resource_8mnue"), SubResource("Resource_1o0mn"), SubResource("Resource_sweax"), SubResource("Resource_jxlqe")])
 
 [node name="World" type="Node2D" parent="."]
 

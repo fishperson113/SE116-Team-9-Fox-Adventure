@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=4 uid="uid://ctnn4ampknjte"]
+[gd_scene load_steps=57 format=4 uid="uid://ctnn4ampknjte"]
 
 [ext_resource type="PackedScene" uid="uid://c1ojnmhr1sm5l" path="res://scenes/enemies/minions/melees/mushroom.tscn" id="1_2qphj"]
 [ext_resource type="TileSet" uid="uid://xcv3crb1m8j3" path="res://assets/tileset/tileset_64.tres" id="1_d28cy"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="9_f3mxx"]
 [ext_resource type="PackedScene" uid="uid://c6k6kx0i213q4" path="res://scenes/enemies/minions/melees/crab.tscn" id="9_ka18f"]
 [ext_resource type="PackedScene" uid="uid://d4g0t6v7fn5uq" path="res://scenes/levels/level_2/death_pit/death_pit.tscn" id="10_n6lnb"]
+[ext_resource type="PackedScene" uid="uid://vjiqf8ajq7mc" path="res://scenes/collectibles/items/collectible_items/collectible_healer.tscn" id="11_ljkq7"]
 [ext_resource type="Texture2D" uid="uid://oqx0rbvgvkih" path="res://assets/sprites/environment/background/big_clouds_1.png" id="12_kp3hl"]
 [ext_resource type="Texture2D" uid="uid://ck8762h1hy2cf" path="res://assets/sprites/environment/background/additional_water.png" id="12_mgj3a"]
 [ext_resource type="Texture2D" uid="uid://dekyi7oa4n0sg" path="res://assets/sprites/environment/background/water_reflect_big_01.png" id="13_0nnmk"]
@@ -73,6 +74,12 @@ metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 script = ExtResource("5_h58u4")
 item = ExtResource("8_h0lkx")
 weight = 1
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_h0lkx"]
+script = ExtResource("5_h58u4")
+item = ExtResource("11_ljkq7")
+weight = 2
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s4jrt"]
@@ -459,7 +466,7 @@ shape = SubResource("RectangleShape2D_qanar")
 [node name="DropData" parent="Enemies" instance=ExtResource("4_2qphj")]
 min_drop = 2
 max_drop = 5
-drop_table = Array[ExtResource("5_h58u4")]([SubResource("Resource_8mnue"), SubResource("Resource_1o0mn"), SubResource("Resource_sweax")])
+drop_table = Array[ExtResource("5_h58u4")]([SubResource("Resource_8mnue"), SubResource("Resource_1o0mn"), SubResource("Resource_sweax"), SubResource("Resource_h0lkx")])
 
 [node name="World" type="Node2D" parent="."]
 
