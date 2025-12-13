@@ -103,7 +103,7 @@ func exchange(src_parent, src_index, dst_parent, dst_index):
 			# Slot nằm ngoài range → coi như trống
 			dst_is_empty = true
 	else:
-		dst_data = item_storer.items_archive[dst_index]
+		dst_data = item_storer.item_archive[dst_index]
 		dst_is_empty = (dst_data == null or (dst_data is Dictionary and dst_data.is_empty()))
 	
 	print("Dest data: ", dst_data)
@@ -114,7 +114,7 @@ func exchange(src_parent, src_index, dst_parent, dst_index):
 		print("→ Inventory to ItemStorer")
 		
 		# Ghi vào slot đích
-		item_storer.items_archive[dst_index] = src_data
+		item_storer.item_archive[dst_index] = src_data
 		
 		# Xử lý slot nguồn
 		if dst_is_empty:
@@ -151,8 +151,8 @@ func exchange(src_parent, src_index, dst_parent, dst_index):
 		
 		if src_index == item_storer.item_slot:
 			item_storer._equip_current_slot_weapon()
-		GameManager.player.item_storer.save_slots()
-		GameManager.player.inventory.save_inventory()
+	GameManager.player.item_storer.save_slots()
+	GameManager.player.inventory.save_inventory()
 	
 func highlight(active: bool):
 	# (Code highlight giữ nguyên như của bạn)

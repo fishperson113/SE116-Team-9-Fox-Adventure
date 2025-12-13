@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://clfqragev0x8n"]
+[gd_scene load_steps=32 format=4 uid="uid://clfqragev0x8n"]
 
 [ext_resource type="Script" uid="uid://cpp12lpg4jtvk" path="res://scenes/levels/lobby/lobby.gd" id="1_lds41"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_xex7k"]
@@ -15,8 +15,10 @@
 [ext_resource type="PackedScene" uid="uid://qbrulhlifs0u" path="res://scenes/minigames/MinigameUI.tscn" id="7_e8q5c"]
 [ext_resource type="PackedScene" uid="uid://bsjp8w4bw1sb2" path="res://scenes/minigames/material_select_popup.tscn" id="8_1ua0a"]
 [ext_resource type="Texture2D" uid="uid://dk1yqrsmjaho1" path="res://assets/sprites/tutorial/tutorial_double_jump.png" id="8_m7q2q"]
+[ext_resource type="Texture2D" uid="uid://dp1ik0wbyc3q1" path="res://assets/sprites/environment/background/background 1.png" id="9_ndaff"]
 [ext_resource type="Texture2D" uid="uid://cti54mjf5djfs" path="res://assets/sprites/tutorial/tutorial_emphasize_crafting.png" id="9_t1qjs"]
 [ext_resource type="Texture2D" uid="uid://cegslfm3qheed" path="res://assets/sprites/tutorial/tutorial_interact.png" id="10_8rmxw"]
+[ext_resource type="Texture2D" uid="uid://dexfx7iccs160" path="res://assets/sprites/environment/background/background_glacial_mountains_lightened.png" id="10_mhr3f"]
 [ext_resource type="Texture2D" uid="uid://cdna8lhbjf4ac" path="res://assets/sprites/tutorial/tutorial_inventory.png" id="14_7nx20"]
 [ext_resource type="Texture2D" uid="uid://bqywg27uvx6ek" path="res://assets/sprites/tutorial/tutorial_special_action.png" id="14_yhktf"]
 [ext_resource type="Texture2D" uid="uid://dfxeq3mgimrs4" path="res://assets/sprites/tutorial/tutorial_open_inventory.png" id="15_7dncq"]
@@ -63,6 +65,38 @@ position = Vector2(1906, -8)
 position = Vector2(900, 18)
 miniggame_ui = NodePath("../../MainUI/MinigameUI")
 material_panel = NodePath("../../MainUI/MaterialSelectPopup")
+
+[node name="Bcakground" type="Node2D" parent="World"]
+
+[node name="Backgroun1" type="Sprite2D" parent="World/Bcakground"]
+z_index = -1
+position = Vector2(53.813, -87.5)
+scale = Vector2(2.0931, 1.84877)
+texture = ExtResource("9_ndaff")
+
+[node name="Backgroun2" type="Sprite2D" parent="World/Bcakground"]
+z_index = -1
+position = Vector2(1094, -86.75)
+scale = Vector2(1.51953, 1.85185)
+texture = ExtResource("9_ndaff")
+
+[node name="Backgroun3" type="Sprite2D" parent="World/Bcakground"]
+z_index = -1
+position = Vector2(1969, -86.75)
+scale = Vector2(1.51953, 1.86265)
+texture = ExtResource("9_ndaff")
+
+[node name="Backgroun4" type="Sprite2D" parent="World/Bcakground"]
+z_index = -1
+position = Vector2(2983.69, -86.75)
+scale = Vector2(2.00803, 1.87809)
+texture = ExtResource("9_ndaff")
+
+[node name="Background" type="Sprite2D" parent="World/Bcakground"]
+z_index = -2
+position = Vector2(1360.5, -321.75)
+scale = Vector2(9.21615, 4.9838)
+texture = ExtResource("10_mhr3f")
 
 [node name="SubViewports" type="Node" parent="."]
 
