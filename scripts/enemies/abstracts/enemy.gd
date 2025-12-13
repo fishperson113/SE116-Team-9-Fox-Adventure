@@ -357,7 +357,6 @@ func hold_distance(_target_position: Vector2) -> void:
 		move_backward()
 	else:
 		stop_move()
-	
 	if not try_jump():
 		if vertical_distance_feeling == DistanceFeel.FAR and vertical_distance < 0:
 			jump()
@@ -373,7 +372,8 @@ func take_damage_behavior(_attacker: BaseCharacter, _direction: Vector2, _damage
 	take_damage(int(_damage))
 	bounce_off(_direction,_attacker.knock_back_force)
 	target(_attacker.position)
-	_attacker.reduce_weapon_durability(0.5)
+	if _attacker.has_method("reduce_weapon_durability"):
+		_attacker.reduce_weapon_durability(0.5)
 	fsm.change_state(fsm.states.hurt)
 
 func try_recover() -> bool:
