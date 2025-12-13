@@ -273,7 +273,7 @@ func stop_move() -> void:
 	_movement_speed = 0.0
 
 func bounce_off(_direction: Vector2,_knock_back_force:float) -> void:
-	_movement_speed = movement_speed * _direction.x * direction
+	_movement_speed = movement_speed * _direction.x * direction*_knock_back_force
 
 func is_close(_target: Vector2, tolerance: float) -> bool:
 	return _target.distance_to(position) <= tolerance

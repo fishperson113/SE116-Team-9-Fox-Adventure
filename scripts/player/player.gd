@@ -150,8 +150,6 @@ func equip_weapon(weapon: WeaponData):
 		unequip_weapon()
 		return
 	current_weapon_data = weapon
-	if current_weapon_data.current_durability < 0 and current_weapon_data.material:
-		current_weapon_data.current_durability = float(current_weapon_data.material.durability)
 	# Update stats
 	if weapon.blade:
 		attack_damage = weapon.get_damage()
@@ -171,6 +169,8 @@ func equip_weapon(weapon: WeaponData):
 	change_player_type(2)
 	print("Player equipped craft weapon successfully!")
 func unequip_weapon():
+	if current_weapon_data != null and current_weapon_data.resource_path != "":
+		ResourceSaver.save(current_weapon_data, current_weapon_data.resource_path)
 	_reset_weapon_stats()
 	current_weapon_data = null
 	if character_type == 3:
@@ -201,6 +201,7 @@ func _reset_weapon_stats():
 	is_special_skill = false
 	jump_step = 2   
 	movement_speed=base_speed
+	knock_back_force=0
 	invulnerability_wait_time = 1.0
 	GameManager.inspectSkillBar.emit(is_special_skill)
 
@@ -238,15 +239,13 @@ func on_use_skill_durability():
 	if current_weapon_data == null:
 		return
 
-	# 1. Trừ độ bền
-	var new_durability = current_weapon_data.reduce_durability(1.5)
-	print("Weapon Durability Reduced: ", new_durability)
-	
+	#Trừ độ bền
+	var is_broken = current_weapon_data.reduce_durability(1.5)
 	# Cập nhật lại Panel Info nếu đang mở
 	if item_storer:
 		item_storer.info_panel_change.emit(current_weapon_data)
 	
-	if new_durability <= 0:
+	if is_broken:
 		_break_weapon()
 
 func _break_weapon():

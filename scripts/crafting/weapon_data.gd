@@ -35,4 +35,4 @@ func reduce_durability(amount: float) -> float:
 		current_durability = float(material.durability)
 	
 	current_durability -= amount
-	return current_durability
+	return current_durability <= 0
