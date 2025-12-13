@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://xmmhse6d6ge7"]
+[gd_scene load_steps=36 format=4 uid="uid://xmmhse6d6ge7"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_3uy1m"]
 [ext_resource type="PackedScene" uid="uid://d2wpy684uyjct" path="res://scenes/enemies/spawners/triggered_spawner.tscn" id="2_4f3hn"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://bvmayktwi2sq6" path="res://scenes/levels/loot_system/dropable.gd" id="9_8bipx"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="10_c7rpm"]
 [ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/collectibles/items/collectible_items/collectible_ore_iron.tscn" id="11_n0rtw"]
+[ext_resource type="PackedScene" uid="uid://vjiqf8ajq7mc" path="res://scenes/collectibles/items/collectible_items/collectible_healer.tscn" id="11_pyftv"]
 [ext_resource type="PackedScene" uid="uid://bu151mcbsrxx7" path="res://scenes/collectibles/items/collectible_items/coin.tscn" id="12_8bipx"]
 [ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="12_165p0"]
 [ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/collectibles/items/collectible_items/collectible_ore_copper.tscn" id="13_ks3mc"]
@@ -60,6 +61,12 @@ item = ExtResource("12_165p0")
 weight = 5
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
+[sub_resource type="Resource" id="Resource_r0t3b"]
+script = ExtResource("9_8bipx")
+item = ExtResource("11_pyftv")
+weight = 2
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
 [sub_resource type="Resource" id="Resource_k168q"]
 script = ExtResource("9_8bipx")
 item = ExtResource("12_165p0")
@@ -70,6 +77,12 @@ metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 script = ExtResource("9_8bipx")
 item = ExtResource("11_n0rtw")
 weight = 7
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_8k2k6"]
+script = ExtResource("9_8bipx")
+item = ExtResource("11_pyftv")
+weight = 2
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
 [sub_resource type="Resource" id="Resource_pyftv"]
@@ -90,6 +103,12 @@ item = ExtResource("12_8bipx")
 weight = 6
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
+[sub_resource type="Resource" id="Resource_kf68o"]
+script = ExtResource("9_8bipx")
+item = ExtResource("11_pyftv")
+weight = 2
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
 [sub_resource type="Resource" id="Resource_ti4k1"]
 script = ExtResource("9_8bipx")
 item = ExtResource("12_8bipx")
@@ -99,6 +118,12 @@ metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 [sub_resource type="Resource" id="Resource_745yt"]
 script = ExtResource("9_8bipx")
 item = ExtResource("11_n0rtw")
+weight = 2
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_ajc6w"]
+script = ExtResource("9_8bipx")
+item = ExtResource("11_pyftv")
 weight = 2
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
@@ -191,7 +216,7 @@ position = Vector2(5343, 1688)
 script = ExtResource("8_ks3mc")
 min_drop = 2
 max_drop = 4
-drop_table = Array[ExtResource("9_8bipx")]([SubResource("Resource_8bipx"), SubResource("Resource_cwm16"), SubResource("Resource_bridh"), SubResource("Resource_po0fb")])
+drop_table = Array[ExtResource("9_8bipx")]([SubResource("Resource_8bipx"), SubResource("Resource_cwm16"), SubResource("Resource_bridh"), SubResource("Resource_po0fb"), SubResource("Resource_r0t3b")])
 metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [node name="Turtles" type="Node2D" parent="Enemies"]
@@ -267,7 +292,7 @@ initial_state = 1
 script = ExtResource("8_ks3mc")
 min_drop = 1
 max_drop = 3
-drop_table = Array[ExtResource("9_8bipx")]([SubResource("Resource_k168q"), SubResource("Resource_1d1ln")])
+drop_table = Array[ExtResource("9_8bipx")]([SubResource("Resource_k168q"), SubResource("Resource_1d1ln"), SubResource("Resource_8k2k6")])
 metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [node name="Starfishes" type="Node2D" parent="Enemies"]
@@ -313,7 +338,7 @@ position = Vector2(1282, 2000)
 [node name="DropData" type="Node2D" parent="Enemies/Starfishes"]
 script = ExtResource("8_ks3mc")
 max_drop = 4
-drop_table = Array[ExtResource("9_8bipx")]([SubResource("Resource_pyftv"), SubResource("Resource_mknhp"), SubResource("Resource_h3yuq")])
+drop_table = Array[ExtResource("9_8bipx")]([SubResource("Resource_pyftv"), SubResource("Resource_mknhp"), SubResource("Resource_h3yuq"), SubResource("Resource_kf68o")])
 metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [node name="Seahorses" type="Node2D" parent="Enemies"]
@@ -337,7 +362,7 @@ attack_speed = 200.0
 script = ExtResource("8_ks3mc")
 min_drop = 1
 max_drop = 2
-drop_table = Array[ExtResource("9_8bipx")]([SubResource("Resource_ti4k1"), SubResource("Resource_745yt")])
+drop_table = Array[ExtResource("9_8bipx")]([SubResource("Resource_ti4k1"), SubResource("Resource_745yt"), SubResource("Resource_ajc6w")])
 metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [node name="Pelicans" type="Node2D" parent="Enemies"]

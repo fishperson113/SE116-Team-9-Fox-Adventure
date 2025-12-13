@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=4 uid="uid://cchdurl56vp0g"]
+[gd_scene load_steps=66 format=4 uid="uid://cchdurl56vp0g"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_ryjcr"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="3_4dlow"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="5_y84bu"]
 [ext_resource type="PackedScene" uid="uid://psxbpmcbicmg" path="res://scenes/enemies/minions/melees/aborigine.tscn" id="6_ctv1g"]
 [ext_resource type="PackedScene" uid="uid://dqeyhetii8sb0" path="res://scenes/levels/loot_system/drop_data.tscn" id="6_rpd7o"]
-[ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/collectibles/items/collectible_items/collectible_ore_copper.tscn" id="8_3c5t6"]
 [ext_resource type="PackedScene" uid="uid://bxdgdv2dbs6tb" path="res://scenes/enemies/minions/melees/starfish.tscn" id="8_ctv1g"]
 [ext_resource type="Texture2D" uid="uid://dekyi7oa4n0sg" path="res://assets/sprites/environment/background/water_reflect_big_01.png" id="8_y84bu"]
 [ext_resource type="Texture2D" uid="uid://b6dilwf04d4be" path="res://assets/sprites/environment/background/water_reflect_big_02.png" id="9_ctv1g"]
@@ -21,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://do3ghl5b5mpgy" path="res://assets/sprites/environment/background/water_reflect_small_01.png" id="12_1vunm"]
 [ext_resource type="Texture2D" uid="uid://6e75c7svekfk" path="res://assets/sprites/environment/background/Grass_background_1.png" id="12_fha76"]
 [ext_resource type="Texture2D" uid="uid://cm71bsgwox0jq" path="res://assets/sprites/environment/background/water_reflect_small_02.png" id="13_8ypvq"]
+[ext_resource type="PackedScene" uid="uid://vjiqf8ajq7mc" path="res://scenes/collectibles/items/collectible_items/collectible_healer.tscn" id="13_ctv1g"]
 [ext_resource type="Texture2D" uid="uid://bcmj8j87aatqm" path="res://assets/sprites/environment/background/ParallaxCave4.png" id="13_fha76"]
 [ext_resource type="Texture2D" uid="uid://bqkt74b80f1ta" path="res://assets/sprites/environment/background/ParallaxCave1.png" id="14_a2u48"]
 [ext_resource type="Texture2D" uid="uid://d0b0yg85xphrg" path="res://assets/sprites/environment/background/water_reflect_small_03.png" id="14_ruugp"]
@@ -68,7 +68,7 @@ size = Vector2(30, 192)
 
 [sub_resource type="Resource" id="Resource_8mnue"]
 script = ExtResource("32_4dlow")
-item = ExtResource("8_3c5t6")
+item = ExtResource("35_nmymp")
 weight = 5
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
@@ -82,6 +82,12 @@ metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 script = ExtResource("32_4dlow")
 item = ExtResource("33_4tvhb")
 weight = 1
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_goifi"]
+script = ExtResource("32_4dlow")
+item = ExtResource("13_ctv1g")
+weight = 2
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_goifi"]
@@ -473,7 +479,7 @@ shape = SubResource("RectangleShape2D_fha76")
 [node name="DropData" parent="Enemies" instance=ExtResource("6_rpd7o")]
 min_drop = 2
 max_drop = 5
-drop_table = Array[ExtResource("32_4dlow")]([SubResource("Resource_8mnue"), SubResource("Resource_1o0mn"), SubResource("Resource_sweax")])
+drop_table = Array[ExtResource("32_4dlow")]([SubResource("Resource_8mnue"), SubResource("Resource_1o0mn"), SubResource("Resource_sweax"), SubResource("Resource_goifi")])
 
 [node name="World" type="Node2D" parent="."]
 
