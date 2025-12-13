@@ -40,7 +40,6 @@ var attack_speed
 var base_speed
 var is_equipped: bool = false
 var current_skill_id: String = ""
-var current_weapon_data: WeaponData = null
 # Invulnerable effect
 var invulnerable_effect: AnimationPlayer
 # Effects for player
@@ -241,6 +240,19 @@ func on_use_skill_durability():
 
 	#Trừ độ bền
 	var is_broken = current_weapon_data.reduce_durability(1.5)
+	# Cập nhật lại Panel Info nếu đang mở
+	if item_storer:
+		item_storer.info_panel_change.emit(current_weapon_data)
+	
+	if is_broken:
+		_break_weapon()
+		
+func reduce_weapon_durability(amount:float):
+	if current_weapon_data == null:
+		return
+
+	#Trừ độ bền
+	var is_broken = current_weapon_data.reduce_durability(amount)
 	# Cập nhật lại Panel Info nếu đang mở
 	if item_storer:
 		item_storer.info_panel_change.emit(current_weapon_data)

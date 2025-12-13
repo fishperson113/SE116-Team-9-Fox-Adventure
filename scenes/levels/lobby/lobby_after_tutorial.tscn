@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=4 uid="uid://dj4sl66scgre3"]
+[gd_scene load_steps=15 format=4 uid="uid://dj4sl66scgre3"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_j7m84"]
+[ext_resource type="PackedScene" uid="uid://c1ojnmhr1sm5l" path="res://scenes/enemies/minions/melees/mushroom.tscn" id="3_u0d04"]
 [ext_resource type="Texture2D" uid="uid://b55lww4x4ihoy" path="res://assets/sprites/environment/background/background 4.png" id="4_r84t2"]
 [ext_resource type="Texture2D" uid="uid://bawl0lc1uc0t5" path="res://assets/sprites/environment/background/background 3.png" id="5_aar3o"]
 [ext_resource type="PackedScene" uid="uid://dubb5b1vjmsxd" path="res://scenes/levels/island/objects/door/door.tscn" id="7_slsen"]
@@ -68,3 +69,6 @@ z_index = 2
 visible = false
 material_list = Array[ExtResource("26_n0mdi")]([ExtResource("27_eskaa"), ExtResource("28_sconl"), ExtResource("29_cx3ju")])
 offset_y = 140
+
+[node name="Mushroom" parent="." instance=ExtResource("3_u0d04")]
+position = Vector2(174, -15)

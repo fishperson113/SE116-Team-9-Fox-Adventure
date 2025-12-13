@@ -373,6 +373,7 @@ func take_damage_behavior(_attacker: BaseCharacter, _direction: Vector2, _damage
 	take_damage(int(_damage))
 	bounce_off(_direction,_attacker.knock_back_force)
 	target(_attacker.position)
+	_attacker.reduce_weapon_durability(0.5)
 	fsm.change_state(fsm.states.hurt)
 
 func try_recover() -> bool:

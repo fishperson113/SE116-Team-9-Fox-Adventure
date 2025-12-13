@@ -33,6 +33,8 @@ var maxHealth: float = 3
 var currentHealth: float = maxHealth
 var input_enabled := true
 var knock_back_force :float
+var current_weapon_data: WeaponData = null
+
 func _ready() -> void:
 	set_animated_sprite($Direction/AnimatedSprite2D)
 
