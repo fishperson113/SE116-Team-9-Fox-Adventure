@@ -26,23 +26,8 @@ AudioManager="*res://scripts/audio/audio_manager.gd"
 
 [dialogic]
 
-directories/dch_directory={
-"Foxy": "res://addons/dialogic/Foxy.dch"
-}
-directories/dtl_directory={
-"Dialog_cv": "res://addons/dialogic/dialog/Dialog_cv.dtl",
-"Dialog_gl": "res://addons/dialogic/dialog/Dialog_gl.dtl",
-"crab_dialog": "res://addons/dialogic/dialog/crab_dialog.dtl",
-"mushroom_dialog": "res://addons/dialogic/dialog/mushroom_dialog.dtl",
-"pelican_dialog": "res://addons/dialogic/dialog/pelican_dialog.dtl",
-"spike_dialog": "res://addons/dialogic/dialog/spike_dialog.dtl",
-"starfish_dialog": "res://addons/dialogic/dialog/starfish_dialog.dtl",
-"start_dialog": "res://addons/dialogic/dialog/start_dialog.dtl",
-"timeline": "res://addons/dialogic/dialog/timeline.dtl",
-"turtle": "res://addons/dialogic/dialog/turtle.dtl",
-"turtle_dialog": "res://addons/dialogic/dialog/turtle_dialog.dtl",
-"win_dialog": "res://addons/dialogic/dialog/win_dialog.dtl"
-}
+directories/dch_directory={}
+directories/dtl_directory={}
 layout/style_directory={
 "": "res://addons/dialogic/Example Assets/Fonts/Text.tres",
 "Text": "res://addons/dialogic/Example Assets/Fonts/Text.tres"

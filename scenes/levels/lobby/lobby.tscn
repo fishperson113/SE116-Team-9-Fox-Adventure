@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://dfxeq3mgimrs4" path="res://assets/sprites/tutorial/tutorial_open_inventory.png" id="15_7dncq"]
 [ext_resource type="Texture2D" uid="uid://cg0b3jv5jwy0q" path="res://assets/sprites/tutorial/inventory_change_slots.png" id="16_yhktf"]
 [ext_resource type="Texture2D" uid="uid://lyui763qwpd7" path="res://assets/sprites/tutorial/tutorial_attack_2.png" id="17_7nx20"]
-[ext_resource type="Texture2D" uid="uid://dissxrq012sdw" path="res://assets/sprites/tutorial/tutorial_throw_2.png" id="18_7dncq"]
+[ext_resource type="Texture2D" uid="uid://bd2tt014icggb" path="res://assets/sprites/tutorial/tutorial_throw_blade.png" id="20_mhr3f"]
 [ext_resource type="Script" uid="uid://bg7o110gecbgs" path="res://scripts/crafting/weapon_material_data.gd" id="24_mvbuw"]
 [ext_resource type="Resource" uid="uid://b7f1xt8sai4l1" path="res://data/weapon/materials/copper.tres" id="25_ndaff"]
 [ext_resource type="Resource" uid="uid://g5k57m8utwwn" path="res://data/weapon/materials/iron.tres" id="26_mhr3f"]
@@ -155,7 +155,7 @@ texture = ExtResource("17_7nx20")
 [node name="ThrowBlade" type="Sprite2D" parent="Tutorials"]
 position = Vector2(1518, -50)
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("18_7dncq")
+texture = ExtResource("20_mhr3f")
 
 [node name="SpecialAttack" type="Sprite2D" parent="Tutorials"]
 position = Vector2(1658, -3)
