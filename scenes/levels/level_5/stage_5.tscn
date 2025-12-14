@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://b4he3cnf7cpbq"]
+[gd_scene load_steps=46 format=4 uid="uid://b4he3cnf7cpbq"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_3l2kx"]
 [ext_resource type="PackedScene" uid="uid://bu0ebjvtvbb4j" path="res://scenes/levels/area_unlockers/area_unlocker_enemies.tscn" id="2_lyf21"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://bvmayktwi2sq6" path="res://scenes/levels/loot_system/dropable.gd" id="12_2elvf"]
 [ext_resource type="Texture2D" uid="uid://dcrnqve71d36p" path="res://assets/sprites/environment/background/additional_sky.png" id="12_pjjcp"]
 [ext_resource type="PackedScene" uid="uid://vjiqf8ajq7mc" path="res://scenes/collectibles/items/collectible_items/collectible_healer.tscn" id="15_tu1nf"]
+[ext_resource type="PackedScene" uid="uid://bkd2g8l5kip8q" path="res://scenes/collectibles/items/collectible_items/collectible_coin.tscn" id="16_nmp7s"]
 [ext_resource type="PackedScene" uid="uid://bu151mcbsrxx7" path="res://scenes/collectibles/items/collectible_items/coin.tscn" id="18_2elvf"]
 
 [sub_resource type="GDScript" id="GDScript_pjjcp"]
@@ -57,6 +58,12 @@ item = ExtResource("15_tu1nf")
 weight = 2
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
+[sub_resource type="Resource" id="Resource_y41jf"]
+script = ExtResource("12_2elvf")
+item = ExtResource("16_nmp7s")
+weight = 3
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
 [sub_resource type="Resource" id="Resource_tu1nf"]
 script = ExtResource("12_2elvf")
 item = ExtResource("5_th0hk")
@@ -81,6 +88,12 @@ item = ExtResource("15_tu1nf")
 weight = 2
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
+[sub_resource type="Resource" id="Resource_sl5x7"]
+script = ExtResource("12_2elvf")
+item = ExtResource("16_nmp7s")
+weight = 3
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
 [sub_resource type="Resource" id="Resource_2elvf"]
 script = ExtResource("12_2elvf")
 item = ExtResource("5_th0hk")
@@ -97,6 +110,12 @@ metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 script = ExtResource("12_2elvf")
 item = ExtResource("15_tu1nf")
 weight = 2
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_7ksw6"]
+script = ExtResource("12_2elvf")
+item = ExtResource("16_nmp7s")
+weight = 3
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
 [sub_resource type="Resource" id="Resource_752bv"]
@@ -121,6 +140,12 @@ metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 script = ExtResource("12_2elvf")
 item = ExtResource("15_tu1nf")
 weight = 2
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_5ncb0"]
+script = ExtResource("12_2elvf")
+item = ExtResource("16_nmp7s")
+weight = 3
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
 [node name="Stage" type="Node2D"]
@@ -342,7 +367,7 @@ position = Vector2(7820, 8431)
 script = ExtResource("11_wvm0h")
 min_drop = 1
 max_drop = 3
-drop_table = Array[ExtResource("12_2elvf")]([SubResource("Resource_k168q"), SubResource("Resource_1d1ln"), SubResource("Resource_7v4au")])
+drop_table = Array[ExtResource("12_2elvf")]([SubResource("Resource_k168q"), SubResource("Resource_1d1ln"), SubResource("Resource_7v4au"), SubResource("Resource_y41jf")])
 metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [node name="Pelicans" type="Node2D" parent="Enemies"]
@@ -428,7 +453,7 @@ movement_speed = 20.0
 script = ExtResource("11_wvm0h")
 min_drop = 3
 max_drop = 5
-drop_table = Array[ExtResource("12_2elvf")]([SubResource("Resource_tu1nf"), SubResource("Resource_nmp7s"), SubResource("Resource_w01x5"), SubResource("Resource_ufsmb")])
+drop_table = Array[ExtResource("12_2elvf")]([SubResource("Resource_tu1nf"), SubResource("Resource_nmp7s"), SubResource("Resource_w01x5"), SubResource("Resource_ufsmb"), SubResource("Resource_sl5x7")])
 metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [node name="SmallAborigines" type="Node2D" parent="Enemies/Aborigines"]
@@ -479,7 +504,7 @@ movement_speed = 40.0
 script = ExtResource("11_wvm0h")
 min_drop = 1
 max_drop = 2
-drop_table = Array[ExtResource("12_2elvf")]([SubResource("Resource_2elvf"), SubResource("Resource_hajgy"), SubResource("Resource_hoxoe")])
+drop_table = Array[ExtResource("12_2elvf")]([SubResource("Resource_2elvf"), SubResource("Resource_hajgy"), SubResource("Resource_hoxoe"), SubResource("Resource_7ksw6")])
 metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [node name="WarlordTurtle" parent="Enemies" instance=ExtResource("7_txxkb")]
@@ -489,7 +514,7 @@ position = Vector2(8987, 8859)
 script = ExtResource("11_wvm0h")
 min_drop = 10
 max_drop = 12
-drop_table = Array[ExtResource("12_2elvf")]([SubResource("Resource_752bv"), SubResource("Resource_ocqpa"), SubResource("Resource_7l22j"), SubResource("Resource_5ox5i")])
+drop_table = Array[ExtResource("12_2elvf")]([SubResource("Resource_752bv"), SubResource("Resource_ocqpa"), SubResource("Resource_7l22j"), SubResource("Resource_5ox5i"), SubResource("Resource_5ncb0")])
 metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [node name="Bullets" type="Node2D" parent="."]

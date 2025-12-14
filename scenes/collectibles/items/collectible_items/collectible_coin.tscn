@@ -1,0 +1,42 @@
+[gd_scene load_steps=9 format=3 uid="uid://bkd2g8l5kip8q"]
+
+[ext_resource type="PackedScene" uid="uid://d3htq6cyenbsi" path="res://scenes/collectibles/items/collectible_items/collectible_ore.tscn" id="1_ef71i"]
+[ext_resource type="Script" uid="uid://dpwpvu4dha8cx" path="res://scripts/collectibles/items/collectibles/collectible_coin.gd" id="2_bnov7"]
+[ext_resource type="Texture2D" uid="uid://dtwnvoh5jfgsn" path="res://assets/sprites/items/coin/01.png" id="3_qsxov"]
+[ext_resource type="Texture2D" uid="uid://b66ku1hcmsevy" path="res://assets/sprites/items/coin/02.png" id="4_melxk"]
+[ext_resource type="Texture2D" uid="uid://bt5c3w1sy3vbv" path="res://assets/sprites/items/coin/03.png" id="5_3n47y"]
+[ext_resource type="Texture2D" uid="uid://ccpkv1gb3fyy1" path="res://assets/sprites/items/coin/04.png" id="6_ohk50"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gwogc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qsxov")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_melxk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3n47y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ohk50")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j5atk"]
+radius = 5.0
+height = 10.0
+
+[node name="Coin" instance=ExtResource("1_ef71i")]
+script = ExtResource("2_bnov7")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_gwogc")
+
+[node name="CollisionShape2D" parent="InteractiveArea2D" index="0"]
+shape = SubResource("CapsuleShape2D_j5atk")
