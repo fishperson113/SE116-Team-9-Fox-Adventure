@@ -13,7 +13,7 @@ signal material_selected(material: WeaponMaterialData)
 @export var material_list: Array[WeaponMaterialData]
 @onready var hbox := $HBoxContainer
 @export var offset_y = 50
-
+var lock_icon_path= \"res://assets/ui/lock_icon_01.png\"
 func _ready():
 	visible = false
 	_load_materials()
@@ -35,6 +35,9 @@ func _center_panel():
 	)
 
 func _load_materials():
+	# Pre-load hình ổ khóa để dùng trong vòng lặp
+	var lock_texture = load(lock_icon_path)
+	
 	# Xóa các icon cũ
 	for c in hbox.get_children():
 		c.queue_free()
@@ -44,77 +47,94 @@ func _load_materials():
 	for i in count:
 		var mat := material_list[i]
 
-		# --- TẠO ICON ---
+		# --- TẠO ICON NGUYÊN LIỆU (CHA) ---
 		var icon := TextureRect.new()
 		icon.texture = mat.icon
-		icon.custom_minimum_size = Vector2(60, 0)
+		icon.custom_minimum_size = Vector2(60, 60) # Set chiều cao để icon vuông vức hơn nếu cần
 		icon.expand_mode = TextureRect.EXPAND_KEEP_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_SCALE
-
-		# Lấy thông tin từ GameManager
-		var current_amount = GameManager.materials_wallet.get(mat.id, 0)
-		# So sánh với giá trong GameManager
-		var is_enough_material = current_amount >= GameManager.material_crafting_cost
+		
+		# --- KIỂM TRA ĐIỀU KIỆN (COIN + ORE) ---
+		# 1. Lấy số lượng hiện tại
+		var current_ore_amount = GameManager.materials_wallet.get(mat.id, 0)
+		# Lưu ý: Mình giả sử biến lưu tiền hiện tại là GameManager.coins. 
+		var current_coin_amount = GameManager.coin_count
+		
+		# 2. So sánh giá
+		var is_enough_ore = current_ore_amount >= GameManager.material_crafting_cost
+		var is_enough_coin = current_coin_amount >= GameManager.crafting_cost
+		
+		# Điều kiện mở khóa: Phải đủ cả Ore VÀ Coin
+		var is_unlocked = is_enough_ore and is_enough_coin
 		
 		# --- [UPDATED] TOOLTIP BUILDER ---
-		# 1. Tên hiển thị (Ưu tiên display_name, nếu ko có thì dùng ID viết hoa)
 		var name_str = mat.display_name if mat.display_name else mat.id.capitalize()
-		
-		# 2. Thông tin cơ bản (Quan trọng nhất là Damage)
 		var tip = \"%s\\nBase Damage: %d\\nDurability: %d\" % [name_str, mat.damage, mat.durability]
 
-		# 3. Xử lý Visual & Trạng thái Cost
-		if is_enough_material:
+		if is_unlocked:
+			# --- TRẠNG THÁI: MỞ KHÓA ---
 			icon.modulate = Color(1, 1, 1, 1)
 			icon.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 			
-			# Thêm thông tin giá
 			tip += \"\\n[COST]\"
 			tip += \"\\n• %d Coin\" % GameManager.crafting_cost
 			tip += \"\\n• %d %s\" % [GameManager.material_crafting_cost, name_str]
+			
 		else:
-			icon.modulate = Color(0.4, 0.4, 0.4, 1)
+			# --- TRẠNG THÁI: KHÓA ---
+			icon.modulate = Color(0.4, 0.4, 0.4, 1) # Làm tối icon nguyên liệu
 			icon.mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
 			
-			# Thêm thông báo thiếu
-			tip += \"\\n\\n[INSUFFICIENT]\"
-			tip += \"\\nOwned: %d / %d\" % [current_amount, GameManager.material_crafting_cost]
+			# --- THÊM ICON Ổ KHÓA ---
+			var lock_rect = TextureRect.new()
+			lock_rect.texture = lock_texture
+			lock_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			# Chỉnh size ổ khóa (ví dụ 32x32 hoặc nhỏ hơn icon gốc 1 chút)
+			lock_rect.custom_minimum_size = Vector2(32, 32) 
+			lock_rect.size = Vector2(32, 32)
+			
+			# Căn giữa ổ khóa trong icon cha
+			lock_rect.layout_mode = 1 # Anchors Preset Mode
+			lock_rect.anchors_preset = Control.PRESET_CENTER
+			
+			icon.add_child(lock_rect)
+
+			# --- THÔNG BÁO THIẾU CỤ THỂ ---
+			tip += \"\\n[LOCKED]\"
+			if not is_enough_coin:
+				tip += \"\\n(- MISSING COIN: %d/%d)\" % [current_coin_amount, GameManager.crafting_cost]
+			if not is_enough_ore:
+				tip += \"\\n(- MISSING ORE: %d/%d)\" % [current_ore_amount, GameManager.material_crafting_cost]
 
 		icon.tooltip_text = tip
+		
 		# --- XỬ LÝ CLICK ---
 		icon.gui_input.connect(func(event):
 			if event is InputEventMouseButton \\
 			and event.pressed \\
 			and event.button_index == MOUSE_BUTTON_LEFT:
 				
-				# 1. Visual check
-				if not is_enough_material:
+				# 1. Visual check (Dùng biến is_unlocked đã tính ở trên)
+				if not is_unlocked:
 					_shake_icon(icon)
-					print(\"UI: Không đủ nguyên liệu để bấm!\")
+					print(\"UI: Item is locked!\")
 					return
 
-				# 2. Trừ Coin
+				# 2. Logic thanh toán (Vẫn giữ kiểm tra lại để an toàn)
 				if not GameManager.pay_entry_fee():
 					_shake_icon(icon)
-					print(\"UI: Không đủ Coin!\")
-					return 
+					return
 				
-				# 3. Trừ Ore (Dùng giá từ GameManager)
 				if GameManager.pay_material_fee(mat.id, GameManager.material_crafting_cost):
-					# --- THÀNH CÔNG ---
-					print(\"UI: Thanh toán đủ cả Coin và Ore. Bắt đầu game.\")
 					close()
 					material_selected.emit(mat)
 				else:
-					# --- LỖI LOGIC (Hoàn tiền Coin) ---
-					print(\"UI: Lỗi trừ Ore! Đang hoàn tiền Coin...\")
 					GameManager.refund_all_fees()
 					_shake_icon(icon)
 		)
 
 		hbox.add_child(icon)
 
-		# --- Separator ---
 		if i < count - 1:
 			var sep := VSeparator.new()
 			sep.custom_minimum_size = Vector2(8, 0)
