@@ -163,6 +163,10 @@ collision_mask = 8388609
 [node name="DownRayCast2D" parent="Direction" index="4"]
 position = Vector2(16, 0)
 target_position = Vector2(0, 48)
+collision_mask = 8388609
+
+[node name="JumpRayCast2D" parent="Direction" index="5"]
+collision_mask = 8388609
 
 [node name="DetectPlayerArea2D" parent="Direction" index="6"]
 visible = false
