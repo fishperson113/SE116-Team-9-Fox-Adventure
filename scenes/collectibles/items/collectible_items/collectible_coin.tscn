@@ -28,14 +28,13 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_j5atk"]
-radius = 5.0
-height = 10.0
+radius = 7.0
+height = 14.0
 
 [node name="Coin" instance=ExtResource("1_ef71i")]
 script = ExtResource("2_bnov7")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-scale = Vector2(0.75, 0.75)
 sprite_frames = SubResource("SpriteFrames_gwogc")
 
 [node name="CollisionShape2D" parent="InteractiveArea2D" index="0"]
