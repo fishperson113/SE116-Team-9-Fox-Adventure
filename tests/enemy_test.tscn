@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://2myew2spjl4b"]
+[gd_scene load_steps=17 format=4 uid="uid://2myew2spjl4b"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
 [ext_resource type="Script" uid="uid://dpd1hu8tkk1y4" path="res://scripts/utils/threat_indicator_area_2d.gd" id="3_e1c60"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://bhnnjl5ixmyra" path="res://scenes/levels/loot_system/drop_data.gd" id="8_xl7d7"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="10_ycpif"]
 [ext_resource type="PackedScene" uid="uid://cv7h7e7s07r0m" path="res://scenes/enemies/spawners/time_spawner.tscn" id="13_a6v5w"]
+[ext_resource type="PackedScene" uid="uid://cf30thpmo45yj" path="res://scenes/enemies/minions/shootables/seahorse.tscn" id="13_aiqyl"]
 [ext_resource type="PackedScene" uid="uid://psxbpmcbicmg" path="res://scenes/enemies/minions/melees/aborigine.tscn" id="13_cu5if"]
 [ext_resource type="PackedScene" uid="uid://caj73aiw7tf22" path="res://scenes/enemies/minions/melees/big_aborigine.tscn" id="13_d63eo"]
 [ext_resource type="PackedScene" uid="uid://dboyhgacrhohs" path="res://scenes/levels/level_5/Rock/rock.tscn" id="14_cu5if"]
@@ -79,3 +80,6 @@ position = Vector2(501, 162)
 
 [node name="Aborigine" parent="." instance=ExtResource("13_cu5if")]
 position = Vector2(168, 170)
+
+[node name="Seahorse" parent="." instance=ExtResource("13_aiqyl")]
+position = Vector2(354, 174)
