@@ -77,4 +77,4 @@ func try_attack() -> void:
 func is_player_visible() -> bool:
 	if player_detection_raycast and player_detection_raycast.enabled:
 		return player_detection_raycast.is_colliding()
-	return false
+	return super.is_player_visible()
