@@ -165,9 +165,8 @@ func _physics_process(delta: float) -> void:
 	aim_raycast_at_player()
 
 func _update_movement(delta: float) -> void:
-	velocity.x = _movement_speed * direction
-	velocity.y += gravity * delta
-	move_and_slide()
+	internal_force.x = _movement_speed * direction
+	super._update_movement(delta)
 	pass
 
 # Signals
@@ -273,7 +272,7 @@ func stop_move() -> void:
 	_movement_speed = 0.0
 
 func bounce_off(_direction: Vector2,_knock_back_force:float) -> void:
-	_movement_speed = movement_speed * _direction.x * direction*_knock_back_force
+	apply_impulse(_direction * _knock_back_force)
 
 func is_close(_target: Vector2, tolerance: float) -> bool:
 	return _target.distance_to(position) <= tolerance
