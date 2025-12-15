@@ -167,6 +167,7 @@ func _physics_process(delta: float) -> void:
 func _update_movement(delta: float) -> void:
 	internal_force.x = _movement_speed * direction
 	super._update_movement(delta)
+	absorb_force(velocity * 0.05)
 	pass
 
 # Signals
@@ -272,6 +273,8 @@ func stop_move() -> void:
 	_movement_speed = 0.0
 
 func bounce_off(_direction: Vector2,_knock_back_force:float) -> void:
+	if _direction.y < -0.6:
+		print(true);
 	apply_impulse(_direction * _knock_back_force)
 
 func is_close(_target: Vector2, tolerance: float) -> bool:
