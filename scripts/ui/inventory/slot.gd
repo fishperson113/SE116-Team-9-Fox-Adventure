@@ -208,8 +208,6 @@ func _update_tooltip():
 				# Thêm dòng phụ để biết đây là loại vũ khí gì (Blade/Crossguard/...)
 				stats_text += "\n[%s]" % item_type.replace("weapon_", "").capitalize()
 				
-				stats_text += "\n━━━━━━━━━━━━━"
-				
 				# --- PHẦN CHỈ SỐ ---
 				
 				# Damage
