@@ -82,6 +82,8 @@ func _process(delta: float) -> void:
 			special_skill_resolve_timer.wait_time -
 			special_skill_resolve_timer.time_left
 			)
+			
+	print(current_skill_id)
 	pass
 		
 func change_player_type(char_type: int) -> void:
@@ -198,6 +200,7 @@ func _apply_special_skill(skill: String):
 
 func _reset_weapon_stats():
 	is_special_skill = false
+	current_skill_id = ""
 	jump_step = 2   
 	movement_speed=base_speed
 	knock_back_force=0
@@ -263,6 +266,7 @@ func reduce_weapon_durability(amount:float):
 func _break_weapon():
 	print("WEAPON BROKEN!")
 	unequip_weapon()
+	current_skill_id = ""
 	
 	if item_storer:
 		item_storer.destroy_current_item()
