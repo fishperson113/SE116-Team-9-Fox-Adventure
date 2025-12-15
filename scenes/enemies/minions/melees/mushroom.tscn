@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c1ojnmhr1sm5l"]
+[gd_scene load_steps=14 format=3 uid="uid://c1ojnmhr1sm5l"]
 
 [ext_resource type="PackedScene" uid="uid://boiifphcf1mge" path="res://scenes/enemies/abstract_enemies/stateful_enemy.tscn" id="1_cq6ry"]
 [ext_resource type="Script" uid="uid://b2dyf0uvypchb" path="res://scripts/enemies/abstracts/minion.gd" id="2_65vyy"]
@@ -44,6 +44,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rl72c"]
 size = Vector2(20, 23)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_usrb4"]
+radius = 40.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhuc4"]
 size = Vector2(12, 23)
 
@@ -66,6 +69,9 @@ visible = false
 [node name="CollisionShape2D" parent="Direction/HurtArea2D" index="0"]
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_rl72c")
+
+[node name="CollisionShape2D" parent="Direction/NearSenseArea2D" index="0"]
+shape = SubResource("CircleShape2D_usrb4")
 
 [node name="CollisionShape2D" parent="." index="1"]
 visible = false

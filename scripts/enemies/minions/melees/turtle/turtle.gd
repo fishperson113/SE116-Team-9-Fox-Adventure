@@ -117,3 +117,21 @@ func _compute_low_health_threshold() -> int:
 
 func is_health_warning() -> bool:
 	return currentHealth <= _low_health_threshold
+
+func try_jump() -> bool:
+	if not is_touch_wall():
+		return false
+	
+	if _front_ray_cast.get_collider() is Minion:
+		return false
+	
+	# Jump if there are no obstacles above
+	if not _jump_raycast.is_colliding():
+		jump()
+		return true
+	# Jump onto player
+	if _jump_raycast.get_collider() is Player:
+		jump()
+		return true
+	
+	return false

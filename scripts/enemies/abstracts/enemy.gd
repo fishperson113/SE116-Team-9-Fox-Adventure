@@ -165,9 +165,9 @@ func _physics_process(delta: float) -> void:
 	aim_raycast_at_player()
 
 func _update_movement(delta: float) -> void:
-	velocity.x = _movement_speed * direction
-	velocity.y += gravity * delta
-	move_and_slide()
+	internal_force.x = _movement_speed * direction
+	super._update_movement(delta)
+	absorb_force(velocity * 0.05)
 	pass
 
 # Signals
@@ -273,7 +273,9 @@ func stop_move() -> void:
 	_movement_speed = 0.0
 
 func bounce_off(_direction: Vector2,_knock_back_force:float) -> void:
-	_movement_speed = movement_speed * _direction.x * direction*_knock_back_force
+	if _direction.y < -0.6:
+		print(true);
+	apply_impulse(_direction * _knock_back_force)
 
 func is_close(_target: Vector2, tolerance: float) -> bool:
 	return _target.distance_to(position) <= tolerance
@@ -362,9 +364,10 @@ func hold_distance(_target_position: Vector2) -> void:
 			jump()
 
 func manage_attack_spacing() -> void:
+	const attack_rate: float = 0.1
 	if _has_touched_player:
 		move_backward()
-	else:
+	elif randf() < attack_rate:
 		move_forward()
 
 # Health / Damage

@@ -173,3 +173,6 @@ func _dampen(force: Vector2, _friction: float) -> Vector2:
 	force.y = int(force.y * _friction)
 	
 	return force
+
+func absorb_force(force: Vector2) -> void:
+	impulse = impulse.move_toward(Vector2.ZERO, force.length())

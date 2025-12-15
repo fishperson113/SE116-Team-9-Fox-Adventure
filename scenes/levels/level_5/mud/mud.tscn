@@ -23,7 +23,7 @@ size = Vector2(34, 34)
 
 [node name="Mud" instance=ExtResource("1_qr58c")]
 script = ExtResource("2_ytfv3")
-friction = 0.75
+friction = 0.5
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_ytfv3")

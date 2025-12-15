@@ -34,11 +34,13 @@ func _init_initial_state() -> void:
 	fsm = FSM.new(self, $States, state_node)
 
 func update_normal(_delta: float) -> void:
-	if is_player_visible():
+	if found_player:
 		target(found_player.position)
+	if is_player_visible():
 		manage_attack_spacing()
 		try_jump()
 	else:
+		move_forward()
 		try_patrol_turn(_delta)
 	pass
 
