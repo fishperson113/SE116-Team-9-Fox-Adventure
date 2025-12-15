@@ -364,9 +364,10 @@ func hold_distance(_target_position: Vector2) -> void:
 			jump()
 
 func manage_attack_spacing() -> void:
+	const attack_rate: float = 0.1
 	if _has_touched_player:
 		move_backward()
-	else:
+	elif randf() < attack_rate:
 		move_forward()
 
 # Health / Damage

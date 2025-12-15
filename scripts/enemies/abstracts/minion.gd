@@ -40,6 +40,7 @@ func update_normal(_delta: float) -> void:
 		manage_attack_spacing()
 		try_jump()
 	else:
+		move_forward()
 		try_patrol_turn(_delta)
 	pass
 
