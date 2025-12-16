@@ -16,6 +16,8 @@ metadata/_custom_type_script = "uid://bp2wf2jejmiqr"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction"]
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Direction/AnimatedSprite2D"]
+
 [node name="HitArea2D" type="Area2D" parent="Direction"]
 collision_layer = 0
 collision_mask = 32

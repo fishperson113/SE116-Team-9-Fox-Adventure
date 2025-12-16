@@ -224,6 +224,8 @@ change_slot_6={
 2d_physics/layer_5="enemy_hurt"
 2d_physics/layer_6="player_hurt"
 2d_physics/layer_7="item"
+2d_physics/layer_8="detectable"
+2d_physics/layer_9="obstacle"
 
 [rendering]
 

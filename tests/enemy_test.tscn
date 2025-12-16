@@ -3,14 +3,14 @@
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
 [ext_resource type="Script" uid="uid://dpd1hu8tkk1y4" path="res://scripts/utils/threat_indicator_area_2d.gd" id="3_e1c60"]
 [ext_resource type="PackedScene" uid="uid://cvdklsb743i1l" path="res://scenes/ui/markers/threat_marker.tscn" id="4_vb1hh"]
+[ext_resource type="PackedScene" uid="uid://ddc86ootpum2i" path="res://scenes/enemies/bosses/warlord_turtle/warlord_turtle.tscn" id="5_ycpif"]
 [ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/collectibles/items/collectible_items/collectible_ore_copper.tscn" id="7_gfba4"]
 [ext_resource type="Script" uid="uid://bvmayktwi2sq6" path="res://scenes/levels/loot_system/dropable.gd" id="8_gfba4"]
 [ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/collectibles/items/collectible_items/collectible_ore_iron.tscn" id="8_msjuq"]
 [ext_resource type="Script" uid="uid://bhnnjl5ixmyra" path="res://scenes/levels/loot_system/drop_data.gd" id="8_xl7d7"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="10_ycpif"]
-[ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="12_msjuq"]
+[ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="11_rr8pu"]
 [ext_resource type="PackedScene" uid="uid://cv7h7e7s07r0m" path="res://scenes/enemies/spawners/time_spawner.tscn" id="13_a6v5w"]
-[ext_resource type="PackedScene" uid="uid://caj73aiw7tf22" path="res://scenes/enemies/minions/melees/big_aborigine.tscn" id="13_d63eo"]
 [ext_resource type="PackedScene" uid="uid://dboyhgacrhohs" path="res://scenes/levels/level_5/Rock/rock.tscn" id="14_cu5if"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vb1hh"]
@@ -40,9 +40,12 @@ tile_set = ExtResource("1_fx7si")
 
 [node name="Bullets" type="Node" parent="."]
 
+[node name="WarlordTurtle" parent="." instance=ExtResource("5_ycpif")]
+position = Vector2(531, 160)
+
 [node name="Player" parent="." instance=ExtResource("10_ycpif")]
 position = Vector2(285, 183)
-collision_mask = 32897
+collision_mask = 33025
 character_type = 3
 metadata/_edit_group_ = true
 
@@ -69,16 +72,10 @@ max_drop = 4
 drop_table = Array[ExtResource("8_gfba4")]([SubResource("Resource_msjuq"), SubResource("Resource_a6v5w")])
 metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
+[node name="KingCrab" parent="." instance=ExtResource("11_rr8pu")]
+position = Vector2(873, 161)
+
 [node name="Spawner" parent="." instance=ExtResource("13_a6v5w")]
-position = Vector2(475, -13)
+position = Vector2(397, -76)
 spawn_cooldown = 3.0
 objects = Array[PackedScene]([ExtResource("14_cu5if")])
-
-[node name="BigAborigine" parent="." instance=ExtResource("13_d63eo")]
-position = Vector2(501, 162)
-
-[node name="Turtle" parent="." instance=ExtResource("12_msjuq")]
-position = Vector2(159, 177)
-
-[node name="Turtle2" parent="." instance=ExtResource("12_msjuq")]
-position = Vector2(238, 174)

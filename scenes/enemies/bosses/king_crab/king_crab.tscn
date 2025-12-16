@@ -1,8 +1,9 @@
-[gd_scene load_steps=53 format=3 uid="uid://dk3cjc74xm8k0"]
+[gd_scene load_steps=58 format=3 uid="uid://dk3cjc74xm8k0"]
 
 [ext_resource type="PackedScene" uid="uid://c40nxk7wmbjxm" path="res://scenes/enemies/abstract_enemies/boss.tscn" id="1_l046a"]
 [ext_resource type="Script" uid="uid://bdxnp2lgdqy4y" path="res://scripts/enemies/bosses/king_crab/king_crab.gd" id="1_ta3rv"]
 [ext_resource type="Texture2D" uid="uid://b1jgjecjn1uvr" path="res://assets/sprites/enemies/bosses/King_Crab/King_Crab_25.png" id="2_muf1s"]
+[ext_resource type="Shader" uid="uid://dkdy08bj4x6pg" path="res://scripts/enemies/shaders/damage_flash.gdshader" id="3_lx88a"]
 [ext_resource type="Texture2D" uid="uid://sn84pw2smv0j" path="res://assets/sprites/enemies/bosses/King_Crab/King_Crab_26.png" id="3_ybdky"]
 [ext_resource type="Texture2D" uid="uid://bk7n0dec4ug14" path="res://assets/sprites/enemies/bosses/King_Crab/King_Crab_27.png" id="4_xn2er"]
 [ext_resource type="Texture2D" uid="uid://cln7wn2wfc1wh" path="res://assets/sprites/enemies/bosses/King_Crab/King_Crab_28.png" id="5_1gcnt"]
@@ -39,6 +40,10 @@
 [ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/collectibles/items/collectible_items/collectible_ore_iron.tscn" id="37_uijwm"]
 [ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="38_4nk0q"]
 [ext_resource type="PackedScene" uid="uid://bu151mcbsrxx7" path="res://scenes/collectibles/items/collectible_items/coin.tscn" id="39_7ex1o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_48w1g"]
+shader = ExtResource("3_lx88a")
+shader_parameter/flash = 0.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xn0de"]
 animations = [{
@@ -184,6 +189,43 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Animation" id="Animation_lx88a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_uijwm"]
+resource_name = "flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4nk0q"]
+_data = {
+&"RESET": SubResource("Animation_lx88a"),
+&"flash": SubResource("Animation_uijwm")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x7qun"]
 size = Vector2(60, 44)
 
@@ -259,9 +301,15 @@ turn_chance = 0.0
 movement_speed = 50.0
 
 [node name="AnimatedSprite2D" parent="Direction" index="0"]
+material = SubResource("ShaderMaterial_48w1g")
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_xn0de")
 animation = &"shoot"
+
+[node name="AnimationPlayer" parent="Direction/AnimatedSprite2D" index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_4nk0q")
+}
 
 [node name="HitArea2D" parent="Direction" index="1"]
 visible = false
@@ -314,6 +362,7 @@ target_position = Vector2(0, 0)
 hit_from_inside = true
 
 [node name="SlashHitArea2D" type="Area2D" parent="Direction" index="9"]
+visible = false
 script = ExtResource("32_2tyas")
 metadata/_custom_type_script = "uid://dkb25vr64v37l"
 
@@ -323,6 +372,7 @@ shape = SubResource("RectangleShape2D_xn0de")
 disabled = true
 
 [node name="RollHitArea2D" type="Area2D" parent="Direction" index="10"]
+visible = false
 script = ExtResource("32_2tyas")
 metadata/_custom_type_script = "uid://dkb25vr64v37l"
 
@@ -331,6 +381,7 @@ position = Vector2(2, 3)
 shape = SubResource("RectangleShape2D_2tyas")
 
 [node name="CollisionShape2D" parent="." index="1"]
+visible = false
 shape = SubResource("RectangleShape2D_uijwm")
 
 [node name="Normal" parent="States" index="0"]

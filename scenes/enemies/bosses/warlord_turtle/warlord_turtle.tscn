@@ -1,7 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://ddc86ootpum2i"]
+[gd_scene load_steps=37 format=3 uid="uid://ddc86ootpum2i"]
 
 [ext_resource type="PackedScene" uid="uid://c40nxk7wmbjxm" path="res://scenes/enemies/abstract_enemies/boss.tscn" id="1_1gsf2"]
 [ext_resource type="Script" uid="uid://c28t2iakx47cc" path="res://scripts/enemies/bosses/warlord_turtle/warlord_turtle.gd" id="1_8yvna"]
+[ext_resource type="Shader" uid="uid://dkdy08bj4x6pg" path="res://scripts/enemies/shaders/damage_flash.gdshader" id="3_o7e0g"]
 [ext_resource type="Texture2D" uid="uid://dtqtvtc83ffya" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle9.png" id="4_oj4m5"]
 [ext_resource type="Texture2D" uid="uid://c54q3ror5h4kp" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle10.png" id="5_dsagu"]
 [ext_resource type="Texture2D" uid="uid://b3tuv00eq5bpr" path="res://assets/sprites/enemies/bosses/war_lord/war_lord_turtle11.png" id="6_jm27j"]
@@ -25,6 +26,10 @@
 [ext_resource type="Script" uid="uid://2dtm6jeegr43" path="res://scripts/utils/node2d_factory.gd" id="23_dsagu"]
 [ext_resource type="PackedScene" uid="uid://djcueig2anvio" path="res://scenes/enemies/bullets/smoke_rocket.tscn" id="24_o7e0g"]
 [ext_resource type="Script" uid="uid://b788rlt8r54r8" path="res://scripts/enemies/states/boss_state.gd" id="25_1gsf2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_63a1y"]
+shader = ExtResource("3_o7e0g")
+shader_parameter/flash = 0.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o7e0g"]
 animations = [{
@@ -115,6 +120,43 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Animation" id="Animation_63a1y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_o7e0g"]
+resource_name = "flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ovaaf"]
+_data = {
+&"RESET": SubResource("Animation_63a1y"),
+&"flash": SubResource("Animation_o7e0g")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1gsf2"]
 size = Vector2(62, 66)
 
@@ -157,9 +199,15 @@ spike = 100.0
 movement_speed = 0.0
 
 [node name="AnimatedSprite2D" parent="Direction" index="0"]
+material = SubResource("ShaderMaterial_63a1y")
 scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_o7e0g")
 animation = &"rest"
+
+[node name="AnimationPlayer" parent="Direction/AnimatedSprite2D" index="0"]
+libraries = {
+&"": SubResource("AnimationLibrary_ovaaf")
+}
 
 [node name="HitArea2D" parent="Direction" index="1"]
 visible = false

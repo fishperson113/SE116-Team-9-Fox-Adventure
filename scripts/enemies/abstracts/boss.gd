@@ -14,6 +14,9 @@ var _stamina
 var _short_range_skills: Array = []
 var _far_range_skills: Array = []
 
+# Components
+var _anim_player: AnimationPlayer = null
+
 func _ready() -> void:
 	super._ready();
 	_init_skill_set()
@@ -27,6 +30,15 @@ func _setup_markers() -> void:
 
 func _init_skill_set():
 	rest()
+
+func _init_components():
+	super._init_components()
+	if has_node("Direction/AnimatedSprite2D/AnimationPlayer"):
+		_anim_player = get_node("Direction/AnimatedSprite2D/AnimationPlayer")
+
+func _play_flash():
+	if _anim_player:
+		_anim_player.play("flash")
 
 func get_skill():
 	var _is_close = is_player_close()
@@ -106,6 +118,7 @@ func is_player_close() -> bool:
 # Reaction
 func _on_normal_react(input: BehaviorInput) -> void:
 	if input is HurtBehaviorInput:
+		_play_flash()
 		take_damage(input.damage_taken)
 		if not is_alive():
 			fsm.change_state(fsm.states.dead)
