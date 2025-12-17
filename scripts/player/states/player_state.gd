@@ -80,21 +80,19 @@ func control_special_ability() -> bool:
 #Control jumping
 #Return true if jumping
 func control_jump() -> bool:
-	#If jump is pressed change to jump state and return true
-	var is_jumping= Input.is_action_just_pressed("jump")
-	if (is_jumping and obj.current_jump<obj.jump_step):
-		obj.velocity.y = -obj.jump_speed
-		change_state(fsm.states.jump)
-		sfx_jump.pitch_scale = randf_range(sfx_jump_pitch_min, sfx_jump_pitch_max)
-		sfx_jump.play()
-		#var starting = obj.get_parent()
-		#if starting.has_method("add_smoke_effect"):
-			#starting.add_smoke_effect(obj.global_position)
-		if obj.is_on_floor():
-			add_jump_effect(Vector2(obj.position.x, obj.position.y + 8))
-		obj.current_jump+=1
-		return true
-	return false
+	if !Input.is_action_just_pressed("jump"):
+		return false
+		
+	if obj.is_on_floor():
+		obj.current_jump = 0
+	
+	if obj.current_jump >= obj.jump_step:
+		return false
+
+	obj.velocity.y = -obj.jump_speed
+	change_state(fsm.states.jump)
+	obj.current_jump += 1
+	return true
 
 func control_attack() -> bool:
 	for char_type in [0, 1]:

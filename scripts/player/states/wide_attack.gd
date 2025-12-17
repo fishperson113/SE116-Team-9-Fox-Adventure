@@ -27,7 +27,7 @@ func _on_wide_attack_timer_timeout() -> void:
 	if obj.special_skill_resolve_timer.is_stopped():
 		obj.special_skill_resolve_timer.start()
 		
-	if !control_moving() and !control_jump():
+	if !control_moving():
 		change_state(fsm.states.idle)
 	elif !obj.is_on_floor():
 		change_state(fsm.states.fall)

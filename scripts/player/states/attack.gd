@@ -17,11 +17,11 @@ func _exit() -> void:
 func _update(_delta: float) -> void:
 	#Control moving
 	#control_moving()
-	control_jump()
+	#control_jump()
 	pass
 
 func _on_attack_timer_timeout() -> void:
-	if !control_moving() and !control_jump():
+	if !control_moving():
 		change_state(fsm.states.idle)
 	elif !obj.is_on_floor():
 		change_state(fsm.states.fall)
