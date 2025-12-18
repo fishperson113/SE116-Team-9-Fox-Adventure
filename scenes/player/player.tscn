@@ -504,8 +504,7 @@ metadata/_custom_type_script = "uid://dlxdtwr6rpwbr"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction"]
 sprite_frames = SubResource("SpriteFrames_kvlxm")
-animation = &"hat_blade_attack"
-frame = 1
+animation = &"idle"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Direction/AnimatedSprite2D"]
 libraries = {
