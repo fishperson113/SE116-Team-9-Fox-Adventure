@@ -16,7 +16,7 @@ func _update(_delta: float) -> void:
 
 	#If on floor change to idle if not moving and not jumping
 	if obj.is_on_floor():
-			change_state(fsm.states.idle)
 			obj.current_dash = 0
 			obj.current_jump = 0
+			change_state(fsm.states.idle)
 	pass

@@ -2,6 +2,9 @@ extends PlayerState
 
 func _enter() -> void:
 	obj.change_animation("walk")
+	if obj.is_on_floor():
+		obj.current_jump = 0
+		obj.current_dash = 0
 	pass
 
 func _update(delta: float):

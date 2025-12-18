@@ -4,6 +4,9 @@ extends PlayerState
 
 func _enter() -> void:
 	obj.change_animation("idle")
+	if obj.is_on_floor():
+		obj.current_jump = 0
+		obj.current_dash = 0
 
 func _update(_delta: float) -> void:
 	#Control jump

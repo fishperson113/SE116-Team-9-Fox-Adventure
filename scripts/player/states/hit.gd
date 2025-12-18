@@ -15,4 +15,9 @@ func _enter() -> void:
 
 func _update(_delta: float) -> void:
 	if update_timer(_delta):
-		change_state(fsm.states.idle)
+		if obj.is_on_floor():
+			obj.current_jump = 0
+			obj.current_dash = 0
+			change_state(fsm.states.idle)
+		else:
+			change_state(fsm.states.fall)
