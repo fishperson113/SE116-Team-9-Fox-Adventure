@@ -21,11 +21,13 @@
 [ext_resource type="PackedScene" uid="uid://dqeyhetii8sb0" path="res://scenes/levels/loot_system/drop_data.tscn" id="11_js4gn"]
 [ext_resource type="Texture2D" uid="uid://dcrnqve71d36p" path="res://assets/sprites/environment/background/additional_sky.png" id="12_pjjcp"]
 
-[sub_resource type="GDScript" id="GDScript_pjjcp"]
+[sub_resource type="GDScript" id="GDScript_js4gn"]
 script/source = "extends Node2D
 
-func _ready() -> void:
+@export var music_id: String
 
+func _ready() -> void:
+	AudioManager.play_music(music_id)
 	GameManager.respawn_at_checkpoint()
 	pass
 "
@@ -37,7 +39,8 @@ size = Vector2(1254, 467)
 size = Vector2(2048, 2048)
 
 [node name="Stage" type="Node2D"]
-script = SubResource("GDScript_pjjcp")
+script = SubResource("GDScript_js4gn")
+music_id = "play_music_3"
 metadata/_edit_horizontal_guides_ = [4333.0]
 
 [node name="Backgrounds" type="Node2D" parent="."]
@@ -384,8 +387,8 @@ movement_speed = 40.0
 position = Vector2(8987, 8859)
 
 [node name="DropData" parent="Enemies" instance=ExtResource("11_js4gn")]
-min_drop = 10
-max_drop = 20
+min_drop = 15
+max_drop = 30
 
 [node name="Bullets" type="Node2D" parent="."]
 

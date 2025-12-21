@@ -1,10 +1,9 @@
 extends PlayerState
 
-@onready var sfx_hit: AudioStreamPlayer = $"../../SFX/Hit"
 @onready var trajectory_line: Line2D = $"../../WeaponThrower/TrajectoryLine"
 
 func _enter() -> void:
-	sfx_hit.play()
+	AudioManager.play_sound("player_hurt")
 	trajectory_line.visible = false
 	obj.change_animation("hit")
 	obj.velocity.y = -250

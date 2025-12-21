@@ -1,5 +1,6 @@
-[gd_scene load_steps=53 format=4 uid="uid://cchdurl56vp0g"]
+[gd_scene load_steps=54 format=4 uid="uid://cchdurl56vp0g"]
 
+[ext_resource type="Script" uid="uid://dbnywb46siqhm" path="res://scripts/level/stage.gd" id="1_4tvhb"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_ryjcr"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="3_4dlow"]
 [ext_resource type="PackedScene" uid="uid://slg0p8vvevb8" path="res://scenes/levels/island/objects/door/Win_door.tscn" id="3_4tvhb"]
@@ -188,6 +189,8 @@ animations = [{
 }]
 
 [node name="Stage" type="Node2D"]
+script = ExtResource("1_4tvhb")
+music_id = "play_music_2"
 
 [node name="Bullets" type="Node2D" parent="."]
 

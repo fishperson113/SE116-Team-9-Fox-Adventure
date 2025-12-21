@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_gxqrw")
-clip_id = "boss_fight"
+clip_id = "boss_fight_music"
 stream = ExtResource("2_57u6v")
 volume_db = 0.0
 randomize_pitch = false

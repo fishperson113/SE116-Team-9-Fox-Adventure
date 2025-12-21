@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dqeyhetii8sb0"]
+[gd_scene load_steps=15 format=3 uid="uid://dqeyhetii8sb0"]
 
 [ext_resource type="Script" uid="uid://bhnnjl5ixmyra" path="res://scenes/levels/loot_system/drop_data.gd" id="1_ydfsr"]
 [ext_resource type="Script" uid="uid://bvmayktwi2sq6" path="res://scenes/levels/loot_system/dropable.gd" id="2_8phd5"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://vjiqf8ajq7mc" path="res://scenes/collectibles/items/collectible_items/collectible_healer.tscn" id="4_ddrbf"]
 [ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/collectibles/items/collectible_items/collectible_ore_copper.tscn" id="5_na7l3"]
 [ext_resource type="PackedScene" uid="uid://dfle38llc20qi" path="res://scenes/collectibles/items/collectible_items/collectible_ore_iron.tscn" id="6_5tqqh"]
+[ext_resource type="PackedScene" uid="uid://d3h2osnbjxaqb" path="res://scenes/collectibles/items/collectible_items/collectible_blade.tscn" id="6_yiyq5"]
 [ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="7_sadty"]
 
 [sub_resource type="Resource" id="Resource_g87pk"]
@@ -26,6 +27,12 @@ item = ExtResource("5_na7l3")
 weight = 5
 metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
+[sub_resource type="Resource" id="Resource_ddrbf"]
+script = ExtResource("2_8phd5")
+item = ExtResource("6_yiyq5")
+weight = 4
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
 [sub_resource type="Resource" id="Resource_gke5u"]
 script = ExtResource("2_8phd5")
 item = ExtResource("6_5tqqh")
@@ -40,6 +47,6 @@ metadata/_custom_type_script = "uid://bvmayktwi2sq6"
 
 [node name="DropData" type="Node2D"]
 script = ExtResource("1_ydfsr")
-min_drop = 3
-max_drop = 6
-drop_table = Array[ExtResource("2_8phd5")]([SubResource("Resource_g87pk"), SubResource("Resource_ba80n"), SubResource("Resource_ebisa"), SubResource("Resource_gke5u"), SubResource("Resource_va8ts")])
+min_drop = 5
+max_drop = 8
+drop_table = Array[ExtResource("2_8phd5")]([SubResource("Resource_g87pk"), SubResource("Resource_ba80n"), SubResource("Resource_ebisa"), SubResource("Resource_ddrbf"), SubResource("Resource_gke5u"), SubResource("Resource_va8ts")])

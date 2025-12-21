@@ -1,6 +1,7 @@
 extends PlayerState
 
 func _enter() -> void:
+	AudioManager.play_sound("player_wide_attack")
 	obj.create_effect("wide_attack")
 	obj.get_node("Direction/WideHitArea2D/CollisionShape2D").disabled = false
 	obj.wide_attack_timer.start()

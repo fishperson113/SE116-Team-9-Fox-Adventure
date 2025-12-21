@@ -4,6 +4,7 @@ var dash_multiplier_hor = 1.5
 var dash_multiplier_ver = 1.5
 
 func _enter() -> void:
+	AudioManager.play_sound("player_dash")
 	obj.create_effect("dash")
 	$"../../DashabilityTimer".start()
 	obj.current_dash += 1
@@ -12,8 +13,6 @@ func _enter() -> void:
 		obj.max_special_skill_attempt -
 		obj.current_special_skill_attempt
 		)
-	sfx_dash.pitch_scale = randf_range(sfx_dash_pitch_min, sfx_dash_pitch_max)
-	sfx_dash.play()
 	pass
 
 func _update(_delta: float) -> void:
