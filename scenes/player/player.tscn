@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=3 uid="uid://chcs4qer8dybe"]
+[gd_scene load_steps=95 format=3 uid="uid://chcs4qer8dybe"]
 
 [ext_resource type="Script" uid="uid://d00o3jgu015v4" path="res://scripts/player/player.gd" id="1_ugbui"]
 [ext_resource type="Texture2D" uid="uid://cwgjo8l0lmemi" path="res://assets/sprites/characters/foxy/fox/fox_idle_1.png" id="2_5gtgg"]
@@ -81,13 +81,9 @@
 [ext_resource type="Script" uid="uid://clda3mhukcmdf" path="res://scripts/player/trajectory/trajectory_line.gd" id="75_ymths"]
 [ext_resource type="Script" uid="uid://w3w0sbvoe5al" path="res://scripts/player/states/launch.gd" id="76_4sw5w"]
 [ext_resource type="Texture2D" uid="uid://b2ys0lkughw88" path="res://assets/sprites/trajectory/dotted_line.png" id="77_0y4ya"]
-[ext_resource type="AudioStream" uid="uid://irnmtldt0n5y" path="res://assets/audio/sfx/jump.mp3" id="79_trum3"]
 [ext_resource type="Script" uid="uid://c8sscfh3560ce" path="res://scripts/player/states/dash.gd" id="79_wuxn4"]
 [ext_resource type="Script" uid="uid://dn5leb78h1w57" path="res://scripts/player/item_storer.gd" id="80_4sw5w"]
 [ext_resource type="Script" uid="uid://dwdq55txq7lgs" path="res://scripts/player/states/wide_attack.gd" id="80_46q5t"]
-[ext_resource type="AudioStream" uid="uid://bhf82m72nk0or" path="res://assets/audio/sfx/defeat.mp3" id="80_v8cnd"]
-[ext_resource type="AudioStream" uid="uid://mc3en83ij8df" path="res://assets/audio/sfx/hit.mp3" id="81_wuxn4"]
-[ext_resource type="AudioStream" uid="uid://dcoem0bta3xf7" path="res://assets/audio/sfx/dash.ogg" id="82_5miun"]
 [ext_resource type="Script" uid="uid://ync4l7s6o8pl" path="res://scripts/player/inventory.gd" id="82_vkc6f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kvlxm"]
@@ -575,24 +571,6 @@ script = ExtResource("79_wuxn4")
 
 [node name="WideAttack" type="Node" parent="States"]
 script = ExtResource("80_46q5t")
-
-[node name="SFX" type="Node" parent="."]
-
-[node name="Jump" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource("79_trum3")
-
-[node name="Dash" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource("82_5miun")
-volume_db = -2.0
-
-[node name="Defeat" type="AudioStreamPlayer" parent="SFX"]
-process_mode = 3
-stream = ExtResource("80_v8cnd")
-
-[node name="Hit" type="AudioStreamPlayer" parent="SFX"]
-process_mode = 3
-stream = ExtResource("81_wuxn4")
-volume_db = 3.0
 
 [node name="WeaponThrower" type="Node2D" parent="."]
 script = ExtResource("75_3p0jd")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://tmicmroy3vu4"]
+[gd_scene load_steps=11 format=4 uid="uid://tmicmroy3vu4"]
 
 [ext_resource type="PackedScene" uid="uid://dubb5b1vjmsxd" path="res://scenes/levels/island/objects/door/door.tscn" id="1_ej0wi"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_yt3rb"]
@@ -10,7 +10,15 @@
 [ext_resource type="PackedScene" uid="uid://qbrulhlifs0u" path="res://scenes/minigames/MinigameUI.tscn" id="8_s56uc"]
 [ext_resource type="PackedScene" uid="uid://bsjp8w4bw1sb2" path="res://scenes/minigames/material_select_popup.tscn" id="9_0sa4t"]
 
+[sub_resource type="GDScript" id="GDScript_m3v4g"]
+script/source = "extends Node2D
+
+func _ready() -> void:
+	AudioManager.play_music(\"stage_music\")
+"
+
 [node name="MiniLobby" type="Node2D"]
+script = SubResource("GDScript_m3v4g")
 
 [node name="World" type="Node2D" parent="."]
 

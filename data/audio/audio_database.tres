@@ -1,13 +1,20 @@
-[gd_resource type="Resource" script_class="AudioDatabase" load_steps=7 format=3 uid="uid://c1ope6ptf8yny"]
+[gd_resource type="Resource" script_class="AudioDatabase" load_steps=14 format=3 uid="uid://c1ope6ptf8yny"]
 
 [ext_resource type="Script" uid="uid://ovmtn36802i6" path="res://scripts/audio/audio_database.gd" id="1_nw313"]
 [ext_resource type="Script" uid="uid://chlphbiuq1gay" path="res://scripts/audio/audio_clip.gd" id="1_x0dso"]
 [ext_resource type="Resource" uid="uid://cbllkbthmymma" path="res://data/audio/player_jump.tres" id="2_quhjw"]
 [ext_resource type="Resource" uid="uid://bvieqbwrdo8ph" path="res://data/audio/player_attack.tres" id="3_ut6nb"]
+[ext_resource type="Resource" uid="uid://b2qmvrcrhbj37" path="res://data/audio/play_music_1.tres" id="3_ykssl"]
+[ext_resource type="Resource" uid="uid://0u25njtmaxeu" path="res://data/audio/play_music_2.tres" id="4_cw7wr"]
 [ext_resource type="Resource" uid="uid://w241ro6w4yyq" path="res://data/audio/stage_music.tres" id="4_hsaa8"]
+[ext_resource type="Resource" uid="uid://xy8erk6qtjt0" path="res://data/audio/play_music_3.tres" id="5_cw7wr"]
 [ext_resource type="Resource" uid="uid://b2bbk2l2npdt" path="res://data/audio/boss_fight_music.tres" id="5_wru05"]
+[ext_resource type="Resource" uid="uid://shdlqbb5uovs" path="res://data/audio/player_hurt.tres" id="8_374as"]
+[ext_resource type="Resource" uid="uid://de18252vlfwya" path="res://data/audio/player_dash.tres" id="10_374as"]
+[ext_resource type="Resource" uid="uid://dknmewow8ridk" path="res://data/audio/player_wide_attack.tres" id="11_mjplr"]
+[ext_resource type="Resource" uid="uid://c0rwrv6fp6ugx" path="res://data/audio/player_defeat.tres" id="12_5g16o"]
 
 [resource]
 script = ExtResource("1_nw313")
-clips = Array[ExtResource("1_x0dso")]([ExtResource("2_quhjw"), ExtResource("3_ut6nb"), ExtResource("4_hsaa8"), ExtResource("5_wru05")])
+clips = Array[ExtResource("1_x0dso")]([ExtResource("4_hsaa8"), ExtResource("3_ykssl"), ExtResource("4_cw7wr"), ExtResource("5_cw7wr"), ExtResource("5_wru05"), ExtResource("2_quhjw"), ExtResource("3_ut6nb"), ExtResource("8_374as"), ExtResource("10_374as"), ExtResource("11_mjplr"), ExtResource("12_5g16o")])
 metadata/_custom_type_script = "uid://ovmtn36802i6"

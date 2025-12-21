@@ -1,23 +1,15 @@
 [gd_scene load_steps=6 format=4 uid="uid://15shyy7qktkd"]
 
+[ext_resource type="Script" uid="uid://dbnywb46siqhm" path="res://scripts/level/stage.gd" id="1_5r0re"]
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="3_1cc7t"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="5_x66m0"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="6_t17w8"]
-
-[sub_resource type="GDScript" id="GDScript_pjjcp"]
-script/source = "extends Node2D
-
-func _ready() -> void:
-
-	GameManager.respawn_at_checkpoint()
-	pass
-"
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_pp1sl"]
 viewport_path = NodePath("SubViewport")
 
 [node name="Stage" type="Node2D"]
-script = SubResource("GDScript_pjjcp")
+script = ExtResource("1_5r0re")
 metadata/_edit_horizontal_guides_ = [4333.0]
 
 [node name="TileMapLayers" type="Node2D" parent="."]

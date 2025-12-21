@@ -16,11 +16,13 @@
 [ext_resource type="PackedScene" uid="uid://lpbsp21eba1u" path="res://scenes/collectibles/items/collectible_items/collectible_ore_copper.tscn" id="13_ks3mc"]
 [ext_resource type="PackedScene" uid="uid://d4g0t6v7fn5uq" path="res://scenes/levels/level_2/death_pit/death_pit.tscn" id="19_h3yuq"]
 
-[sub_resource type="GDScript" id="GDScript_c7rpm"]
+[sub_resource type="GDScript" id="GDScript_ks3mc"]
 script/source = "extends Node2D
 
-func _ready() -> void:
+@export var music_id: String
 
+func _ready() -> void:
+	AudioManager.play_music(music_id)
 	GameManager.respawn_at_checkpoint()
 	pass
 "
@@ -39,7 +41,8 @@ fill_to = Vector2(1.12, 0.025)
 size = Vector2(1289, 98)
 
 [node name="Stage" type="Node2D"]
-script = SubResource("GDScript_c7rpm")
+script = SubResource("GDScript_ks3mc")
+music_id = "play_music_3"
 
 [node name="Backgrounds" type="Node2D" parent="."]
 

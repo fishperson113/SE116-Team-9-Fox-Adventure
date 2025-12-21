@@ -1,6 +1,7 @@
 extends Node2D
 
 func _ready() -> void:
+	AudioManager.play_music("stage_music")
 	$MainMenuLayer/PlayNowRect/PlayNowButton.connect("button_down", Callable(self, "_on_button_pressed").bind("Lobby"))
 	$MainMenuLayer/SettingsButton.connect("button_down", Callable(self, "_on_settings_button_down"))
 

@@ -26,6 +26,7 @@ func _ready() -> void:
 	music_player = AudioStreamPlayer.new()
 	music_player.name = "MusicPlayer"
 	music_player.bus = MUSIC_BUS
+	music_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(music_player)
 	
 	# Initialize pool of SFX players
@@ -80,6 +81,9 @@ func play_music(music_id: String, volume_db: float = 0.0, fade_in: float = 0.0) 
 	var audio_clip: AudioClip = audio_database.get_clip(music_id)
 	if audio_clip == null:
 		push_error("Music clip not found with ID: " + music_id)
+		return
+	
+	if current_music_id == music_id:
 		return
 	
 	current_music_id = music_id
@@ -139,6 +143,7 @@ func play_audio_clip(clip: AudioClip, volume_override: float = 0.0, is_music: bo
 	# Configure and play
 	player.stream = clip.stream
 	player.volume_db = clip.volume_db + volume_override
+	player.process_mode = Node.PROCESS_MODE_ALWAYS
 	if clip.randomize_pitch:
 		player.pitch_scale = randf_range(clip.pitch_min, clip.pitch_max)
 	else:

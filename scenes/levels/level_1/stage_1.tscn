@@ -1,6 +1,7 @@
-[gd_scene load_steps=41 format=4 uid="uid://bqs7uxv4vt07x"]
+[gd_scene load_steps=42 format=4 uid="uid://bqs7uxv4vt07x"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_33rtp"]
+[ext_resource type="Script" uid="uid://dbnywb46siqhm" path="res://scripts/level/stage.gd" id="1_j7dre"]
 [ext_resource type="PackedScene" uid="uid://dqeyhetii8sb0" path="res://scenes/levels/loot_system/drop_data.tscn" id="2_14gby"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_dwsf3"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="3_0qf3m"]
@@ -165,6 +166,8 @@ animations = [{
 }]
 
 [node name="Stage" type="Node2D"]
+script = ExtResource("1_j7dre")
+music_id = "play_music_1"
 
 [node name="Mushrooms" type="Node2D" parent="."]
 

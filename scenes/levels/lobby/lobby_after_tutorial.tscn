@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://dj4sl66scgre3"]
+[gd_scene load_steps=15 format=4 uid="uid://dj4sl66scgre3"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="2_j7m84"]
 [ext_resource type="Texture2D" uid="uid://b55lww4x4ihoy" path="res://assets/sprites/environment/background/background 4.png" id="4_r84t2"]
@@ -14,7 +14,15 @@
 [ext_resource type="Resource" uid="uid://g5k57m8utwwn" path="res://data/weapon/materials/iron.tres" id="28_sconl"]
 [ext_resource type="Resource" uid="uid://b1qe5hffbbbqj" path="res://data/weapon/materials/gold.tres" id="29_cx3ju"]
 
+[sub_resource type="GDScript" id="GDScript_r84t2"]
+script/source = "extends Node2D
+
+func _ready() -> void:
+	AudioManager.play_music(\"stage_music\")
+"
+
 [node name="Lobby" type="Node2D"]
+script = SubResource("GDScript_r84t2")
 
 [node name="World" type="Node2D" parent="."]
 

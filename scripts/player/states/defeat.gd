@@ -1,10 +1,8 @@
 extends PlayerState
 
-@onready var sfx_defeat: AudioStreamPlayer = $"../../SFX/Defeat"
-
 func _enter() -> void:
+	AudioManager.play_sound("player_defeat")
 	#Change animation to fall
-	sfx_defeat.play()
 	obj.velocity.x = 0
 	obj.change_animation("defeat")
 	pass
