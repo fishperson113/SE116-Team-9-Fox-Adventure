@@ -8,6 +8,7 @@ func _ready() -> void:
 	pass
 
 func _on_interaction_available() -> void:
+	AudioManager.play_sound("collect_coin")
 	GameManager.add_coins(coin_amount)
 	queue_free()
 	pass

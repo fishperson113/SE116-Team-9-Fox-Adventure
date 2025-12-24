@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="AudioClip" load_steps=3 format=3 uid="uid://dknmewow8ridk"]
 
 [ext_resource type="Script" uid="uid://chlphbiuq1gay" path="res://scripts/audio/audio_clip.gd" id="1_141iu"]
-[ext_resource type="AudioStream" uid="uid://8l8h1gl2papp" path="res://assets/audio/sfx/player/attack.wav" id="2_nrgw8"]
+[ext_resource type="AudioStream" uid="uid://caq2vlkf4dbur" path="res://assets/audio/sfx/player/wide_attack.wav" id="2_141iu"]
 
 [resource]
 script = ExtResource("1_141iu")
 clip_id = "player_wide_attack"
-stream = ExtResource("2_nrgw8")
+stream = ExtResource("2_141iu")
 volume_db = 0.0
 randomize_pitch = true
 pitch_min = 1.3

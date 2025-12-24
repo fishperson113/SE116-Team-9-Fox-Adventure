@@ -51,6 +51,7 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		print(\"Blade animation done. UI Populated & Input enabled.\")
 
 func _reveal_blade() -> void:
+	AudioManager.play_sound(\"blade_created\", 5.0)
 	# Add the part that SmeltOre passed in
 	assembler.add_part(_incoming_part_id, _incoming_material)
 

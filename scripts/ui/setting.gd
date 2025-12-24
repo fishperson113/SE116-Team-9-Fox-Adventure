@@ -4,6 +4,9 @@ extends CanvasLayer
 @onready var resume_button: Button = %Resume
 @onready var retry_button: Button = %Retry
 
+@onready var music_check_button: CheckButton = $NinePatchRect/SoundCheckButton
+@onready var sfx_check_button: CheckButton = $NinePatchRect/SFXCheckButton
+
 func _ready() -> void:
 	await get_tree().process_frame
 	
@@ -15,6 +18,16 @@ func _ready() -> void:
 		resume_button.pressed.connect(_on_resume_pressed)
 	if retry_button:
 		retry_button.pressed.connect(_on_retry_pressed)
+	if music_check_button:
+		if AudioManager.get_bus_volume("Music") > -80.0:
+			music_check_button.button_pressed = true
+		else:
+			music_check_button.button_pressed = false
+	if sfx_check_button:
+		if AudioManager.get_bus_volume("SFX") > -80.0:
+			sfx_check_button.button_pressed = true
+		else:
+			sfx_check_button.button_pressed = false
 
 func _exit_tree() -> void:
 	get_tree().paused = false
@@ -43,3 +56,17 @@ func _on_overlay_color_rect_gui_input(event: InputEvent) -> void:
 
 func _on_close_texture_button_pressed() -> void:
 	hide_popup()
+
+func _on_music_check_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		AudioManager.set_bus_volume("Music", 0.0)
+	else:
+		AudioManager.set_bus_volume("Music", -80.0)
+	pass # Replace with function body.
+
+func _on_sfx_check_button_toggled(toggled_on: bool) -> void:
+	if toggled_on:
+		AudioManager.set_bus_volume("SFX", 0.0)
+	else:
+		AudioManager.set_bus_volume("SFX", -80.0)
+	pass # Replace with function body.

@@ -9,6 +9,7 @@ func _physics_process(delta: float) -> void:
 	rotate(deg_to_rad(spin_speed))
 	
 	if collision:
+		AudioManager.play_sound("player_fireball_impact")
 		print(collision.get_collider())
 		var created_effect = free_fire_effect.instantiate()
 		if created_effect == null:

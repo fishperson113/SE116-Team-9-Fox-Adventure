@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AudioClip" load_steps=3 format=3 uid="uid://c3su8matmir5v"]
+
+[ext_resource type="Script" uid="uid://chlphbiuq1gay" path="res://scripts/audio/audio_clip.gd" id="1_exxxv"]
+[ext_resource type="AudioStream" uid="uid://kh82efb7ftdm" path="res://assets/audio/sfx/player/blade_riser.wav" id="2_exxxv"]
+
+[resource]
+script = ExtResource("1_exxxv")
+clip_id = "player_prepare_throw"
+stream = ExtResource("2_exxxv")
+volume_db = 0.0
+randomize_pitch = true
+pitch_min = 0.9
+pitch_max = 1.1
+description = ""
+metadata/_custom_type_script = "uid://chlphbiuq1gay"
