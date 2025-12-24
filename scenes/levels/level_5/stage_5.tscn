@@ -398,17 +398,17 @@ max_drop = 30
 
 [node name="Spawner" parent="Spawners/RockSpawners" instance=ExtResource("8_e1o38")]
 position = Vector2(2288, 200)
-spawn_cooldown = 3.0
+spawn_cooldown = 6.0
 objects = Array[PackedScene]([ExtResource("9_am3rg")])
 
 [node name="Spawner2" parent="Spawners/RockSpawners" instance=ExtResource("8_e1o38")]
 position = Vector2(2832, 3280)
-spawn_cooldown = 3.0
+spawn_cooldown = 6.0
 objects = Array[PackedScene]([ExtResource("9_am3rg")])
 
 [node name="Spawner3" parent="Spawners/RockSpawners" instance=ExtResource("8_e1o38")]
 position = Vector2(3254, 6834)
-spawn_cooldown = 3.0
+spawn_cooldown = 6.0
 objects = Array[PackedScene]([ExtResource("9_am3rg")])
 
 [node name="Obstacles" type="Node2D" parent="."]
@@ -486,5 +486,11 @@ position = Vector2(2315, 3354)
 
 [node name="Copper15" parent="Resources/Coppers" instance=ExtResource("4_jdldg")]
 position = Vector2(3185, 6458)
+
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/Checkpoint" to="TileMapLayers/FunctionalTileMapLayer/Checkpoint" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@38342" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@38342" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@38471" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@38471" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@38472" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@38472" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@38473" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@38473" method="_on_body_entered"]
 
 [editable path="AreaUnlockerEnemies"]
