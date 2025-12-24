@@ -6,6 +6,7 @@ func _physics_process(delta: float) -> void:
 	rotate(deg_to_rad(spin_speed))
 	
 	if collision:
+		AudioManager.play_sound("blade_on_dirt")
 		print(collision.get_collider())
 		var collision_direction = collision.get_normal()
 		var collectible_blade = sample_collectible_weapon.instantiate()

@@ -4,6 +4,7 @@ func _enter() -> void:
 	obj.create_effect("attack")
 	obj.get_node("AttackTimer").start()
 	obj.get_node("Direction/HitArea2D/CollisionShape2D").disabled = false
+	AudioManager.play_sound("player_attack", 20.0)
 	#Change animation to attack
 	if obj.velocity.y < 0:
 		obj.change_animation("jump_attack")

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AudioClip" load_steps=3 format=3 uid="uid://cfnomuafyy07u"]
+
+[ext_resource type="Script" uid="uid://chlphbiuq1gay" path="res://scripts/audio/audio_clip.gd" id="1_68tm0"]
+[ext_resource type="AudioStream" uid="uid://byd7ljkxe2eji" path="res://assets/audio/sfx/minigame/blade_created.mp3" id="2_68tm0"]
+
+[resource]
+script = ExtResource("1_68tm0")
+clip_id = "blade_created"
+stream = ExtResource("2_68tm0")
+volume_db = 0.0
+randomize_pitch = true
+pitch_min = 0.9
+pitch_max = 1.1
+description = ""
+metadata/_custom_type_script = "uid://chlphbiuq1gay"

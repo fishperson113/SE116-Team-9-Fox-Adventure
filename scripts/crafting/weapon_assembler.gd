@@ -35,6 +35,7 @@ func add_part(part_id: String, material_id: String) -> Dictionary:
 		push_error("Unknown part_id: " + part_id)
 		return {}
 
+	AudioManager.play_sound("blade_part_insertion")
 	var part: WeaponPartData = part_map[part_id]
 	var material: WeaponMaterialData = material_map.get(material_id, null)
 

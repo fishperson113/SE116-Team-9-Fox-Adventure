@@ -8,6 +8,7 @@ func _ready() -> void:
 	pass
 
 func _on_interaction_available() -> void:
+	AudioManager.play_sound("player_extra_life")
 	GameManager.player.heal(healing_amount)
 	queue_free()
 	pass

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AudioClip" load_steps=3 format=3 uid="uid://djsps1c2qvdhn"]
+
+[ext_resource type="Script" uid="uid://chlphbiuq1gay" path="res://scripts/audio/audio_clip.gd" id="1_6ep03"]
+[ext_resource type="AudioStream" uid="uid://du48ioqcfw2he" path="res://assets/audio/sfx/collect/collect_ore.wav" id="2_6ep03"]
+
+[resource]
+script = ExtResource("1_6ep03")
+clip_id = "collect_ore"
+stream = ExtResource("2_6ep03")
+volume_db = 0.0
+randomize_pitch = true
+pitch_min = 0.97
+pitch_max = 1.03
+description = ""
+metadata/_custom_type_script = "uid://chlphbiuq1gay"
