@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://bhohtlj321per"]
+[gd_scene load_steps=25 format=3 uid="uid://bhohtlj321per"]
 
 [ext_resource type="Script" uid="uid://c7x67gfa3mird" path="res://scripts/chests/chest.gd" id="1_xxwql"]
 [ext_resource type="Texture2D" uid="uid://bidl5brkimhxo" path="res://assets/sprites/objects/chest/chest_close_01.png" id="2_jslgy"]
+[ext_resource type="PackedScene" uid="uid://33umuso6l6ny" path="res://scenes/levels/loot_system/big_loot_body.tscn" id="2_oprcr"]
 [ext_resource type="Texture2D" uid="uid://bjcqjfm23puad" path="res://assets/sprites/objects/chest/chest_close_02.png" id="3_13qt1"]
 [ext_resource type="Texture2D" uid="uid://dqrogefu4p788" path="res://assets/sprites/objects/chest/chest_close_03.png" id="4_70u57"]
 [ext_resource type="Texture2D" uid="uid://btnwd6wmuxmda" path="res://assets/sprites/objects/chest/chest_open_01.png" id="5_bt5ng"]
@@ -12,6 +13,11 @@
 [ext_resource type="Script" uid="uid://b2kvd8gekjjpm" path="res://scripts/chests/states/closed.gd" id="10_13qt1"]
 [ext_resource type="Script" uid="uid://3u7i3d58hkla" path="res://scripts/utils/interactive_area_2d.gd" id="10_70u57"]
 [ext_resource type="Script" uid="uid://cnf7unwj5fral" path="res://scripts/chests/states/open.gd" id="11_70u57"]
+[ext_resource type="Script" uid="uid://bhnnjl5ixmyra" path="res://scenes/levels/loot_system/drop_data.gd" id="13_0hoo5"]
+[ext_resource type="Script" uid="uid://bvmayktwi2sq6" path="res://scenes/levels/loot_system/dropable.gd" id="14_ud3fc"]
+[ext_resource type="PackedScene" uid="uid://bkd2g8l5kip8q" path="res://scenes/collectibles/items/collectible_items/collectible_coin.tscn" id="15_eo3wh"]
+[ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="16_oprcr"]
+[ext_resource type="PackedScene" uid="uid://c0s2lojh6qhs2" path="res://scenes/collectibles/items/collectible_items/collectible_ore_gold.tscn" id="17_utdpp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_utdpp"]
 size = Vector2(32, 27)
@@ -56,8 +62,27 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_13qt1"]
 height = 56.0
 
+[sub_resource type="Resource" id="Resource_eo3wh"]
+script = ExtResource("14_ud3fc")
+item = ExtResource("15_eo3wh")
+weight = 900
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_utdpp"]
+script = ExtResource("14_ud3fc")
+item = ExtResource("17_utdpp")
+weight = 99
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
+[sub_resource type="Resource" id="Resource_fa4yk"]
+script = ExtResource("14_ud3fc")
+item = ExtResource("16_oprcr")
+weight = 1
+metadata/_custom_type_script = "uid://bvmayktwi2sq6"
+
 [node name="Chest" type="CharacterBody2D"]
 script = ExtResource("1_xxwql")
+loot_effect_wrapper = ExtResource("2_oprcr")
 movement_speed = 0.0
 direction = 0
 metadata/_custom_type_script = "uid://dlxdtwr6rpwbr"
@@ -91,6 +116,13 @@ script = ExtResource("10_13qt1")
 
 [node name="Open" type="Node" parent="States"]
 script = ExtResource("11_70u57")
+
+[node name="DropData" type="Node2D" parent="."]
+script = ExtResource("13_0hoo5")
+min_drop = 50
+max_drop = 60
+drop_table = Array[ExtResource("14_ud3fc")]([SubResource("Resource_eo3wh"), SubResource("Resource_utdpp"), SubResource("Resource_fa4yk")])
+metadata/_custom_type_script = "uid://bhnnjl5ixmyra"
 
 [connection signal="body_entered" from="Direction/InteractiveArea2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Direction/InteractiveArea2D" to="." method="_on_area_2d_body_exited"]

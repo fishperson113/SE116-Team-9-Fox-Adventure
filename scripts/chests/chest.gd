@@ -5,6 +5,8 @@ signal unlock_chest
 
 var is_unlockable = true
 
+@export var loot_effect_wrapper: PackedScene = null
+
 func _ready() -> void:
 	fsm = FSM.new(self, $States, $States/Closed)
 	super._ready()
@@ -22,7 +24,10 @@ func _on_interaction_unavailable() -> void:
 	pass # Replace with function body.
 
 func _on_interacted() -> void:
-	if GameManager.player.inventory.is_key_available() and is_unlockable:
-		fsm.change_state(fsm.states.open)
+	#if GameManager.player.inventory.is_key_available() and is_unlockable:
+	fsm.change_state(fsm.states.open)
 		#GameManager.player.inventory.remove_item("item_key", {})
 	pass # Replace with function body.
+
+func get_loot_effect() -> PackedScene:
+	return loot_effect_wrapper
