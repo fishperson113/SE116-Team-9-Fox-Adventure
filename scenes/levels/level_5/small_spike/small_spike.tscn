@@ -20,6 +20,7 @@ size = Vector2(32, 6)
 
 [node name="SmallSpike" type="Node2D"]
 script = ExtResource("1_ju0bw")
+base_damage = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_eii22")

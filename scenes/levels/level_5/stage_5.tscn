@@ -485,9 +485,9 @@ position = Vector2(2315, 3354)
 position = Vector2(3185, 6458)
 
 [connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/Checkpoint" to="TileMapLayers/FunctionalTileMapLayer/Checkpoint" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@44531" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@44531" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@44660" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@44660" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@44661" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@44661" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@44662" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@44662" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@28602" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@28602" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@28731" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@28731" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@28732" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@28732" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@28733" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@28733" method="_on_body_entered"]
 
 [editable path="AreaUnlockerEnemies"]
