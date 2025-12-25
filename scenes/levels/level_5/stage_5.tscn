@@ -398,17 +398,14 @@ max_drop = 30
 
 [node name="Spawner" parent="Spawners/RockSpawners" instance=ExtResource("8_e1o38")]
 position = Vector2(2288, 200)
-spawn_cooldown = 4.5
 objects = Array[PackedScene]([ExtResource("9_am3rg")])
 
 [node name="Spawner2" parent="Spawners/RockSpawners" instance=ExtResource("8_e1o38")]
 position = Vector2(2832, 3280)
-spawn_cooldown = 6.0
 objects = Array[PackedScene]([ExtResource("9_am3rg")])
 
 [node name="Spawner3" parent="Spawners/RockSpawners" instance=ExtResource("8_e1o38")]
 position = Vector2(3254, 6834)
-spawn_cooldown = 6.0
 objects = Array[PackedScene]([ExtResource("9_am3rg")])
 
 [node name="Obstacles" type="Node2D" parent="."]
@@ -488,9 +485,9 @@ position = Vector2(2315, 3354)
 position = Vector2(3185, 6458)
 
 [connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/Checkpoint" to="TileMapLayers/FunctionalTileMapLayer/Checkpoint" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@32075" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@32075" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@32204" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@32204" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@32205" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@32205" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@32206" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@32206" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@44531" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@44531" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@44660" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@44660" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@44661" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@44661" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@44662" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@44662" method="_on_body_entered"]
 
 [editable path="AreaUnlockerEnemies"]
