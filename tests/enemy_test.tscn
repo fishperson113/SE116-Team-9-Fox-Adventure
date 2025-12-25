@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://2myew2spjl4b"]
+[gd_scene load_steps=16 format=4 uid="uid://2myew2spjl4b"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_fx7si"]
 [ext_resource type="Script" uid="uid://dpd1hu8tkk1y4" path="res://scripts/utils/threat_indicator_area_2d.gd" id="3_e1c60"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="10_ycpif"]
 [ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="11_msjuq"]
 [ext_resource type="PackedScene" uid="uid://dk3cjc74xm8k0" path="res://scenes/enemies/bosses/king_crab/king_crab.tscn" id="11_rr8pu"]
+[ext_resource type="PackedScene" uid="uid://caj73aiw7tf22" path="res://scenes/enemies/minions/melees/big_aborigine.tscn" id="12_msjuq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_msjuq"]
 size = Vector2(2048, 2048)
@@ -71,8 +72,9 @@ position = Vector2(728, 799)
 [node name="WarlordTurtle" parent="." instance=ExtResource("5_ycpif")]
 position = Vector2(505, 787)
 
-[node name="Turtle" parent="." instance=ExtResource("11_msjuq")]
-position = Vector2(204, 516)
-
 [node name="Turtle2" parent="." instance=ExtResource("11_msjuq")]
 position = Vector2(190, 333)
+
+[node name="BigAborigine7" parent="." instance=ExtResource("12_msjuq")]
+position = Vector2(183, 516)
+movement_speed = 20.0
