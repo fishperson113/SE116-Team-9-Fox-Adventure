@@ -15,6 +15,6 @@ metadata/_custom_type_script = "uid://2jpuxlemniop"
 
 [node name="HitArea2D" type="Area2D" parent="Direction"]
 collision_layer = 0
-collision_mask = 33
+collision_mask = 35
 script = ExtResource("2_pbt7f")
 metadata/_custom_type_script = "uid://dkb25vr64v37l"

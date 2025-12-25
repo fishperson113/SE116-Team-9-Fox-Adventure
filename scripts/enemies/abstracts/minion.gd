@@ -63,7 +63,6 @@ func update_hurt(_delta: float) -> void:
 # Sleep state
 func start_sleep() -> void:
 	_movement_speed = 0
-	_hit_area_shape.disabled = true
 	_detect_area_shape.disabled = true
 	pass
 
@@ -81,7 +80,6 @@ func start_awaking() -> void:
 	pass
 
 func end_awaking() -> void:
-	_hit_area_shape.disabled = false
 	_detect_area_shape.disabled = false
 	pass
 

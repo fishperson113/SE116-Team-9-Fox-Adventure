@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://33umuso6l6ny"]
+
+[ext_resource type="PackedScene" uid="uid://b6dms3loq6jeq" path="res://scenes/levels/loot_system/loot_physics_body.tscn" id="1_5uiq4"]
+[ext_resource type="Script" uid="uid://ccry8lsu51hoq" path="res://scenes/levels/loot_system/big_loot_wrapper.gd" id="2_cxexl"]
+
+[node name="BigLootBody" instance=ExtResource("1_5uiq4")]
+script = ExtResource("2_cxexl")

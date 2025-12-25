@@ -4,10 +4,16 @@ extends RigidBody2D
 signal finish
 
 const CHILD_NAME: String = "Core"
+const MAX_SPEED: float = 800
 
 func _ready() -> void:
 	sleeping_state_changed.connect(_on_sleep_change)
+	await get_tree().physics_frame
 	play_effect()
+
+func _physics_process(delta):
+	if linear_velocity.length() > MAX_SPEED:
+		linear_velocity = linear_velocity.normalized() * MAX_SPEED
 
 func wrap_up(node: Node2D) -> void:
 	var parent = node.get_parent()

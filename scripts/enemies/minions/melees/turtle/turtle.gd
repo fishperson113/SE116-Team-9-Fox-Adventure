@@ -17,14 +17,21 @@ extends Minion
 # This will be random whenever hide state ends
 var _low_health_threshold: int = 0
 
+var _anim_player: AnimationPlayer = null;
+
 func _ready() -> void:
 	super._ready()
+	_init_animation_player()
 	_init_state("Hiding", start_hiding, end_hiding, update_hiding, _on_normal_react)
 	_init_state("Hide", start_hide, end_hide, update_hide, _on_hide_react)
 	_init_state("Emerging", start_emerging, end_emerging, update_emerging, _on_normal_react)
 	_setup_health_threshold()
 	_setup_animation_speed()
 	pass
+
+func _init_animation_player():
+	if has_node("Direction/AnimatedSprite2D/AnimationPlayer"):
+		_anim_player = get_node("Direction/AnimatedSprite2D/AnimationPlayer")
 
 func _setup_health_threshold() -> void:
 	_low_health_threshold = _compute_low_health_threshold()
@@ -99,6 +106,7 @@ func start_hurt() -> void:
 # Reaction
 func _on_hide_react(input: BehaviorInput) -> void:
 	if input is HurtBehaviorInput:
+		play_reflect_effect()
 		reflect_damage(input.attacker, input.direction, input.damage_taken)
 
 # Unique constraint
@@ -135,3 +143,7 @@ func try_jump() -> bool:
 		return true
 	
 	return false
+
+func play_reflect_effect():
+	if _anim_player:
+		_anim_player.play("reflect_damage")

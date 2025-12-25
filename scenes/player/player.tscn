@@ -79,7 +79,7 @@
 [ext_resource type="Script" uid="uid://eb7cglr7oflu" path="res://scripts/utils/weapon_aimer.gd" id="75_3p0jd"]
 [ext_resource type="Script" uid="uid://bvxcpvst3aaxd" path="res://scripts/player/states/throwing.gd" id="75_s050l"]
 [ext_resource type="Script" uid="uid://clda3mhukcmdf" path="res://scripts/player/trajectory/trajectory_line.gd" id="75_ymths"]
-[ext_resource type="Script" uid="uid://w3w0sbvoe5al" path="res://scripts/player/states/launch.gd" id="76_4sw5w"]
+[ext_resource type="Script" path="res://scripts/player/states/launch.gd" id="76_4sw5w"]
 [ext_resource type="Texture2D" uid="uid://b2ys0lkughw88" path="res://assets/sprites/trajectory/dotted_line.png" id="77_0y4ya"]
 [ext_resource type="Script" uid="uid://c8sscfh3560ce" path="res://scripts/player/states/dash.gd" id="79_wuxn4"]
 [ext_resource type="Script" uid="uid://dn5leb78h1w57" path="res://scripts/player/item_storer.gd" id="80_4sw5w"]

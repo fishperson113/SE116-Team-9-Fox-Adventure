@@ -9,10 +9,10 @@ func _ready() -> void:
 func _load_resource() -> void:
 	effect_wrapper = load("res://scenes/levels/loot_system/loot_physics_body.tscn")
 
-func spawn_loot(source_node: Node2D):
-	call_deferred("_loot", source_node)
+func spawn_loot(source_node: Node2D, loot_wrapper: PackedScene = null):
+	call_deferred("_loot", source_node, loot_wrapper)
 
-func _loot(source_node: Node2D):
+func _loot(source_node: Node2D, loot_wrapper: PackedScene):
 	var drop_table = _get_closest_drop_data(source_node)
 	if not drop_table:
 		print("Drop table is not available")
@@ -25,7 +25,7 @@ func _loot(source_node: Node2D):
 	
 	var dropables := drop_table.roll()
 	for dropable in dropables:
-		var b: EffectWrapper = create(dropable)
+		var b: EffectWrapper = create(dropable, loot_wrapper)
 		b.global_position = source_node.global_position
 		container_node.add_child(b)
 	print("Drop successfully with these items: ", dropables)
@@ -42,7 +42,11 @@ func _get_closest_drop_data(source_node: Node2D) -> DropData:
 
 	return null
 
-func create(dropable: Node2D) -> RigidBody2D:
-	var wrapper: EffectWrapper = effect_wrapper.instantiate()
+func create(dropable: Node2D, wrapping_scene: PackedScene) -> EffectWrapper:
+	var default_wrapping_scene := effect_wrapper
+	if wrapping_scene:
+		default_wrapping_scene = wrapping_scene
+
+	var wrapper: EffectWrapper = default_wrapping_scene.instantiate()
 	wrapper.wrap_up(dropable)
 	return wrapper

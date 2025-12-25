@@ -11,7 +11,6 @@ func create(_packed_scene: PackedScene, container_node_name: String, _position: 
 		return
 	
 	var scene: Node2D = _packed_scene.instantiate()
-	scene.global_position = _position
 	
 	var container_node = _owner_node.get_tree().current_scene.find_child(container_node_name)
 	# Default container node is the root node
@@ -20,5 +19,8 @@ func create(_packed_scene: PackedScene, container_node_name: String, _position: 
 		container_node = _owner_node.get_tree().current_scene
 	
 	container_node.add_child(scene)
+	
+	scene.global_position = _position
+	
 	print("Scene has been successfully created")
 	return scene
