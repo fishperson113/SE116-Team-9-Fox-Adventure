@@ -8,12 +8,17 @@ extends BaseBullet
 func _on_body_entered(_area: Variant) -> void:
 	super._on_body_entered(_area)
 	if _area is TileMapLayer:
-		call_deferred("create_effect_tiles", get_nearest_filled_tiles(_area, global_position, explosion_radius), duration)
+		call_deferred("create_effect_tiles", 
+			get_nearest_filled_tiles(_area, global_position, explosion_radius), 
+			duration,
+			_area.z_index + 1)
 
-func create_effect_tiles(_positions: Array[Vector2], _duration: float):
+func create_effect_tiles(_positions: Array[Vector2], _duration: float, _order: int = z_index):
 	var tiles: Array
 	for pos in _positions:
-		tiles.append(_effect_factory.create(tile_effect, container_name, pos))
+		var tile = _effect_factory.create(tile_effect, container_name, pos)
+		tile.z_index = _order
+		tiles.append(tile)
 
 	get_tree().create_timer(_duration).timeout.connect(
 		func():
