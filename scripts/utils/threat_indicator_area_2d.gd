@@ -16,7 +16,7 @@ func _on_body_entered(_body):
 	pass
 
 func create_marker(_target: Node2D):
-	var created_marker = _marker_factory.create(marker, "Markers", _target.position) as ThreatMarker
+	var created_marker = _marker_factory.create(marker, "Markers", _target.global_position) as ThreatMarker
 	created_marker.set_target(_target)
 	_markers.set(_target, created_marker)
 

@@ -4,7 +4,6 @@ extends BaseMarker
 @export var fade_time: float = 0.25
 
 var _trigger: Callable
-var _target: Node2D = null
 var _offset: Vector2 = Vector2.ZERO
 
 var _fade_tween: Tween = null
@@ -15,11 +14,11 @@ var _bounce_speed : float = 0.35
 func _ready() -> void:
 	super._ready()
 
-func set_trigger(trigger: Callable, target: Node2D = get_parent()):
+func set_trigger(trigger: Callable, marked_target: Node2D = get_parent()):
 	_trigger = trigger
-	_target = target
-	if _target:
-		_offset = global_position - _target.global_position
+	target = marked_target
+	if target:
+		_offset = global_position - target.global_position
 
 func update_marker(delta: float) -> void:
 	if _trigger and _trigger.call():
@@ -37,9 +36,9 @@ func update_marker(delta: float) -> void:
 
 func compute_distance_to_cam() -> Vector2:
 	var _current_pos = global_position
-	if _target:
-		var _transfromed_offset = _offset * _target.scale
-		_current_pos = _target.global_position + _transfromed_offset
+	if target:
+		var _transfromed_offset = _offset * target.scale
+		_current_pos = target.global_position + _transfromed_offset
 	return _current_pos - camera.global_position
 
 func apply_marker_transform(delta: float, offset: Vector2, ratio: float) -> void:
