@@ -169,7 +169,7 @@ initial_state = 0
 hurt_time = 0.4
 awake_time = 2.0
 health = 100.0
-spike = 100.0
+spike = 300.0
 movement_speed = 50.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Direction" index="0"]

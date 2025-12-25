@@ -484,4 +484,10 @@ position = Vector2(2315, 3354)
 [node name="Copper15" parent="Resources/Coppers" instance=ExtResource("4_jdldg")]
 position = Vector2(3185, 6458)
 
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/Checkpoint" to="TileMapLayers/FunctionalTileMapLayer/Checkpoint" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@139026" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@139026" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@139155" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@139155" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@139156" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@139156" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@139157" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@139157" method="_on_body_entered"]
+
 [editable path="AreaUnlockerEnemies"]
