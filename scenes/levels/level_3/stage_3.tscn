@@ -619,9 +619,6 @@ centered = false
 min_drop = 10
 max_drop = 10
 
-[connection signal="body_entered" from="World/TileMapLayer/Checkpoint" to="World/TileMapLayer/Checkpoint" method="_on_body_entered"]
-[connection signal="body_entered" from="World/TileMapLayer/@Area2D@30908" to="World/TileMapLayer/@Area2D@30908" method="_on_body_entered"]
-
 [editable path="Enemies/Spawner"]
 [editable path="Enemies/Spawner2"]
 [editable path="Enemies/Spawner3"]

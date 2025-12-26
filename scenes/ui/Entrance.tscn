@@ -1,10 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://w4bydp8fy3v3"]
+[gd_scene load_steps=8 format=3 uid="uid://w4bydp8fy3v3"]
 
 [ext_resource type="Script" uid="uid://m2p8q8rd5t01" path="res://scripts/ui/entrance.gd" id="1_f8nrn"]
+[ext_resource type="Texture2D" uid="uid://bepxvncqsilfy" path="res://assets/ui/buttons/button UI.png" id="2_bx5ed"]
 [ext_resource type="Texture2D" uid="uid://b5u76leuvijwt" path="res://assets/ui/panels/ButtonFrame1.png" id="4_7oapf"]
 [ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="5_5abgg"]
 [ext_resource type="Texture2D" uid="uid://c1ctlrx2kh3px" path="res://assets/sprites/environment/background/CastleOnTheMountains-Valrok.png" id="5_bx5ed"]
-[ext_resource type="Texture2D" uid="uid://bak1dc8urb02c" path="res://assets/ui/buttons/settings_button.png" id="11_thkx1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kfry2"]
+atlas = ExtResource("2_bx5ed")
+region = Rect2(32, 96, 16, 16)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f8nrn"]
 
@@ -20,7 +24,7 @@ anchor_right = 1.0
 offset_left = -80.0
 offset_bottom = 80.0
 grow_horizontal = 0
-icon = ExtResource("11_thkx1")
+icon = SubResource("AtlasTexture_kfry2")
 flat = true
 expand_icon = true
 

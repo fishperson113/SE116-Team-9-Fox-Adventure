@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://djoolf474qo2p"]
+[gd_scene load_steps=27 format=3 uid="uid://djoolf474qo2p"]
 
 [ext_resource type="Script" uid="uid://bj1vha74m6rd2" path="res://scripts/ui/main_ui.gd" id="1_7s5y6"]
 [ext_resource type="Texture2D" uid="uid://vj2xvbhnt45o" path="res://assets/ui/panels/health_bar.png" id="1_kdubu"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bldlesja38ka7" path="res://assets/sprites/items/key/key_1.png" id="4_4d7sh"]
 [ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="4_qg6rx"]
 [ext_resource type="Texture2D" uid="uid://dtwnvoh5jfgsn" path="res://assets/sprites/items/coin/01.png" id="5_ir8iy"]
-[ext_resource type="Texture2D" uid="uid://bak1dc8urb02c" path="res://assets/ui/buttons/settings_button.png" id="6_hqns4"]
 [ext_resource type="Texture2D" uid="uid://cf2xtiybswiem" path="res://assets/sprites/items/Keyboard/A.png" id="7_ir8iy"]
 [ext_resource type="Texture2D" uid="uid://ci25u8dfvvsna" path="res://assets/sprites/items/Keyboard/Space.png" id="8_hqns4"]
 [ext_resource type="Texture2D" uid="uid://d0s8rm2fj4wef" path="res://assets/sprites/characters/foxy/blade/blade_anim_1.png" id="8_rpv8g"]
@@ -16,12 +15,21 @@
 [ext_resource type="Texture2D" uid="uid://ddbid6rke16wu" path="res://assets/ui/icons/iron.png" id="10_dg873"]
 [ext_resource type="Texture2D" uid="uid://d2ac5s0c14wb6" path="res://assets/ui/icons/gold.png" id="11_bgwmq"]
 [ext_resource type="Texture2D" uid="uid://dos6hwpl7kq7l" path="res://assets/ui/panels/progress.png" id="12_mjmcw"]
+[ext_resource type="Texture2D" uid="uid://bepxvncqsilfy" path="res://assets/ui/buttons/button UI.png" id="14_6lw4s"]
 [ext_resource type="PackedScene" uid="uid://bquisodmhmkdk" path="res://scenes/ui/inventory/Inv_ui.tscn" id="14_jv1lx"]
 [ext_resource type="Script" uid="uid://c2xtf1ss4k7gw" path="res://scripts/ui/texture_progress_bar.gd" id="14_rpv8g"]
 [ext_resource type="PackedScene" uid="uid://ibceon5tf4v2" path="res://scenes/ui/inventory/AllInventory.tscn" id="19_dg873"]
 [ext_resource type="Texture2D" uid="uid://cr83qurn2evck" path="res://assets/ui/panels/skill_bar.png" id="19_l0rvw"]
 [ext_resource type="Texture2D" uid="uid://dlxhd2aq6c8vv" path="res://assets/ui/panels/skill_progress.png" id="20_6lw4s"]
 [ext_resource type="Texture2D" uid="uid://doloqid0kscci" path="res://assets/ui/panels/countdown_bar.png" id="21_6lw4s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7cu4"]
+atlas = ExtResource("14_6lw4s")
+region = Rect2(32, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_457gc"]
+atlas = ExtResource("14_6lw4s")
+region = Rect2(160, 0, 16, 16)
 
 [sub_resource type="LabelSettings" id="LabelSettings_6lw4s"]
 font_size = 25
@@ -262,7 +270,20 @@ anchor_right = 1.0
 offset_left = -80.0
 offset_bottom = 80.0
 grow_horizontal = 0
-icon = ExtResource("6_hqns4")
+icon = SubResource("AtlasTexture_s7cu4")
+flat = true
+icon_alignment = 2
+expand_icon = true
+
+[node name="TutorialButton" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -166.0
+offset_right = -86.0
+offset_bottom = 80.0
+grow_horizontal = 0
+icon = SubResource("AtlasTexture_457gc")
 flat = true
 icon_alignment = 2
 expand_icon = true

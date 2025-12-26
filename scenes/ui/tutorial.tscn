@@ -1,0 +1,87 @@
+[gd_scene load_steps=6 format=3 uid="uid://dpv8w2jd5fum2"]
+
+[ext_resource type="Script" uid="uid://bc0ge6y6ehnq3" path="res://scripts/ui/setting.gd" id="1_ysljr"]
+[ext_resource type="Texture2D" uid="uid://bm66ag0j7y3qi" path="res://assets/ui/panels/popup.png" id="2_suxr8"]
+[ext_resource type="FontFile" uid="uid://bf742t4mxgd7l" path="res://assets/fonts/big_font.fnt" id="3_wlew2"]
+[ext_resource type="Texture2D" uid="uid://flcu2idijjxo" path="res://assets/sprites/tutorial/overall_tutorial.png" id="4_gcvyo"]
+[ext_resource type="Texture2D" uid="uid://brougscrg6lf5" path="res://assets/ui/buttons/Resume.png" id="6_2adkx"]
+
+[node name="Tutorial" type="CanvasLayer"]
+layer = 100
+script = ExtResource("1_ysljr")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -325.0
+offset_top = -325.0
+offset_right = 325.0
+offset_bottom = 325.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_suxr8")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+
+[node name="Tutorial" type="Label" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.05
+anchor_right = 0.5
+anchor_bottom = 0.057
+offset_left = -53.5
+offset_right = 53.5
+offset_bottom = 66.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_wlew2")
+theme_override_font_sizes/font_size = 40
+text = "TUTORIAL"
+
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -300.0
+offset_right = 300.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_gcvyo")
+
+[node name="Resume" type="Button" parent="NinePatchRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -34.0
+offset_top = -86.0
+offset_right = -10.0
+offset_bottom = -62.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(3, 3)
+icon = ExtResource("6_2adkx")
+flat = true
+
+[connection signal="button_down" from="NinePatchRect/Resume" to="." method="_on_resume_pressed"]
