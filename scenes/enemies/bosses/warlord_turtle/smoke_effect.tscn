@@ -16,9 +16,11 @@ curve = SubResource("Curve_3oeyg")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_elvx7"]
 particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 180.0
 spread = 180.0
-initial_velocity_min = 5.0
-initial_velocity_max = 25.0
+initial_velocity_min = 25.0
+initial_velocity_max = 100.0
 gravity = Vector3(0, 0, 0)
 damping_min = 20.0
 damping_max = 30.0
@@ -29,8 +31,7 @@ color_ramp = SubResource("GradientTexture1D_hne6y")
 
 [node name="GPUParticles2D" type="GPUParticles2D"]
 emitting = false
-amount = 800
-lifetime = 5.0
+amount = 100
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_elvx7")
