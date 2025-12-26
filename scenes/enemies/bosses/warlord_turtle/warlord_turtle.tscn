@@ -172,7 +172,7 @@ start_bomb_frame = 3
 bomb_frame_interval = 1
 start_rocket_frame = 4
 rocket_frame_interval = 1
-shot_speed = 300.0
+shot_speed = 200.0
 bomb_falling_time = 1.5
 bomb_count = 4
 bomb_spread_percentage = 0.3
@@ -180,10 +180,11 @@ rocket_falling_time = 1.5
 rocket_count = 3
 rocket_spread_percentage = 0.6
 launch_count = 3
-launch_speed = 300.0
+launch_speed = 200.0
+rest_time = 4.0
 skill_cooldown = 3.0
 health = 750.0
-spike = 300.0
+spike = 200.0
 movement_speed = 0.0
 
 [node name="AnimatedSprite2D" parent="Direction" index="0"]
