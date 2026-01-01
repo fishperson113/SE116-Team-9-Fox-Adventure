@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://b4he3cnf7cpbq"]
+[gd_scene load_steps=38 format=4 uid="uid://b4he3cnf7cpbq"]
 
 [ext_resource type="TileSet" uid="uid://d4afhielv3ocv" path="res://assets/tileset/tileset.tres" id="1_3l2kx"]
 [ext_resource type="PackedScene" uid="uid://bu0ebjvtvbb4j" path="res://scenes/levels/area_unlockers/area_unlocker_enemies.tscn" id="2_lyf21"]
@@ -6,9 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://dg5jq3aix8s6t" path="res://assets/sprites/environment/background/Grassy_Mountains_preview_fullcolor.png" id="2_njy1a"]
 [ext_resource type="PackedScene" uid="uid://chcs4qer8dybe" path="res://scenes/player/player.tscn" id="2_y8cxf"]
 [ext_resource type="PackedScene" uid="uid://bfht0850wn42w" path="res://scenes/enemies/minions/melees/turtle.tscn" id="3_m7cq7"]
+[ext_resource type="Texture2D" uid="uid://dexfx7iccs160" path="res://assets/sprites/environment/background/background_glacial_mountains_lightened.png" id="3_th0hk"]
+[ext_resource type="Texture2D" uid="uid://dd352rige4ri0" path="res://assets/sprites/environment/background/AdobeStock_894260077_Preview.jpeg" id="4_js4gn"]
 [ext_resource type="PackedScene" uid="uid://djoolf474qo2p" path="res://scenes/ui/MainUI.tscn" id="4_m7cq7"]
 [ext_resource type="PackedScene" uid="uid://crwb5kl1tn450" path="res://scenes/enemies/minions/shootables/pelican.tscn" id="4_pjjcp"]
 [ext_resource type="PackedScene" uid="uid://psxbpmcbicmg" path="res://scenes/enemies/minions/melees/aborigine.tscn" id="5_lyf21"]
+[ext_resource type="Texture2D" uid="uid://ppnrw543afc5" path="res://assets/sprites/environment/background/Background.png" id="5_wvm0h"]
+[ext_resource type="Texture2D" uid="uid://dcy77xmirtc6w" path="res://assets/sprites/environment/background/636c61619a79a42217e99cbd39334165.jpg" id="6_2elvf"]
 [ext_resource type="PackedScene" uid="uid://caj73aiw7tf22" path="res://scenes/enemies/minions/melees/big_aborigine.tscn" id="6_njy1a"]
 [ext_resource type="Script" uid="uid://dpd1hu8tkk1y4" path="res://scripts/utils/threat_indicator_area_2d.gd" id="6_txxkb"]
 [ext_resource type="PackedScene" uid="uid://cvdklsb743i1l" path="res://scenes/ui/markers/threat_marker.tscn" id="7_e1o38"]
@@ -16,7 +20,6 @@
 [ext_resource type="PackedScene" uid="uid://cv7h7e7s07r0m" path="res://scenes/enemies/spawners/time_spawner.tscn" id="8_e1o38"]
 [ext_resource type="PackedScene" uid="uid://dboyhgacrhohs" path="res://scenes/levels/level_5/Rock/rock.tscn" id="9_am3rg"]
 [ext_resource type="PackedScene" uid="uid://dqeyhetii8sb0" path="res://scenes/levels/loot_system/drop_data.tscn" id="11_js4gn"]
-[ext_resource type="Texture2D" uid="uid://dcrnqve71d36p" path="res://assets/sprites/environment/background/additional_sky.png" id="12_pjjcp"]
 
 [sub_resource type="GDScript" id="GDScript_js4gn"]
 script/source = "extends Node2D
@@ -28,6 +31,48 @@ func _ready() -> void:
 	GameManager.respawn_at_checkpoint()
 	pass
 "
+
+[sub_resource type="Gradient" id="Gradient_js4gn"]
+colors = PackedColorArray(0.262745, 0.670588, 0.92549, 1, 0.341176, 0.8, 0.415686, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wvm0h"]
+gradient = SubResource("Gradient_js4gn")
+
+[sub_resource type="Gradient" id="Gradient_wvm0h"]
+colors = PackedColorArray(0.101961, 0.105882, 0.180392, 1, 0.32549, 0.756863, 0.733333, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2elvf"]
+gradient = SubResource("Gradient_wvm0h")
+
+[sub_resource type="Gradient" id="Gradient_tu1nf"]
+colors = PackedColorArray(0.878431, 1, 1, 1, 0.282353, 0.705882, 0.784314, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nmp7s"]
+gradient = SubResource("Gradient_tu1nf")
+
+[sub_resource type="Gradient" id="Gradient_w01x5"]
+colors = PackedColorArray(0.392157, 0.180392, 0.317647, 1, 0.305882, 0.764706, 0.631373, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hajgy"]
+gradient = SubResource("Gradient_w01x5")
+
+[sub_resource type="Gradient" id="Gradient_752bv"]
+colors = PackedColorArray(0.305882, 0.764706, 0.631373, 1, 0.341176, 0.8, 0.415686, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ocqpa"]
+gradient = SubResource("Gradient_752bv")
+
+[sub_resource type="Gradient" id="Gradient_7l22j"]
+colors = PackedColorArray(0.247059, 0.498039, 0.352941, 1, 0.305882, 0.764706, 0.631373, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7v4au"]
+gradient = SubResource("Gradient_7l22j")
+
+[sub_resource type="Gradient" id="Gradient_2elvf"]
+colors = PackedColorArray(0.305882, 0.764706, 0.631373, 1, 0.262745, 0.670588, 0.92549, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tu1nf"]
+gradient = SubResource("Gradient_2elvf")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_njy1a"]
 size = Vector2(1254, 467)
@@ -44,14 +89,67 @@ metadata/_edit_horizontal_guides_ = [4333.0]
 
 [node name="Sprite2D" type="Sprite2D" parent="Backgrounds"]
 z_index = -1
-position = Vector2(4962, 4238.5)
-scale = Vector2(330.875, 301.156)
-texture = ExtResource("12_pjjcp")
+position = Vector2(4013, 4742)
+rotation = 1.5708
+scale = Vector2(60.3886, 16487.2)
+texture = SubResource("GradientTexture1D_wvm0h")
 
 [node name="Moutaints" type="Sprite2D" parent="Backgrounds"]
-position = Vector2(1110, 108.5)
-scale = Vector2(7.55208, 5.78241)
+position = Vector2(8971, 8872.5)
+scale = Vector2(4.72526, 3.5787)
 texture = ExtResource("2_njy1a")
+
+[node name="WinterMountain" type="Sprite2D" parent="Backgrounds"]
+position = Vector2(1758, 77.2502)
+scale = Vector2(11.9948, 6.03935)
+texture = ExtResource("3_th0hk")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Backgrounds"]
+position = Vector2(2847.26, 3319)
+scale = Vector2(0.529212, 1110)
+texture = SubResource("GradientTexture1D_2elvf")
+
+[node name="MiddleBackground" type="Sprite2D" parent="Backgrounds"]
+position = Vector2(2369, 3136.5)
+scale = Vector2(0.838, 1.42679)
+texture = ExtResource("4_js4gn")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Backgrounds"]
+position = Vector2(1752.09, 911.311)
+rotation = 1.5708
+scale = Vector2(2.06522, 4630.4)
+texture = SubResource("GradientTexture1D_nmp7s")
+
+[node name="Swamp" type="Sprite2D" parent="Backgrounds"]
+position = Vector2(2319, 6812)
+scale = Vector2(2.875, 3.82099)
+texture = ExtResource("5_wvm0h")
+
+[node name="Swamp2" type="Sprite2D" parent="Backgrounds"]
+position = Vector2(5785.38, 8335.26)
+scale = Vector2(4.7487, 3.95942)
+texture = ExtResource("6_2elvf")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Backgrounds"]
+position = Vector2(3238, 7059)
+scale = Vector2(1.57813, 1868)
+texture = SubResource("GradientTexture1D_hajgy")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Backgrounds"]
+position = Vector2(3486, 7972)
+scale = Vector2(0.226562, 1385.5)
+texture = SubResource("GradientTexture1D_ocqpa")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Backgrounds"]
+position = Vector2(8162, 7962.88)
+scale = Vector2(0.773438, 1156.25)
+texture = SubResource("GradientTexture1D_7v4au")
+
+[node name="Sprite2D7" type="Sprite2D" parent="Backgrounds"]
+position = Vector2(9226.61, 8505.31)
+rotation = 1.5708
+scale = Vector2(0.375761, 1926.6)
+texture = SubResource("GradientTexture1D_tu1nf")
 
 [node name="AreaUnlockerEnemies" parent="." instance=ExtResource("2_lyf21")]
 position = Vector2(8975, 8545)
@@ -411,5 +509,11 @@ spawn_cooldown = 3.0
 objects = Array[PackedScene]([ExtResource("9_am3rg")])
 
 [node name="Obstacles" type="Node2D" parent="."]
+
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/Checkpoint" to="TileMapLayers/FunctionalTileMapLayer/Checkpoint" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@80543" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@80543" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@80672" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@80672" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@80673" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@80673" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapLayers/FunctionalTileMapLayer/@Area2D@80674" to="TileMapLayers/FunctionalTileMapLayer/@Area2D@80674" method="_on_body_entered"]
 
 [editable path="AreaUnlockerEnemies"]
